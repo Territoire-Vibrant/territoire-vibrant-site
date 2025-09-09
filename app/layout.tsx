@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { Geist, Geist_Mono } from 'next/font/google'
+import type { ReactNode } from 'react'
 
 import './globals.css'
 
@@ -25,10 +26,11 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: ReactNode
 }>) {
   return (
-    <html lang='en'>
+    // biome-ignore lint/a11y/useHtmlLang: using next-intl for handling language
+    <html>
       <body className={`${geistSans.variable}${geistMono.variable} antialiased`}>
         <NextIntlClientProvider>
           <Header />
