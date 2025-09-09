@@ -3,7 +3,7 @@ import Link from 'next/link'
 export const Header = () => {
   return (
     <header className='flex h-16 items-center justify-center border-b'>
-      <nav className='flex w-full max-w-5xl items-center justify-between px-6'>
+      <nav className='flex w-full max-w-6xl items-center justify-between px-6'>
         <ul className='flex items-center'>
           <li>
             <Link href='/'>Territoire Vibrant</Link>
