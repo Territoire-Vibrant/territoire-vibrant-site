@@ -77,7 +77,13 @@
           }
         },
         "noRestrictedImports": {
-          "level": "error"
+          "level": "error",
+          "options": {
+            "paths": {
+              "next/link": "use “~/i18n/navigation” instead",
+              "next/navigation": "use “~/i18n/navigation” instead"
+            }
+          }
         }
       },
       "performance": {

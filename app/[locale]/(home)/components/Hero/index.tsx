@@ -1,11 +1,12 @@
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import Link from 'next/link'
 
 import CommunityImage from '~/assets/images/community.jpg'
 import LandscapeImage from '~/assets/images/landscape.jpg'
 
 import { CarouselBox } from './components/CarouselBox'
+
+import { Link } from '~/i18n/navigation'
 
 export const Hero = () => {
   const t = useTranslations()

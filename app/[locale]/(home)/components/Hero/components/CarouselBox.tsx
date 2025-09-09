@@ -2,8 +2,10 @@
 
 import Autoplay from 'embla-carousel-autoplay'
 import { useTranslations } from 'next-intl'
-import Link from 'next/link'
+
 import { Carousel, CarouselContent, CarouselItem } from '~/components/ui/carousel'
+
+import { Link } from '~/i18n/navigation'
 
 export const CarouselBox = () => {
   const t = useTranslations()
