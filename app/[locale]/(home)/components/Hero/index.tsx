@@ -28,7 +28,7 @@ export const Hero = () => {
 
           <p className='opacity-80'>{t('Hero.box1.subtext')}</p>
 
-          <Link href='#' className='underline opacity-80'>
+          <Link href='#' className='w-fit underline opacity-80'>
             {t('find_out_more')}
           </Link>
         </div>
