@@ -22,8 +22,8 @@ export const Hero = () => {
 
       {/* Hero grid */}
       <div className='grid size-full gap-4 lg:max-h-[450px] md:w-1/2 md:grid-cols-2 md:grid-rows-3'>
-        {/* Box 1 - Fuchsia text */}
-        <div className='flex size-full flex-col justify-between space-y-4 rounded-2xl bg-fuchsia-200 p-4 text-fuchsia-800 md:row-span-2'>
+        {/* Box 1 - Green text */}
+        <div className='flex size-full flex-col justify-between space-y-4 rounded-2xl bg-green-200 p-4 text-green-800 md:row-span-2'>
           <div className='w-3/4 font-bold text-xl'>{t('Hero.box1.title')}</div>
 
           <p className='opacity-80'>{t('Hero.box1.subtext')}</p>
