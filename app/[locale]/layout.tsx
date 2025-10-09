@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: RootLayoutProps): Promise<Met
 
   return {
     title: t('territoire_vibrant'),
-    description: t('Hero.h1'),
+    description: t('Home_Hero.h1'),
   }
 }
 

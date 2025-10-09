@@ -15,18 +15,18 @@ export const Hero = () => {
     <section className='flex w-full flex-col items-center justify-between gap-10 px-6 py-12 md:flex-row lg:py-16'>
       {/* Hero text */}
       <div className='flex flex-col gap-6 md:w-1/2'>
-        <h1 className='size-full text-center font-bold text-3xl md:text-start lg:text-4xl'>{t('Hero.h1')}</h1>
+        <h1 className='size-full text-center font-bold text-3xl md:text-start lg:text-4xl'>{t('Home_Hero.h1')}</h1>
 
-        <h2 className='size-full text-center text-2xl text-neutral-600 md:text-start'>{t('Hero.h2')}</h2>
+        <h2 className='size-full text-center text-2xl text-neutral-600 md:text-start'>{t('Home_Hero.h2')}</h2>
       </div>
 
       {/* Hero grid */}
       <div className='grid size-full gap-4 lg:max-h-[450px] md:w-1/2 md:grid-cols-2 md:grid-rows-3'>
         {/* Box 1 - Green text */}
         <div className='flex size-full flex-col justify-between space-y-4 rounded-2xl bg-green-200 p-4 text-green-800 md:row-span-2'>
-          <div className='w-3/4 font-bold text-xl'>{t('Hero.box1.title')}</div>
+          <div className='w-3/4 font-bold text-xl'>{t('Home_Hero.box1.title')}</div>
 
-          <p className='opacity-80'>{t('Hero.box1.subtext')}</p>
+          <p className='opacity-80'>{t('Home_Hero.box1.subtext')}</p>
 
           <Link href='#' className='w-fit underline opacity-80'>
             {t('find_out_more')}

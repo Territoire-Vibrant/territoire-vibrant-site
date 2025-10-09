@@ -2,7 +2,7 @@
   "territoire_vibrant": "Territoire Vibrant",
   "find_out_more": "En savoir plus",
   "lets_talk": "Discutons",
-  "Hero": {
+  "Home_Hero": {
     "h1": "Nous transformons les territoires en projets durables qui allient tourisme, innovation sociale et économie créative à partir de la conception d'expériences communautaires.",
     "h2": "Nous valorisons les histoires et les identités locales, en créant des ponts qui unissent les personnes, les territoires et un avenir durable.",
     "box1": {
@@ -17,5 +17,14 @@
       "title": "Tourisme régénérateur",
       "subtext": "Nous valorisons les racines culturelles et naturelles pour redonner vie aux territoires. Des expériences uniques, non pas de consommation, mais de culture, de durabilité et de vie."
     }
+  },
+  "Header": {
+    "home": "Accueil",
+    "who_we_are": "Qui sommes-nous",
+    "method": "Méthode",
+    "projects": "Projets",
+    "services": "Services",
+    "our_network": "Notre Réseau",
+    "contact": "Contact"
   }
 }
