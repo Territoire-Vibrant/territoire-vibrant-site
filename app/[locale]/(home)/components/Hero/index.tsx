@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 
 import CommunityImage from '~/assets/images/community.jpg'
-import LandscapeImage from '~/assets/images/landscape.jpg'
+import LandscapeImage from '~/assets/images/landscape.png'
 
 import { CarouselBox } from './components/CarouselBox'
 
