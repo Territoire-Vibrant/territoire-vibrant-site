@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from 'next'
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { Geist, Geist_Mono } from 'next/font/google'
@@ -56,6 +57,8 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
   return (
     <html lang={locale}>
       <body className={`${geistSans.variable}${geistMono.variable} antialiased`}>
+        <Analytics />
+
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header />
           <main className='mx-auto max-w-6xl'>{children}</main>
