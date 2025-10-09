@@ -32,7 +32,7 @@ export const CarouselBox = () => {
         <CarouselItem className='flex flex-col justify-between space-y-4 '>
           <div className='w-3/4 font-bold text-xl'>{t('Hero.box4_slide2.title')}</div>
 
-          {/* <p className='opacity-80'>{t('Hero.box4_slide2.subtext')}</p> */}
+          <p className='opacity-80'>{t('Hero.box4_slide2.subtext')}</p>
 
           <Link href='#' className='w-fit underline opacity-80'>
             {t('find_out_more')}
