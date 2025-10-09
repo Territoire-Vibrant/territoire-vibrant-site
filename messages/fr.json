@@ -14,8 +14,8 @@
   "spanish": "Espagnol",
   "french": "Français",
   "Home_Hero": {
-    "h1": "Nous transformons les territoires en projets durables qui allient tourisme, innovation sociale et économie créative à partir de la conception d'expériences communautaires.",
-    "h2": "Nous valorisons les histoires et les identités locales, en créant des ponts qui unissent les personnes, les territoires et un avenir durable.",
+    "h1": "Territoire Vibrant – Là où l'appartenance vibre",
+    "h2": "Nous sommes un écosystème collaboratif dédié au renforcement des communautés et à la régénération des territoires, valorisant les immigrants et les peuples autochtones.",
     "box1": {
       "title": "Tourisme communautaire",
       "subtext": "Des expériences qui renforcent les communautés locales, génèrent des revenus et valorisent la culture du territoire."
@@ -32,5 +32,10 @@
       "title": "Tourisme régénérateur",
       "subtext": "Nous valorisons les racines culturelles et naturelles pour redonner vie aux territoires. Des expériences uniques, non pas de consommation, mais de culture, de durabilité et de vie."
     }
+  },
+  "Home_Intro": {
+    "p": "Nous agissons avec créativité, intelligence territoriale et gestion collaborative pour transformer les réalités en projets durables, en connectant le Brésil, le Canada et le monde.",
+    "cta_label": "Découvrez ce qu’est un territoire vibrant",
+    "image_alt": "Paysage représentant un territoire vibrant"
   }
 }

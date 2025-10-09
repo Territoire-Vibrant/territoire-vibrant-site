@@ -14,8 +14,8 @@
   "spanish": "Spanish",
   "french": "French",
   "Home_Hero": {
-    "h1": "We transform territories into sustainable projects that unite tourism, social innovation, and the creative economy through community experience design.",
-    "h2": "We value local histories and identities, creating bridges that connect people, territories, and a sustainable future.",
+    "h1": "Territoire Vibrant – Where Belonging Vibrates",
+    "h2": "We are a collaborative ecosystem dedicated to strengthening communities and regenerating territories, valuing immigrants and indigenous peoples.",
     "box1": {
       "title": "Community-based tourism",
       "subtext": "Experiences that strengthen local communities, generate income, and value the territory's culture."
@@ -32,5 +32,10 @@
       "title": "Regenerative tourism",
       "subtext": "We value cultural and natural roots to restore vitality to territories. Unique experiences, not of consumption, but of cultivation, sustainability, and life."
     }
+  },
+  "Home_Intro": {
+    "p": "We act with creativity, territorial intelligence, and collaborative management to transform realities into sustainable projects, connecting Brazil, Canada, and the world.",
+    "cta_label": "Discover what a vibrant territory is",
+    "image_alt": "Landscape representing a vibrant territory"
   }
 }

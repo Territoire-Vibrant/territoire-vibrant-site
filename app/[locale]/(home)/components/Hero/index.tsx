@@ -1,8 +1,8 @@
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 
-import CommunityImage from '~/assets/images/community.jpg'
-import LandscapeImage from '~/assets/images/landscape.png'
+import CommunityImage from '~/assets/images/home/hero/community.jpg'
+import LandscapeImage from '~/assets/images/home/hero/landscape.png'
 
 import { CarouselBox } from './components/CarouselBox'
 
@@ -23,7 +23,7 @@ export const Hero = () => {
       {/* Hero grid */}
       <div className='grid size-full gap-4 lg:max-h-[450px] md:w-1/2 md:grid-cols-2 md:grid-rows-3'>
         {/* Box 1 - Green text */}
-        <div className='flex size-full flex-col justify-between space-y-4 rounded-2xl bg-green-200 p-4 text-green-800 md:row-span-2'>
+        <div className='order-1 flex size-full flex-col justify-between space-y-4 rounded-2xl bg-green-200 p-4 text-green-800 md:row-span-2'>
           <div className='w-3/4 font-bold text-xl'>{t('Home_Hero.box1.title')}</div>
 
           <p className='opacity-80'>{t('Home_Hero.box1.subtext')}</p>
@@ -34,7 +34,7 @@ export const Hero = () => {
         </div>
 
         {/* Box 2 - Community image */}
-        <div className='size-full rounded-2xl md:col-start-2 md:row-start-1'>
+        <div className='order-2 size-full rounded-2xl md:col-start-2 md:row-start-1'>
           <Image
             src={CommunityImage}
             alt={t('Home_Hero.box2.community_image_alt')}
@@ -52,7 +52,7 @@ export const Hero = () => {
         </div>
 
         {/* Box 4 - Carousel */}
-        <div className='size-full select-none rounded-2xl bg-neutral-200 p-4 text-neutral-800 md:col-start-2 md:row-span-2 md:row-start-2'>
+        <div className='order-3 size-full select-none rounded-2xl bg-neutral-200 p-4 text-neutral-800 md:col-start-2 md:row-span-2 md:row-start-2'>
           <CarouselBox />
         </div>
       </div>
