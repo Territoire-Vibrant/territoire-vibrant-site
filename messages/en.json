@@ -2,12 +2,23 @@
   "territoire_vibrant": "Territoire Vibrant",
   "find_out_more": "Find out more",
   "lets_talk": "Let's talk",
+  "home": "Home",
+  "who_we_are": "Who We Are",
+  "method": "Method",
+  "projects": "Projects",
+  "services": "Services",
+  "our_network": "Our Network",
+  "contact": "Contact",
   "Home_Hero": {
     "h1": "We transform territories into sustainable projects that unite tourism, social innovation, and the creative economy through community experience design.",
     "h2": "We value local histories and identities, creating bridges that connect people, territories, and a sustainable future.",
     "box1": {
       "title": "Community-based tourism",
       "subtext": "Experiences that strengthen local communities, generate income, and value the territory's culture."
+    },
+    "box2": {
+      "community_image_alt": "A beautiful community",
+      "landscape_image_alt": "A beautiful landscape"
     },
     "box4_slide1": {
       "title": "Creative economy",
@@ -17,14 +28,5 @@
       "title": "Regenerative tourism",
       "subtext": "We value cultural and natural roots to restore vitality to territories. Unique experiences, not of consumption, but of cultivation, sustainability, and life."
     }
-  },
-  "Header": {
-    "home": "Home",
-    "who_we_are": "Who We Are",
-    "method": "Method",
-    "projects": "Projects",
-    "services": "Services",
-    "our_network": "Our Network",
-    "contact": "Contact"
   }
 }

@@ -37,7 +37,7 @@ export const Hero = () => {
         <div className='size-full rounded-2xl md:col-start-2 md:row-start-1'>
           <Image
             src={CommunityImage}
-            alt='Beautiful community'
+            alt={t('Home_Hero.box2.community_image_alt')}
             className='size-full max-h-36 rounded-2xl object-cover md:max-h-full sm:max-h-40'
           />
         </div>
@@ -46,7 +46,7 @@ export const Hero = () => {
         <div className='size-full max-h-36 rounded-2xl md:row-start-3'>
           <Image
             src={LandscapeImage}
-            alt='Beautiful landscape'
+            alt={t('Home_Hero.box2.landscape_image_alt')}
             className='size-full max-h-36 rounded-2xl object-cover md:max-h-full sm:max-h-40'
           />
         </div>
