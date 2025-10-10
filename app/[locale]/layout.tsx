@@ -1,7 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
-import { NextIntlClientProvider, hasLocale } from 'next-intl'
+import { type Locale, NextIntlClientProvider, hasLocale } from 'next-intl'
 import { Geist, Geist_Mono } from 'next/font/google'
 // biome-ignore lint/nursery/noRestrictedImports: notFound is a Next.js function
 import { notFound } from 'next/navigation'
@@ -37,7 +37,7 @@ type RootLayoutProps = Readonly<{
 
 export async function generateMetadata({ params }: RootLayoutProps): Promise<Metadata> {
   const { locale } = await params
-  const t = await getTranslations({ locale })
+  const t = await getTranslations({ locale: locale as Locale })
 
   return {
     title: t('territoire_vibrant'),

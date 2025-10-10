@@ -37,5 +37,40 @@
     "p": "Nous agissons avec créativité, intelligence territoriale et gestion collaborative pour transformer les réalités en projets durables, en connectant le Brésil, le Canada et le monde.",
     "cta_label": "Découvrez ce qu’est un territoire vibrant",
     "image_alt": "Paysage représentant un territoire vibrant"
+  },
+  "WhoWeAre": {
+    "intro": {
+      "p1": "Território Vibrante est né avec l’objectif de réunir des professionnels et des consultants de différents domaines au sein d’un écosystème collaboratif dédié au renforcement des communautés et à la régénération des territoires, en valorisant les immigrants et les peuples autochtones. Nous considérons le territoire comme un organisme vivant, régénératif et interdépendant, intégrant les dimensions culturelles, économiques, environnementales et sociales.",
+      "p2": "Notre modèle d’action est hybride, intégrant le tourisme communautaire (TBC) et s’inspirant des modèles de gestion des arrangements productifs locaux (APL), garantissant que le développement communautaire reste toujours au cœur des actions.",
+      "p3": "Chaque projet naît d’une lecture réelle du territoire et se transforme en solutions concrètes — créatives, durables et connectées aux identités locales des immigrants et des peuples autochtones."
+    },
+    "network": {
+      "chip": "Le Réseau Collaboratif Território Vibrante",
+      "p1": "Le Réseau Collaboratif est le projet central de Território Vibrante. Chaque membre y contribue avec ses compétences et ses ressources dans un environnement d’intelligence collective, avec un accès à une plateforme numérique exclusive qui garantit intégration, agilité et confiance.",
+      "p2": "Plus que du dialogue, le réseau est une action conjointe — fondée sur la discipline, l’engagement et la loyauté. Il combine recherche et développement, à travers la production d’articles, de livres, ainsi que la conception et la mise en œuvre de projets transformateurs alliant innovation sociale, impact culturel et tourisme régénérateur."
+    },
+    "team": {
+      "title": "Notre équipe",
+      "marco": {
+        "name": "Marco Antonio Cunha Marques",
+        "role": "Fondateur",
+        "bio": "Spécialiste du tourisme, expert en gestion d’arrangements productifs locaux."
+      },
+      "lilliam": {
+        "name": "Lilliam Maria Mesquita Alexandre",
+        "role": "Co-fondatrice",
+        "bio": "Description à venir."
+      },
+      "pedro": {
+        "name": "Pedro Lucena de Sousa Marques",
+        "role": "Directeur du développement",
+        "bio": "Description à venir."
+      }
+    },
+    "manifesto": {
+      "p1": "Nous sommes un réseau vivant d’experts, d’entrepreneurs et de chercheurs unis par un but commun. Chaque membre est un maillon qui fait vibrer le territoire, apportant sa culture, son expérience, sa technique et sa créativité pour générer de la transformation.",
+      "p2": "Nous croyons à la force du travail en réseau, à l’intelligence collective et à la confiance comme base de tout partenariat. Le réseau est plus qu’un espace — c’est une force vivante de création et d’appartenance."
+    },
+    "highlight": "Lecture du territoire + créativité + gestion collaborative = impact réel."
   }
 }

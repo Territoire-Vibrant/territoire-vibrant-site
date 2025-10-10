@@ -37,5 +37,40 @@
     "p": "We act with creativity, territorial intelligence, and collaborative management to transform realities into sustainable projects, connecting Brazil, Canada, and the world.",
     "cta_label": "Discover what a vibrant territory is",
     "image_alt": "Landscape representing a vibrant territory"
+  },
+  "WhoWeAre": {
+    "intro": {
+      "p1": "Território Vibrante is born with the purpose of bringing together professionals and consultants from different fields into a collaborative ecosystem dedicated to strengthening communities and regenerating territories, valuing immigrants and indigenous peoples. We understand the territory as a living, regenerative, and interdependent organism that integrates cultural, economic, environmental, and social dimensions.",
+      "p2": "Our operating model is hybrid, integrating Community-Based Tourism (CBT) and inspired by the management models of Local Productive Arrangements (APL), ensuring that community development is always at the center of actions.",
+      "p3": "Each project is born from a real reading of the territory and becomes concrete solutions—creative, sustainable, and connected to the local identities of immigrants and indigenous peoples."
+    },
+    "network": {
+      "chip": "The Território Vibrante Collaborative Network",
+      "p1": "The Collaborative Network is Território Vibrante's core project. In it, each member contributes their competencies and resources in an environment of collective intelligence, with access to an exclusive digital platform that ensures integration, agility, and trust.",
+      "p2": "More than dialogue, the network is joint action—grounded in discipline, commitment, and loyalty. It combines research and development through the production of articles, books, and the design and implementation of transformative projects that bring together social innovation, cultural impact, and regenerative tourism."
+    },
+    "team": {
+      "title": "Our team",
+      "marco": {
+        "name": "Marco Antonio Cunha Marques",
+        "role": "Founder",
+        "bio": "Tourism professional, specialist in managing Local Productive Arrangements."
+      },
+      "lilliam": {
+        "name": "Lilliam Maria Mesquita Alexandre",
+        "role": "Co-founder",
+        "bio": "Description coming soon."
+      },
+      "pedro": {
+        "name": "Pedro Lucena de Sousa Marques",
+        "role": "Director of Development",
+        "bio": "Description coming soon."
+      }
+    },
+    "manifesto": {
+      "p1": "We are a living network of specialists, entrepreneurs, and researchers connected by purpose. Each member is a link that makes the territory vibrate, bringing their culture, experience, technique, and creativity to generate transformation.",
+      "p2": "We believe in the power of networked work, in collective intelligence, and in trust as the basis of every partnership. The network is more than a space—it is a living force of creation and belonging."
+    },
+    "highlight": "Territory reading + creativity + collaborative management = real impact."
   }
 }

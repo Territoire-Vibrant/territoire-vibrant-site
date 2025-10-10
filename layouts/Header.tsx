@@ -172,7 +172,7 @@ export const Header = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant='outline' size='sm' className='flex items-center gap-1'>
-                  {localeLabelKey[locale] ? t(localeLabelKey[locale]) : locale.toUpperCase()}
+                  {localeLabelKey[locale] ? t(localeLabelKey[locale] as any) : locale.toUpperCase()}
                   <ChevronDown className='size-4 opacity-60' />
                   <span className='sr-only'>Language</span>
                 </Button>
@@ -185,7 +185,9 @@ export const Header = () => {
                     onClick={() => handleLanguageChange(loc as Locale)}
                     className='cursor-pointer'
                   >
-                    <span className='mr-2'>{localeLabelKey[loc] ? t(localeLabelKey[loc]) : loc.toUpperCase()}</span>
+                    <span className='mr-2'>
+                      {localeLabelKey[loc] ? t(localeLabelKey[loc] as any) : loc.toUpperCase()}
+                    </span>
                     {loc === locale && <Check className='ml-auto size-4 text-green-600' />}
                   </DropdownMenuItem>
                 ))}

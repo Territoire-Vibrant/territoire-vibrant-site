@@ -37,5 +37,40 @@
     "p": "Atuamos com criatividade, inteligência territorial e gestão colaborativa para transformar realidades em projetos sustentáveis, conectando Brasil, Canadá e o mundo.",
     "cta_label": "Descubra o que é um território vibrante",
     "image_alt": "Paisagem representando um território vibrante"
+  },
+  "WhoWeAre": {
+    "intro": {
+      "p1": "A Território Vibrante nasce com o propósito de unir profissionais e consultores de diferentes áreas em um ecossistema colaborativo dedicado a fortalecer comunidades, regenerar territórios valorizando imigrantes e povos originários. Entendemos o território como um organismo vivo, regenerativo e interdependente, que integra dimensões culturais, econômicas, ambientais e sociais.",
+      "p2": "Nosso modelo de atuação é híbrido, integrando o Turismo de Base Comunitária (TBC) e inspirado nos modelos de gestão de Arranjos Produtivos Locais (APL), garantindo que o desenvolvimento comunitário esteja sempre no centro das ações.",
+      "p3": "Cada projeto nasce de uma leitura real do território e se transforma em soluções concretas — criativas, sustentáveis e conectadas às identidades locais dos imigrantes e povos originários."
+    },
+    "network": {
+      "chip": "A Rede Colaborativa Território Vibrante",
+      "p1": "A Rede Colaborativa é o projeto central da Território Vibrante. Nela, cada membro contribui com suas competências e recursos em um ambiente de inteligência coletiva, com acesso a uma plataforma digital exclusiva que garante integração, agilidade e confiança.",
+      "p2": "Mais que diálogo, a rede é ação conjunta — fundamentada em disciplina, compromisso e lealdade. Ela combina pesquisa e desenvolvimento, a partir da produção de artigos, livros, elaboração e implementação de projetos transformadores que unem inovação social, impacto cultural e turismo regenerativo."
+    },
+    "team": {
+      "title": "Nossa equipe",
+      "marco": {
+        "name": "Marco Antonio Cunha Marques",
+        "role": "Fundador",
+        "bio": "Turismólogo, especialista em gestão de Arranjos Produtivos Locais."
+      },
+      "lilliam": {
+        "name": "Lilliam Maria Mesquita Alexandre",
+        "role": "Co-Fundadora",
+        "bio": "Descrição em breve."
+      },
+      "pedro": {
+        "name": "Pedro Lucena de Sousa Marques",
+        "role": "Diretor de Desenvolvimento",
+        "bio": "Descrição em breve."
+      }
+    },
+    "manifesto": {
+      "p1": "Somos uma rede viva de especialistas, empreendedores e pesquisadores conectados por propósito. Cada membro é um elo que faz o território vibrar, trazendo sua cultura, experiência, técnica e criatividade para gerar transformação.",
+      "p2": "Acreditamos na força do trabalho em rede, na inteligência coletiva e na confiança como base de toda parceria. A rede é mais do que um espaço — é uma força viva de criação e pertencimento."
+    },
+    "highlight": "Leitura de território + criatividade + gestão colaborativa = impacto real."
   }
 }
