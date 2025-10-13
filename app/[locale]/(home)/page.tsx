@@ -18,7 +18,9 @@ export default function Home() {
       <Section className='flex w-full flex-col items-center justify-between gap-10 px-6 py-12 md:flex-row lg:py-16'>
         {/* Hero text */}
         <div className='flex flex-col gap-6 md:w-1/2'>
-          <h1 className='size-full text-center font-bold text-3xl md:text-start lg:text-4xl'>{t('Home_Hero.h1')}</h1>
+          <h1 className='flex size-full flex-col text-center font-bold text-3xl md:text-start lg:text-4xl'>
+            {t('territoire_vibrant')} <span className='text-green-500 lg:text-3xl'>{t('Home_Hero.h1')}</span>
+          </h1>
 
           <h2 className='size-full text-center text-2xl text-neutral-600 md:text-start'>{t('Home_Hero.h2')}</h2>
         </div>
