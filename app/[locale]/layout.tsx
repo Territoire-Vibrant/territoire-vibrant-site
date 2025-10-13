@@ -40,8 +40,8 @@ export async function generateMetadata({ params }: RootLayoutProps): Promise<Met
   const t = await getTranslations({ locale: locale as Locale })
 
   return {
-    title: t('territoire_vibrant'),
-    description: t('Home_Hero.h1'),
+    title: `${t('territoire_vibrant')} | ${t('Home.hero.h1')}`,
+    description: t('Home.hero.h2'),
   }
 }
 

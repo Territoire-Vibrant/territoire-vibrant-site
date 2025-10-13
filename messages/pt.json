@@ -13,30 +13,32 @@
   "portuguese": "Português",
   "spanish": "Espanhol",
   "french": "Francês",
-  "Home_Hero": {
-    "h1": "Aqui o pertencimento vibra",
-    "h2": "Somos um ecossistema colaborativo dedicado a fortalecer comunidades, regenerar territórios valorizando imigrantes e povos originários.",
-    "box1": {
-      "title": "Turismo de base comunitária",
-      "subtext": "Experiências que fortalecem comunidades locais, geram renda e valorizam a cultura do território."
+  "Home": {
+    "hero": {
+      "h1": "Aqui o pertencimento vibra",
+      "h2": "Atuamos com criatividade, inteligência territorial e gestão colaborativa para transformar realidades em projetos sustentáveis, conectando Brasil, Canadá e o mundo.",
+      "box1": {
+        "title": "Turismo de base comunitária",
+        "subtext": "Experiências que fortalecem comunidades locais, geram renda e valorizam a cultura do território."
+      },
+      "box2": {
+        "community_image_alt": "Uma linda comunidade",
+        "landscape_image_alt": "Uma bela paisagem"
+      },
+      "box4_slide1": {
+        "title": "Economia criativa",
+        "subtext": "Iniciativas que transformam o território em valor econômico sustentável para comunidades e culturas locais."
+      },
+      "box4_slide2": {
+        "title": "Turismo regenerativo",
+        "subtext": "Valorizamos as raízes culturais e naturais para devolver vitalidade aos territórios. Experiências únicas, não de consumo, mas de cultivo, sustentabilidade e vida."
+      }
     },
-    "box2": {
-      "community_image_alt": "Uma linda comunidade",
-      "landscape_image_alt": "Uma bela paisagem"
-    },
-    "box4_slide1": {
-      "title": "Economia criativa",
-      "subtext": "Iniciativas que transformam o território em valor econômico sustentável para comunidades e culturas locais."
-    },
-    "box4_slide2": {
-      "title": "Turismo regenerativo",
-      "subtext": "Valorizamos as raízes culturais e naturais para devolver vitalidade aos territórios. Experiências únicas, não de consumo, mas de cultivo, sustentabilidade e vida."
+    "intro": {
+      "p": "Atuamos com criatividade, inteligência territorial e gestão colaborativa para transformar realidades em projetos sustentáveis, conectando Brasil, Canadá e o mundo.",
+      "cta_label": "Descubra o que é um território vibrante",
+      "image_alt": "Paisagem representando um território vibrante"
     }
-  },
-  "Home_Intro": {
-    "p": "Atuamos com criatividade, inteligência territorial e gestão colaborativa para transformar realidades em projetos sustentáveis, conectando Brasil, Canadá e o mundo.",
-    "cta_label": "Descubra o que é um território vibrante",
-    "image_alt": "Paisagem representando um território vibrante"
   },
   "WhoWeAre": {
     "intro": {

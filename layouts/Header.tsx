@@ -44,9 +44,7 @@ export const Header = () => {
       <nav className='flex w-full max-w-6xl items-center justify-between px-6'>
         <ul className='flex items-center'>
           <li>
-            <Link href='/' className='flex items-center'>
-              <span className='text-3xl'>🌴</span>
-
+            <Link href='/'>
               <Image
                 src='/images/logotype_no_bg.png'
                 alt={t('territoire_vibrant')}

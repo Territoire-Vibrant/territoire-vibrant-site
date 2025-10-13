@@ -20,9 +20,9 @@ export const CarouselBox = () => {
     >
       <CarouselContent className='size-full'>
         <CarouselItem className='flex flex-col justify-between space-y-4 '>
-          <div className='w-3/4 font-bold text-xl'>{t('Home_Hero.box4_slide1.title')}</div>
+          <div className='w-3/4 font-bold text-xl'>{t('Home.hero.box4_slide1.title')}</div>
 
-          <p className='opacity-80'>{t('Home_Hero.box4_slide1.subtext')}</p>
+          <p className='opacity-80'>{t('Home.hero.box4_slide1.subtext')}</p>
 
           <Link href='#' className='w-fit underline opacity-80'>
             {t('find_out_more')}
@@ -30,9 +30,9 @@ export const CarouselBox = () => {
         </CarouselItem>
 
         <CarouselItem className='flex flex-col justify-between space-y-4 '>
-          <div className='w-3/4 font-bold text-xl'>{t('Home_Hero.box4_slide2.title')}</div>
+          <div className='w-3/4 font-bold text-xl'>{t('Home.hero.box4_slide2.title')}</div>
 
-          <p className='opacity-80'>{t('Home_Hero.box4_slide2.subtext')}</p>
+          <p className='opacity-80'>{t('Home.hero.box4_slide2.subtext')}</p>
 
           <Link href='#' className='w-fit underline opacity-80'>
             {t('find_out_more')}

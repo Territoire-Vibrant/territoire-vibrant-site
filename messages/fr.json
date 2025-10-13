@@ -13,30 +13,32 @@
   "portuguese": "Portugais",
   "spanish": "Espagnol",
   "french": "Français",
-  "Home_Hero": {
-    "h1": "Ici, l'appartenance vibre",
-    "h2": "Nous sommes un écosystème collaboratif dédié au renforcement des communautés et à la régénération des territoires, valorisant les immigrants et les peuples autochtones.",
-    "box1": {
-      "title": "Tourisme communautaire",
-      "subtext": "Des expériences qui renforcent les communautés locales, génèrent des revenus et valorisent la culture du territoire."
+  "Home": {
+    "hero": {
+      "h1": "Ici, l'appartenance vibre",
+      "h2": "Nous utilisons la créativité, l'intelligence territoriale et la gestion collaborative pour transformer les réalités en projets durables, reliant le Brésil, le Canada et le monde.",
+      "box1": {
+        "title": "Tourisme communautaire",
+        "subtext": "Des expériences qui renforcent les communautés locales, génèrent des revenus et valorisent la culture du territoire."
+      },
+      "box2": {
+        "community_image_alt": "Une belle communauté",
+        "landscape_image_alt": "Un beau paysage"
+      },
+      "box4_slide1": {
+        "title": "Économie créative",
+        "subtext": "Des initiatives qui transforment le territoire en valeur économique durable pour les communautés et les cultures locales."
+      },
+      "box4_slide2": {
+        "title": "Tourisme régénérateur",
+        "subtext": "Nous valorisons les racines culturelles et naturelles pour redonner vie aux territoires. Des expériences uniques, non pas de consommation, mais de culture, de durabilité et de vie."
+      }
     },
-    "box2": {
-      "community_image_alt": "Une belle communauté",
-      "landscape_image_alt": "Un beau paysage"
-    },
-    "box4_slide1": {
-      "title": "Économie créative",
-      "subtext": "Des initiatives qui transforment le territoire en valeur économique durable pour les communautés et les cultures locales."
-    },
-    "box4_slide2": {
-      "title": "Tourisme régénérateur",
-      "subtext": "Nous valorisons les racines culturelles et naturelles pour redonner vie aux territoires. Des expériences uniques, non pas de consommation, mais de culture, de durabilité et de vie."
+    "intro": {
+      "p": "Nous agissons avec créativité, intelligence territoriale et gestion collaborative pour transformer les réalités en projets durables, en connectant le Brésil, le Canada et le monde.",
+      "cta_label": "Découvrez ce qu’est un territoire vibrant",
+      "image_alt": "Paysage représentant un territoire vibrant"
     }
-  },
-  "Home_Intro": {
-    "p": "Nous agissons avec créativité, intelligence territoriale et gestion collaborative pour transformer les réalités en projets durables, en connectant le Brésil, le Canada et le monde.",
-    "cta_label": "Découvrez ce qu’est un territoire vibrant",
-    "image_alt": "Paysage représentant un territoire vibrant"
   },
   "WhoWeAre": {
     "intro": {
