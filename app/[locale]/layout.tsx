@@ -63,7 +63,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
 
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header />
-          <main className='mx-auto max-w-6xl'>{children}</main>
+          <main className='mx-auto'>{children}</main>
         </NextIntlClientProvider>
       </body>
     </html>

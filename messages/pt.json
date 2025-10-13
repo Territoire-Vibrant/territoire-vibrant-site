@@ -72,5 +72,32 @@
       "p2": "Acreditamos na força do trabalho em rede, na inteligência coletiva e na confiança como base de toda parceria. A rede é mais do que um espaço — é uma força viva de criação e pertencimento."
     },
     "highlight": "Leitura de território + criatividade + gestão colaborativa = impacto real."
+  },
+  "Method": {
+    "intro": {
+      "p1": "Nosso método tem como premissa a releitura evolutiva dos Arranjos Produtivos Locais (APL), combinado com a gestão do Turismo de Base Comunitária (TBC), onde o desenvolvimento é compreendido como um processo contínuo, cocriado, participativo e simbólico — construído a muitas mãos, com base em pertencimento, cooperação e inteligência coletiva.",
+      "p2": "A Território Vibrante transforma demandas específicas em projetos sob medida, combinando inteligência territorial, economia criativa e rede colaborativa. Cada iniciativa nasce de um diagnóstico real e evolui a partir da escuta ativa das comunidades, da leitura sensível dos contextos e da articulação entre atores públicos, privados e sociais."
+    },
+    "essence": {
+      "title": "Nossa Essência (Missão, Visão e Valores)",
+      "mission": {
+        "title": "Missão",
+        "p": "Conectar profissionais, instituições e comunidades em um ecossistema colaborativo capaz de desenvolver projetos que fortaleçam territórios, regenerem vínculos e valorizem imigrantes e povos originários — gerando impacto social, cultural, econômico e ambiental."
+      },
+      "vision": {
+        "title": "Visão",
+        "p": "Ser referência internacional em inovação social e desenvolvimento regenerativo, conectando Brasil, Québec e o mundo em projetos que transformam o território em fonte de pertencimento, prosperidade e equilíbrio."
+      },
+      "values": {
+        "title": "Valores",
+        "item1": "Excelência e Responsabilidade — fazer bem feito, com propósito e coerência.",
+        "item2": "Lealdade e Confiança — relações humanas sólidas como base de toda ação.",
+        "item3": "Colaboração e Inteligência Coletiva — o poder do fazer junto.",
+        "item4": "Inovação e Resiliência — transformar desafios em soluções criativas.",
+        "item5": "Corresponsabilidade Comunitária — todos como protagonistas do impacto coletivo.",
+        "item6": "Centralidade Cultural — respeito e valorização dos imigrantes e povos originários."
+      }
+    },
+    "quote": "O território não é um espaço a ser explorado. É um ser a ser escutado."
   }
 }

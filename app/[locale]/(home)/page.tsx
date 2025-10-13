@@ -5,6 +5,7 @@ import CommunityImage from '~/assets/images/home/hero/community.jpg'
 import LandscapeImage from '~/assets/images/home/intro/landscape.jpg'
 
 import { Button } from '~/components/ui/button'
+import { Section } from '~/layouts/Section'
 import { CarouselBox } from './components/CarouselBox'
 
 import { Link } from '~/i18n/navigation'
@@ -14,7 +15,7 @@ export default function Home() {
 
   return (
     <>
-      <section className='flex w-full flex-col items-center justify-between gap-10 px-6 py-12 md:flex-row lg:py-16'>
+      <Section className='flex w-full flex-col items-center justify-between gap-10 px-6 py-12 md:flex-row lg:py-16'>
         {/* Hero text */}
         <div className='flex flex-col gap-6 md:w-1/2'>
           <h1 className='size-full text-center font-bold text-3xl md:text-start lg:text-4xl'>{t('Home_Hero.h1')}</h1>
@@ -58,9 +59,9 @@ export default function Home() {
             <CarouselBox />
           </div>
         </div>
-      </section>
+      </Section>
 
-      <section className='w-full px-6 py-12 md:py-16'>
+      <Section className='w-full px-6 py-12 md:py-16'>
         <div className='mx-auto grid max-w-6xl items-center gap-8 md:grid-cols-2'>
           <div className='overflow-hidden rounded-2xl shadow-sm ring-1 ring-black/5 md:order-none'>
             <Image
@@ -79,7 +80,7 @@ export default function Home() {
             </Button>
           </div>
         </div>
-      </section>
+      </Section>
     </>
   )
 }

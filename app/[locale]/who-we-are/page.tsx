@@ -7,6 +7,7 @@ import Community from '~/assets/images/home/hero/community.jpg'
 import Landscape from '~/assets/images/home/hero/landscape.png'
 import Pedro from '~/assets/images/members/pedro.png'
 
+import { Section } from '~/layouts/Section'
 import { TeamCard } from './components/TeamCard'
 
 export async function generateMetadata({
@@ -27,7 +28,7 @@ export default function WhoWeArePage() {
 
   return (
     <>
-      <section className='flex w-full flex-col items-center gap-10 px-6 py-12 lg:flex-row-reverse lg:py-16'>
+      <Section className='flex w-full flex-col items-center gap-10 px-6 py-12 lg:flex-row-reverse lg:py-16'>
         <Image
           src={Community}
           alt={t('Home_Hero.box2.community_image_alt')}
@@ -44,9 +45,9 @@ export default function WhoWeArePage() {
             <p>{t('WhoWeAre.intro.p3')}</p>
           </div>
         </div>
-      </section>
+      </Section>
 
-      <section className='flex w-full flex-col items-center gap-10 px-6 py-12 lg:flex-row lg:py-16'>
+      <Section className='flex w-full flex-col items-center gap-10 px-6 py-12 lg:flex-row lg:py-16'>
         <Image
           src={Landscape}
           alt={t('Home_Hero.box2.landscape_image_alt')}
@@ -61,9 +62,9 @@ export default function WhoWeArePage() {
             <p>{t('WhoWeAre.network.p2')}</p>
           </div>
         </div>
-      </section>
+      </Section>
 
-      <section className='flex w-full flex-col items-center space-y-8 px-6 py-12'>
+      <Section className='flex w-full flex-col items-center space-y-8 px-6 py-12'>
         <h2 className='font-semibold text-2xl tracking-tight'>{t('WhoWeAre.team.title')}</h2>
 
         <div className='grid gap-6 lg:grid-cols-3 sm:grid-cols-2'>
@@ -86,15 +87,15 @@ export default function WhoWeArePage() {
             image={Pedro}
           />
         </div>
-      </section>
+      </Section>
 
-      <section className='flex w-full flex-col items-center space-y-8 px-6 py-12 lg:py-16'>
-        <div className='space-y-2 rounded-xl border border-neutral-200 bg-green-200 p-6 text-green-800'>
+      <Section className='flex w-full flex-col items-center space-y-8 px-6 py-12 lg:py-16'>
+        <blockquote className='space-y-2 rounded-xl border border-neutral-200 bg-green-200 p-6 text-green-800'>
           <p>• {t('WhoWeAre.manifesto.p1')}</p>
           <p className='font-medium'>{t('WhoWeAre.manifesto.p2')}</p>
-          <p>{t('WhoWeAre.highlight')}</p>
-        </div>
-      </section>
+          <p className='italic'>{t('WhoWeAre.highlight')}</p>
+        </blockquote>
+      </Section>
     </>
   )
 }
