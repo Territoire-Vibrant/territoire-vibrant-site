@@ -1,20 +1,20 @@
 {
-  "territoire_vibrant": "Territoire Vibrant",
+  "territoire_vibrant": "Territoire Vibrant™",
   "find_out_more": "Find out more",
   "lets_talk": "Let's talk",
   "home": "Home",
   "who_we_are": "Who We Are",
-  "method": "Method",
+  "mission": "Mission",
   "projects": "Projects",
   "services": "Services",
-  "our_network": "Our Network",
+  "publications": "Publications",
   "contact": "Contact",
   "english": "English",
   "portuguese": "Portuguese",
   "spanish": "Spanish",
   "french": "French",
   "Home_Hero": {
-    "h1": "Territoire Vibrant – Where Belonging Vibrates",
+    "h1": "Territoire Vibrant™ – Where Belonging Vibrates",
     "h2": "We are a collaborative ecosystem dedicated to strengthening communities and regenerating territories, valuing immigrants and indigenous peoples.",
     "box1": {
       "title": "Community-based tourism",
@@ -73,7 +73,7 @@
     },
     "highlight": "Territory reading + creativity + collaborative management = real impact."
   },
-  "Method": {
+  "Mission": {
     "intro": {
       "p1": "Our method is based on an evolutionary reinterpretation of Local Productive Arrangements (APL), combined with the management of Community-Based Tourism (CBT), where development is understood as a continuous, co-created, participatory, and symbolic process—built by many hands, grounded in belonging, cooperation, and collective intelligence.",
       "p2": "Território Vibrante transforms specific demands into tailor-made projects by combining territorial intelligence, the creative economy, and a collaborative network. Each initiative is born from a real diagnosis and evolves through active listening to communities, sensitive reading of contexts, and articulation among public, private, and social actors."

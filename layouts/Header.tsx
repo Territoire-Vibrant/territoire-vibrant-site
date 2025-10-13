@@ -1,6 +1,7 @@
 'use client'
 
 import { type Locale, useLocale, useTranslations } from 'next-intl'
+import Image from 'next/image'
 
 import { Check, ChevronDown, MenuIcon } from 'lucide-react'
 import {
@@ -42,8 +43,18 @@ export const Header = () => {
     <header className='flex h-16 items-center justify-center border-b'>
       <nav className='flex w-full max-w-6xl items-center justify-between px-6'>
         <ul className='flex items-center'>
-          <li className='transition-all ease-in hover:text-green-600'>
-            <Link href='/'>{t('territoire_vibrant')}</Link>
+          <li>
+            <Link href='/' className='flex items-center'>
+              <span className='text-3xl'>🌴</span>
+
+              <Image
+                src='/images/logotype_no_bg.png'
+                alt={t('territoire_vibrant')}
+                width={500}
+                height={500}
+                className='size-44'
+              />
+            </Link>
           </li>
         </ul>
 
@@ -77,13 +88,6 @@ export const Header = () => {
                   </li>
 
                   <li
-                    data-current-page={pathname === '/method'}
-                    className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
-                  >
-                    <Link href='/method'>{t('method')}</Link>
-                  </li>
-
-                  <li
                     data-current-page={pathname === '/projects'}
                     className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
                   >
@@ -98,10 +102,17 @@ export const Header = () => {
                   </li>
 
                   <li
-                    data-current-page={pathname === '/our-network'}
+                    data-current-page={pathname === '/publications'}
                     className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
                   >
-                    <Link href='/our-network'>{t('our_network')}</Link>
+                    <Link href='/publications'>{t('publications')}</Link>
+                  </li>
+
+                  <li
+                    data-current-page={pathname === '/blog'}
+                    className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
+                  >
+                    <Link href='/blog'>blog</Link>
                   </li>
 
                   <li
@@ -118,24 +129,10 @@ export const Header = () => {
           {/* Desktop links */}
           <ul className='hidden items-center gap-6 md:flex'>
             <li
-              data-current-page={pathname === '/'}
-              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-green-600'
-            >
-              <Link href='/'>{t('home')}</Link>
-            </li>
-
-            <li
               data-current-page={pathname === '/who-we-are'}
               className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-green-600'
             >
               <Link href='/who-we-are'>{t('who_we_are')}</Link>
-            </li>
-
-            <li
-              data-current-page={pathname === '/method'}
-              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-green-600'
-            >
-              <Link href='/method'>{t('method')}</Link>
             </li>
 
             <li
@@ -153,10 +150,17 @@ export const Header = () => {
             </li>
 
             <li
-              data-current-page={pathname === '/our-network'}
+              data-current-page={pathname === '/publications'}
               className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-green-600'
             >
-              <Link href='/our-network'>{t('our_network')}</Link>
+              <Link href='/publications'>{t('publications')}</Link>
+            </li>
+
+            <li
+              data-current-page={pathname === '/blog'}
+              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-green-600'
+            >
+              <Link href='/blog'>blog</Link>
             </li>
 
             <li

@@ -1,20 +1,20 @@
 {
-  "territoire_vibrant": "Territoire Vibrant",
+  "territoire_vibrant": "Territoire Vibrant™",
   "find_out_more": "En savoir plus",
   "lets_talk": "Discutons",
   "home": "Accueil",
   "who_we_are": "Qui sommes-nous",
-  "method": "Méthode",
+  "mission": "Mission",
   "projects": "Projets",
   "services": "Services",
-  "our_network": "Notre Réseau",
+  "publications": "Publications",
   "contact": "Contact",
   "english": "Anglais",
   "portuguese": "Portugais",
   "spanish": "Espagnol",
   "french": "Français",
   "Home_Hero": {
-    "h1": "Territoire Vibrant – Là où l'appartenance vibre",
+    "h1": "Territoire Vibrant™ – Là où l'appartenance vibre",
     "h2": "Nous sommes un écosystème collaboratif dédié au renforcement des communautés et à la régénération des territoires, valorisant les immigrants et les peuples autochtones.",
     "box1": {
       "title": "Tourisme communautaire",
@@ -73,7 +73,7 @@
     },
     "highlight": "Lecture du territoire + créativité + gestion collaborative = impact réel."
   },
-  "Method": {
+  "Mission": {
     "intro": {
       "p1": "Notre méthode repose sur une relecture évolutive des Arrangements Productifs Locaux (APL), combinée à la gestion du Tourisme de Base Communautaire (TBC), où le développement est compris comme un processus continu, co-créé, participatif et symbolique — construit à plusieurs mains, fondé sur l’appartenance, la coopération et l’intelligence collective.",
       "p2": "Território Vibrante transforme des demandes spécifiques en projets sur mesure, en combinant intelligence territoriale, économie créative et réseau collaboratif. Chaque initiative naît d’un diagnostic réel et évolue à partir de l’écoute active des communautés, de la lecture sensible des contextes et de l’articulation entre acteurs publics, privés et sociaux."
