@@ -4,6 +4,7 @@ import Image from 'next/image'
 import CommunityImage from '~/assets/images/home/hero/community.jpg'
 import LandscapeImage from '~/assets/images/home/intro/landscape.jpg'
 
+import { BrandName } from '~/app/[locale]/(home)/components/BrandName'
 import { Button } from '~/components/ui/button'
 import { Section } from '~/layouts/Section'
 import { CarouselBox } from './components/CarouselBox'
@@ -19,7 +20,8 @@ export default function Home() {
         {/* Hero text */}
         <div className='flex flex-col gap-6 md:w-1/2'>
           <h1 className='flex size-full flex-col text-center font-bold text-3xl md:text-start lg:text-4xl'>
-            {t('territoire_vibrant')} <span className='text-green-500 lg:text-3xl'>{t('Home.hero.h1')}</span>
+            <BrandName label={t('territoire_vibrant')} />
+            <span className='text-green-500 lg:text-3xl'>{t('Home.hero.h1')}</span>
           </h1>
 
           <h2 className='size-full text-center text-2xl text-neutral-600 md:text-start'>{t('Home.hero.h2')}</h2>
