@@ -38,6 +38,16 @@
       "p": "We act with creativity, territorial intelligence, and collaborative management to transform realities into sustainable projects, connecting Brazil, Canada, and the world.",
       "cta_label": "Discover what a vibrant territory is",
       "image_alt": "Landscape representing a vibrant territory"
+    },
+    "projects": {
+      "project_1": {
+        "title": "Collaborative Network",
+        "description": "The Território Vibrante Collaborative Network project is the beating heart of our entire ecosystem. More than a group of partners, it represents a living organism of creation, trust, and co-responsibility."
+      },
+      "project_2": {
+        "title": "Vibrant Impact",
+        "description": "A living impact platform for companies, institutions, and cities, connecting collaborative intelligence, territorial regeneration, and social responsibility in a single ecosystem."
+      }
     }
   },
   "WhoWeAre": {

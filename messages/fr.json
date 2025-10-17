@@ -38,6 +38,16 @@
       "p": "Nous agissons avec créativité, intelligence territoriale et gestion collaborative pour transformer les réalités en projets durables, en connectant le Brésil, le Canada et le monde.",
       "cta_label": "Découvrez ce qu’est un territoire vibrant",
       "image_alt": "Paysage représentant un territoire vibrant"
+    },
+    "projects": {
+      "project_1": {
+        "title": "Réseau collaboratif",
+        "description": "Le projet Réseau Collaboratif Território Vibrante est le cœur battant de tout notre écosystème. Plus qu’un groupe de partenaires, il représente un organisme vivant de création, de confiance et de coresponsabilité."
+      },
+      "project_2": {
+        "title": "Impact vibrant",
+        "description": "Une plateforme d’impact vivante pour les entreprises, les institutions et les villes, reliant intelligence collaborative, régénération territoriale et responsabilité sociale au sein d’un même écosystème."
+      }
     }
   },
   "WhoWeAre": {

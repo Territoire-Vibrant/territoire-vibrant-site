@@ -38,6 +38,16 @@
       "p": "Atuamos com criatividade, inteligência territorial e gestão colaborativa para transformar realidades em projetos sustentáveis, conectando Brasil, Canadá e o mundo.",
       "cta_label": "Descubra o que é um território vibrante",
       "image_alt": "Paisagem representando um território vibrante"
+    },
+    "projects": {
+      "project_1": {
+        "title": "Rede colaborativa",
+        "description": "O projeto Rede Colaborativa Território Vibrante é o núcleo pulsante de todo o nosso ecossistema. Mais do que um grupo de parceiros, ela representa um organismo vivo de criação, confiança e corresponsabilidade."
+      },
+      "project_2": {
+        "title": "Impacto vibrante",
+        "description": "Uma plataforma viva de impacto para empresas, instituições e cidades conectando inteligência colaborativa, regeneração territorial e responsabilidade social em um só ecossistema."
+      }
     }
   },
   "WhoWeAre": {
