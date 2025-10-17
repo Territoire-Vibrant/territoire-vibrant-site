@@ -71,8 +71,11 @@ export default function Home() {
         <SponsorsMarquee className='py-6' />
       </Section>
 
-      <Section limitWidth={false} className='flex justify-center bg-foreground px-6 py-12 md:py-16'>
-        <h3>Projetos</h3>
+      <Section
+        limitWidth={false}
+        className='flex flex-col items-center justify-center space-y-8 bg-foreground px-6 py-12 md:py-16'
+      >
+        <h3 className='font-bold text-2xl text-white'>{t('projects')}</h3>
 
         <div className='grid max-w-6xl grid-cols-1 place-items-center gap-8 lg:grid-cols-3 md:grid-cols-2 md:gap-4'>
           <ProjectCard
