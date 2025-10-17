@@ -110,7 +110,7 @@ export const Header = () => {
                     data-current-page={pathname === '/blog'}
                     className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
                   >
-                    <Link href='/blog'>blog</Link>
+                    <Link href='/blog'>Blog</Link>
                   </li>
 
                   <li
@@ -158,7 +158,7 @@ export const Header = () => {
               data-current-page={pathname === '/blog'}
               className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-green-600'
             >
-              <Link href='/blog'>blog</Link>
+              <Link href='/blog'>Blog</Link>
             </li>
 
             <li
