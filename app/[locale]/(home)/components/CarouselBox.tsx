@@ -15,7 +15,7 @@ export const CarouselBox = () => {
       opts={{
         dragFree: true,
       }}
-      plugins={[Autoplay({ delay: 3000, stopOnInteraction: false })]}
+      plugins={[Autoplay({ delay: 5000, stopOnInteraction: false })]}
       className='flex size-full'
     >
       <CarouselContent className='size-full'>
