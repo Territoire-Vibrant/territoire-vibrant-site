@@ -40,7 +40,7 @@ export const Header = () => {
   }
 
   return (
-    <header className='flex h-16 items-center justify-center border-b'>
+    <header className='sticky top-0 z-30 flex h-16 items-center justify-center bg-white/70 backdrop-blur-xl'>
       <nav className='flex w-full max-w-6xl items-center justify-between px-6'>
         <ul className='flex items-center'>
           <li>
@@ -60,7 +60,7 @@ export const Header = () => {
           {/* Mobile links */}
           <div className='flex md:hidden'>
             <Dialog>
-              <DialogTrigger className='cursor-pointer transition-all ease-in hover:text-green-600'>
+              <DialogTrigger className='cursor-pointer transition-all ease-in hover:text-orange-700'>
                 <MenuIcon />
               </DialogTrigger>
 
@@ -128,42 +128,42 @@ export const Header = () => {
           <ul className='hidden items-center gap-6 md:flex'>
             <li
               data-current-page={pathname === '/who-we-are'}
-              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-green-600'
+              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-700'
             >
               <Link href='/who-we-are'>{t('who_we_are')}</Link>
             </li>
 
             <li
               data-current-page={pathname === '/projects'}
-              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-green-600'
+              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-700'
             >
               <Link href='/projects'>{t('projects')}</Link>
             </li>
 
             <li
               data-current-page={pathname === '/services'}
-              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-green-600'
+              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-700'
             >
               <Link href='/services'>{t('services')}</Link>
             </li>
 
             <li
               data-current-page={pathname === '/publications'}
-              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-green-600'
+              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-700'
             >
               <Link href='/publications'>{t('publications')}</Link>
             </li>
 
             <li
               data-current-page={pathname === '/blog'}
-              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-green-600'
+              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-700'
             >
               <Link href='/blog'>Blog</Link>
             </li>
 
             <li
               data-current-page={pathname === '/contact'}
-              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-green-600'
+              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-700'
             >
               <Link href='/contact'>{t('contact')}</Link>
             </li>
@@ -173,7 +173,7 @@ export const Header = () => {
           <div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant='outline' size='sm' className='flex items-center gap-1'>
+                <Button variant='outline' size='sm' className='flex items-center gap-1 bg-white/50 hover:bg-white/50'>
                   {localeLabelKey[locale] ? t(localeLabelKey[locale] as any) : locale.toUpperCase()}
                   <ChevronDown className='size-4 opacity-60' />
                   <span className='sr-only'>Language</span>
@@ -190,7 +190,7 @@ export const Header = () => {
                     <span className='mr-2'>
                       {localeLabelKey[loc] ? t(localeLabelKey[loc] as any) : loc.toUpperCase()}
                     </span>
-                    {loc === locale && <Check className='ml-auto size-4 text-green-600' />}
+                    {loc === locale && <Check className='ml-auto size-4 text-orange-700' />}
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>

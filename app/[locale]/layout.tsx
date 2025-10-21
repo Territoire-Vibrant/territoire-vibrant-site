@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: RootLayoutProps): Promise<Met
   const t = await getTranslations({ locale: locale as Locale })
 
   return {
-    title: `${t('territoire_vibrant')} | ${t('Home.hero.h1')}`,
+    title: `${t('territoire_vibrant')} | ${t.markup('Home.hero.h1', { v: (chunks: string) => chunks })}`,
     description: t('Home.hero.h2'),
   }
 }
@@ -57,7 +57,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
 
   return (
     <html lang={locale}>
-      <body className={`${geistSans.variable}${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable}${geistMono.variable} relative antialiased`}>
         <Analytics />
         <SpeedInsights />
 
