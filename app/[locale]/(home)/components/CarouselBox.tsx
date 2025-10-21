@@ -24,7 +24,7 @@ export const CarouselBox = () => {
 
           <p className='opacity-80'>{t('Home.hero.box4_slide1.subtext')}</p>
 
-          <Link href='#' className='w-fit underline opacity-80'>
+          <Link href='#' className='w-fit text-xs underline opacity-80'>
             {t('find_out_more')}
           </Link>
         </CarouselItem>
@@ -34,7 +34,7 @@ export const CarouselBox = () => {
 
           <p className='opacity-80'>{t('Home.hero.box4_slide2.subtext')}</p>
 
-          <Link href='#' className='w-fit underline opacity-80'>
+          <Link href='#' className='w-fit text-xs underline opacity-80'>
             {t('find_out_more')}
           </Link>
         </CarouselItem>

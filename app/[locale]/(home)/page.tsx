@@ -37,7 +37,7 @@ export default function Home() {
 
             <p className='opacity-80'>{t('Home.hero.box1.subtext')}</p>
 
-            <Link href='/#projects' className='w-fit underline opacity-80'>
+            <Link href='/#projects' className='w-fit text-xs underline opacity-80'>
               {t('find_out_more')}
             </Link>
           </div>
