@@ -1,5 +1,12 @@
 'use client'
 
+import Autoplay from 'embla-carousel-autoplay'
+import Image from 'next/image'
+
+import SoAndCo from '~/assets/images/partners/so&co.webp'
+
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '~/components/ui/carousel'
+
 import { cn } from '~/lib/utils'
 
 export const SponsorsMarquee = ({
@@ -7,22 +14,44 @@ export const SponsorsMarquee = ({
 }: {
   className?: string
 }) => {
-  const items = Array.from({ length: 10 }, (_, i) => ({ id: `s${i + 1}`, label: `sponsor${i + 1}` }))
+  const items = [{ id: 1, label: 'So&Co', logo: SoAndCo, url: 'https://www.soetco.ca/' }]
+
+  // Repeat the items to create a longer track so autoplay feels continuous even with few sponsors.
+  const repeat = Math.max(12, items.length * 4)
+  const track = Array.from({ length: repeat }, (_, i) => {
+    const src = items[i % items.length]!
+    return { ...src, key: `s-${i}-${src.id}` }
+  })
 
   return (
-    <div className={cn('marquee-mask relative w-full overflow-hidden', className)}>
-      <div className='flex w-max animate-marquee items-center gap-12 py-6'>
-        {[0, 1].flatMap((repeat) =>
-          items.map((item) => (
-            <div
-              key={`${item.id}-${repeat}`}
-              className='shrink-0 rounded-xl bg-background px-6 py-3 text-foreground/80 shadow-sm ring-1 ring-border'
-            >
-              {item.label}
-            </div>
-          ))
-        )}
-      </div>
-    </div>
+    <Carousel
+      className={cn('marquee-mask w-full max-w-7xl select-none px-12', className)}
+      opts={{ loop: true, align: 'center' }}
+      plugins={[
+        Autoplay({
+          delay: 2500,
+          stopOnInteraction: false,
+          stopOnMouseEnter: false,
+        }),
+      ]}
+    >
+      <CarouselContent className='py-3'>
+        {track.map((item, idx) => (
+          <CarouselItem
+            key={item.key ?? `${item.id}-${idx}`}
+            className='basis-1/2 lg:basis-1/5 md:basis-1/4 sm:basis-1/3'
+          >
+            <a href={item.url} target='_blank' rel='noopener noreferrer'>
+              <div className='flex h-full items-center justify-center'>
+                <Image src={item.logo} alt={item.label} className='size-28 object-contain' draggable={false} />
+              </div>
+            </a>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+
+      <CarouselPrevious className='hidden sm:flex' />
+      <CarouselNext className='hidden sm:flex' />
+    </Carousel>
   )
 }
