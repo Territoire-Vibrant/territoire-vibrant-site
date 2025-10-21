@@ -62,7 +62,7 @@ export const Header = () => {
           {/* Mobile links */}
           <div className='flex md:hidden'>
             <Dialog open={open} onOpenChange={(val) => setOpen(val)}>
-              <DialogTrigger className='cursor-pointer transition-all ease-in hover:text-orange-500'>
+              <DialogTrigger className='cursor-pointer transition-all ease-in hover:text-primary'>
                 <MenuIcon />
               </DialogTrigger>
 
@@ -141,14 +141,14 @@ export const Header = () => {
           <ul className='hidden items-center gap-6 md:flex'>
             <li
               data-current-page={pathname === '/who-we-are'}
-              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-500'
+              className='transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
             >
               <Link href='/who-we-are' prefetch>
                 {t('who_we_are')}
               </Link>
             </li>
 
-            <li className='transition-all ease-in hover:text-orange-500'>
+            <li className='transition-all ease-in hover:scale-105 hover:text-primary'>
               <Link href='/#projects' prefetch>
                 {t('projects')}
               </Link>
@@ -156,7 +156,7 @@ export const Header = () => {
 
             <li
               data-current-page={pathname === '/services'}
-              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-500'
+              className='transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
             >
               <Link href='/services' prefetch>
                 {t('services')}
@@ -165,7 +165,7 @@ export const Header = () => {
 
             <li
               data-current-page={pathname === '/publications'}
-              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-500'
+              className='transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
             >
               <Link href='/publications' prefetch>
                 {t('publications')}
@@ -174,7 +174,7 @@ export const Header = () => {
 
             <li
               data-current-page={pathname === '/blog'}
-              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-500'
+              className='transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
             >
               <Link href='/blog' prefetch>
                 Blog
@@ -183,7 +183,7 @@ export const Header = () => {
 
             <li
               data-current-page={pathname === '/contact'}
-              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-500'
+              className='transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
             >
               <Link href='/contact' prefetch>
                 {t('contact')}
@@ -212,7 +212,7 @@ export const Header = () => {
                     <span className='mr-2'>
                       {localeLabelKey[loc] ? t(localeLabelKey[loc] as any) : loc.toUpperCase()}
                     </span>
-                    {loc === locale && <Check className='ml-auto size-4 text-orange-500' />}
+                    {loc === locale && <Check className='ml-auto size-4 text-primary' />}
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
