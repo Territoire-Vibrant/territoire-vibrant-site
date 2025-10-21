@@ -4,6 +4,7 @@ import AutoScroll from 'embla-carousel-auto-scroll'
 import Image from 'next/image'
 
 import SoAndCo from '~/assets/images/partners/so&co.webp'
+import Inflorescence from '~/assets/images/partners/inflorescence.png'
 
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '~/components/ui/carousel'
 
@@ -14,7 +15,10 @@ export const SponsorsMarquee = ({
 }: {
   className?: string
 }) => {
-  const items = [{ id: 1, label: 'So&Co', logo: SoAndCo, url: 'https://www.soetco.ca/' }]
+  const items = [
+    { id: 1, label: 'So&Co', logo: SoAndCo, url: 'https://www.soetco.ca/' },
+    { id: 2, label: 'Inflorescence', logo: Inflorescence, url: 'http://www.cliniqueinflorescence.com/' },
+  ]
 
   // Repeat the items to create a longer track so autoplay feels continuous even with few sponsors.
   const repeat = Math.max(12, items.length * 4)
@@ -45,7 +49,7 @@ export const SponsorsMarquee = ({
           >
             <a href={item.url} target='_blank' rel='noopener noreferrer'>
               <div className='flex h-full items-center justify-center'>
-                <Image src={item.logo} alt={item.label} className='size-28 object-contain' draggable={false} />
+                <Image src={item.logo} alt={item.label} draggable={false} className='size-28 object-contain' />
               </div>
             </a>
           </CarouselItem>
