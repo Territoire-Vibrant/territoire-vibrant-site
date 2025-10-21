@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import { useState } from 'react'
 import { type Locale, useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
+import { useState } from 'react'
 
 import { Check, ChevronDown, MenuIcon } from 'lucide-react'
 import {
@@ -46,7 +46,7 @@ export const Header = () => {
       <nav className='flex w-full max-w-6xl items-center justify-between px-6'>
         <ul className='flex items-center'>
           <li>
-            <Link href='/'>
+            <Link href='/' prefetch>
               <Image
                 src='/images/logotype_no_bg.png'
                 alt={t('territoire_vibrant')}
@@ -61,10 +61,7 @@ export const Header = () => {
         <div className='flex flex-row-reverse items-center gap-4 md:flex-row'>
           {/* Mobile links */}
           <div className='flex md:hidden'>
-            <Dialog
-              open={open}
-              onOpenChange={(val) => setOpen(val)}
-            >
+            <Dialog open={open} onOpenChange={(val) => setOpen(val)}>
               <DialogTrigger className='cursor-pointer transition-all ease-in hover:text-orange-500'>
                 <MenuIcon />
               </DialogTrigger>
@@ -80,46 +77,60 @@ export const Header = () => {
                     data-current-page={pathname === '/'}
                     className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
                   >
-                    <Link href='/' onClick={() => setOpen(false)}>{t('home')}</Link>
+                    <Link href='/' prefetch onClick={() => setOpen(false)}>
+                      {t('home')}
+                    </Link>
                   </li>
 
                   <li
                     data-current-page={pathname === '/who-we-are'}
                     className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
                   >
-                    <Link href='/who-we-are' onClick={() => setOpen(false)}>{t('who_we_are')}</Link>
+                    <Link href='/who-we-are' prefetch onClick={() => setOpen(false)}>
+                      {t('who_we_are')}
+                    </Link>
                   </li>
 
                   <li className='transition-all ease-in'>
-                    <Link href='/#projects' onClick={() => setOpen(false)}>{t('projects')}</Link>
+                    <Link href='/#projects' prefetch onClick={() => setOpen(false)}>
+                      {t('projects')}
+                    </Link>
                   </li>
 
                   <li
                     data-current-page={pathname === '/services'}
                     className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
                   >
-                    <Link href='/services' onClick={() => setOpen(false)}>{t('services')}</Link>
+                    <Link href='/services' prefetch onClick={() => setOpen(false)}>
+                      {t('services')}
+                    </Link>
                   </li>
 
                   <li
                     data-current-page={pathname === '/publications'}
                     className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
                   >
-                    <Link href='/publications' onClick={() => setOpen(false)}>{t('publications')}</Link>
+                    <Link href='/publications' prefetch onClick={() => setOpen(false)}>
+                      {t('publications')}
+                    </Link>
                   </li>
 
                   <li
                     data-current-page={pathname === '/blog'}
                     className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
                   >
-                    <Link href='/blog' onClick={() => setOpen(false)}>Blog</Link>
+                    <Link href='/blog' prefetch onClick={() => setOpen(false)}>
+                      Blog
+                    </Link>
                   </li>
 
                   <li
                     data-current-page={pathname === '/contact'}
                     className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
                   >
-                    <Link href='/contact' onClick={() => setOpen(false)}>{t('contact')}</Link>
+                    <Link href='/contact' prefetch onClick={() => setOpen(false)}>
+                      {t('contact')}
+                    </Link>
                   </li>
                 </ul>
               </DialogContent>
@@ -132,39 +143,51 @@ export const Header = () => {
               data-current-page={pathname === '/who-we-are'}
               className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-500'
             >
-              <Link href='/who-we-are'>{t('who_we_are')}</Link>
+              <Link href='/who-we-are' prefetch>
+                {t('who_we_are')}
+              </Link>
             </li>
 
             <li className='transition-all ease-in hover:text-orange-500'>
-              <Link href='/#projects'>{t('projects')}</Link>
+              <Link href='/#projects' prefetch>
+                {t('projects')}
+              </Link>
             </li>
 
             <li
               data-current-page={pathname === '/services'}
               className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-500'
             >
-              <Link href='/services'>{t('services')}</Link>
+              <Link href='/services' prefetch>
+                {t('services')}
+              </Link>
             </li>
 
             <li
               data-current-page={pathname === '/publications'}
               className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-500'
             >
-              <Link href='/publications'>{t('publications')}</Link>
+              <Link href='/publications' prefetch>
+                {t('publications')}
+              </Link>
             </li>
 
             <li
               data-current-page={pathname === '/blog'}
               className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-500'
             >
-              <Link href='/blog'>Blog</Link>
+              <Link href='/blog' prefetch>
+                Blog
+              </Link>
             </li>
 
             <li
               data-current-page={pathname === '/contact'}
               className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-500'
             >
-              <Link href='/contact'>{t('contact')}</Link>
+              <Link href='/contact' prefetch>
+                {t('contact')}
+              </Link>
             </li>
           </ul>
 
