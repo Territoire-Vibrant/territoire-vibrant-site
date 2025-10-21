@@ -195,7 +195,11 @@ export const Header = () => {
           <div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant='outline' size='sm' className='flex items-center gap-1 bg-white/50 hover:bg-white/50'>
+                <Button
+                  variant='outline'
+                  size='sm'
+                  className='flex items-center gap-1 border-none bg-white/50 hover:bg-primary/50 hover:text-white'
+                >
                   {localeLabelKey[locale] ? t(localeLabelKey[locale] as any) : locale.toUpperCase()}
                   <ChevronDown className='size-4 opacity-60' />
                   <span className='sr-only'>Language</span>
@@ -206,13 +210,13 @@ export const Header = () => {
                 {routing.locales.map((loc) => (
                   <DropdownMenuItem
                     key={loc}
+                    className='group transition-all ease-in focus:bg-primary/50 focus:text-white'
                     onClick={() => handleLanguageChange(loc as Locale)}
-                    className='cursor-pointer'
                   >
                     <span className='mr-2'>
                       {localeLabelKey[loc] ? t(localeLabelKey[loc] as any) : loc.toUpperCase()}
                     </span>
-                    {loc === locale && <Check className='ml-auto size-4 text-primary' />}
+                    {loc === locale && <Check className='ml-auto size-4 text-primary group-hover:text-white' />}
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
