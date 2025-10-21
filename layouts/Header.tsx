@@ -50,7 +50,7 @@ export const Header = () => {
                 alt={t('territoire_vibrant')}
                 width={500}
                 height={500}
-                className='size-36'
+                className='size-40'
               />
             </Link>
           </li>
