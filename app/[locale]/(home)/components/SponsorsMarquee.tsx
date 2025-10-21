@@ -25,7 +25,7 @@ export const SponsorsMarquee = ({
 
   return (
     <Carousel
-      className={cn('marquee-mask w-full max-w-7xl select-none px-12', className)}
+      className={cn('marquee-mask w-full max-w-7xl select-none overflow-x-clip px-12', className)}
       opts={{ loop: true, align: 'start', dragFree: true }}
       plugins={[
         AutoScroll({
