@@ -37,7 +37,7 @@ export default function Home() {
 
             <p className='opacity-80'>{t('Home.hero.box1.subtext')}</p>
 
-            <Link href='#' className='w-fit underline opacity-80'>
+            <Link href='/#projects' className='w-fit underline opacity-80'>
               {t('find_out_more')}
             </Link>
           </div>
@@ -72,6 +72,7 @@ export default function Home() {
       </Section>
 
       <Section
+        id='projects'
         limitWidth={false}
         className='flex flex-col items-center justify-center space-y-8 bg-foreground px-6 py-12'
       >

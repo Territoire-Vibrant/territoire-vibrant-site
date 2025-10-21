@@ -1,5 +1,6 @@
-'use client'
+"use client"
 
+import { useState } from 'react'
 import { type Locale, useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 
@@ -25,6 +26,7 @@ export const Header = () => {
 
   const pathname = usePathname()
   const router = useRouter()
+  const [open, setOpen] = useState(false)
 
   const localeLabelKey: Record<string, string> = {
     en: 'english',
@@ -59,7 +61,10 @@ export const Header = () => {
         <div className='flex flex-row-reverse items-center gap-4 md:flex-row'>
           {/* Mobile links */}
           <div className='flex md:hidden'>
-            <Dialog>
+            <Dialog
+              open={open}
+              onOpenChange={(val) => setOpen(val)}
+            >
               <DialogTrigger className='cursor-pointer transition-all ease-in hover:text-orange-500'>
                 <MenuIcon />
               </DialogTrigger>
@@ -75,49 +80,46 @@ export const Header = () => {
                     data-current-page={pathname === '/'}
                     className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
                   >
-                    <Link href='/'>{t('home')}</Link>
+                    <Link href='/' onClick={() => setOpen(false)}>{t('home')}</Link>
                   </li>
 
                   <li
                     data-current-page={pathname === '/who-we-are'}
                     className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
                   >
-                    <Link href='/who-we-are'>{t('who_we_are')}</Link>
+                    <Link href='/who-we-are' onClick={() => setOpen(false)}>{t('who_we_are')}</Link>
                   </li>
 
-                  <li
-                    data-current-page={pathname === '/projects'}
-                    className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
-                  >
-                    <Link href='/projects'>{t('projects')}</Link>
+                  <li className='transition-all ease-in'>
+                    <Link href='/#projects' onClick={() => setOpen(false)}>{t('projects')}</Link>
                   </li>
 
                   <li
                     data-current-page={pathname === '/services'}
                     className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
                   >
-                    <Link href='/services'>{t('services')}</Link>
+                    <Link href='/services' onClick={() => setOpen(false)}>{t('services')}</Link>
                   </li>
 
                   <li
                     data-current-page={pathname === '/publications'}
                     className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
                   >
-                    <Link href='/publications'>{t('publications')}</Link>
+                    <Link href='/publications' onClick={() => setOpen(false)}>{t('publications')}</Link>
                   </li>
 
                   <li
                     data-current-page={pathname === '/blog'}
                     className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
                   >
-                    <Link href='/blog'>Blog</Link>
+                    <Link href='/blog' onClick={() => setOpen(false)}>Blog</Link>
                   </li>
 
                   <li
                     data-current-page={pathname === '/contact'}
                     className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
                   >
-                    <Link href='/contact'>{t('contact')}</Link>
+                    <Link href='/contact' onClick={() => setOpen(false)}>{t('contact')}</Link>
                   </li>
                 </ul>
               </DialogContent>
@@ -133,11 +135,8 @@ export const Header = () => {
               <Link href='/who-we-are'>{t('who_we_are')}</Link>
             </li>
 
-            <li
-              data-current-page={pathname === '/projects'}
-              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-500'
-            >
-              <Link href='/projects'>{t('projects')}</Link>
+            <li className='transition-all ease-in hover:text-orange-500'>
+              <Link href='/#projects'>{t('projects')}</Link>
             </li>
 
             <li
