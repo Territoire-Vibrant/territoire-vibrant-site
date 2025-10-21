@@ -46,11 +46,11 @@
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
-  --foreground: #030d07;
+  --foreground: #000904;
   --card: oklch(1 0 0);
-  --card-foreground: #030d07;
+  --card-foreground: #000904;
   --popover: oklch(1 0 0);
-  --popover-foreground: #030d07;
+  --popover-foreground: #000904;
   --primary: #579514;
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
@@ -69,7 +69,7 @@
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
   --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: #030d07;
+  --sidebar-foreground: #000904;
   --sidebar-primary: #579514;
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.97 0 0);
