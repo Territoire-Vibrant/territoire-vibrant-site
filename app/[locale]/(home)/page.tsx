@@ -73,7 +73,7 @@ export default function Home() {
 
       <Section
         limitWidth={false}
-        className='flex flex-col items-center justify-center space-y-8 bg-foreground px-6 py-12 md:py-16'
+        className='flex flex-col items-center justify-center space-y-8 bg-foreground px-6 py-12'
       >
         <h3 className='font-bold text-2xl text-white'>{t('projects')}</h3>
 
