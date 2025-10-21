@@ -60,7 +60,7 @@ export const Header = () => {
           {/* Mobile links */}
           <div className='flex md:hidden'>
             <Dialog>
-              <DialogTrigger className='cursor-pointer transition-all ease-in hover:text-orange-700'>
+              <DialogTrigger className='cursor-pointer transition-all ease-in hover:text-orange-500'>
                 <MenuIcon />
               </DialogTrigger>
 
@@ -128,42 +128,42 @@ export const Header = () => {
           <ul className='hidden items-center gap-6 md:flex'>
             <li
               data-current-page={pathname === '/who-we-are'}
-              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-700'
+              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-500'
             >
               <Link href='/who-we-are'>{t('who_we_are')}</Link>
             </li>
 
             <li
               data-current-page={pathname === '/projects'}
-              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-700'
+              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-500'
             >
               <Link href='/projects'>{t('projects')}</Link>
             </li>
 
             <li
               data-current-page={pathname === '/services'}
-              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-700'
+              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-500'
             >
               <Link href='/services'>{t('services')}</Link>
             </li>
 
             <li
               data-current-page={pathname === '/publications'}
-              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-700'
+              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-500'
             >
               <Link href='/publications'>{t('publications')}</Link>
             </li>
 
             <li
               data-current-page={pathname === '/blog'}
-              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-700'
+              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-500'
             >
               <Link href='/blog'>Blog</Link>
             </li>
 
             <li
               data-current-page={pathname === '/contact'}
-              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-700'
+              className='transition-all ease-in data-[current-page=true]:font-semibold hover:text-orange-500'
             >
               <Link href='/contact'>{t('contact')}</Link>
             </li>
@@ -190,7 +190,7 @@ export const Header = () => {
                     <span className='mr-2'>
                       {localeLabelKey[loc] ? t(localeLabelKey[loc] as any) : loc.toUpperCase()}
                     </span>
-                    {loc === locale && <Check className='ml-auto size-4 text-orange-700' />}
+                    {loc === locale && <Check className='ml-auto size-4 text-orange-500' />}
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
