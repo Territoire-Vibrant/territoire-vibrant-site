@@ -193,7 +193,7 @@ export const Header = () => {
 
           {/* Language switcher */}
           <div>
-            <DropdownMenu>
+            <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
                 <Button
                   variant='outline'
