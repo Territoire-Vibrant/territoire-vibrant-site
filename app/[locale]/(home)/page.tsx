@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <>
-      <Section className='flex w-full flex-col items-center justify-between gap-24 px-6 py-12 md:flex-row lg:py-16'>
+      <Section className='flex w-full flex-col items-center justify-between gap-24 px-6 py-12 md:flex-row'>
         {/* Hero text */}
         <div className='flex flex-col gap-6 md:w-1/2'>
           <h1 className='flex size-full flex-col text-center font-bold text-3xl md:text-start lg:text-4xl'>

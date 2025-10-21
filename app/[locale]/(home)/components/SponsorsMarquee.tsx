@@ -37,7 +37,7 @@ export const SponsorsMarquee = ({
         }),
       ]}
     >
-      <CarouselContent className=''>
+      <CarouselContent className='py-3'>
         {track.map((item, idx) => (
           <CarouselItem
             key={item.key ?? `${item.id}-${idx}`}
