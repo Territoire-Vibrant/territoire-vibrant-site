@@ -30,7 +30,7 @@ export default function Home() {
         </div>
 
         {/* Hero grid */}
-        <div className='grid size-full gap-4 lg:max-h-[400px] md:w-1/2 md:grid-cols-2 md:grid-rows-3'>
+        <div className='grid size-full gap-4 lg:max-h-[410px] md:w-1/2 md:grid-cols-2 md:grid-rows-3'>
           {/* Box 1 - Green text */}
           <div className='order-1 flex size-full flex-col justify-between space-y-4 rounded-2xl bg-primary/60 p-4 md:row-span-2'>
             <div className='w-3/4 font-bold text-xl'>{t('Home.hero.box1.title')}</div>
