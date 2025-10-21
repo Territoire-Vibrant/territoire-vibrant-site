@@ -3,8 +3,8 @@
 import AutoScroll from 'embla-carousel-auto-scroll'
 import Image from 'next/image'
 
-import SoAndCo from '~/assets/images/partners/so&co.webp'
 import Inflorescence from '~/assets/images/partners/inflorescence.png'
+import SoAndCo from '~/assets/images/partners/so&co.webp'
 
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '~/components/ui/carousel'
 
