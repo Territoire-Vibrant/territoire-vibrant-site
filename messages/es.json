@@ -15,8 +15,8 @@
   "french": "Francés",
   "Home": {
     "hero": {
-      "h1": "Aquí vibra la pertenencia",
-      "h2": "Utilizamos creatividad, inteligencia territorial y gestión colaborativa para transformar realidades en proyectos sostenibles, conectando Brasil, Canadá y el mundo.",
+      "h1": "Aquí <v>Vibra</v> la pertenencia",
+      "h2": "Utilizamos la creatividad, la inteligencia territorial y la gestión colaborativa para transformar comunidades en territorios sostenibles.",
       "box1": {
         "title": "Turismo de base comunitaria",
         "subtext": "Experiencias que fortalecen a las comunidades locales, generan ingresos y valoran la cultura del territorio."

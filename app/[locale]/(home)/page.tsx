@@ -5,7 +5,6 @@ import CommunityImage from '~/assets/images/home/hero/community.jpg'
 import LandscapeImage from '~/assets/images/home/intro/landscape.jpg'
 import ProjectOneImage from '~/assets/images/projects/project_1.jpg'
 
-import { BrandName } from '~/app/[locale]/(home)/components/BrandName'
 import { Section } from '~/layouts/Section'
 import { CarouselBox } from './components/CarouselBox'
 import { ProjectCard } from './components/ProjectCard'
@@ -20,10 +19,11 @@ export default function Home() {
     <>
       <Section className='flex w-full flex-col items-center justify-between gap-24 px-6 py-12 md:flex-row'>
         {/* Hero text */}
-        <div className='flex flex-col gap-6 md:w-1/2'>
-          <h1 className='flex size-full flex-col text-center font-bold text-3xl md:text-start lg:text-4xl'>
-            <BrandName label={t('territoire_vibrant')} />
-            <span className='text-primary lg:text-3xl'>{t('Home.hero.h1')}</span>
+        <div className='flex max-w-[450px] flex-col items-center gap-6 md:w-1/2'>
+          <h1 className='flex size-full flex-col items-center gap-2 text-center font-bold text-2xl md:flex-row md:flex-wrap md:items-start md:text-start lg:text-3xl'>
+            {t.rich('Home.hero.h1', {
+              v: (chunks) => <span className='text-3xl text-primary leading-8 lg:text-4xl'>{chunks}</span>,
+            })}
           </h1>
 
           <h2 className='size-full text-center text-2xl opacity-80 md:text-start'>{t('Home.hero.h2')}</h2>
