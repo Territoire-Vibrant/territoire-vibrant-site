@@ -1,6 +1,6 @@
 'use client'
 
-import Autoplay from 'embla-carousel-autoplay'
+import AutoScroll from 'embla-carousel-auto-scroll'
 import Image from 'next/image'
 
 import SoAndCo from '~/assets/images/partners/so&co.webp'
@@ -26,12 +26,14 @@ export const SponsorsMarquee = ({
   return (
     <Carousel
       className={cn('marquee-mask w-full max-w-7xl select-none px-12', className)}
-      opts={{ loop: true, align: 'center' }}
+      opts={{ loop: true, align: 'start', dragFree: true }}
       plugins={[
-        Autoplay({
-          delay: 2500,
+        AutoScroll({
+          playOnInit: true,
+          speed: 1.3,
           stopOnInteraction: false,
           stopOnMouseEnter: false,
+          stopOnFocusIn: false,
         }),
       ]}
     >
