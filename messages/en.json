@@ -6,6 +6,8 @@
   "who_we_are": "Who We Are",
   "mission": "Mission",
   "projects": "Projects",
+  "featured_projects": "Featured Projects",
+  "more_projects": "More Projects",
   "services": "Services",
   "publications": "Publications",
   "contact": "Contact",
@@ -42,7 +44,7 @@
     "projects": {
       "project_1": {
         "title": "Collaborative Network",
-        "description": "The Território Vibrante Collaborative Network project is the beating heart of our entire ecosystem. More than a group of partners, it represents a living organism of creation, trust, and co-responsibility."
+        "description": "The Territoire Vibrant Collaborative Network project is the pulsating core of our entire ecosystem, it represents a living organism of creation, trust and co-responsibility."
       },
       "project_2": {
         "title": "Vibrant Impact",

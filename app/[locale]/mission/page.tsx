@@ -39,7 +39,7 @@ export default function MissionPage() {
     <>
       <Section
         limitWidth={false}
-        className='flex w-full flex-col items-center bg-gradient-to-b from-green-50 to-white px-6 py-14 lg:py-20'
+        className='flex w-full flex-col items-center bg-gradient-to-b from-green-50 to-background px-6 py-14 lg:py-20'
       >
         <div className='flex w-full max-w-3xl flex-col items-center text-center'>
           <div className='flex items-center space-x-2'>
@@ -50,7 +50,7 @@ export default function MissionPage() {
             </h1>
           </div>
 
-          <div className='mt-6 w-full rounded-2xl border border-green-200/60 bg-white/70 p-6 text-green-900 shadow-md'>
+          <div className='mt-6 w-full rounded-2xl border border-green-200/60 bg-background/70 p-6 text-green-900 shadow-md'>
             <p className='text-lg leading-relaxed'>{t('Mission.intro.p1')}</p>
             <hr className='my-4 border-green-100/70' />
             <p className='text-lg leading-relaxed'>{t('Mission.intro.p2')}</p>
@@ -58,7 +58,7 @@ export default function MissionPage() {
 
           <Button
             asChild
-            className='mt-6 rounded-full bg-gradient-to-r from-green-800 to-emerald-600 p-7 text-base text-white shadow-lg transition-all ease-in hover:opacity-90'
+            className='mt-6 rounded-full bg-gradient-to-r from-green-800 to-emerald-600 p-7 text-background text-base shadow-lg transition-all ease-in hover:opacity-90'
           >
             <a href='#essence' aria-label={t('Mission.essence.title')}>
               {t('Mission.essence.title')}
@@ -73,7 +73,7 @@ export default function MissionPage() {
         <div className='flex flex-col items-center md:flex-row'>
           <div className='space-y-6 md:w-1/2'>
             <div className='space-y-4 text-neutral-700'>
-              <div className='flex items-start gap-4 rounded-xl border border-neutral-200 bg-white/80 p-5 shadow-sm backdrop-blur-sm'>
+              <div className='flex items-start gap-4 rounded-xl border border-neutral-200 bg-background/80 p-5 shadow-sm backdrop-blur-sm'>
                 <div className='inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-emerald-700'>
                   <HeartHandshake className='size-5' aria-hidden='true' />
                 </div>
@@ -85,7 +85,7 @@ export default function MissionPage() {
                 </div>
               </div>
 
-              <div className='flex items-start gap-4 rounded-xl border border-neutral-200 bg-white/80 p-5 shadow-sm backdrop-blur-sm'>
+              <div className='flex items-start gap-4 rounded-xl border border-neutral-200 bg-background/80 p-5 shadow-sm backdrop-blur-sm'>
                 <div className='inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-amber-700'>
                   <Lightbulb className='size-5' aria-hidden='true' />
                 </div>
@@ -114,7 +114,7 @@ export default function MissionPage() {
       </Section>
 
       <Section className='w-full px-6 py-12 lg:py-16'>
-        <div className='mx-auto max-w-6xl rounded-3xl border border-neutral-200 bg-gradient-to-b from-white to-green-50 p-6 shadow-sm ring-1 ring-neutral-100 sm:p-10'>
+        <div className='mx-auto max-w-6xl rounded-3xl border border-neutral-200 bg-gradient-to-b from-background to-green-50 p-6 shadow-sm ring-1 ring-neutral-100 sm:p-10'>
           <div className='space-y-6'>
             <h3 className='font-semibold text-green-900 text-xl sm:text-2xl'>{t('Mission.essence.values.title')}</h3>
 
@@ -124,7 +124,7 @@ export default function MissionPage() {
                   {values.map(({ label, Icon, color }) => (
                     <div
                       key={label}
-                      className='group hover:-translate-y-0.5 flex items-start gap-4 rounded-xl border border-neutral-200 bg-white p-5 shadow-sm ring-1 ring-neutral-100 transition will-change-transform hover:shadow-md'
+                      className='group hover:-translate-y-0.5 flex items-start gap-4 rounded-xl border border-neutral-200 bg-background p-5 shadow-sm ring-1 ring-neutral-100 transition will-change-transform hover:shadow-md'
                     >
                       <div className={`inline-flex size-10 shrink-0 items-center justify-center rounded-lg ${color}`}>
                         <Icon className='size-5' aria-hidden='true' />

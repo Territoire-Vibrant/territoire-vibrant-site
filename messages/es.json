@@ -6,6 +6,8 @@
   "who_we_are": "Quienes somos",
   "mission": "Misión",
   "projects": "Proyectos",
+  "featured_projects": "Proyectos Destacados",
+  "more_projects": "Más Proyectos",
   "services": "Servicios",
   "publications": "Publicaciones",
   "contact": "Contacto",
@@ -42,7 +44,7 @@
     "projects": {
       "project_1": {
         "title": "Red colaborativa",
-        "description": "El proyecto Red Colaborativa Território Vibrante es el núcleo palpitante de todo nuestro ecosistema. Más que un grupo de socios, representa un organismo vivo de creación, confianza y corresponsabilidad."
+        "description": "El proyecto Red Colaborativa Territoire Vibrant es el núcleo pulsante de todo nuestro ecosistema, representa un organismo vivo de creación, confianza y corresponsabilidad."
       },
       "project_2": {
         "title": "Impacto vibrante",

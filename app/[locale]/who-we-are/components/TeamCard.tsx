@@ -11,7 +11,7 @@ type TeamCardProps = {
 
 export const TeamCard = ({ name, position, bio, image }: TeamCardProps) => {
   return (
-    <div className='rounded-xl border bg-white p-6 shadow-sm'>
+    <div className='rounded-xl border bg-background p-6 shadow-sm'>
       <Image
         src={image ?? PlaceholderImage}
         alt={name}

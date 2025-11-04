@@ -63,7 +63,7 @@ export default function Home() {
           </div>
 
           {/* Box 4 - Carousel */}
-          <div className='order-3 size-full select-none rounded-2xl bg-[#4b3223]/75 p-4 text-white md:col-start-2 md:row-span-2 md:row-start-2'>
+          <div className='order-3 size-full select-none rounded-2xl bg-[#4b3223]/75 p-4 text-background md:col-start-2 md:row-span-2 md:row-start-2'>
             <CarouselBox />
           </div>
         </div>
@@ -76,9 +76,20 @@ export default function Home() {
       <Section
         id='projects'
         limitWidth={false}
-        className='flex flex-col items-center justify-center space-y-8 bg-foreground px-6 py-12'
+        className='flex flex-col items-center justify-center space-y-8 bg-foreground px-12 pb-12'
       >
-        <h3 className='font-bold text-2xl text-white'>{t('projects')}</h3>
+        <div className='flex w-full max-w-4xl flex-col items-center justify-between space-y-8 px-4 text-center md:flex-row md:space-y-0'>
+          <h3 className='font-bold text-2xl text-background'>{t('featured_projects')}</h3>
+
+          <div className='hover:-mt-1 transition-all ease-in'>
+            <Link
+              href='/more-projects'
+              className='bg-background px-4 py-3 font-semibold text-foreground text-sm transition-all ease-in hover:bg-primary hover:text-background'
+            >
+              {t('more_projects')}
+            </Link>
+          </div>
+        </div>
 
         <div className='grid max-w-6xl grid-cols-1 place-items-center gap-8 lg:grid-cols-3 md:grid-cols-2 md:gap-4'>
           <ProjectCard

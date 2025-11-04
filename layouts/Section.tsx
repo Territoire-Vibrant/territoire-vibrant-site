@@ -15,7 +15,7 @@ export const Section = ({ id, children, className, limitWidth = true }: SectionP
       <div
         data-limit-width={limitWidth}
         className={cn(
-          'w-full bg-white data-[limit-width=false]:max-w-full data-[limit-width=true]:max-w-6xl',
+          'w-full bg-background data-[limit-width=false]:max-w-full data-[limit-width=true]:max-w-6xl',
           className
         )}
       >

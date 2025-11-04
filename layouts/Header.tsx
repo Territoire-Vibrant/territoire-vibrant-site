@@ -42,7 +42,7 @@ export const Header = () => {
   }
 
   return (
-    <header className='sticky top-0 z-30 flex h-16 items-center justify-center bg-white/70 backdrop-blur-xl'>
+    <header className='sticky top-0 z-30 flex h-16 items-center justify-center bg-background/70 backdrop-blur-xl'>
       <nav className='flex w-full max-w-6xl items-center justify-between px-6'>
         <ul className='flex items-center'>
           <li>
@@ -66,7 +66,7 @@ export const Header = () => {
                 <MenuIcon />
               </DialogTrigger>
 
-              <DialogContent className='flex h-screen w-screen max-w-screen flex-col items-center justify-center rounded-none border-none bg-black/50 text-white shadow-none sm:max-w-screen'>
+              <DialogContent className='flex h-screen w-screen max-w-screen flex-col items-center justify-center rounded-none border-none bg-black/50 text-background shadow-none sm:max-w-screen'>
                 <DialogHeader className='sr-only'>
                   <DialogTitle />
                   <DialogDescription />
@@ -198,7 +198,7 @@ export const Header = () => {
                 <Button
                   variant='outline'
                   size='sm'
-                  className='flex items-center gap-1 border-none bg-white/50 hover:bg-primary/50 hover:text-white'
+                  className='flex items-center gap-1 border-none bg-background/50 hover:bg-primary hover:text-background'
                 >
                   {localeLabelKey[locale] ? t(localeLabelKey[locale] as any) : locale.toUpperCase()}
                   <ChevronDown className='size-4 opacity-60' />
@@ -210,13 +210,13 @@ export const Header = () => {
                 {routing.locales.map((loc) => (
                   <DropdownMenuItem
                     key={loc}
-                    className='group transition-all ease-in focus:bg-primary/50 focus:text-white'
+                    className='group transition-all ease-in focus:bg-primary/50 focus:text-background'
                     onClick={() => handleLanguageChange(loc as Locale)}
                   >
                     <span className='mr-2'>
                       {localeLabelKey[loc] ? t(localeLabelKey[loc] as any) : loc.toUpperCase()}
                     </span>
-                    {loc === locale && <Check className='ml-auto size-4 text-primary group-hover:text-white' />}
+                    {loc === locale && <Check className='ml-auto size-4 text-primary group-hover:text-background' />}
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
