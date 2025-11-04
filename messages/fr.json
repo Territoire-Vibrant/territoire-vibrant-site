@@ -47,6 +47,10 @@
       "project_2": {
         "title": "Impact vibrant",
         "description": "Une plateforme d’impact vivante pour les entreprises, les institutions et les villes, reliant intelligence collaborative, régénération territoriale et responsabilité sociale au sein d’un même écosystème."
+      },
+      "project_3": {
+        "title": "Les Voix du Vivant",
+        "description": "Vozes viventes est un projet artistique-pédagogique de co-création artistique avec des jeunes, réalisé en partenariat avec des écoles publiques et techniques."
       }
     }
   },

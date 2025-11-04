@@ -3,7 +3,9 @@ import Image from 'next/image'
 
 import CommunityImage from '~/assets/images/home/hero/community.jpg'
 import LandscapeImage from '~/assets/images/home/intro/landscape.jpg'
-import ProjectOneImage from '~/assets/images/projects/project_1.jpg'
+import ProjectOneImage from '~/assets/images/projects/project_1.png'
+import ProjectTwoImage from '~/assets/images/projects/project_2.png'
+import ProjectThreeImage from '~/assets/images/projects/project_3.png'
 
 import { Section } from '~/layouts/Section'
 import { CarouselBox } from './components/CarouselBox'
@@ -85,50 +87,15 @@ export default function Home() {
             description={t('Home.projects.project_1.description')}
           />
           <ProjectCard
-            image={CommunityImage}
+            image={ProjectTwoImage}
             title={t('Home.projects.project_2.title')}
             description={t('Home.projects.project_2.description')}
           />
           <ProjectCard
-            image={ProjectOneImage}
-            title={t('Home.projects.project_1.title')}
-            description={t('Home.projects.project_1.description')}
-          />
-          <ProjectCard
-            image={CommunityImage}
-            title={t('Home.projects.project_2.title')}
-            description={t('Home.projects.project_2.description')}
-          />
-          <ProjectCard
-            image={ProjectOneImage}
-            title={t('Home.projects.project_1.title')}
-            description={t('Home.projects.project_1.description')}
-          />
-          <ProjectCard
-            image={CommunityImage}
-            title={t('Home.projects.project_2.title')}
-            description={t('Home.projects.project_2.description')}
-          />
-          {/* <ProjectCard
-            image={CommunityImage}
+            image={ProjectThreeImage}
             title={t('Home.projects.project_3.title')}
             description={t('Home.projects.project_3.description')}
           />
-          <ProjectCard
-            image={CommunityImage}
-            title={t('Home.projects.project_4.title')}
-            description={t('Home.projects.project_4.description')}
-          />
-          <ProjectCard
-            image={CommunityImage}
-            title={t('Home.projects.project_5.title')}
-            description={t('Home.projects.project_5.description')}
-          />
-          <ProjectCard
-            image={CommunityImage}
-            title={t('Home.projects.project_6.title')}
-            description={t('Home.projects.project_6.description')}
-          /> */}
         </div>
       </Section>
     </>
