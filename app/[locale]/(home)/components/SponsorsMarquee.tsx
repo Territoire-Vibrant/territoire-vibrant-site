@@ -4,7 +4,7 @@ import AutoScroll from 'embla-carousel-auto-scroll'
 import Image from 'next/image'
 
 import Inflorescence from '~/assets/images/partners/inflorescence.png'
-import SoAndCo from '~/assets/images/partners/so&co.webp'
+import SoAndCo from '~/assets/images/partners/so&co.png'
 
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '~/components/ui/carousel'
 
@@ -36,7 +36,7 @@ export const SponsorsMarquee = ({
           playOnInit: true,
           speed: 1.3,
           stopOnInteraction: false,
-          stopOnMouseEnter: false,
+          stopOnMouseEnter: true,
           stopOnFocusIn: false,
         }),
       ]}
