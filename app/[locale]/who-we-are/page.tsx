@@ -5,6 +5,7 @@ import Image from 'next/image'
 
 import Community from '~/assets/images/home/hero/community.jpg'
 import Landscape from '~/assets/images/home/hero/landscape.png'
+import Marco from '~/assets/images/members/marco.jpg'
 import Pedro from '~/assets/images/members/pedro.png'
 
 import { Section } from '~/layouts/Section'
@@ -72,6 +73,7 @@ export default function WhoWeArePage() {
             name={t('WhoWeAre.team.marco.name')}
             position={t('WhoWeAre.team.marco.role')}
             bio={t('WhoWeAre.team.marco.bio')}
+            image={Marco}
           />
 
           <TeamCard
