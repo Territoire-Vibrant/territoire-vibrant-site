@@ -38,6 +38,7 @@ export const SponsorsMarquee = ({
           stopOnInteraction: false,
           stopOnMouseEnter: true,
           stopOnFocusIn: false,
+          startDelay: 0,
         }),
       ]}
     >
