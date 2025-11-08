@@ -130,6 +130,23 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ArticleScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  status: 'status'
+};
+
+exports.Prisma.ArticleTranslationScalarFieldEnum = {
+  id: 'id',
+  articleId: 'articleId',
+  locale: 'locale',
+  title: 'title',
+  slug: 'slug',
+  bodyMd: 'bodyMd',
+  published: 'published'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -144,10 +161,23 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.PublishStatus = exports.$Enums.PublishStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  ARCHIVED: 'ARCHIVED'
+};
 
+exports.Locale = exports.$Enums.Locale = {
+  en: 'en',
+  es: 'es',
+  fr: 'fr',
+  pt: 'pt'
+};
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Article: 'Article',
+  ArticleTranslation: 'ArticleTranslation'
 };
 
 /**

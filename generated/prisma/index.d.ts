@@ -18,6 +18,48 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model Article
+ * 
+ */
+export type Article = $Result.DefaultSelection<Prisma.$ArticlePayload>
+/**
+ * Model ArticleTranslation
+ * 
+ */
+export type ArticleTranslation = $Result.DefaultSelection<Prisma.$ArticleTranslationPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const PublishStatus: {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  ARCHIVED: 'ARCHIVED'
+};
+
+export type PublishStatus = (typeof PublishStatus)[keyof typeof PublishStatus]
+
+
+export const Locale: {
+  en: 'en',
+  es: 'es',
+  fr: 'fr',
+  pt: 'pt'
+};
+
+export type Locale = (typeof Locale)[keyof typeof Locale]
+
+}
+
+export type PublishStatus = $Enums.PublishStatus
+
+export const PublishStatus: typeof $Enums.PublishStatus
+
+export type Locale = $Enums.Locale
+
+export const Locale: typeof $Enums.Locale
 
 /**
  * ##  Prisma Client ʲˢ
@@ -146,6 +188,26 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.article`: Exposes CRUD operations for the **Article** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Articles
+    * const articles = await prisma.article.findMany()
+    * ```
+    */
+  get article(): Prisma.ArticleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.articleTranslation`: Exposes CRUD operations for the **ArticleTranslation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ArticleTranslations
+    * const articleTranslations = await prisma.articleTranslation.findMany()
+    * ```
+    */
+  get articleTranslation(): Prisma.ArticleTranslationDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -587,7 +649,9 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    User: 'User'
+    User: 'User',
+    Article: 'Article',
+    ArticleTranslation: 'ArticleTranslation'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -606,7 +670,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user"
+      modelProps: "user" | "article" | "articleTranslation"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -681,6 +745,154 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Article: {
+        payload: Prisma.$ArticlePayload<ExtArgs>
+        fields: Prisma.ArticleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ArticleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ArticleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>
+          }
+          findFirst: {
+            args: Prisma.ArticleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ArticleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>
+          }
+          findMany: {
+            args: Prisma.ArticleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>[]
+          }
+          create: {
+            args: Prisma.ArticleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>
+          }
+          createMany: {
+            args: Prisma.ArticleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ArticleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>[]
+          }
+          delete: {
+            args: Prisma.ArticleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>
+          }
+          update: {
+            args: Prisma.ArticleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>
+          }
+          deleteMany: {
+            args: Prisma.ArticleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ArticleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ArticleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>[]
+          }
+          upsert: {
+            args: Prisma.ArticleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>
+          }
+          aggregate: {
+            args: Prisma.ArticleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateArticle>
+          }
+          groupBy: {
+            args: Prisma.ArticleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ArticleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ArticleCountArgs<ExtArgs>
+            result: $Utils.Optional<ArticleCountAggregateOutputType> | number
+          }
+        }
+      }
+      ArticleTranslation: {
+        payload: Prisma.$ArticleTranslationPayload<ExtArgs>
+        fields: Prisma.ArticleTranslationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ArticleTranslationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleTranslationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ArticleTranslationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleTranslationPayload>
+          }
+          findFirst: {
+            args: Prisma.ArticleTranslationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleTranslationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ArticleTranslationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleTranslationPayload>
+          }
+          findMany: {
+            args: Prisma.ArticleTranslationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleTranslationPayload>[]
+          }
+          create: {
+            args: Prisma.ArticleTranslationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleTranslationPayload>
+          }
+          createMany: {
+            args: Prisma.ArticleTranslationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ArticleTranslationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleTranslationPayload>[]
+          }
+          delete: {
+            args: Prisma.ArticleTranslationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleTranslationPayload>
+          }
+          update: {
+            args: Prisma.ArticleTranslationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleTranslationPayload>
+          }
+          deleteMany: {
+            args: Prisma.ArticleTranslationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ArticleTranslationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ArticleTranslationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleTranslationPayload>[]
+          }
+          upsert: {
+            args: Prisma.ArticleTranslationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleTranslationPayload>
+          }
+          aggregate: {
+            args: Prisma.ArticleTranslationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateArticleTranslation>
+          }
+          groupBy: {
+            args: Prisma.ArticleTranslationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ArticleTranslationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ArticleTranslationCountArgs<ExtArgs>
+            result: $Utils.Optional<ArticleTranslationCountAggregateOutputType> | number
           }
         }
       }
@@ -781,6 +993,8 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    article?: ArticleOmit
+    articleTranslation?: ArticleTranslationOmit
   }
 
   /* Types for Logging */
@@ -855,6 +1069,36 @@ export namespace Prisma {
    * Count Types
    */
 
+
+  /**
+   * Count Type ArticleCountOutputType
+   */
+
+  export type ArticleCountOutputType = {
+    translations: number
+  }
+
+  export type ArticleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    translations?: boolean | ArticleCountOutputTypeCountTranslationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ArticleCountOutputType without action
+   */
+  export type ArticleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleCountOutputType
+     */
+    select?: ArticleCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ArticleCountOutputType without action
+   */
+  export type ArticleCountOutputTypeCountTranslationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ArticleTranslationWhereInput
+  }
 
 
   /**
@@ -1870,6 +2114,2147 @@ export namespace Prisma {
 
 
   /**
+   * Model Article
+   */
+
+  export type AggregateArticle = {
+    _count: ArticleCountAggregateOutputType | null
+    _min: ArticleMinAggregateOutputType | null
+    _max: ArticleMaxAggregateOutputType | null
+  }
+
+  export type ArticleMinAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    status: $Enums.PublishStatus | null
+  }
+
+  export type ArticleMaxAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    status: $Enums.PublishStatus | null
+  }
+
+  export type ArticleCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    updatedAt: number
+    status: number
+    _all: number
+  }
+
+
+  export type ArticleMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    status?: true
+  }
+
+  export type ArticleMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    status?: true
+  }
+
+  export type ArticleCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    status?: true
+    _all?: true
+  }
+
+  export type ArticleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Article to aggregate.
+     */
+    where?: ArticleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Articles to fetch.
+     */
+    orderBy?: ArticleOrderByWithRelationInput | ArticleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ArticleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Articles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Articles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Articles
+    **/
+    _count?: true | ArticleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ArticleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ArticleMaxAggregateInputType
+  }
+
+  export type GetArticleAggregateType<T extends ArticleAggregateArgs> = {
+        [P in keyof T & keyof AggregateArticle]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateArticle[P]>
+      : GetScalarType<T[P], AggregateArticle[P]>
+  }
+
+
+
+
+  export type ArticleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ArticleWhereInput
+    orderBy?: ArticleOrderByWithAggregationInput | ArticleOrderByWithAggregationInput[]
+    by: ArticleScalarFieldEnum[] | ArticleScalarFieldEnum
+    having?: ArticleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ArticleCountAggregateInputType | true
+    _min?: ArticleMinAggregateInputType
+    _max?: ArticleMaxAggregateInputType
+  }
+
+  export type ArticleGroupByOutputType = {
+    id: string
+    createdAt: Date
+    updatedAt: Date
+    status: $Enums.PublishStatus
+    _count: ArticleCountAggregateOutputType | null
+    _min: ArticleMinAggregateOutputType | null
+    _max: ArticleMaxAggregateOutputType | null
+  }
+
+  type GetArticleGroupByPayload<T extends ArticleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ArticleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ArticleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ArticleGroupByOutputType[P]>
+            : GetScalarType<T[P], ArticleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ArticleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    status?: boolean
+    translations?: boolean | Article$translationsArgs<ExtArgs>
+    _count?: boolean | ArticleCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["article"]>
+
+  export type ArticleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    status?: boolean
+  }, ExtArgs["result"]["article"]>
+
+  export type ArticleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    status?: boolean
+  }, ExtArgs["result"]["article"]>
+
+  export type ArticleSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    status?: boolean
+  }
+
+  export type ArticleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["article"]>
+  export type ArticleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    translations?: boolean | Article$translationsArgs<ExtArgs>
+    _count?: boolean | ArticleCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ArticleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ArticleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $ArticlePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Article"
+    objects: {
+      translations: Prisma.$ArticleTranslationPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      createdAt: Date
+      updatedAt: Date
+      status: $Enums.PublishStatus
+    }, ExtArgs["result"]["article"]>
+    composites: {}
+  }
+
+  type ArticleGetPayload<S extends boolean | null | undefined | ArticleDefaultArgs> = $Result.GetResult<Prisma.$ArticlePayload, S>
+
+  type ArticleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ArticleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ArticleCountAggregateInputType | true
+    }
+
+  export interface ArticleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Article'], meta: { name: 'Article' } }
+    /**
+     * Find zero or one Article that matches the filter.
+     * @param {ArticleFindUniqueArgs} args - Arguments to find a Article
+     * @example
+     * // Get one Article
+     * const article = await prisma.article.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ArticleFindUniqueArgs>(args: SelectSubset<T, ArticleFindUniqueArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Article that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ArticleFindUniqueOrThrowArgs} args - Arguments to find a Article
+     * @example
+     * // Get one Article
+     * const article = await prisma.article.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ArticleFindUniqueOrThrowArgs>(args: SelectSubset<T, ArticleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Article that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleFindFirstArgs} args - Arguments to find a Article
+     * @example
+     * // Get one Article
+     * const article = await prisma.article.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ArticleFindFirstArgs>(args?: SelectSubset<T, ArticleFindFirstArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Article that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleFindFirstOrThrowArgs} args - Arguments to find a Article
+     * @example
+     * // Get one Article
+     * const article = await prisma.article.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ArticleFindFirstOrThrowArgs>(args?: SelectSubset<T, ArticleFindFirstOrThrowArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Articles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Articles
+     * const articles = await prisma.article.findMany()
+     * 
+     * // Get first 10 Articles
+     * const articles = await prisma.article.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const articleWithIdOnly = await prisma.article.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ArticleFindManyArgs>(args?: SelectSubset<T, ArticleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Article.
+     * @param {ArticleCreateArgs} args - Arguments to create a Article.
+     * @example
+     * // Create one Article
+     * const Article = await prisma.article.create({
+     *   data: {
+     *     // ... data to create a Article
+     *   }
+     * })
+     * 
+     */
+    create<T extends ArticleCreateArgs>(args: SelectSubset<T, ArticleCreateArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Articles.
+     * @param {ArticleCreateManyArgs} args - Arguments to create many Articles.
+     * @example
+     * // Create many Articles
+     * const article = await prisma.article.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ArticleCreateManyArgs>(args?: SelectSubset<T, ArticleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Articles and returns the data saved in the database.
+     * @param {ArticleCreateManyAndReturnArgs} args - Arguments to create many Articles.
+     * @example
+     * // Create many Articles
+     * const article = await prisma.article.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Articles and only return the `id`
+     * const articleWithIdOnly = await prisma.article.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ArticleCreateManyAndReturnArgs>(args?: SelectSubset<T, ArticleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Article.
+     * @param {ArticleDeleteArgs} args - Arguments to delete one Article.
+     * @example
+     * // Delete one Article
+     * const Article = await prisma.article.delete({
+     *   where: {
+     *     // ... filter to delete one Article
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ArticleDeleteArgs>(args: SelectSubset<T, ArticleDeleteArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Article.
+     * @param {ArticleUpdateArgs} args - Arguments to update one Article.
+     * @example
+     * // Update one Article
+     * const article = await prisma.article.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ArticleUpdateArgs>(args: SelectSubset<T, ArticleUpdateArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Articles.
+     * @param {ArticleDeleteManyArgs} args - Arguments to filter Articles to delete.
+     * @example
+     * // Delete a few Articles
+     * const { count } = await prisma.article.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ArticleDeleteManyArgs>(args?: SelectSubset<T, ArticleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Articles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Articles
+     * const article = await prisma.article.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ArticleUpdateManyArgs>(args: SelectSubset<T, ArticleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Articles and returns the data updated in the database.
+     * @param {ArticleUpdateManyAndReturnArgs} args - Arguments to update many Articles.
+     * @example
+     * // Update many Articles
+     * const article = await prisma.article.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Articles and only return the `id`
+     * const articleWithIdOnly = await prisma.article.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ArticleUpdateManyAndReturnArgs>(args: SelectSubset<T, ArticleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Article.
+     * @param {ArticleUpsertArgs} args - Arguments to update or create a Article.
+     * @example
+     * // Update or create a Article
+     * const article = await prisma.article.upsert({
+     *   create: {
+     *     // ... data to create a Article
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Article we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ArticleUpsertArgs>(args: SelectSubset<T, ArticleUpsertArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Articles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleCountArgs} args - Arguments to filter Articles to count.
+     * @example
+     * // Count the number of Articles
+     * const count = await prisma.article.count({
+     *   where: {
+     *     // ... the filter for the Articles we want to count
+     *   }
+     * })
+    **/
+    count<T extends ArticleCountArgs>(
+      args?: Subset<T, ArticleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ArticleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Article.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ArticleAggregateArgs>(args: Subset<T, ArticleAggregateArgs>): Prisma.PrismaPromise<GetArticleAggregateType<T>>
+
+    /**
+     * Group by Article.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ArticleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ArticleGroupByArgs['orderBy'] }
+        : { orderBy?: ArticleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ArticleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetArticleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Article model
+   */
+  readonly fields: ArticleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Article.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ArticleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    translations<T extends Article$translationsArgs<ExtArgs> = {}>(args?: Subset<T, Article$translationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleTranslationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Article model
+   */
+  interface ArticleFieldRefs {
+    readonly id: FieldRef<"Article", 'String'>
+    readonly createdAt: FieldRef<"Article", 'DateTime'>
+    readonly updatedAt: FieldRef<"Article", 'DateTime'>
+    readonly status: FieldRef<"Article", 'PublishStatus'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Article findUnique
+   */
+  export type ArticleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * Filter, which Article to fetch.
+     */
+    where: ArticleWhereUniqueInput
+  }
+
+  /**
+   * Article findUniqueOrThrow
+   */
+  export type ArticleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * Filter, which Article to fetch.
+     */
+    where: ArticleWhereUniqueInput
+  }
+
+  /**
+   * Article findFirst
+   */
+  export type ArticleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * Filter, which Article to fetch.
+     */
+    where?: ArticleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Articles to fetch.
+     */
+    orderBy?: ArticleOrderByWithRelationInput | ArticleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Articles.
+     */
+    cursor?: ArticleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Articles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Articles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Articles.
+     */
+    distinct?: ArticleScalarFieldEnum | ArticleScalarFieldEnum[]
+  }
+
+  /**
+   * Article findFirstOrThrow
+   */
+  export type ArticleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * Filter, which Article to fetch.
+     */
+    where?: ArticleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Articles to fetch.
+     */
+    orderBy?: ArticleOrderByWithRelationInput | ArticleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Articles.
+     */
+    cursor?: ArticleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Articles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Articles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Articles.
+     */
+    distinct?: ArticleScalarFieldEnum | ArticleScalarFieldEnum[]
+  }
+
+  /**
+   * Article findMany
+   */
+  export type ArticleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * Filter, which Articles to fetch.
+     */
+    where?: ArticleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Articles to fetch.
+     */
+    orderBy?: ArticleOrderByWithRelationInput | ArticleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Articles.
+     */
+    cursor?: ArticleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Articles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Articles.
+     */
+    skip?: number
+    distinct?: ArticleScalarFieldEnum | ArticleScalarFieldEnum[]
+  }
+
+  /**
+   * Article create
+   */
+  export type ArticleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Article.
+     */
+    data: XOR<ArticleCreateInput, ArticleUncheckedCreateInput>
+  }
+
+  /**
+   * Article createMany
+   */
+  export type ArticleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Articles.
+     */
+    data: ArticleCreateManyInput | ArticleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Article createManyAndReturn
+   */
+  export type ArticleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * The data used to create many Articles.
+     */
+    data: ArticleCreateManyInput | ArticleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Article update
+   */
+  export type ArticleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Article.
+     */
+    data: XOR<ArticleUpdateInput, ArticleUncheckedUpdateInput>
+    /**
+     * Choose, which Article to update.
+     */
+    where: ArticleWhereUniqueInput
+  }
+
+  /**
+   * Article updateMany
+   */
+  export type ArticleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Articles.
+     */
+    data: XOR<ArticleUpdateManyMutationInput, ArticleUncheckedUpdateManyInput>
+    /**
+     * Filter which Articles to update
+     */
+    where?: ArticleWhereInput
+    /**
+     * Limit how many Articles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Article updateManyAndReturn
+   */
+  export type ArticleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * The data used to update Articles.
+     */
+    data: XOR<ArticleUpdateManyMutationInput, ArticleUncheckedUpdateManyInput>
+    /**
+     * Filter which Articles to update
+     */
+    where?: ArticleWhereInput
+    /**
+     * Limit how many Articles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Article upsert
+   */
+  export type ArticleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Article to update in case it exists.
+     */
+    where: ArticleWhereUniqueInput
+    /**
+     * In case the Article found by the `where` argument doesn't exist, create a new Article with this data.
+     */
+    create: XOR<ArticleCreateInput, ArticleUncheckedCreateInput>
+    /**
+     * In case the Article was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ArticleUpdateInput, ArticleUncheckedUpdateInput>
+  }
+
+  /**
+   * Article delete
+   */
+  export type ArticleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * Filter which Article to delete.
+     */
+    where: ArticleWhereUniqueInput
+  }
+
+  /**
+   * Article deleteMany
+   */
+  export type ArticleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Articles to delete
+     */
+    where?: ArticleWhereInput
+    /**
+     * Limit how many Articles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Article.translations
+   */
+  export type Article$translationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleTranslation
+     */
+    select?: ArticleTranslationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleTranslation
+     */
+    omit?: ArticleTranslationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleTranslationInclude<ExtArgs> | null
+    where?: ArticleTranslationWhereInput
+    orderBy?: ArticleTranslationOrderByWithRelationInput | ArticleTranslationOrderByWithRelationInput[]
+    cursor?: ArticleTranslationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ArticleTranslationScalarFieldEnum | ArticleTranslationScalarFieldEnum[]
+  }
+
+  /**
+   * Article without action
+   */
+  export type ArticleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ArticleTranslation
+   */
+
+  export type AggregateArticleTranslation = {
+    _count: ArticleTranslationCountAggregateOutputType | null
+    _min: ArticleTranslationMinAggregateOutputType | null
+    _max: ArticleTranslationMaxAggregateOutputType | null
+  }
+
+  export type ArticleTranslationMinAggregateOutputType = {
+    id: string | null
+    articleId: string | null
+    locale: $Enums.Locale | null
+    title: string | null
+    slug: string | null
+    bodyMd: string | null
+    published: boolean | null
+  }
+
+  export type ArticleTranslationMaxAggregateOutputType = {
+    id: string | null
+    articleId: string | null
+    locale: $Enums.Locale | null
+    title: string | null
+    slug: string | null
+    bodyMd: string | null
+    published: boolean | null
+  }
+
+  export type ArticleTranslationCountAggregateOutputType = {
+    id: number
+    articleId: number
+    locale: number
+    title: number
+    slug: number
+    bodyMd: number
+    published: number
+    _all: number
+  }
+
+
+  export type ArticleTranslationMinAggregateInputType = {
+    id?: true
+    articleId?: true
+    locale?: true
+    title?: true
+    slug?: true
+    bodyMd?: true
+    published?: true
+  }
+
+  export type ArticleTranslationMaxAggregateInputType = {
+    id?: true
+    articleId?: true
+    locale?: true
+    title?: true
+    slug?: true
+    bodyMd?: true
+    published?: true
+  }
+
+  export type ArticleTranslationCountAggregateInputType = {
+    id?: true
+    articleId?: true
+    locale?: true
+    title?: true
+    slug?: true
+    bodyMd?: true
+    published?: true
+    _all?: true
+  }
+
+  export type ArticleTranslationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ArticleTranslation to aggregate.
+     */
+    where?: ArticleTranslationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ArticleTranslations to fetch.
+     */
+    orderBy?: ArticleTranslationOrderByWithRelationInput | ArticleTranslationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ArticleTranslationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ArticleTranslations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ArticleTranslations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ArticleTranslations
+    **/
+    _count?: true | ArticleTranslationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ArticleTranslationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ArticleTranslationMaxAggregateInputType
+  }
+
+  export type GetArticleTranslationAggregateType<T extends ArticleTranslationAggregateArgs> = {
+        [P in keyof T & keyof AggregateArticleTranslation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateArticleTranslation[P]>
+      : GetScalarType<T[P], AggregateArticleTranslation[P]>
+  }
+
+
+
+
+  export type ArticleTranslationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ArticleTranslationWhereInput
+    orderBy?: ArticleTranslationOrderByWithAggregationInput | ArticleTranslationOrderByWithAggregationInput[]
+    by: ArticleTranslationScalarFieldEnum[] | ArticleTranslationScalarFieldEnum
+    having?: ArticleTranslationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ArticleTranslationCountAggregateInputType | true
+    _min?: ArticleTranslationMinAggregateInputType
+    _max?: ArticleTranslationMaxAggregateInputType
+  }
+
+  export type ArticleTranslationGroupByOutputType = {
+    id: string
+    articleId: string
+    locale: $Enums.Locale
+    title: string
+    slug: string
+    bodyMd: string
+    published: boolean
+    _count: ArticleTranslationCountAggregateOutputType | null
+    _min: ArticleTranslationMinAggregateOutputType | null
+    _max: ArticleTranslationMaxAggregateOutputType | null
+  }
+
+  type GetArticleTranslationGroupByPayload<T extends ArticleTranslationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ArticleTranslationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ArticleTranslationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ArticleTranslationGroupByOutputType[P]>
+            : GetScalarType<T[P], ArticleTranslationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ArticleTranslationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    articleId?: boolean
+    locale?: boolean
+    title?: boolean
+    slug?: boolean
+    bodyMd?: boolean
+    published?: boolean
+    article?: boolean | ArticleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["articleTranslation"]>
+
+  export type ArticleTranslationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    articleId?: boolean
+    locale?: boolean
+    title?: boolean
+    slug?: boolean
+    bodyMd?: boolean
+    published?: boolean
+    article?: boolean | ArticleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["articleTranslation"]>
+
+  export type ArticleTranslationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    articleId?: boolean
+    locale?: boolean
+    title?: boolean
+    slug?: boolean
+    bodyMd?: boolean
+    published?: boolean
+    article?: boolean | ArticleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["articleTranslation"]>
+
+  export type ArticleTranslationSelectScalar = {
+    id?: boolean
+    articleId?: boolean
+    locale?: boolean
+    title?: boolean
+    slug?: boolean
+    bodyMd?: boolean
+    published?: boolean
+  }
+
+  export type ArticleTranslationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "articleId" | "locale" | "title" | "slug" | "bodyMd" | "published", ExtArgs["result"]["articleTranslation"]>
+  export type ArticleTranslationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    article?: boolean | ArticleDefaultArgs<ExtArgs>
+  }
+  export type ArticleTranslationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    article?: boolean | ArticleDefaultArgs<ExtArgs>
+  }
+  export type ArticleTranslationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    article?: boolean | ArticleDefaultArgs<ExtArgs>
+  }
+
+  export type $ArticleTranslationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ArticleTranslation"
+    objects: {
+      article: Prisma.$ArticlePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      articleId: string
+      locale: $Enums.Locale
+      title: string
+      slug: string
+      bodyMd: string
+      published: boolean
+    }, ExtArgs["result"]["articleTranslation"]>
+    composites: {}
+  }
+
+  type ArticleTranslationGetPayload<S extends boolean | null | undefined | ArticleTranslationDefaultArgs> = $Result.GetResult<Prisma.$ArticleTranslationPayload, S>
+
+  type ArticleTranslationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ArticleTranslationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ArticleTranslationCountAggregateInputType | true
+    }
+
+  export interface ArticleTranslationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ArticleTranslation'], meta: { name: 'ArticleTranslation' } }
+    /**
+     * Find zero or one ArticleTranslation that matches the filter.
+     * @param {ArticleTranslationFindUniqueArgs} args - Arguments to find a ArticleTranslation
+     * @example
+     * // Get one ArticleTranslation
+     * const articleTranslation = await prisma.articleTranslation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ArticleTranslationFindUniqueArgs>(args: SelectSubset<T, ArticleTranslationFindUniqueArgs<ExtArgs>>): Prisma__ArticleTranslationClient<$Result.GetResult<Prisma.$ArticleTranslationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ArticleTranslation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ArticleTranslationFindUniqueOrThrowArgs} args - Arguments to find a ArticleTranslation
+     * @example
+     * // Get one ArticleTranslation
+     * const articleTranslation = await prisma.articleTranslation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ArticleTranslationFindUniqueOrThrowArgs>(args: SelectSubset<T, ArticleTranslationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ArticleTranslationClient<$Result.GetResult<Prisma.$ArticleTranslationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ArticleTranslation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleTranslationFindFirstArgs} args - Arguments to find a ArticleTranslation
+     * @example
+     * // Get one ArticleTranslation
+     * const articleTranslation = await prisma.articleTranslation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ArticleTranslationFindFirstArgs>(args?: SelectSubset<T, ArticleTranslationFindFirstArgs<ExtArgs>>): Prisma__ArticleTranslationClient<$Result.GetResult<Prisma.$ArticleTranslationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ArticleTranslation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleTranslationFindFirstOrThrowArgs} args - Arguments to find a ArticleTranslation
+     * @example
+     * // Get one ArticleTranslation
+     * const articleTranslation = await prisma.articleTranslation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ArticleTranslationFindFirstOrThrowArgs>(args?: SelectSubset<T, ArticleTranslationFindFirstOrThrowArgs<ExtArgs>>): Prisma__ArticleTranslationClient<$Result.GetResult<Prisma.$ArticleTranslationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ArticleTranslations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleTranslationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ArticleTranslations
+     * const articleTranslations = await prisma.articleTranslation.findMany()
+     * 
+     * // Get first 10 ArticleTranslations
+     * const articleTranslations = await prisma.articleTranslation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const articleTranslationWithIdOnly = await prisma.articleTranslation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ArticleTranslationFindManyArgs>(args?: SelectSubset<T, ArticleTranslationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleTranslationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ArticleTranslation.
+     * @param {ArticleTranslationCreateArgs} args - Arguments to create a ArticleTranslation.
+     * @example
+     * // Create one ArticleTranslation
+     * const ArticleTranslation = await prisma.articleTranslation.create({
+     *   data: {
+     *     // ... data to create a ArticleTranslation
+     *   }
+     * })
+     * 
+     */
+    create<T extends ArticleTranslationCreateArgs>(args: SelectSubset<T, ArticleTranslationCreateArgs<ExtArgs>>): Prisma__ArticleTranslationClient<$Result.GetResult<Prisma.$ArticleTranslationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ArticleTranslations.
+     * @param {ArticleTranslationCreateManyArgs} args - Arguments to create many ArticleTranslations.
+     * @example
+     * // Create many ArticleTranslations
+     * const articleTranslation = await prisma.articleTranslation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ArticleTranslationCreateManyArgs>(args?: SelectSubset<T, ArticleTranslationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ArticleTranslations and returns the data saved in the database.
+     * @param {ArticleTranslationCreateManyAndReturnArgs} args - Arguments to create many ArticleTranslations.
+     * @example
+     * // Create many ArticleTranslations
+     * const articleTranslation = await prisma.articleTranslation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ArticleTranslations and only return the `id`
+     * const articleTranslationWithIdOnly = await prisma.articleTranslation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ArticleTranslationCreateManyAndReturnArgs>(args?: SelectSubset<T, ArticleTranslationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleTranslationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ArticleTranslation.
+     * @param {ArticleTranslationDeleteArgs} args - Arguments to delete one ArticleTranslation.
+     * @example
+     * // Delete one ArticleTranslation
+     * const ArticleTranslation = await prisma.articleTranslation.delete({
+     *   where: {
+     *     // ... filter to delete one ArticleTranslation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ArticleTranslationDeleteArgs>(args: SelectSubset<T, ArticleTranslationDeleteArgs<ExtArgs>>): Prisma__ArticleTranslationClient<$Result.GetResult<Prisma.$ArticleTranslationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ArticleTranslation.
+     * @param {ArticleTranslationUpdateArgs} args - Arguments to update one ArticleTranslation.
+     * @example
+     * // Update one ArticleTranslation
+     * const articleTranslation = await prisma.articleTranslation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ArticleTranslationUpdateArgs>(args: SelectSubset<T, ArticleTranslationUpdateArgs<ExtArgs>>): Prisma__ArticleTranslationClient<$Result.GetResult<Prisma.$ArticleTranslationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ArticleTranslations.
+     * @param {ArticleTranslationDeleteManyArgs} args - Arguments to filter ArticleTranslations to delete.
+     * @example
+     * // Delete a few ArticleTranslations
+     * const { count } = await prisma.articleTranslation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ArticleTranslationDeleteManyArgs>(args?: SelectSubset<T, ArticleTranslationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ArticleTranslations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleTranslationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ArticleTranslations
+     * const articleTranslation = await prisma.articleTranslation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ArticleTranslationUpdateManyArgs>(args: SelectSubset<T, ArticleTranslationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ArticleTranslations and returns the data updated in the database.
+     * @param {ArticleTranslationUpdateManyAndReturnArgs} args - Arguments to update many ArticleTranslations.
+     * @example
+     * // Update many ArticleTranslations
+     * const articleTranslation = await prisma.articleTranslation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ArticleTranslations and only return the `id`
+     * const articleTranslationWithIdOnly = await prisma.articleTranslation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ArticleTranslationUpdateManyAndReturnArgs>(args: SelectSubset<T, ArticleTranslationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleTranslationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ArticleTranslation.
+     * @param {ArticleTranslationUpsertArgs} args - Arguments to update or create a ArticleTranslation.
+     * @example
+     * // Update or create a ArticleTranslation
+     * const articleTranslation = await prisma.articleTranslation.upsert({
+     *   create: {
+     *     // ... data to create a ArticleTranslation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ArticleTranslation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ArticleTranslationUpsertArgs>(args: SelectSubset<T, ArticleTranslationUpsertArgs<ExtArgs>>): Prisma__ArticleTranslationClient<$Result.GetResult<Prisma.$ArticleTranslationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ArticleTranslations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleTranslationCountArgs} args - Arguments to filter ArticleTranslations to count.
+     * @example
+     * // Count the number of ArticleTranslations
+     * const count = await prisma.articleTranslation.count({
+     *   where: {
+     *     // ... the filter for the ArticleTranslations we want to count
+     *   }
+     * })
+    **/
+    count<T extends ArticleTranslationCountArgs>(
+      args?: Subset<T, ArticleTranslationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ArticleTranslationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ArticleTranslation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleTranslationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ArticleTranslationAggregateArgs>(args: Subset<T, ArticleTranslationAggregateArgs>): Prisma.PrismaPromise<GetArticleTranslationAggregateType<T>>
+
+    /**
+     * Group by ArticleTranslation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleTranslationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ArticleTranslationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ArticleTranslationGroupByArgs['orderBy'] }
+        : { orderBy?: ArticleTranslationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ArticleTranslationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetArticleTranslationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ArticleTranslation model
+   */
+  readonly fields: ArticleTranslationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ArticleTranslation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ArticleTranslationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    article<T extends ArticleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ArticleDefaultArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ArticleTranslation model
+   */
+  interface ArticleTranslationFieldRefs {
+    readonly id: FieldRef<"ArticleTranslation", 'String'>
+    readonly articleId: FieldRef<"ArticleTranslation", 'String'>
+    readonly locale: FieldRef<"ArticleTranslation", 'Locale'>
+    readonly title: FieldRef<"ArticleTranslation", 'String'>
+    readonly slug: FieldRef<"ArticleTranslation", 'String'>
+    readonly bodyMd: FieldRef<"ArticleTranslation", 'String'>
+    readonly published: FieldRef<"ArticleTranslation", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ArticleTranslation findUnique
+   */
+  export type ArticleTranslationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleTranslation
+     */
+    select?: ArticleTranslationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleTranslation
+     */
+    omit?: ArticleTranslationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleTranslationInclude<ExtArgs> | null
+    /**
+     * Filter, which ArticleTranslation to fetch.
+     */
+    where: ArticleTranslationWhereUniqueInput
+  }
+
+  /**
+   * ArticleTranslation findUniqueOrThrow
+   */
+  export type ArticleTranslationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleTranslation
+     */
+    select?: ArticleTranslationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleTranslation
+     */
+    omit?: ArticleTranslationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleTranslationInclude<ExtArgs> | null
+    /**
+     * Filter, which ArticleTranslation to fetch.
+     */
+    where: ArticleTranslationWhereUniqueInput
+  }
+
+  /**
+   * ArticleTranslation findFirst
+   */
+  export type ArticleTranslationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleTranslation
+     */
+    select?: ArticleTranslationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleTranslation
+     */
+    omit?: ArticleTranslationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleTranslationInclude<ExtArgs> | null
+    /**
+     * Filter, which ArticleTranslation to fetch.
+     */
+    where?: ArticleTranslationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ArticleTranslations to fetch.
+     */
+    orderBy?: ArticleTranslationOrderByWithRelationInput | ArticleTranslationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ArticleTranslations.
+     */
+    cursor?: ArticleTranslationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ArticleTranslations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ArticleTranslations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ArticleTranslations.
+     */
+    distinct?: ArticleTranslationScalarFieldEnum | ArticleTranslationScalarFieldEnum[]
+  }
+
+  /**
+   * ArticleTranslation findFirstOrThrow
+   */
+  export type ArticleTranslationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleTranslation
+     */
+    select?: ArticleTranslationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleTranslation
+     */
+    omit?: ArticleTranslationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleTranslationInclude<ExtArgs> | null
+    /**
+     * Filter, which ArticleTranslation to fetch.
+     */
+    where?: ArticleTranslationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ArticleTranslations to fetch.
+     */
+    orderBy?: ArticleTranslationOrderByWithRelationInput | ArticleTranslationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ArticleTranslations.
+     */
+    cursor?: ArticleTranslationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ArticleTranslations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ArticleTranslations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ArticleTranslations.
+     */
+    distinct?: ArticleTranslationScalarFieldEnum | ArticleTranslationScalarFieldEnum[]
+  }
+
+  /**
+   * ArticleTranslation findMany
+   */
+  export type ArticleTranslationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleTranslation
+     */
+    select?: ArticleTranslationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleTranslation
+     */
+    omit?: ArticleTranslationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleTranslationInclude<ExtArgs> | null
+    /**
+     * Filter, which ArticleTranslations to fetch.
+     */
+    where?: ArticleTranslationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ArticleTranslations to fetch.
+     */
+    orderBy?: ArticleTranslationOrderByWithRelationInput | ArticleTranslationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ArticleTranslations.
+     */
+    cursor?: ArticleTranslationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ArticleTranslations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ArticleTranslations.
+     */
+    skip?: number
+    distinct?: ArticleTranslationScalarFieldEnum | ArticleTranslationScalarFieldEnum[]
+  }
+
+  /**
+   * ArticleTranslation create
+   */
+  export type ArticleTranslationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleTranslation
+     */
+    select?: ArticleTranslationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleTranslation
+     */
+    omit?: ArticleTranslationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleTranslationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ArticleTranslation.
+     */
+    data: XOR<ArticleTranslationCreateInput, ArticleTranslationUncheckedCreateInput>
+  }
+
+  /**
+   * ArticleTranslation createMany
+   */
+  export type ArticleTranslationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ArticleTranslations.
+     */
+    data: ArticleTranslationCreateManyInput | ArticleTranslationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ArticleTranslation createManyAndReturn
+   */
+  export type ArticleTranslationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleTranslation
+     */
+    select?: ArticleTranslationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleTranslation
+     */
+    omit?: ArticleTranslationOmit<ExtArgs> | null
+    /**
+     * The data used to create many ArticleTranslations.
+     */
+    data: ArticleTranslationCreateManyInput | ArticleTranslationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleTranslationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ArticleTranslation update
+   */
+  export type ArticleTranslationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleTranslation
+     */
+    select?: ArticleTranslationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleTranslation
+     */
+    omit?: ArticleTranslationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleTranslationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ArticleTranslation.
+     */
+    data: XOR<ArticleTranslationUpdateInput, ArticleTranslationUncheckedUpdateInput>
+    /**
+     * Choose, which ArticleTranslation to update.
+     */
+    where: ArticleTranslationWhereUniqueInput
+  }
+
+  /**
+   * ArticleTranslation updateMany
+   */
+  export type ArticleTranslationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ArticleTranslations.
+     */
+    data: XOR<ArticleTranslationUpdateManyMutationInput, ArticleTranslationUncheckedUpdateManyInput>
+    /**
+     * Filter which ArticleTranslations to update
+     */
+    where?: ArticleTranslationWhereInput
+    /**
+     * Limit how many ArticleTranslations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ArticleTranslation updateManyAndReturn
+   */
+  export type ArticleTranslationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleTranslation
+     */
+    select?: ArticleTranslationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleTranslation
+     */
+    omit?: ArticleTranslationOmit<ExtArgs> | null
+    /**
+     * The data used to update ArticleTranslations.
+     */
+    data: XOR<ArticleTranslationUpdateManyMutationInput, ArticleTranslationUncheckedUpdateManyInput>
+    /**
+     * Filter which ArticleTranslations to update
+     */
+    where?: ArticleTranslationWhereInput
+    /**
+     * Limit how many ArticleTranslations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleTranslationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ArticleTranslation upsert
+   */
+  export type ArticleTranslationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleTranslation
+     */
+    select?: ArticleTranslationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleTranslation
+     */
+    omit?: ArticleTranslationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleTranslationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ArticleTranslation to update in case it exists.
+     */
+    where: ArticleTranslationWhereUniqueInput
+    /**
+     * In case the ArticleTranslation found by the `where` argument doesn't exist, create a new ArticleTranslation with this data.
+     */
+    create: XOR<ArticleTranslationCreateInput, ArticleTranslationUncheckedCreateInput>
+    /**
+     * In case the ArticleTranslation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ArticleTranslationUpdateInput, ArticleTranslationUncheckedUpdateInput>
+  }
+
+  /**
+   * ArticleTranslation delete
+   */
+  export type ArticleTranslationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleTranslation
+     */
+    select?: ArticleTranslationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleTranslation
+     */
+    omit?: ArticleTranslationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleTranslationInclude<ExtArgs> | null
+    /**
+     * Filter which ArticleTranslation to delete.
+     */
+    where: ArticleTranslationWhereUniqueInput
+  }
+
+  /**
+   * ArticleTranslation deleteMany
+   */
+  export type ArticleTranslationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ArticleTranslations to delete
+     */
+    where?: ArticleTranslationWhereInput
+    /**
+     * Limit how many ArticleTranslations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ArticleTranslation without action
+   */
+  export type ArticleTranslationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleTranslation
+     */
+    select?: ArticleTranslationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleTranslation
+     */
+    omit?: ArticleTranslationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleTranslationInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -1893,6 +4278,29 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const ArticleScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    status: 'status'
+  };
+
+  export type ArticleScalarFieldEnum = (typeof ArticleScalarFieldEnum)[keyof typeof ArticleScalarFieldEnum]
+
+
+  export const ArticleTranslationScalarFieldEnum: {
+    id: 'id',
+    articleId: 'articleId',
+    locale: 'locale',
+    title: 'title',
+    slug: 'slug',
+    bodyMd: 'bodyMd',
+    published: 'published'
+  };
+
+  export type ArticleTranslationScalarFieldEnum = (typeof ArticleTranslationScalarFieldEnum)[keyof typeof ArticleTranslationScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -1949,6 +4357,41 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PublishStatus'
+   */
+  export type EnumPublishStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PublishStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'PublishStatus[]'
+   */
+  export type ListEnumPublishStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PublishStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Locale'
+   */
+  export type EnumLocaleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Locale'>
+    
+
+
+  /**
+   * Reference to a field of type 'Locale[]'
+   */
+  export type ListEnumLocaleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Locale[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -2026,6 +4469,123 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
+  export type ArticleWhereInput = {
+    AND?: ArticleWhereInput | ArticleWhereInput[]
+    OR?: ArticleWhereInput[]
+    NOT?: ArticleWhereInput | ArticleWhereInput[]
+    id?: StringFilter<"Article"> | string
+    createdAt?: DateTimeFilter<"Article"> | Date | string
+    updatedAt?: DateTimeFilter<"Article"> | Date | string
+    status?: EnumPublishStatusFilter<"Article"> | $Enums.PublishStatus
+    translations?: ArticleTranslationListRelationFilter
+  }
+
+  export type ArticleOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    status?: SortOrder
+    translations?: ArticleTranslationOrderByRelationAggregateInput
+  }
+
+  export type ArticleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ArticleWhereInput | ArticleWhereInput[]
+    OR?: ArticleWhereInput[]
+    NOT?: ArticleWhereInput | ArticleWhereInput[]
+    createdAt?: DateTimeFilter<"Article"> | Date | string
+    updatedAt?: DateTimeFilter<"Article"> | Date | string
+    status?: EnumPublishStatusFilter<"Article"> | $Enums.PublishStatus
+    translations?: ArticleTranslationListRelationFilter
+  }, "id">
+
+  export type ArticleOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    status?: SortOrder
+    _count?: ArticleCountOrderByAggregateInput
+    _max?: ArticleMaxOrderByAggregateInput
+    _min?: ArticleMinOrderByAggregateInput
+  }
+
+  export type ArticleScalarWhereWithAggregatesInput = {
+    AND?: ArticleScalarWhereWithAggregatesInput | ArticleScalarWhereWithAggregatesInput[]
+    OR?: ArticleScalarWhereWithAggregatesInput[]
+    NOT?: ArticleScalarWhereWithAggregatesInput | ArticleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Article"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Article"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Article"> | Date | string
+    status?: EnumPublishStatusWithAggregatesFilter<"Article"> | $Enums.PublishStatus
+  }
+
+  export type ArticleTranslationWhereInput = {
+    AND?: ArticleTranslationWhereInput | ArticleTranslationWhereInput[]
+    OR?: ArticleTranslationWhereInput[]
+    NOT?: ArticleTranslationWhereInput | ArticleTranslationWhereInput[]
+    id?: StringFilter<"ArticleTranslation"> | string
+    articleId?: StringFilter<"ArticleTranslation"> | string
+    locale?: EnumLocaleFilter<"ArticleTranslation"> | $Enums.Locale
+    title?: StringFilter<"ArticleTranslation"> | string
+    slug?: StringFilter<"ArticleTranslation"> | string
+    bodyMd?: StringFilter<"ArticleTranslation"> | string
+    published?: BoolFilter<"ArticleTranslation"> | boolean
+    article?: XOR<ArticleScalarRelationFilter, ArticleWhereInput>
+  }
+
+  export type ArticleTranslationOrderByWithRelationInput = {
+    id?: SortOrder
+    articleId?: SortOrder
+    locale?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    bodyMd?: SortOrder
+    published?: SortOrder
+    article?: ArticleOrderByWithRelationInput
+  }
+
+  export type ArticleTranslationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    articleId_locale?: ArticleTranslationArticleIdLocaleCompoundUniqueInput
+    locale_slug?: ArticleTranslationLocaleSlugCompoundUniqueInput
+    AND?: ArticleTranslationWhereInput | ArticleTranslationWhereInput[]
+    OR?: ArticleTranslationWhereInput[]
+    NOT?: ArticleTranslationWhereInput | ArticleTranslationWhereInput[]
+    articleId?: StringFilter<"ArticleTranslation"> | string
+    locale?: EnumLocaleFilter<"ArticleTranslation"> | $Enums.Locale
+    title?: StringFilter<"ArticleTranslation"> | string
+    slug?: StringFilter<"ArticleTranslation"> | string
+    bodyMd?: StringFilter<"ArticleTranslation"> | string
+    published?: BoolFilter<"ArticleTranslation"> | boolean
+    article?: XOR<ArticleScalarRelationFilter, ArticleWhereInput>
+  }, "id" | "articleId_locale" | "locale_slug">
+
+  export type ArticleTranslationOrderByWithAggregationInput = {
+    id?: SortOrder
+    articleId?: SortOrder
+    locale?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    bodyMd?: SortOrder
+    published?: SortOrder
+    _count?: ArticleTranslationCountOrderByAggregateInput
+    _max?: ArticleTranslationMaxOrderByAggregateInput
+    _min?: ArticleTranslationMinOrderByAggregateInput
+  }
+
+  export type ArticleTranslationScalarWhereWithAggregatesInput = {
+    AND?: ArticleTranslationScalarWhereWithAggregatesInput | ArticleTranslationScalarWhereWithAggregatesInput[]
+    OR?: ArticleTranslationScalarWhereWithAggregatesInput[]
+    NOT?: ArticleTranslationScalarWhereWithAggregatesInput | ArticleTranslationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ArticleTranslation"> | string
+    articleId?: StringWithAggregatesFilter<"ArticleTranslation"> | string
+    locale?: EnumLocaleWithAggregatesFilter<"ArticleTranslation"> | $Enums.Locale
+    title?: StringWithAggregatesFilter<"ArticleTranslation"> | string
+    slug?: StringWithAggregatesFilter<"ArticleTranslation"> | string
+    bodyMd?: StringWithAggregatesFilter<"ArticleTranslation"> | string
+    published?: BoolWithAggregatesFilter<"ArticleTranslation"> | boolean
+  }
+
   export type UserCreateInput = {
     id: string
     email?: string | null
@@ -2087,6 +4647,128 @@ export namespace Prisma {
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArticleCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: $Enums.PublishStatus
+    translations?: ArticleTranslationCreateNestedManyWithoutArticleInput
+  }
+
+  export type ArticleUncheckedCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: $Enums.PublishStatus
+    translations?: ArticleTranslationUncheckedCreateNestedManyWithoutArticleInput
+  }
+
+  export type ArticleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
+    translations?: ArticleTranslationUpdateManyWithoutArticleNestedInput
+  }
+
+  export type ArticleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
+    translations?: ArticleTranslationUncheckedUpdateManyWithoutArticleNestedInput
+  }
+
+  export type ArticleCreateManyInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: $Enums.PublishStatus
+  }
+
+  export type ArticleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
+  }
+
+  export type ArticleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
+  }
+
+  export type ArticleTranslationCreateInput = {
+    id?: string
+    locale: $Enums.Locale
+    title: string
+    slug: string
+    bodyMd: string
+    published?: boolean
+    article: ArticleCreateNestedOneWithoutTranslationsInput
+  }
+
+  export type ArticleTranslationUncheckedCreateInput = {
+    id?: string
+    articleId: string
+    locale: $Enums.Locale
+    title: string
+    slug: string
+    bodyMd: string
+    published?: boolean
+  }
+
+  export type ArticleTranslationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    locale?: EnumLocaleFieldUpdateOperationsInput | $Enums.Locale
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    bodyMd?: StringFieldUpdateOperationsInput | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+    article?: ArticleUpdateOneRequiredWithoutTranslationsNestedInput
+  }
+
+  export type ArticleTranslationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    articleId?: StringFieldUpdateOperationsInput | string
+    locale?: EnumLocaleFieldUpdateOperationsInput | $Enums.Locale
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    bodyMd?: StringFieldUpdateOperationsInput | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type ArticleTranslationCreateManyInput = {
+    id?: string
+    articleId: string
+    locale: $Enums.Locale
+    title: string
+    slug: string
+    bodyMd: string
+    published?: boolean
+  }
+
+  export type ArticleTranslationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    locale?: EnumLocaleFieldUpdateOperationsInput | $Enums.Locale
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    bodyMd?: StringFieldUpdateOperationsInput | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type ArticleTranslationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    articleId?: StringFieldUpdateOperationsInput | string
+    locale?: EnumLocaleFieldUpdateOperationsInput | $Enums.Locale
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    bodyMd?: StringFieldUpdateOperationsInput | string
+    published?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -2212,6 +4894,129 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type EnumPublishStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PublishStatus | EnumPublishStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PublishStatus[] | ListEnumPublishStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PublishStatus[] | ListEnumPublishStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPublishStatusFilter<$PrismaModel> | $Enums.PublishStatus
+  }
+
+  export type ArticleTranslationListRelationFilter = {
+    every?: ArticleTranslationWhereInput
+    some?: ArticleTranslationWhereInput
+    none?: ArticleTranslationWhereInput
+  }
+
+  export type ArticleTranslationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ArticleCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    status?: SortOrder
+  }
+
+  export type ArticleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    status?: SortOrder
+  }
+
+  export type ArticleMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    status?: SortOrder
+  }
+
+  export type EnumPublishStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PublishStatus | EnumPublishStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PublishStatus[] | ListEnumPublishStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PublishStatus[] | ListEnumPublishStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPublishStatusWithAggregatesFilter<$PrismaModel> | $Enums.PublishStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPublishStatusFilter<$PrismaModel>
+    _max?: NestedEnumPublishStatusFilter<$PrismaModel>
+  }
+
+  export type EnumLocaleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Locale | EnumLocaleFieldRefInput<$PrismaModel>
+    in?: $Enums.Locale[] | ListEnumLocaleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Locale[] | ListEnumLocaleFieldRefInput<$PrismaModel>
+    not?: NestedEnumLocaleFilter<$PrismaModel> | $Enums.Locale
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type ArticleScalarRelationFilter = {
+    is?: ArticleWhereInput
+    isNot?: ArticleWhereInput
+  }
+
+  export type ArticleTranslationArticleIdLocaleCompoundUniqueInput = {
+    articleId: string
+    locale: $Enums.Locale
+  }
+
+  export type ArticleTranslationLocaleSlugCompoundUniqueInput = {
+    locale: $Enums.Locale
+    slug: string
+  }
+
+  export type ArticleTranslationCountOrderByAggregateInput = {
+    id?: SortOrder
+    articleId?: SortOrder
+    locale?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    bodyMd?: SortOrder
+    published?: SortOrder
+  }
+
+  export type ArticleTranslationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    articleId?: SortOrder
+    locale?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    bodyMd?: SortOrder
+    published?: SortOrder
+  }
+
+  export type ArticleTranslationMinOrderByAggregateInput = {
+    id?: SortOrder
+    articleId?: SortOrder
+    locale?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    bodyMd?: SortOrder
+    published?: SortOrder
+  }
+
+  export type EnumLocaleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Locale | EnumLocaleFieldRefInput<$PrismaModel>
+    in?: $Enums.Locale[] | ListEnumLocaleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Locale[] | ListEnumLocaleFieldRefInput<$PrismaModel>
+    not?: NestedEnumLocaleWithAggregatesFilter<$PrismaModel> | $Enums.Locale
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLocaleFilter<$PrismaModel>
+    _max?: NestedEnumLocaleFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -2222,6 +5027,74 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type ArticleTranslationCreateNestedManyWithoutArticleInput = {
+    create?: XOR<ArticleTranslationCreateWithoutArticleInput, ArticleTranslationUncheckedCreateWithoutArticleInput> | ArticleTranslationCreateWithoutArticleInput[] | ArticleTranslationUncheckedCreateWithoutArticleInput[]
+    connectOrCreate?: ArticleTranslationCreateOrConnectWithoutArticleInput | ArticleTranslationCreateOrConnectWithoutArticleInput[]
+    createMany?: ArticleTranslationCreateManyArticleInputEnvelope
+    connect?: ArticleTranslationWhereUniqueInput | ArticleTranslationWhereUniqueInput[]
+  }
+
+  export type ArticleTranslationUncheckedCreateNestedManyWithoutArticleInput = {
+    create?: XOR<ArticleTranslationCreateWithoutArticleInput, ArticleTranslationUncheckedCreateWithoutArticleInput> | ArticleTranslationCreateWithoutArticleInput[] | ArticleTranslationUncheckedCreateWithoutArticleInput[]
+    connectOrCreate?: ArticleTranslationCreateOrConnectWithoutArticleInput | ArticleTranslationCreateOrConnectWithoutArticleInput[]
+    createMany?: ArticleTranslationCreateManyArticleInputEnvelope
+    connect?: ArticleTranslationWhereUniqueInput | ArticleTranslationWhereUniqueInput[]
+  }
+
+  export type EnumPublishStatusFieldUpdateOperationsInput = {
+    set?: $Enums.PublishStatus
+  }
+
+  export type ArticleTranslationUpdateManyWithoutArticleNestedInput = {
+    create?: XOR<ArticleTranslationCreateWithoutArticleInput, ArticleTranslationUncheckedCreateWithoutArticleInput> | ArticleTranslationCreateWithoutArticleInput[] | ArticleTranslationUncheckedCreateWithoutArticleInput[]
+    connectOrCreate?: ArticleTranslationCreateOrConnectWithoutArticleInput | ArticleTranslationCreateOrConnectWithoutArticleInput[]
+    upsert?: ArticleTranslationUpsertWithWhereUniqueWithoutArticleInput | ArticleTranslationUpsertWithWhereUniqueWithoutArticleInput[]
+    createMany?: ArticleTranslationCreateManyArticleInputEnvelope
+    set?: ArticleTranslationWhereUniqueInput | ArticleTranslationWhereUniqueInput[]
+    disconnect?: ArticleTranslationWhereUniqueInput | ArticleTranslationWhereUniqueInput[]
+    delete?: ArticleTranslationWhereUniqueInput | ArticleTranslationWhereUniqueInput[]
+    connect?: ArticleTranslationWhereUniqueInput | ArticleTranslationWhereUniqueInput[]
+    update?: ArticleTranslationUpdateWithWhereUniqueWithoutArticleInput | ArticleTranslationUpdateWithWhereUniqueWithoutArticleInput[]
+    updateMany?: ArticleTranslationUpdateManyWithWhereWithoutArticleInput | ArticleTranslationUpdateManyWithWhereWithoutArticleInput[]
+    deleteMany?: ArticleTranslationScalarWhereInput | ArticleTranslationScalarWhereInput[]
+  }
+
+  export type ArticleTranslationUncheckedUpdateManyWithoutArticleNestedInput = {
+    create?: XOR<ArticleTranslationCreateWithoutArticleInput, ArticleTranslationUncheckedCreateWithoutArticleInput> | ArticleTranslationCreateWithoutArticleInput[] | ArticleTranslationUncheckedCreateWithoutArticleInput[]
+    connectOrCreate?: ArticleTranslationCreateOrConnectWithoutArticleInput | ArticleTranslationCreateOrConnectWithoutArticleInput[]
+    upsert?: ArticleTranslationUpsertWithWhereUniqueWithoutArticleInput | ArticleTranslationUpsertWithWhereUniqueWithoutArticleInput[]
+    createMany?: ArticleTranslationCreateManyArticleInputEnvelope
+    set?: ArticleTranslationWhereUniqueInput | ArticleTranslationWhereUniqueInput[]
+    disconnect?: ArticleTranslationWhereUniqueInput | ArticleTranslationWhereUniqueInput[]
+    delete?: ArticleTranslationWhereUniqueInput | ArticleTranslationWhereUniqueInput[]
+    connect?: ArticleTranslationWhereUniqueInput | ArticleTranslationWhereUniqueInput[]
+    update?: ArticleTranslationUpdateWithWhereUniqueWithoutArticleInput | ArticleTranslationUpdateWithWhereUniqueWithoutArticleInput[]
+    updateMany?: ArticleTranslationUpdateManyWithWhereWithoutArticleInput | ArticleTranslationUpdateManyWithWhereWithoutArticleInput[]
+    deleteMany?: ArticleTranslationScalarWhereInput | ArticleTranslationScalarWhereInput[]
+  }
+
+  export type ArticleCreateNestedOneWithoutTranslationsInput = {
+    create?: XOR<ArticleCreateWithoutTranslationsInput, ArticleUncheckedCreateWithoutTranslationsInput>
+    connectOrCreate?: ArticleCreateOrConnectWithoutTranslationsInput
+    connect?: ArticleWhereUniqueInput
+  }
+
+  export type EnumLocaleFieldUpdateOperationsInput = {
+    set?: $Enums.Locale
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type ArticleUpdateOneRequiredWithoutTranslationsNestedInput = {
+    create?: XOR<ArticleCreateWithoutTranslationsInput, ArticleUncheckedCreateWithoutTranslationsInput>
+    connectOrCreate?: ArticleCreateOrConnectWithoutTranslationsInput
+    upsert?: ArticleUpsertWithoutTranslationsInput
+    connect?: ArticleWhereUniqueInput
+    update?: XOR<XOR<ArticleUpdateToOneWithWhereWithoutTranslationsInput, ArticleUpdateWithoutTranslationsInput>, ArticleUncheckedUpdateWithoutTranslationsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -2331,6 +5204,190 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPublishStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PublishStatus | EnumPublishStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PublishStatus[] | ListEnumPublishStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PublishStatus[] | ListEnumPublishStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPublishStatusFilter<$PrismaModel> | $Enums.PublishStatus
+  }
+
+  export type NestedEnumPublishStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PublishStatus | EnumPublishStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PublishStatus[] | ListEnumPublishStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PublishStatus[] | ListEnumPublishStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPublishStatusWithAggregatesFilter<$PrismaModel> | $Enums.PublishStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPublishStatusFilter<$PrismaModel>
+    _max?: NestedEnumPublishStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumLocaleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Locale | EnumLocaleFieldRefInput<$PrismaModel>
+    in?: $Enums.Locale[] | ListEnumLocaleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Locale[] | ListEnumLocaleFieldRefInput<$PrismaModel>
+    not?: NestedEnumLocaleFilter<$PrismaModel> | $Enums.Locale
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedEnumLocaleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Locale | EnumLocaleFieldRefInput<$PrismaModel>
+    in?: $Enums.Locale[] | ListEnumLocaleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Locale[] | ListEnumLocaleFieldRefInput<$PrismaModel>
+    not?: NestedEnumLocaleWithAggregatesFilter<$PrismaModel> | $Enums.Locale
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLocaleFilter<$PrismaModel>
+    _max?: NestedEnumLocaleFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type ArticleTranslationCreateWithoutArticleInput = {
+    id?: string
+    locale: $Enums.Locale
+    title: string
+    slug: string
+    bodyMd: string
+    published?: boolean
+  }
+
+  export type ArticleTranslationUncheckedCreateWithoutArticleInput = {
+    id?: string
+    locale: $Enums.Locale
+    title: string
+    slug: string
+    bodyMd: string
+    published?: boolean
+  }
+
+  export type ArticleTranslationCreateOrConnectWithoutArticleInput = {
+    where: ArticleTranslationWhereUniqueInput
+    create: XOR<ArticleTranslationCreateWithoutArticleInput, ArticleTranslationUncheckedCreateWithoutArticleInput>
+  }
+
+  export type ArticleTranslationCreateManyArticleInputEnvelope = {
+    data: ArticleTranslationCreateManyArticleInput | ArticleTranslationCreateManyArticleInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ArticleTranslationUpsertWithWhereUniqueWithoutArticleInput = {
+    where: ArticleTranslationWhereUniqueInput
+    update: XOR<ArticleTranslationUpdateWithoutArticleInput, ArticleTranslationUncheckedUpdateWithoutArticleInput>
+    create: XOR<ArticleTranslationCreateWithoutArticleInput, ArticleTranslationUncheckedCreateWithoutArticleInput>
+  }
+
+  export type ArticleTranslationUpdateWithWhereUniqueWithoutArticleInput = {
+    where: ArticleTranslationWhereUniqueInput
+    data: XOR<ArticleTranslationUpdateWithoutArticleInput, ArticleTranslationUncheckedUpdateWithoutArticleInput>
+  }
+
+  export type ArticleTranslationUpdateManyWithWhereWithoutArticleInput = {
+    where: ArticleTranslationScalarWhereInput
+    data: XOR<ArticleTranslationUpdateManyMutationInput, ArticleTranslationUncheckedUpdateManyWithoutArticleInput>
+  }
+
+  export type ArticleTranslationScalarWhereInput = {
+    AND?: ArticleTranslationScalarWhereInput | ArticleTranslationScalarWhereInput[]
+    OR?: ArticleTranslationScalarWhereInput[]
+    NOT?: ArticleTranslationScalarWhereInput | ArticleTranslationScalarWhereInput[]
+    id?: StringFilter<"ArticleTranslation"> | string
+    articleId?: StringFilter<"ArticleTranslation"> | string
+    locale?: EnumLocaleFilter<"ArticleTranslation"> | $Enums.Locale
+    title?: StringFilter<"ArticleTranslation"> | string
+    slug?: StringFilter<"ArticleTranslation"> | string
+    bodyMd?: StringFilter<"ArticleTranslation"> | string
+    published?: BoolFilter<"ArticleTranslation"> | boolean
+  }
+
+  export type ArticleCreateWithoutTranslationsInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: $Enums.PublishStatus
+  }
+
+  export type ArticleUncheckedCreateWithoutTranslationsInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: $Enums.PublishStatus
+  }
+
+  export type ArticleCreateOrConnectWithoutTranslationsInput = {
+    where: ArticleWhereUniqueInput
+    create: XOR<ArticleCreateWithoutTranslationsInput, ArticleUncheckedCreateWithoutTranslationsInput>
+  }
+
+  export type ArticleUpsertWithoutTranslationsInput = {
+    update: XOR<ArticleUpdateWithoutTranslationsInput, ArticleUncheckedUpdateWithoutTranslationsInput>
+    create: XOR<ArticleCreateWithoutTranslationsInput, ArticleUncheckedCreateWithoutTranslationsInput>
+    where?: ArticleWhereInput
+  }
+
+  export type ArticleUpdateToOneWithWhereWithoutTranslationsInput = {
+    where?: ArticleWhereInput
+    data: XOR<ArticleUpdateWithoutTranslationsInput, ArticleUncheckedUpdateWithoutTranslationsInput>
+  }
+
+  export type ArticleUpdateWithoutTranslationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
+  }
+
+  export type ArticleUncheckedUpdateWithoutTranslationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
+  }
+
+  export type ArticleTranslationCreateManyArticleInput = {
+    id?: string
+    locale: $Enums.Locale
+    title: string
+    slug: string
+    bodyMd: string
+    published?: boolean
+  }
+
+  export type ArticleTranslationUpdateWithoutArticleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    locale?: EnumLocaleFieldUpdateOperationsInput | $Enums.Locale
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    bodyMd?: StringFieldUpdateOperationsInput | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type ArticleTranslationUncheckedUpdateWithoutArticleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    locale?: EnumLocaleFieldUpdateOperationsInput | $Enums.Locale
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    bodyMd?: StringFieldUpdateOperationsInput | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type ArticleTranslationUncheckedUpdateManyWithoutArticleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    locale?: EnumLocaleFieldUpdateOperationsInput | $Enums.Locale
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    bodyMd?: StringFieldUpdateOperationsInput | string
+    published?: BoolFieldUpdateOperationsInput | boolean
   }
 
 

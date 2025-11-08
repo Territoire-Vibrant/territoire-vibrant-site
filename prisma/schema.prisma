@@ -11,6 +11,19 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+enum PublishStatus {
+    DRAFT
+    PUBLISHED
+    ARCHIVED
+}
+
+enum Locale {
+    en
+    es
+    fr
+    pt
+}
+
 model User {
     // Clerk user ID
     id        String   @id
@@ -19,4 +32,31 @@ model User {
     imageUrl  String?
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+}
+
+model Article {
+    id           String               @id @default(cuid())
+    createdAt    DateTime             @default(now())
+    updatedAt    DateTime             @updatedAt
+    status       PublishStatus        @default(DRAFT)
+    translations ArticleTranslation[]
+}
+
+model ArticleTranslation {
+    id        String  @id @default(cuid())
+    articleId String
+    locale    Locale
+    title     String
+    slug      String
+    bodyMd    String
+    published Boolean @default(false)
+
+    article Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+    // Garante 1 tradução por locale por artigo
+    @@unique([articleId, locale])
+    // Cada slug é único dentro do seu locale
+    @@unique([locale, slug])
+    @@index([locale])
+    @@index([slug])
 }

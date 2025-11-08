@@ -102,6 +102,23 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ArticleScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  status: 'status'
+};
+
+exports.Prisma.ArticleTranslationScalarFieldEnum = {
+  id: 'id',
+  articleId: 'articleId',
+  locale: 'locale',
+  title: 'title',
+  slug: 'slug',
+  bodyMd: 'bodyMd',
+  published: 'published'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -116,10 +133,23 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.PublishStatus = exports.$Enums.PublishStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  ARCHIVED: 'ARCHIVED'
+};
 
+exports.Locale = exports.$Enums.Locale = {
+  en: 'en',
+  es: 'es',
+  fr: 'fr',
+  pt: 'pt'
+};
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Article: 'Article',
+  ArticleTranslation: 'ArticleTranslation'
 };
 /**
  * Create the Client
@@ -168,13 +198,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  // Clerk user ID\n  id        String   @id\n  email     String?  @unique\n  name      String?\n  imageUrl  String?\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n",
-  "inlineSchemaHash": "48f245cb45ee1443d74a55f27653ecc1ba64f0f61e81019113e7d379f2c24261",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum PublishStatus {\n  DRAFT\n  PUBLISHED\n  ARCHIVED\n}\n\nenum Locale {\n  en\n  es\n  fr\n  pt\n}\n\nmodel User {\n  // Clerk user ID\n  id        String   @id\n  email     String?  @unique\n  name      String?\n  imageUrl  String?\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Article {\n  id           String               @id @default(cuid())\n  createdAt    DateTime             @default(now())\n  updatedAt    DateTime             @updatedAt\n  status       PublishStatus        @default(DRAFT)\n  translations ArticleTranslation[]\n}\n\nmodel ArticleTranslation {\n  id        String  @id @default(cuid())\n  articleId String\n  locale    Locale\n  title     String\n  slug      String\n  bodyMd    String\n  published Boolean @default(false)\n\n  article Article @relation(fields: [articleId], references: [id], onDelete: Cascade)\n\n  // Garante 1 tradução por locale por artigo\n  @@unique([articleId, locale])\n  // Cada slug é único dentro do seu locale\n  @@unique([locale, slug])\n  @@index([locale])\n  @@index([slug])\n}\n",
+  "inlineSchemaHash": "d251caa1b41e003e92f631b383707126dcf8436f519c790220a7232da55340ee",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"imageUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"imageUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Article\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"PublishStatus\"},{\"name\":\"translations\",\"kind\":\"object\",\"type\":\"ArticleTranslation\",\"relationName\":\"ArticleToArticleTranslation\"}],\"dbName\":null},\"ArticleTranslation\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"articleId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"locale\",\"kind\":\"enum\",\"type\":\"Locale\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"slug\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"bodyMd\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"published\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"article\",\"kind\":\"object\",\"type\":\"Article\",\"relationName\":\"ArticleToArticleTranslation\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),
