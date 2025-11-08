@@ -15,6 +15,21 @@
   "portuguese": "Portuguese",
   "spanish": "Spanish",
   "french": "French",
+  "no_publications_yet": "No publications yet.",
+  "search": "Search",
+  "newest": "Newest",
+  "oldest": "Oldest",
+  "all_statuses": "All Statuses",
+  "apply": "Apply",
+  "create": "Create",
+  "status": "Status",
+  "created": "Created",
+  "publications_search_placeholder": "Search publications",
+  "publish_status": {
+    "DRAFT": "Draft",
+    "PUBLISHED": "Published",
+    "ARCHIVED": "Archived"
+  },
   "Home": {
     "hero": {
       "h1": "Here belonging <v>Vibrates</v>",

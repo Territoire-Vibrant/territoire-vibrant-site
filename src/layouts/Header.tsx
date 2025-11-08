@@ -41,8 +41,13 @@ export const Header = () => {
     })
   }
 
+  const pagesToHide = ['/admin']
+
   return (
-    <header className='sticky top-0 z-30 flex h-16 items-center justify-center bg-background/70 backdrop-blur-xl'>
+    <header
+      data-hide={pagesToHide.includes(pathname)}
+      className='top-0 z-30 flex h-16 select-none items-center justify-center bg-background/70 backdrop-blur-xl data-[hide=false]:sticky'
+    >
       <nav className='flex w-full max-w-6xl items-center justify-between px-6'>
         <ul className='flex items-center'>
           <li>

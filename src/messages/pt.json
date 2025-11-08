@@ -15,6 +15,21 @@
   "portuguese": "Português",
   "spanish": "Espanhol",
   "french": "Francês",
+  "no_publications_yet": "Nenhuma publicação ainda.",
+  "search": "Buscar",
+  "newest": "Mais recentes",
+  "oldest": "Mais antigas",
+  "all_statuses": "Todos os status",
+  "apply": "Aplicar",
+  "create": "Criar",
+  "status": "Status",
+  "created": "Criado",
+  "publications_search_placeholder": "Buscar publicações",
+  "publish_status": {
+    "DRAFT": "Rascunho",
+    "PUBLISHED": "Publicado",
+    "ARCHIVED": "Arquivado"
+  },
   "Home": {
     "hero": {
       "h1": "Aqui o pertencimento <v>Vibra</v>",

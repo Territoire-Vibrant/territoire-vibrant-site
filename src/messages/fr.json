@@ -15,6 +15,21 @@
   "portuguese": "Portugais",
   "spanish": "Espagnol",
   "french": "Français",
+  "no_publications_yet": "Aucune publication pour le moment.",
+  "search": "Rechercher",
+  "newest": "Plus récentes",
+  "oldest": "Plus anciennes",
+  "all_statuses": "Tous les statuts",
+  "apply": "Appliquer",
+  "create": "Créer",
+  "status": "Statut",
+  "created": "Créé",
+  "publications_search_placeholder": "Rechercher des publications",
+  "publish_status": {
+    "DRAFT": "Brouillon",
+    "PUBLISHED": "Publié",
+    "ARCHIVED": "Archivé"
+  },
   "Home": {
     "hero": {
       "h1": "Ici, l'appartenance <v>Vibre</v>",
