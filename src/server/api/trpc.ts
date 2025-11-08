@@ -1,3 +1,4 @@
+import { auth, clerkClient } from '@clerk/nextjs/server'
 /**
  * YOU PROBABLY DON'T NEED TO EDIT THIS FILE, UNLESS:
  * 1. You want to modify request context (see Part 1).
@@ -25,8 +26,40 @@ import { db } from '~/server/db'
  * @see https://trpc.io/docs/server/context
  */
 export const createTRPCContext = async (opts: { headers: Headers }) => {
+  // Ensure authenticated user exists in DB
+  const { userId } = await auth()
+
+  if (userId) {
+    // Try to enrich with primary email and profile data if available.
+    try {
+      const client = await clerkClient()
+
+      const user = await client.users.getUser(userId)
+      const primaryEmail = user.emailAddresses.find((e) => e.id === user.primaryEmailAddressId)?.emailAddress
+
+      await db.user.upsert({
+        where: { id: userId },
+        update: {
+          email: primaryEmail ?? undefined,
+          name: user.fullName ?? undefined,
+          imageUrl: user.imageUrl ?? undefined,
+        },
+        create: {
+          id: userId,
+          email: primaryEmail ?? undefined,
+          name: user.fullName ?? undefined,
+          imageUrl: user.imageUrl ?? undefined,
+        },
+      })
+    } catch (err) {
+      // Fallback to minimal upsert if Clerk API fails.
+      await db.user.upsert({ where: { id: userId }, update: {}, create: { id: userId } })
+    }
+  }
+
   return {
     db,
+    userId,
     ...opts,
   }
 }

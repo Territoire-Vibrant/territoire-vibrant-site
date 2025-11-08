@@ -1,18 +1,20 @@
+import { ClerkProvider } from '@clerk/nextjs'
+import { auth, clerkClient } from '@clerk/nextjs/server'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
 import { type Locale, NextIntlClientProvider, hasLocale } from 'next-intl'
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server'
 import { Geist, Geist_Mono } from 'next/font/google'
 // biome-ignore lint/nursery/noRestrictedImports: notFound is a Next.js function
 import { notFound } from 'next/navigation'
 import type { ReactNode } from 'react'
 
-import { routing } from '~/i18n/routing'
-
 import '../globals.css'
 
-import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server'
+import { routing } from '~/i18n/routing'
 import { Header } from '~/layouts/Header'
+import { db } from '~/server/db'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -55,17 +57,48 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
   setRequestLocale(locale)
   const messages = await getMessages()
 
-  return (
-    <html lang={locale}>
-      <body className={`${geistSans.variable}${geistMono.variable} relative antialiased`}>
-        <Analytics />
-        <SpeedInsights />
+  // Ensure the authenticated user exists in the database (mirrors TRPC context logic)
+  try {
+    const { userId } = await auth()
+    if (userId) {
+      const client = await clerkClient()
 
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <Header />
-          <main className='mx-auto'>{children}</main>
-        </NextIntlClientProvider>
-      </body>
-    </html>
+      const user = await client.users.getUser(userId)
+      const primaryEmail = user.emailAddresses.find((e: any) => e.id === user.primaryEmailAddressId)?.emailAddress
+
+      await db.user.upsert({
+        where: { id: userId },
+        update: {
+          email: primaryEmail ?? undefined,
+          name: user.fullName ?? undefined,
+          imageUrl: user.imageUrl ?? undefined,
+        },
+        create: {
+          id: userId,
+          email: primaryEmail ?? undefined,
+          name: user.fullName ?? undefined,
+          imageUrl: user.imageUrl ?? undefined,
+        },
+      })
+    }
+  } catch (err) {
+    // Swallow errors to not block layout rendering.
+    console.error('[RootLayout ensureUser] failed:', err)
+  }
+
+  return (
+    <ClerkProvider>
+      <html lang={locale}>
+        <body className={`${geistSans.variable}${geistMono.variable} relative antialiased`}>
+          <Analytics />
+          <SpeedInsights />
+
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <Header />
+            <main className='mx-auto'>{children}</main>
+          </NextIntlClientProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }

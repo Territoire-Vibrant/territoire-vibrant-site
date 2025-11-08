@@ -1,26 +1,47 @@
-import { clerkMiddleware } from '@clerk/nextjs/server'
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import createMiddleware from 'next-intl/middleware'
-import type { NextFetchEvent, NextRequest } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 
 import { routing } from './i18n/routing'
+import { isAdminFromSessionClaims } from './lib/utils'
 
-// Instantiate each middleware once for composition.
 const intlMiddleware = createMiddleware(routing)
-const clerk = clerkMiddleware()
 
-export default function middleware(req: NextRequest, event: NextFetchEvent) {
-  // Run internationalization first so locale resolution/rewrite happens before auth.
-  const intlResponse = intlMiddleware(req)
-  if (intlResponse) return intlResponse
+// Route matchers for access control (support locale-prefixed paths and non-prefixed fallbacks).
+const adminPatterns = ['/admin(.*)', ...routing.locales.map((l) => `/${l}/admin(.*)`)]
+const adminLoginPatterns = ['/admin/login(.*)', ...routing.locales.map((l) => `/${l}/admin/login(.*)`)]
+const isAdminRoute = createRouteMatcher(adminPatterns)
+const isPublicAdminRoute = createRouteMatcher(adminLoginPatterns)
 
-  // Then run Clerk auth middleware.
-  const authResponse = clerk(req, event)
-  if (authResponse) return authResponse
-}
+export default clerkMiddleware(async (auth, req: NextRequest) => {
+  if (isAdminRoute(req) && !isPublicAdminRoute(req)) {
+    const { userId, redirectToSignIn, sessionClaims } = await auth()
+    if (!userId) {
+      return redirectToSignIn({ returnBackUrl: req.url })
+    }
+
+    const isAdmin = isAdminFromSessionClaims(sessionClaims)
+
+    // Redirect non-admin authenticated users out of /admin
+    if (!isAdmin) {
+      const url = new URL('/', req.url)
+      return NextResponse.redirect(url)
+    }
+  }
+
+  // Skip next-intl for API and tRPC routes.
+  const pathname = req.nextUrl.pathname
+  if (pathname.startsWith('/api') || pathname.startsWith('/trpc')) {
+    return
+  }
+
+  // Apply internationalization for all other routes.
+  return intlMiddleware(req)
+})
 
 export const config = {
   // Match all pathnames except for
-  // - … if they start with `/api`, `/trpc`, `/_next` or `/_vercel`
+  // - … if they start with `/_next` or `/_vercel`
   // - … the ones containing a dot (e.g. `favicon.ico`)
-  matcher: '/((?!api|trpc|_next|_vercel|.*\\..*).*)',
+  matcher: '/((?!_next|_vercel|.*\\..*).*)',
 }
