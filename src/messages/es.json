@@ -1,0 +1,121 @@
+{
+  "territoire_vibrant": "Territoire Vibrant®",
+  "find_out_more": "Descubra más",
+  "lets_talk": "Hablemos",
+  "home": "Inicio",
+  "who_we_are": "Quienes somos",
+  "mission": "Misión",
+  "projects": "Proyectos",
+  "featured_projects": "Proyectos Destacados",
+  "more_projects": "Más Proyectos",
+  "services": "Servicios",
+  "publications": "Publicaciones",
+  "contact": "Contacto",
+  "english": "Inglés",
+  "portuguese": "Portugués",
+  "spanish": "Español",
+  "french": "Francés",
+  "Home": {
+    "hero": {
+      "h1": "Aquí <v>Vibra</v> la pertenencia",
+      "h2": "Utilizamos la creatividad, la inteligencia territorial y la gestión colaborativa para transformar comunidades en territorios sostenibles.",
+      "box1": {
+        "title": "Turismo de base comunitaria",
+        "subtext": "Experiencias que fortalecen a las comunidades locales, generan ingresos y valoran la cultura del territorio."
+      },
+      "box2": {
+        "community_image_alt": "Una hermosa comunidad",
+        "landscape_image_alt": "Un hermoso paisaje"
+      },
+      "box4_slide1": {
+        "title": "Economía creativa",
+        "subtext": "Iniciativas que transforman el territorio en un valor económico sostenible para las comunidades y culturas locales."
+      },
+      "box4_slide2": {
+        "title": "Turismo regenerativo",
+        "subtext": "Valoramos las raíces naturales y culturales para devolver vitalidad a los territorios."
+      }
+    },
+    "intro": {
+      "p": "Actuamos con creatividad, inteligencia territorial y gestión colaborativa para transformar realidades en proyectos sostenibles, conectando Brasil, Canadá y el mundo.",
+      "cta_label": "Descubra qué es un territorio vibrante",
+      "image_alt": "Paisaje que representa un territorio vibrante"
+    },
+    "projects": {
+      "project_1": {
+        "title": "Red colaborativa",
+        "description": "El proyecto Red Colaborativa Territoire Vibrant es el núcleo pulsante de todo nuestro ecosistema, representa un organismo vivo de creación, confianza y corresponsabilidad."
+      },
+      "project_2": {
+        "title": "Impacto vibrante",
+        "description": "Una plataforma viva de impacto para empresas, instituciones y ciudades que conecta inteligencia colaborativa, regeneración territorial y responsabilidad social en un solo ecosistema."
+      },
+      "project_3": {
+        "title": "Voces de los vivos",
+        "description": "Vozes viventes es un proyecto artístico-pedagógico de cocreación artística con jóvenes, realizado en colaboración con escuelas públicas y técnicas."
+      }
+    }
+  },
+  "WhoWeAre": {
+    "intro": {
+      "p1": "Território Vibrante nace con el propósito de unir a profesionales y consultores de diferentes áreas en un ecosistema colaborativo dedicado a fortalecer comunidades y regenerar territorios, valorando a inmigrantes y pueblos originarios. Entendemos el territorio como un organismo vivo, regenerativo e interdependiente, que integra dimensiones culturales, económicas, ambientales y sociales.",
+      "p2": "Nuestro modelo de actuación es híbrido, integrando el Turismo de Base Comunitaria (TBC) e inspirado en los modelos de gestión de Arreglos Productivos Locales (APL), garantizando que el desarrollo comunitario esté siempre en el centro de las acciones.",
+      "p3": "Cada proyecto nace de una lectura real del territorio y se transforma en soluciones concretas — creativas, sostenibles y conectadas con las identidades locales de inmigrantes y pueblos originarios."
+    },
+    "network": {
+      "chip": "La Red Colaborativa Território Vibrante",
+      "p1": "La Red Colaborativa es el proyecto central de Território Vibrante. En ella, cada miembro aporta sus competencias y recursos en un entorno de inteligencia colectiva, con acceso a una plataforma digital exclusiva que garantiza integración, agilidad y confianza.",
+      "p2": "Más que diálogo, la red es acción conjunta — fundamentada en disciplina, compromiso y lealtad. Combina investigación y desarrollo, a partir de la producción de artículos, libros y la elaboración e implementación de proyectos transformadores que unen innovación social, impacto cultural y turismo regenerativo."
+    },
+    "team": {
+      "title": "Nuestro equipo",
+      "marco": {
+        "name": "Marco Antonio Cunha Marques",
+        "role": "Fundador",
+        "bio": "Turismólogo, especialista en gestión de Arreglos Productivos Locales."
+      },
+      "lilliam": {
+        "name": "Lilliam Maria Mesquita Alexandre",
+        "role": "Cofundadora",
+        "bio": "Descripción en breve."
+      },
+      "pedro": {
+        "name": "Pedro Lucena de Sousa Marques",
+        "role": "Director de Desarrollo",
+        "bio": "Programador Full-Stack, especialista en desarrollo web y móvil."
+      }
+    },
+    "manifesto": {
+      "p1": "Somos una red viva de especialistas, emprendedores e investigadores conectados por un propósito. Cada miembro es un eslabón que hace vibrar el territorio, aportando su cultura, experiencia, técnica y creatividad para generar transformación.",
+      "p2": "Creemos en la fuerza del trabajo en red, en la inteligencia colectiva y en la confianza como base de toda asociación. La red es más que un espacio: es una fuerza viva de creación y pertenencia."
+    },
+    "highlight": "Lectura del territorio + creatividad + gestión colaborativa = impacto real."
+  },
+  "Mission": {
+    "intro": {
+      "p1": "Nuestro método se basa en una reinterpretación evolutiva de los Arreglos Productivos Locales (APL), combinada con la gestión del Turismo de Base Comunitaria (TBC), donde el desarrollo se entiende como un proceso continuo, cocreado, participativo y simbólico, construido por muchas manos y fundamentado en el sentido de pertenencia, la cooperación y la inteligencia colectiva.",
+      "p2": "Território Vibrante transforma demandas específicas en proyectos a medida, combinando inteligencia territorial, economía creativa y una red colaborativa. Cada iniciativa nace de un diagnóstico real y evoluciona a partir de la escucha activa de las comunidades, la lectura sensible de los contextos y la articulación entre actores públicos, privados y sociales."
+    },
+    "essence": {
+      "title": "Nuestra Esencia (Misión, Visión y Valores)",
+      "mission": {
+        "title": "Misión",
+        "p": "Conectar profesionales, instituciones y comunidades en un ecosistema colaborativo capaz de desarrollar proyectos que fortalezcan territorios, regeneren vínculos y valoren a inmigrantes y pueblos originarios, generando impacto social, cultural, económico y ambiental."
+      },
+      "vision": {
+        "title": "Visión",
+        "p": "Ser una referencia internacional en innovación social y desarrollo regenerativo, conectando Brasil, Québec y el mundo en proyectos que transformen el territorio en una fuente de pertenencia, prosperidad y equilibrio."
+      },
+      "values": {
+        "title": "Valores",
+        "item1": "Excelencia y Responsabilidad — hacer bien las cosas, con propósito y coherencia.",
+        "item2": "Lealtad y Confianza — relaciones humanas sólidas como base de toda acción.",
+        "item3": "Colaboración e Inteligencia Colectiva — el poder de hacer juntos.",
+        "item4": "Innovación y Resiliencia — transformar desafíos en soluciones creativas.",
+        "item5": "Corresponsabilidad Comunitaria — todos como protagonistas del impacto colectivo.",
+        "item6": "Centralidad Cultural — respeto y valorización de inmigrantes y pueblos originarios."
+      }
+    },
+    "quote": "El territorio no es un espacio para ser explotado. Es un ser que debe ser escuchado."
+  }
+}
