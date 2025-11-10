@@ -15,6 +15,7 @@ import '../globals.css'
 import { routing } from '~/i18n/routing'
 import { Header } from '~/layouts/Header'
 import { db } from '~/server/db'
+import { TRPCReactProvider } from '~/trpc/react'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -94,8 +95,10 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
           <SpeedInsights />
 
           <NextIntlClientProvider locale={locale} messages={messages}>
-            <Header />
-            <main className='mx-auto'>{children}</main>
+            <TRPCReactProvider>
+              <Header />
+              <main className='mx-auto'>{children}</main>
+            </TRPCReactProvider>
           </NextIntlClientProvider>
         </body>
       </html>

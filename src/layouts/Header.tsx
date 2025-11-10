@@ -41,14 +41,9 @@ export const Header = () => {
     })
   }
 
-  const pagesToHide = ['/admin']
-
   return (
-    <header
-      data-hide={pagesToHide.includes(pathname)}
-      className='top-0 z-30 flex h-16 select-none items-center justify-center bg-background/70 backdrop-blur-xl data-[hide=false]:sticky'
-    >
-      <nav className='flex w-full max-w-6xl items-center justify-between px-6'>
+    <header className='sticky top-0 z-30 flex select-none items-center justify-center bg-background/70 backdrop-blur-xl'>
+      <nav className='flex h-16 w-full max-w-6xl items-center justify-between px-6'>
         <ul className='flex items-center'>
           <li>
             <Link href='/' prefetch>
@@ -57,7 +52,7 @@ export const Header = () => {
                 alt={t('territoire_vibrant')}
                 width={500}
                 height={500}
-                className='size-40'
+                className='h-10 w-auto object-contain'
               />
             </Link>
           </li>

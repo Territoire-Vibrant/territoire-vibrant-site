@@ -1,9 +1,9 @@
-import { UserButton } from '@clerk/nextjs'
 import { getTranslations } from 'next-intl/server'
 
 import { Button } from '~/components/ui/button'
 import { Filters } from './components/Filters'
 
+import { Link } from '~/i18n/navigation'
 import { api } from '~/trpc/server'
 
 import type { PublishStatus } from 'generated/prisma'
@@ -15,6 +15,7 @@ export default async function AdminPage({
   const rawQuery = sp?.q
   const rawStatus = sp?.status
   const rawSort = sp?.sort
+  const rawLocale = sp?.locale
 
   const query = typeof rawQuery === 'string' ? rawQuery.trim() : ''
   const status = typeof rawStatus === 'string' ? (rawStatus as PublishStatus) : undefined
@@ -25,6 +26,7 @@ export default async function AdminPage({
   const tx = (key: string) => (t as unknown as (k: string) => string)(key)
 
   const articles = await api.article.getAll()
+  const locale = typeof rawLocale === 'string' ? rawLocale : undefined
   const filtered = articles
     .filter((a) => (status ? a.status === status : true))
     .filter((a) => (query ? a.id.includes(query) : true))
@@ -35,45 +37,47 @@ export default async function AdminPage({
     })
 
   return (
-    <div className='flex flex-col items-center'>
-      <header className='flex h-16 w-full items-center justify-center bg-yellow-200'>
-        <nav className='flex w-full max-w-6xl items-center justify-between px-6'>
-          <h1 className='font-semibold'>Admin</h1>
+    <div className='mt-10 flex w-full max-w-6xl flex-col gap-6 px-6'>
+      <div className='flex flex-wrap items-center gap-4'>
+        <Filters initialQuery={query} initialSort={sort} initialStatus={status} />
 
-          <UserButton />
-        </nav>
-      </header>
+        <Button size='sm' variant='outline' className='ml-auto'>
+          <Link href='/admin/publication/create'>{t('create')}</Link>
+        </Button>
+      </div>
 
-      <div className='mt-10 flex w-full max-w-6xl flex-col gap-6 px-6'>
-        <div className='flex flex-wrap items-center gap-4'>
-          <Filters initialQuery={query} initialSort={sort} initialStatus={status} />
+      <h2 className='font-semibold text-2xl'>{t('publications')}</h2>
 
-          <Button size='sm' variant='outline' className='ml-auto'>
-            {t('create')}
-          </Button>
-        </div>
-
-        <h2 className='font-semibold text-2xl'>{t('publications')}</h2>
-
-        <div>
-          {filtered.length ? (
-            filtered.map((article) => (
+      <div>
+        {filtered.length ? (
+          filtered.map((article) => {
+            const translation = article.translations.find((tr) => tr.locale === locale) ?? article.translations[0]
+            return (
               <div key={article.id} className='my-4 rounded border p-4'>
-                <h3 className='font-semibold text-lg'>{article.id}</h3>
+                <h3 className='font-semibold text-lg'>{translation?.title ?? article.id}</h3>
 
-                <p className='text-muted-foreground text-xs'>
+                {translation?.slug && (
+                  <Link
+                    href={`/admin/publication/${translation.slug}`}
+                    className='text-blue-600 text-sm underline underline-offset-2'
+                  >
+                    {t('find_out_more')}
+                  </Link>
+                )}
+
+                <p className='mt-2 text-muted-foreground text-xs'>
                   {t('status')}: {tx(`publish_status.${article.status}`)}
                 </p>
 
-                <p className='text-muted-foreground text-xs'>
+                <p className='mt-1 text-muted-foreground text-xs'>
                   {t('created')}: {article.createdAt.toISOString()}
                 </p>
               </div>
-            ))
-          ) : (
-            <p>{t('no_publications_yet')}</p>
-          )}
-        </div>
+            )
+          })
+        ) : (
+          <p className='text-neutral-500'>{t('no_publications_yet')}</p>
+        )}
       </div>
     </div>
   )

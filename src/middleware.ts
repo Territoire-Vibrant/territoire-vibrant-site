@@ -32,7 +32,8 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
   // Skip next-intl for API and tRPC routes.
   const pathname = req.nextUrl.pathname
   if (pathname.startsWith('/api') || pathname.startsWith('/trpc')) {
-    return
+    // Ensure Clerk still marks the request as passing through middleware
+    return NextResponse.next()
   }
 
   // Apply internationalization for all other routes.
@@ -43,5 +44,6 @@ export const config = {
   // Match all pathnames except for
   // - … if they start with `/_next` or `/_vercel`
   // - … the ones containing a dot (e.g. `favicon.ico`)
-  matcher: '/((?!_next|_vercel|.*\\..*).*)',
+  // Ensure tRPC endpoint with dotted paths (e.g., /api/trpc/article.createArticle) still runs through middleware
+  matcher: ['/((?!_next|_vercel|.*\\..*).*)', '/api/trpc/:path*'],
 }
