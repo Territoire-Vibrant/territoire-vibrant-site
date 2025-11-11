@@ -13,9 +13,9 @@ export default async function PublicationDetailsPage({ params }: Props) {
 
   const data = await api.article.getArticleBySlug({ slug, locale: locale as 'en' | 'es' | 'fr' | 'pt' })
 
-  if (!data) {
-    redirect({ href: '/admin', locale: locale as 'en' | 'es' | 'fr' | 'pt' })
-  }
+  // if (!data) {
+  //   redirect({ href: '/admin', locale: locale as 'en' | 'es' | 'fr' | 'pt' })
+  // }
 
   return (
     <div className='mx-auto max-w-2xl px-6 py-10'>

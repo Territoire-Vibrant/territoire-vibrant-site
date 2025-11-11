@@ -26,6 +26,7 @@
   "cancel": "Cancel",
   "status": "Status",
   "created": "Created",
+  "our_network": "Our Network",
   "publications_search_placeholder": "Search publications",
   "publish_status": {
     "DRAFT": "Draft",
@@ -87,19 +88,29 @@
     "team": {
       "title": "Our team",
       "marco": {
-        "name": "Marco Antonio Cunha Marques",
+        "name": "Marco Marques",
         "role": "Founder",
         "bio": "Tourism professional, specialist in managing Local Productive Arrangements."
       },
+      "pedro": {
+        "name": "Pedro Lucena",
+        "role": "Director of Development",
+        "bio": "Full-Stack programmer, specialist in web and mobile development.."
+      },
       "lilliam": {
-        "name": "Lilliam Maria Mesquita Alexandre",
+        "name": "Lilliam Mesquita",
         "role": "Co-founder",
         "bio": "Description coming soon."
       },
-      "pedro": {
-        "name": "Pedro Lucena de Sousa Marques",
-        "role": "Director of Development",
-        "bio": "Full-Stack programmer, specialist in web and mobile development.."
+      "erica": {
+        "name": "Érica Gomes",
+        "role": "Coordinator in social psychopedagogy",
+        "bio": ""
+      },
+      "angela": {
+        "name": "Ângela González",
+        "role": "Sociologist and PhD in Public Health Sciences",
+        "bio": ""
       }
     },
     "manifesto": {

@@ -11,11 +11,11 @@ type TeamCardProps = {
 
 export const TeamCard = ({ name, position, bio, image }: TeamCardProps) => {
   return (
-    <div className='rounded-xl border bg-background p-6 shadow-sm'>
+    <div className='h-[400px] select-none rounded-xl border bg-background p-6 shadow-sm'>
       <Image
         src={image ?? PlaceholderImage}
         alt={name}
-        className='mb-4 aspect-[4/3] w-full rounded-lg bg-neutral-200 object-cover'
+        className='mb-4 aspect-4/3 w-full rounded-lg bg-neutral-200 object-cover'
       />
 
       <h3 className='font-semibold text-lg text-neutral-900'>{name}</h3>

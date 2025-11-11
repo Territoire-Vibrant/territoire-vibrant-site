@@ -5,11 +5,9 @@ import Image from 'next/image'
 
 import Community from '~/assets/images/home/hero/community.jpg'
 import Landscape from '~/assets/images/home/hero/landscape.png'
-import Marco from '~/assets/images/members/marco.jpg'
-import Pedro from '~/assets/images/members/pedro.png'
 
 import { Section } from '~/layouts/Section'
-import { TeamCard } from './components/TeamCard'
+import { TeamCarousel } from './components/TeamCarousel'
 
 export async function generateMetadata({
   params,
@@ -33,7 +31,7 @@ export default function WhoWeArePage() {
         <Image
           src={Community}
           alt={t('Home.hero.box2.community_image_alt')}
-          className='aspect-[4/3] w-full rounded-xl object-cover lg:w-1/2'
+          className='aspect-4/3 w-full rounded-xl object-cover lg:w-1/2'
           priority
         />
 
@@ -52,7 +50,7 @@ export default function WhoWeArePage() {
         <Image
           src={Landscape}
           alt={t('Home.hero.box2.landscape_image_alt')}
-          className='aspect-[4/3] w-full rounded-xl object-cover lg:w-1/2'
+          className='aspect-4/3 w-full rounded-xl object-cover lg:w-1/2'
         />
 
         <div className='space-y-6 lg:w-1/2'>
@@ -66,29 +64,9 @@ export default function WhoWeArePage() {
       </Section>
 
       <Section className='flex w-full flex-col items-center space-y-8 px-6 py-12'>
-        <h2 className='font-semibold text-2xl tracking-tight'>{t('WhoWeAre.team.title')}</h2>
+        <h2 className='font-semibold text-2xl tracking-tight'>{t('our_network')}</h2>
 
-        <div className='grid gap-6 lg:grid-cols-3 sm:grid-cols-2'>
-          <TeamCard
-            name={t('WhoWeAre.team.marco.name')}
-            position={t('WhoWeAre.team.marco.role')}
-            bio={t('WhoWeAre.team.marco.bio')}
-            image={Marco}
-          />
-
-          <TeamCard
-            name={t('WhoWeAre.team.lilliam.name')}
-            position={t('WhoWeAre.team.lilliam.role')}
-            bio={t('WhoWeAre.team.lilliam.bio')}
-          />
-
-          <TeamCard
-            name={t('WhoWeAre.team.pedro.name')}
-            position={t('WhoWeAre.team.pedro.role')}
-            bio={t('WhoWeAre.team.pedro.bio')}
-            image={Pedro}
-          />
-        </div>
+        <TeamCarousel />
       </Section>
 
       <Section className='flex w-full flex-col items-center space-y-8 px-6 py-12 lg:py-16'>
