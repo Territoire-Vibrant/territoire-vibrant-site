@@ -1,11 +1,14 @@
 import { getTranslations } from 'next-intl/server'
 
+import { ArchiveIcon, CheckIcon, NotebookPenIcon } from 'lucide-react'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import { Filters } from './components/Filters'
 
 import { Link } from '~/i18n/navigation'
 import { api } from '~/trpc/server'
 
 import type { PublishStatus } from 'generated/prisma'
+import { toExcerpt } from '~/lib/utils'
 
 export default async function AdminPage({
   searchParams,
@@ -35,6 +38,17 @@ export default async function AdminPage({
       return 0
     })
 
+  const statusIcon = (status: PublishStatus) => {
+    switch (status) {
+      case 'DRAFT':
+        return <NotebookPenIcon className='size-7 rounded-full bg-yellow-500 p-1.5 text-background' />
+      case 'ARCHIVED':
+        return <ArchiveIcon className='size-7 rounded-full bg-neutral-500 p-1.5 text-background' />
+      case 'PUBLISHED':
+        return <CheckIcon className='size-7 rounded-full bg-primary p-1.5 text-background' />
+    }
+  }
+
   return (
     <div className='mt-10 flex w-full max-w-6xl flex-col gap-6 px-6'>
       <div className='flex flex-wrap items-center gap-4'>
@@ -47,26 +61,37 @@ export default async function AdminPage({
         {filtered.length ? (
           filtered.map((article) => {
             const translation = article.translations.find((tr) => tr.locale === locale) ?? article.translations[0]
-            return (
-              <div key={article.id} className='my-4 rounded border p-4'>
-                <h3 className='font-semibold text-lg'>{translation?.title ?? article.id}</h3>
 
-                {translation?.slug && (
+            return (
+              <div key={article.id} className='flex flex-col rounded-lg border p-4'>
+                <div className='flex items-center justify-between'>
+                  <p className='font-semibold text-lg'>{translation?.title ?? article.id}</p>
+
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>{statusIcon(article.status)}</TooltipTrigger>
+
+                      <TooltipContent>
+                        <p>{tx(`publish_status.${article.status}`)}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+
+                <p className='my-2 text-muted-foreground text-sm'>{toExcerpt(translation?.bodyMd ?? '', 80)}</p>
+
+                <div className='flex items-center justify-between text-xs'>
                   <Link
-                    href={`/admin/publication/${translation.slug}`}
-                    className='text-blue-600 text-sm underline underline-offset-2'
+                    href={`/admin/publication/${translation?.slug}`}
+                    className='font-semibold text-primary text-sm hover:underline'
                   >
                     {t('find_out_more')}
                   </Link>
-                )}
 
-                <p className='mt-2 text-muted-foreground text-xs'>
-                  {t('status')}: {tx(`publish_status.${article.status}`)}
-                </p>
-
-                <p className='mt-1 text-muted-foreground text-xs'>
-                  {t('created')}: {article.createdAt.toISOString()}
-                </p>
+                  <p className='text-muted-foreground italic'>
+                    {article.createdAt.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}
+                  </p>
+                </div>
               </div>
             )
           })

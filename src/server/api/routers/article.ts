@@ -19,7 +19,7 @@ export const articleRouter = createTRPCRouter({
       orderBy: { createdAt: 'desc' },
       include: {
         translations: {
-          select: { locale: true, slug: true, title: true },
+          select: { locale: true, slug: true, title: true, bodyMd: true },
         },
       },
     })
