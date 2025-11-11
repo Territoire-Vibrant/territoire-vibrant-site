@@ -1,7 +1,7 @@
 'use client'
 
 import { useLocale, useTranslations } from 'next-intl'
-import { type ChangeEvent, useCallback, useState } from 'react'
+import { type ChangeEvent, useCallback, useMemo, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
@@ -10,6 +10,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs'
 
 import { useRouter } from '~/i18n/navigation'
 import { api } from '~/trpc/react'
+
+import { PublicationSchema } from './schema'
 
 const LOCALES = ['en', 'es', 'fr', 'pt'] as const
 
@@ -41,7 +43,7 @@ function slugify(input: string) {
     .replace(/(^-|-$)+/g, '')
 }
 
-export function ArticleForm({ mode, initial }: Props) {
+export const ArticleForm = ({ mode, initial }: Props) => {
   const t = useTranslations()
   const locale = useLocale() as 'en' | 'es' | 'fr' | 'pt'
   const router = useRouter()
@@ -53,6 +55,10 @@ export function ArticleForm({ mode, initial }: Props) {
       (loc) =>
         initial?.translations?.find((tr) => tr.locale === loc) ?? { locale: loc, title: '', slug: '', bodyMd: '' }
     )
+  )
+  // Track which locale tabs have been successfully saved (persisted)
+  const [savedLocales, setSavedLocales] = useState<Set<string>>(
+    () => new Set(initial?.translations?.filter((t) => t.title && t.slug && t.bodyMd).map((t) => t.locale) ?? [])
   )
 
   const createMutation = api.article.createArticle.useMutation()
@@ -70,6 +76,16 @@ export function ArticleForm({ mode, initial }: Props) {
             : tr
         )
       )
+
+      // Mark locale as unsaved if user edits after save
+      setSavedLocales((prev) => {
+        if (prev.has(loc)) {
+          const next = new Set(prev)
+          next.delete(loc)
+          return next
+        }
+        return prev
+      })
     },
     []
   )
@@ -77,6 +93,7 @@ export function ArticleForm({ mode, initial }: Props) {
   const onTitleChange = (loc: (typeof LOCALES)[number]) => (e: ChangeEvent<HTMLInputElement>) => {
     const nextTitle = e.target.value
     onChangeField(loc, 'title', nextTitle)
+
     // Autogenerate slug if empty
     const current = translations.find((tr) => tr.locale === loc)
     if (current && !current.slug) onChangeField(loc, 'slug', slugify(nextTitle))
@@ -92,16 +109,26 @@ export function ArticleForm({ mode, initial }: Props) {
 
   const disabled = createMutation.isPending || updateMutation.isPending
 
-  const onSubmit = async () => {
-    const payload = {
-      status,
-      translations: translations
-        .filter((tr) => tr.title && tr.slug && tr.bodyMd)
-        .map((tr) => ({ ...tr, published: status === 'PUBLISHED' })),
-    }
+  const validLocales = useMemo(() => {
+    return translations.filter((tr) => PublicationSchema.safeParse(tr).success).map((tr) => tr.locale)
+  }, [translations, PublicationSchema])
+
+  const buildPayload = (overrideStatus?: ArticleFormInitial['status']) => ({
+    status: overrideStatus ?? status,
+    translations: translations
+      .filter((tr) => PublicationSchema.safeParse(tr).success)
+      .map((tr) => ({ ...tr, published: (overrideStatus ?? status) === 'PUBLISHED' })),
+  })
+
+  const persist = async (nextStatus: ArticleFormInitial['status']) => {
+    const payload = buildPayload(nextStatus)
 
     if (mode === 'create') {
       const res = await createMutation.mutateAsync(payload)
+
+      setSavedLocales(new Set(payload.translations.map((t) => t.locale)))
+
+      // After creating, go to the edit page for the primary locale
       const primary = res.translations.find((tr) => tr.locale === locale) ?? res.translations[0]
 
       if (primary) {
@@ -110,10 +137,23 @@ export function ArticleForm({ mode, initial }: Props) {
         router.replace('/admin', { locale })
       }
     } else if (mode === 'edit' && initial?.articleId) {
-      await updateMutation.mutateAsync({ articleId: initial.articleId, ...payload })
+      const res = await updateMutation.mutateAsync({ articleId: initial.articleId, ...payload })
 
-      router.replace('/admin', { locale })
+      setSavedLocales(new Set(res?.translations.map((t) => t.locale) ?? []))
+
+      if (nextStatus === 'PUBLISHED') {
+        router.replace('/admin', { locale })
+      }
     }
+  }
+
+  const onSave = async () => {
+    await persist(status === 'PUBLISHED' ? 'DRAFT' : status)
+  }
+
+  const onPublish = async () => {
+    setStatus('PUBLISHED')
+    await persist('PUBLISHED')
   }
 
   return (
@@ -139,11 +179,26 @@ export function ArticleForm({ mode, initial }: Props) {
 
       <Tabs value={activeLocale} onValueChange={(v) => setActiveLocale(v as any)}>
         <TabsList>
-          {LOCALES.map((loc) => (
-            <TabsTrigger key={loc} value={loc}>
-              {loc.toUpperCase()}
-            </TabsTrigger>
-          ))}
+          {LOCALES.map((loc) => {
+            const isValid = validLocales.includes(loc)
+            const isSaved = savedLocales.has(loc)
+            return (
+              <TabsTrigger key={loc} value={loc} className='relative'>
+                <span className='flex items-center gap-1'>
+                  {loc.toUpperCase()}
+                  {isValid && isSaved && (
+                    <svg aria-hidden='true' viewBox='0 0 20 20' fill='currentColor' className='size-4 text-green-600'>
+                      <path
+                        fillRule='evenodd'
+                        d='M16.704 5.29a1 1 0 0 1 .006 1.414l-7.25 7.25a1 1 0 0 1-1.414-.006L3.29 8.994a1 1 0 1 1 1.414-1.414l3.05 3.05 6.543-6.543a1 1 0 0 1 1.407.203Z'
+                        clipRule='evenodd'
+                      />
+                    </svg>
+                  )}
+                </span>
+              </TabsTrigger>
+            )
+          })}
         </TabsList>
 
         {LOCALES.map((loc) => {
@@ -203,13 +258,20 @@ export function ArticleForm({ mode, initial }: Props) {
         })}
       </Tabs>
 
-      <div className='flex items-center gap-2'>
-        <Button onClick={onSubmit} disabled={disabled}>
-          {mode === 'create' ? t('create') : 'Save'}
-        </Button>
-
-        <Button variant='outline' onClick={() => router.replace('/admin', { locale })} disabled={disabled}>
+      <div className='flex flex-wrap items-center gap-2 pt-2'>
+        <Button
+          type='button'
+          variant='outline'
+          onClick={() => router.replace('/admin', { locale })}
+          disabled={disabled}
+        >
           {(t as unknown as (k: string) => string)('cancel') ?? 'Cancel'}
+        </Button>
+        <Button type='button' onClick={onSave} disabled={disabled || validLocales.length === 0}>
+          Save
+        </Button>
+        <Button type='button' variant='secondary' onClick={onPublish} disabled={disabled || validLocales.length === 0}>
+          Publish
         </Button>
       </div>
     </div>

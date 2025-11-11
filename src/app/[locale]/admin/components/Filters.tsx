@@ -3,7 +3,9 @@
 import { useTranslations } from 'next-intl'
 import { type ChangeEvent, useEffect, useMemo, useState } from 'react'
 
-import { useRouter } from '~/i18n/navigation'
+import { Button } from '~/components/ui/button'
+
+import { Link, useRouter } from '~/i18n/navigation'
 
 const STATUSES = ['DRAFT', 'PUBLISHED', 'ARCHIVED'] as const
 export type PublishStatusValue = (typeof STATUSES)[number]
@@ -14,7 +16,7 @@ type Props = {
   initialStatus?: PublishStatusValue
 }
 
-export function Filters({ initialQuery, initialSort, initialStatus }: Props) {
+export const Filters = ({ initialQuery, initialSort, initialStatus }: Props) => {
   const t = useTranslations()
   const router = useRouter()
   const searchParams =
@@ -69,35 +71,46 @@ export function Filters({ initialQuery, initialSort, initialStatus }: Props) {
   const onChangeStatus = (e: ChangeEvent<HTMLSelectElement>) => setStatus((e.target.value as PublishStatusValue) || '')
 
   return (
-    <div className='flex items-center gap-2'>
+    <div className='flex w-full flex-col items-center gap-2 md:flex-row'>
       <input
         type='text'
         name='q'
         value={query}
         onChange={onChangeQuery}
         placeholder={t('publications_search_placeholder')}
-        className='h-9 rounded-md border px-3 text-sm shadow-sm'
+        className='h-9 w-full rounded-md border px-3 text-sm shadow-sm'
       />
 
-      <select name='sort' value={sort} onChange={onChangeSort} className='h-9 rounded-md border px-2 text-sm shadow-sm'>
-        <option value='newest'>{t('newest')}</option>
-        <option value='oldest'>{t('oldest')}</option>
-      </select>
+      <div className='flex w-full items-center gap-2 md:w-auto'>
+        <select
+          name='sort'
+          value={sort}
+          onChange={onChangeSort}
+          className='h-9 rounded-md border px-2 text-sm shadow-sm'
+        >
+          <option value='newest'>{t('newest')}</option>
+          <option value='oldest'>{t('oldest')}</option>
+        </select>
 
-      <select
-        name='status'
-        value={status}
-        onChange={onChangeStatus}
-        className='h-9 rounded-md border px-2 text-sm shadow-sm'
-      >
-        <option value=''>{t('all_statuses')}</option>
+        <select
+          name='status'
+          value={status}
+          onChange={onChangeStatus}
+          className='h-9 rounded-md border px-2 text-sm shadow-sm'
+        >
+          <option value=''>{t('all_statuses')}</option>
 
-        {STATUSES.map((s) => (
-          <option key={s} value={s}>
-            {t(`publish_status.${s}`)}
-          </option>
-        ))}
-      </select>
+          {STATUSES.map((s) => (
+            <option key={s} value={s}>
+              {t(`publish_status.${s}`)}
+            </option>
+          ))}
+        </select>
+
+        <Button variant='outline'>
+          <Link href='/admin/publication/create'>{t('create')}</Link>
+        </Button>
+      </div>
     </div>
   )
 }

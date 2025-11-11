@@ -1,6 +1,5 @@
 import { getTranslations } from 'next-intl/server'
 
-import { Button } from '~/components/ui/button'
 import { Filters } from './components/Filters'
 
 import { Link } from '~/i18n/navigation'
@@ -40,15 +39,11 @@ export default async function AdminPage({
     <div className='mt-10 flex w-full max-w-6xl flex-col gap-6 px-6'>
       <div className='flex flex-wrap items-center gap-4'>
         <Filters initialQuery={query} initialSort={sort} initialStatus={status} />
-
-        <Button size='sm' variant='outline' className='ml-auto'>
-          <Link href='/admin/publication/create'>{t('create')}</Link>
-        </Button>
       </div>
 
       <h2 className='font-semibold text-2xl'>{t('publications')}</h2>
 
-      <div>
+      <div className='grid gap-4 md:grid-cols-3'>
         {filtered.length ? (
           filtered.map((article) => {
             const translation = article.translations.find((tr) => tr.locale === locale) ?? article.translations[0]
