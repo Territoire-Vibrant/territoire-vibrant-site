@@ -12,7 +12,7 @@ import { toExcerpt } from '~/lib/utils'
 
 export default async function AdminPage({
   searchParams,
-}: { searchParams?: Record<string, string | string[] | undefined> }) {
+}: { searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
   const sp = await searchParams
   const rawQuery = sp?.q
   const rawStatus = sp?.status
