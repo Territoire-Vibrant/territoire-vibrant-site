@@ -1,15 +1,14 @@
 import { getTranslations } from 'next-intl/server'
 
-import { redirect } from '~/i18n/navigation'
 import { api } from '~/trpc/server'
 
 type Props = {
-  params: { slug: string; locale: string }
+  params: Promise<{ slug: string; locale: string }>
 }
 
 export default async function PublicationDetailsPage({ params }: Props) {
   const t = await getTranslations()
-  const { slug, locale } = params
+  const { slug, locale } = await params
 
   const data = await api.article.getArticleBySlug({ slug, locale: locale as 'en' | 'es' | 'fr' | 'pt' })
 

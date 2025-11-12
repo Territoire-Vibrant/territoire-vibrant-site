@@ -17,6 +17,8 @@ import { Header } from '~/layouts/Header'
 import { db } from '~/server/db'
 import { TRPCReactProvider } from '~/trpc/react'
 
+export const dynamic = 'force-dynamic'
+
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -31,15 +33,13 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
 
-// In Next.js typed routes, params can be provided asynchronously; reflect that here so
-// the layout matches the expected LayoutConfig type for /[locale].
 type RootLayoutProps = Readonly<{
   children: ReactNode
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }>
 
-export async function generateMetadata({ params }: RootLayoutProps): Promise<Metadata> {
-  const { locale } = params
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
   const t = await getTranslations({ locale: locale as Locale })
 
   return {
@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: RootLayoutProps): Promise<Met
 }
 
 export default async function RootLayout({ children, params }: RootLayoutProps) {
-  const { locale } = params
+  const { locale } = await params
 
   if (!hasLocale(routing.locales, locale)) {
     notFound()

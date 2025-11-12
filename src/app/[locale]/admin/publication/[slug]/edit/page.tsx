@@ -4,8 +4,15 @@ import { ArticleForm, type ArticleFormInitial } from '../../components/ArticleFo
 
 import { api } from '~/trpc/server'
 
-export default async function PublicationEditPage({ params }: { params: { slug: string; locale: string } }) {
-  const { slug, locale } = params
+export default async function PublicationEditPage({
+  params,
+}: {
+  params: Promise<{
+    slug: string
+    locale: string
+  }>
+}) {
+  const { slug, locale } = await params
 
   await getTranslations() // ensure messages available for client form
 
