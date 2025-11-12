@@ -35,11 +35,11 @@ export function generateStaticParams() {
 // the layout matches the expected LayoutConfig type for /[locale].
 type RootLayoutProps = Readonly<{
   children: ReactNode
-  params: Promise<{ locale: string }>
+  params: { locale: string }
 }>
 
 export async function generateMetadata({ params }: RootLayoutProps): Promise<Metadata> {
-  const { locale } = await params
+  const { locale } = params
   const t = await getTranslations({ locale: locale as Locale })
 
   return {
@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: RootLayoutProps): Promise<Met
 }
 
 export default async function RootLayout({ children, params }: RootLayoutProps) {
-  const { locale } = await params
+  const { locale } = params
 
   if (!hasLocale(routing.locales, locale)) {
     notFound()
