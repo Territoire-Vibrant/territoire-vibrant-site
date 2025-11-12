@@ -142,7 +142,6 @@ exports.Prisma.ArticleTranslationScalarFieldEnum = {
   articleId: 'articleId',
   locale: 'locale',
   title: 'title',
-  slug: 'slug',
   bodyMd: 'bodyMd',
   published: 'published'
 };

@@ -3185,7 +3185,6 @@ export namespace Prisma {
     articleId: string | null
     locale: $Enums.Locale | null
     title: string | null
-    slug: string | null
     bodyMd: string | null
     published: boolean | null
   }
@@ -3195,7 +3194,6 @@ export namespace Prisma {
     articleId: string | null
     locale: $Enums.Locale | null
     title: string | null
-    slug: string | null
     bodyMd: string | null
     published: boolean | null
   }
@@ -3205,7 +3203,6 @@ export namespace Prisma {
     articleId: number
     locale: number
     title: number
-    slug: number
     bodyMd: number
     published: number
     _all: number
@@ -3217,7 +3214,6 @@ export namespace Prisma {
     articleId?: true
     locale?: true
     title?: true
-    slug?: true
     bodyMd?: true
     published?: true
   }
@@ -3227,7 +3223,6 @@ export namespace Prisma {
     articleId?: true
     locale?: true
     title?: true
-    slug?: true
     bodyMd?: true
     published?: true
   }
@@ -3237,7 +3232,6 @@ export namespace Prisma {
     articleId?: true
     locale?: true
     title?: true
-    slug?: true
     bodyMd?: true
     published?: true
     _all?: true
@@ -3320,7 +3314,6 @@ export namespace Prisma {
     articleId: string
     locale: $Enums.Locale
     title: string
-    slug: string
     bodyMd: string
     published: boolean
     _count: ArticleTranslationCountAggregateOutputType | null
@@ -3347,7 +3340,6 @@ export namespace Prisma {
     articleId?: boolean
     locale?: boolean
     title?: boolean
-    slug?: boolean
     bodyMd?: boolean
     published?: boolean
     article?: boolean | ArticleDefaultArgs<ExtArgs>
@@ -3358,7 +3350,6 @@ export namespace Prisma {
     articleId?: boolean
     locale?: boolean
     title?: boolean
-    slug?: boolean
     bodyMd?: boolean
     published?: boolean
     article?: boolean | ArticleDefaultArgs<ExtArgs>
@@ -3369,7 +3360,6 @@ export namespace Prisma {
     articleId?: boolean
     locale?: boolean
     title?: boolean
-    slug?: boolean
     bodyMd?: boolean
     published?: boolean
     article?: boolean | ArticleDefaultArgs<ExtArgs>
@@ -3380,12 +3370,11 @@ export namespace Prisma {
     articleId?: boolean
     locale?: boolean
     title?: boolean
-    slug?: boolean
     bodyMd?: boolean
     published?: boolean
   }
 
-  export type ArticleTranslationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "articleId" | "locale" | "title" | "slug" | "bodyMd" | "published", ExtArgs["result"]["articleTranslation"]>
+  export type ArticleTranslationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "articleId" | "locale" | "title" | "bodyMd" | "published", ExtArgs["result"]["articleTranslation"]>
   export type ArticleTranslationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     article?: boolean | ArticleDefaultArgs<ExtArgs>
   }
@@ -3406,7 +3395,6 @@ export namespace Prisma {
       articleId: string
       locale: $Enums.Locale
       title: string
-      slug: string
       bodyMd: string
       published: boolean
     }, ExtArgs["result"]["articleTranslation"]>
@@ -3837,7 +3825,6 @@ export namespace Prisma {
     readonly articleId: FieldRef<"ArticleTranslation", 'String'>
     readonly locale: FieldRef<"ArticleTranslation", 'Locale'>
     readonly title: FieldRef<"ArticleTranslation", 'String'>
-    readonly slug: FieldRef<"ArticleTranslation", 'String'>
     readonly bodyMd: FieldRef<"ArticleTranslation", 'String'>
     readonly published: FieldRef<"ArticleTranslation", 'Boolean'>
   }
@@ -4295,7 +4282,6 @@ export namespace Prisma {
     articleId: 'articleId',
     locale: 'locale',
     title: 'title',
-    slug: 'slug',
     bodyMd: 'bodyMd',
     published: 'published'
   };
@@ -4527,7 +4513,6 @@ export namespace Prisma {
     articleId?: StringFilter<"ArticleTranslation"> | string
     locale?: EnumLocaleFilter<"ArticleTranslation"> | $Enums.Locale
     title?: StringFilter<"ArticleTranslation"> | string
-    slug?: StringFilter<"ArticleTranslation"> | string
     bodyMd?: StringFilter<"ArticleTranslation"> | string
     published?: BoolFilter<"ArticleTranslation"> | boolean
     article?: XOR<ArticleScalarRelationFilter, ArticleWhereInput>
@@ -4538,7 +4523,6 @@ export namespace Prisma {
     articleId?: SortOrder
     locale?: SortOrder
     title?: SortOrder
-    slug?: SortOrder
     bodyMd?: SortOrder
     published?: SortOrder
     article?: ArticleOrderByWithRelationInput
@@ -4547,25 +4531,22 @@ export namespace Prisma {
   export type ArticleTranslationWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     articleId_locale?: ArticleTranslationArticleIdLocaleCompoundUniqueInput
-    locale_slug?: ArticleTranslationLocaleSlugCompoundUniqueInput
     AND?: ArticleTranslationWhereInput | ArticleTranslationWhereInput[]
     OR?: ArticleTranslationWhereInput[]
     NOT?: ArticleTranslationWhereInput | ArticleTranslationWhereInput[]
     articleId?: StringFilter<"ArticleTranslation"> | string
     locale?: EnumLocaleFilter<"ArticleTranslation"> | $Enums.Locale
     title?: StringFilter<"ArticleTranslation"> | string
-    slug?: StringFilter<"ArticleTranslation"> | string
     bodyMd?: StringFilter<"ArticleTranslation"> | string
     published?: BoolFilter<"ArticleTranslation"> | boolean
     article?: XOR<ArticleScalarRelationFilter, ArticleWhereInput>
-  }, "id" | "articleId_locale" | "locale_slug">
+  }, "id" | "articleId_locale">
 
   export type ArticleTranslationOrderByWithAggregationInput = {
     id?: SortOrder
     articleId?: SortOrder
     locale?: SortOrder
     title?: SortOrder
-    slug?: SortOrder
     bodyMd?: SortOrder
     published?: SortOrder
     _count?: ArticleTranslationCountOrderByAggregateInput
@@ -4581,7 +4562,6 @@ export namespace Prisma {
     articleId?: StringWithAggregatesFilter<"ArticleTranslation"> | string
     locale?: EnumLocaleWithAggregatesFilter<"ArticleTranslation"> | $Enums.Locale
     title?: StringWithAggregatesFilter<"ArticleTranslation"> | string
-    slug?: StringWithAggregatesFilter<"ArticleTranslation"> | string
     bodyMd?: StringWithAggregatesFilter<"ArticleTranslation"> | string
     published?: BoolWithAggregatesFilter<"ArticleTranslation"> | boolean
   }
@@ -4706,7 +4686,6 @@ export namespace Prisma {
     id?: string
     locale: $Enums.Locale
     title: string
-    slug: string
     bodyMd: string
     published?: boolean
     article: ArticleCreateNestedOneWithoutTranslationsInput
@@ -4717,7 +4696,6 @@ export namespace Prisma {
     articleId: string
     locale: $Enums.Locale
     title: string
-    slug: string
     bodyMd: string
     published?: boolean
   }
@@ -4726,7 +4704,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     locale?: EnumLocaleFieldUpdateOperationsInput | $Enums.Locale
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     bodyMd?: StringFieldUpdateOperationsInput | string
     published?: BoolFieldUpdateOperationsInput | boolean
     article?: ArticleUpdateOneRequiredWithoutTranslationsNestedInput
@@ -4737,7 +4714,6 @@ export namespace Prisma {
     articleId?: StringFieldUpdateOperationsInput | string
     locale?: EnumLocaleFieldUpdateOperationsInput | $Enums.Locale
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     bodyMd?: StringFieldUpdateOperationsInput | string
     published?: BoolFieldUpdateOperationsInput | boolean
   }
@@ -4747,7 +4723,6 @@ export namespace Prisma {
     articleId: string
     locale: $Enums.Locale
     title: string
-    slug: string
     bodyMd: string
     published?: boolean
   }
@@ -4756,7 +4731,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     locale?: EnumLocaleFieldUpdateOperationsInput | $Enums.Locale
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     bodyMd?: StringFieldUpdateOperationsInput | string
     published?: BoolFieldUpdateOperationsInput | boolean
   }
@@ -4766,7 +4740,6 @@ export namespace Prisma {
     articleId?: StringFieldUpdateOperationsInput | string
     locale?: EnumLocaleFieldUpdateOperationsInput | $Enums.Locale
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     bodyMd?: StringFieldUpdateOperationsInput | string
     published?: BoolFieldUpdateOperationsInput | boolean
   }
@@ -4964,17 +4937,11 @@ export namespace Prisma {
     locale: $Enums.Locale
   }
 
-  export type ArticleTranslationLocaleSlugCompoundUniqueInput = {
-    locale: $Enums.Locale
-    slug: string
-  }
-
   export type ArticleTranslationCountOrderByAggregateInput = {
     id?: SortOrder
     articleId?: SortOrder
     locale?: SortOrder
     title?: SortOrder
-    slug?: SortOrder
     bodyMd?: SortOrder
     published?: SortOrder
   }
@@ -4984,7 +4951,6 @@ export namespace Prisma {
     articleId?: SortOrder
     locale?: SortOrder
     title?: SortOrder
-    slug?: SortOrder
     bodyMd?: SortOrder
     published?: SortOrder
   }
@@ -4994,7 +4960,6 @@ export namespace Prisma {
     articleId?: SortOrder
     locale?: SortOrder
     title?: SortOrder
-    slug?: SortOrder
     bodyMd?: SortOrder
     published?: SortOrder
   }
@@ -5257,7 +5222,6 @@ export namespace Prisma {
     id?: string
     locale: $Enums.Locale
     title: string
-    slug: string
     bodyMd: string
     published?: boolean
   }
@@ -5266,7 +5230,6 @@ export namespace Prisma {
     id?: string
     locale: $Enums.Locale
     title: string
-    slug: string
     bodyMd: string
     published?: boolean
   }
@@ -5305,7 +5268,6 @@ export namespace Prisma {
     articleId?: StringFilter<"ArticleTranslation"> | string
     locale?: EnumLocaleFilter<"ArticleTranslation"> | $Enums.Locale
     title?: StringFilter<"ArticleTranslation"> | string
-    slug?: StringFilter<"ArticleTranslation"> | string
     bodyMd?: StringFilter<"ArticleTranslation"> | string
     published?: BoolFilter<"ArticleTranslation"> | boolean
   }
@@ -5358,7 +5320,6 @@ export namespace Prisma {
     id?: string
     locale: $Enums.Locale
     title: string
-    slug: string
     bodyMd: string
     published?: boolean
   }
@@ -5367,7 +5328,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     locale?: EnumLocaleFieldUpdateOperationsInput | $Enums.Locale
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     bodyMd?: StringFieldUpdateOperationsInput | string
     published?: BoolFieldUpdateOperationsInput | boolean
   }
@@ -5376,7 +5336,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     locale?: EnumLocaleFieldUpdateOperationsInput | $Enums.Locale
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     bodyMd?: StringFieldUpdateOperationsInput | string
     published?: BoolFieldUpdateOperationsInput | boolean
   }
@@ -5385,7 +5344,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     locale?: EnumLocaleFieldUpdateOperationsInput | $Enums.Locale
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     bodyMd?: StringFieldUpdateOperationsInput | string
     published?: BoolFieldUpdateOperationsInput | boolean
   }

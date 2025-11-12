@@ -18,7 +18,6 @@ const LOCALES = ['en', 'es', 'fr', 'pt'] as const
 export type TranslationInput = {
   locale: (typeof LOCALES)[number]
   title: string
-  slug: string
   bodyMd: string
   published?: boolean
 }
@@ -34,15 +33,6 @@ type Props = {
   initial?: ArticleFormInitial
 }
 
-function slugify(input: string) {
-  return input
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/\p{Diacritic}/gu, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)+/g, '')
-}
-
 export const ArticleForm = ({ mode, initial }: Props) => {
   const t = useTranslations()
   const locale = useLocale() as 'en' | 'es' | 'fr' | 'pt'
@@ -52,13 +42,12 @@ export const ArticleForm = ({ mode, initial }: Props) => {
   const [activeLocale, setActiveLocale] = useState<(typeof LOCALES)[number]>(locale)
   const [translations, setTranslations] = useState<TranslationInput[]>(
     LOCALES.map(
-      (loc) =>
-        initial?.translations?.find((tr) => tr.locale === loc) ?? { locale: loc, title: '', slug: '', bodyMd: '' }
+      (loc) => initial?.translations?.find((tr) => tr.locale === loc) ?? { locale: loc, title: '', bodyMd: '' }
     )
   )
   // Track which locale tabs have been successfully saved (persisted)
   const [savedLocales, setSavedLocales] = useState<Set<string>>(
-    () => new Set(initial?.translations?.filter((t) => t.title && t.slug && t.bodyMd).map((t) => t.locale) ?? [])
+    () => new Set(initial?.translations?.filter((t) => t.title && t.bodyMd).map((t) => t.locale) ?? [])
   )
 
   const createMutation = api.article.createArticle.useMutation()
@@ -93,14 +82,6 @@ export const ArticleForm = ({ mode, initial }: Props) => {
   const onTitleChange = (loc: (typeof LOCALES)[number]) => (e: ChangeEvent<HTMLInputElement>) => {
     const nextTitle = e.target.value
     onChangeField(loc, 'title', nextTitle)
-
-    // Autogenerate slug if empty
-    const current = translations.find((tr) => tr.locale === loc)
-    if (current && !current.slug) onChangeField(loc, 'slug', slugify(nextTitle))
-  }
-
-  const onSlugChange = (loc: (typeof LOCALES)[number]) => (e: ChangeEvent<HTMLInputElement>) => {
-    onChangeField(loc, 'slug', slugify(e.target.value))
   }
 
   const onBodyChange = (loc: (typeof LOCALES)[number]) => (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -111,7 +92,7 @@ export const ArticleForm = ({ mode, initial }: Props) => {
 
   const validLocales = useMemo(() => {
     return translations.filter((tr) => PublicationSchema.safeParse(tr).success).map((tr) => tr.locale)
-  }, [translations, PublicationSchema])
+  }, [translations])
 
   const buildPayload = (overrideStatus?: ArticleFormInitial['status']) => ({
     status: overrideStatus ?? status,
@@ -129,10 +110,8 @@ export const ArticleForm = ({ mode, initial }: Props) => {
       setSavedLocales(new Set(payload.translations.map((t) => t.locale)))
 
       // After creating, go to the edit page for the primary locale
-      const primary = res.translations.find((tr) => tr.locale === locale) ?? res.translations[0]
-
-      if (primary) {
-        router.replace(`/admin/publication/${primary.slug}`, { locale })
+      if (res?.id) {
+        router.replace(`/admin/publication/${res.id}`, { locale })
       } else {
         router.replace('/admin', { locale })
       }
@@ -218,19 +197,6 @@ export const ArticleForm = ({ mode, initial }: Props) => {
                   onChange={onTitleChange(loc)}
                   className='h-9 rounded-md border px-3 text-sm shadow-sm'
                   placeholder='Title'
-                />
-
-                <label className='font-medium text-sm' htmlFor={`slug-${loc}`}>
-                  Slug ({loc.toUpperCase()})
-                </label>
-
-                <input
-                  id={`slug-${loc}`}
-                  type='text'
-                  value={tr.slug}
-                  onChange={onSlugChange(loc)}
-                  className='h-9 rounded-md border px-3 text-sm shadow-sm'
-                  placeholder='my-article'
                 />
 
                 <label className='font-medium text-sm' htmlFor={`body-${loc}`}>

@@ -8,15 +8,15 @@ export default async function PublicationEditPage({
   params,
 }: {
   params: Promise<{
-    slug: string
+    articleId: string
     locale: string
   }>
 }) {
-  const { slug, locale } = await params
+  const { articleId, locale } = await params
 
   await getTranslations() // ensure messages available for client form
 
-  const data = await api.article.getArticleForEditBySlug({ slug, locale: locale as 'en' | 'es' | 'fr' | 'pt' })
+  const data = await api.article.getArticleForEdit({ articleId, locale: locale as 'en' | 'es' | 'fr' | 'pt' })
 
   const initial: ArticleFormInitial | undefined = data
     ? {
@@ -25,7 +25,6 @@ export default async function PublicationEditPage({
         translations: data.article.translations.map((tr) => ({
           locale: tr.locale as any,
           title: tr.title,
-          slug: tr.slug,
           bodyMd: tr.bodyMd,
           published: tr.published ?? false,
         })),

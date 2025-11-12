@@ -82,7 +82,7 @@ export default async function AdminPage({
 
                 <div className='flex items-center justify-between text-xs'>
                   <Link
-                    href={`/admin/publication/${translation?.slug}`}
+                    href={`/admin/publication/${article.id}`}
                     className='font-semibold text-primary text-sm hover:underline'
                   >
                     {t('find_out_more')}

@@ -3,18 +3,14 @@ import { getTranslations } from 'next-intl/server'
 import { api } from '~/trpc/server'
 
 type Props = {
-  params: Promise<{ slug: string; locale: string }>
+  params: Promise<{ articleId: string; locale: string }>
 }
 
 export default async function PublicationDetailsPage({ params }: Props) {
   const t = await getTranslations()
-  const { slug, locale } = await params
+  const { articleId, locale } = await params
 
-  const data = await api.article.getArticleBySlug({ slug, locale: locale as 'en' | 'es' | 'fr' | 'pt' })
-
-  // if (!data) {
-  //   redirect({ href: '/admin', locale: locale as 'en' | 'es' | 'fr' | 'pt' })
-  // }
+  const data = await api.article.getArticleById({ articleId, locale: locale as 'en' | 'es' | 'fr' | 'pt' })
 
   return (
     <div className='mx-auto max-w-2xl px-6 py-10'>

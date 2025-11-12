@@ -35,7 +35,7 @@ model User {
 }
 
 model Article {
-  id           String               @id @default(cuid())
+  id           String               @id @default(uuid())
   createdAt    DateTime             @default(now())
   updatedAt    DateTime             @updatedAt
   status       PublishStatus        @default(DRAFT)
@@ -43,11 +43,10 @@ model Article {
 }
 
 model ArticleTranslation {
-  id        String  @id @default(cuid())
+  id        String  @id @default(uuid())
   articleId String
   locale    Locale
   title     String
-  slug      String
   bodyMd    String
   published Boolean @default(false)
 
@@ -55,8 +54,5 @@ model ArticleTranslation {
 
   // Garante 1 tradução por locale por artigo
   @@unique([articleId, locale])
-  // Cada slug é único dentro do seu locale
-  @@unique([locale, slug])
   @@index([locale])
-  @@index([slug])
 }
