@@ -4,7 +4,7 @@
     "": {
       "name": "territoire-vibrant-site",
       "dependencies": {
-        "@clerk/nextjs": "^6.34.5",
+        "@clerk/nextjs": "^6.35.2",
         "@hookform/resolvers": "^3.9.0",
         "@phosphor-icons/react": "^2.1.10",
         "@prisma/client": "^6.6.0",
