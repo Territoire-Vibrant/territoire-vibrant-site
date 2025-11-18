@@ -26,6 +26,7 @@
   "cancel": "Annuler",
   "save": "Enregistrer",
   "publish": "Publier",
+  "archive": "Archiver",
   "status": "Statut",
   "created": "Créé",
   "our_network": "Notre Réseau",
@@ -149,6 +150,7 @@
     "quote": "Le territoire n’est pas un espace à exploiter. C’est un être à écouter."
   },
   "Admin": {
-    "enter_title": "Entrez le titre"
+    "enter_title": "Entrez le titre",
+    "locale_saved": "Article en {language_lower} enregistré"
   }
 }

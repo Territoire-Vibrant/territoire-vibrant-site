@@ -26,6 +26,7 @@
   "cancel": "Cancelar",
   "save": "Salvar",
   "publish": "Publicar",
+  "archive": "Arquivar",
   "status": "Status",
   "created": "Criado",
   "our_network": "Nossa Rede",
@@ -149,6 +150,7 @@
     "quote": "O território não é um espaço a ser explorado. É um ser a ser escutado."
   },
   "Admin": {
-    "enter_title": "Digite o título"
+    "enter_title": "Digite o título",
+    "locale_saved": "Artigo em {language_lower} salvo"
   }
 }

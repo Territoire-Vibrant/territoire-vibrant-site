@@ -26,6 +26,7 @@
   "cancel": "Cancel",
   "save": "Save",
   "publish": "Publish",
+  "archive": "Archive",
   "status": "Status",
   "created": "Created",
   "our_network": "Our Network",
@@ -149,6 +150,7 @@
     "quote": "The territory is not a space to be exploited. It is a being to be listened to."
   },
   "Admin": {
-    "enter_title": "Enter title"
+    "enter_title": "Enter title",
+    "locale_saved": "{language} article saved"
   }
 }

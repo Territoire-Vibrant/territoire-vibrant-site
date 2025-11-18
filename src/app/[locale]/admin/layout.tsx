@@ -1,6 +1,8 @@
 import { UserButton } from '@clerk/nextjs'
 import type { ReactNode } from 'react'
 
+import { Toaster } from "~/components/ui/sonner"
+
 import { Link } from '~/i18n/navigation'
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
@@ -15,6 +17,8 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
           <UserButton />
         </nav>
       </header>
+
+      <Toaster richColors />
 
       {children}
     </div>

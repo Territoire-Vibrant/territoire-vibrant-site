@@ -26,6 +26,7 @@
   "cancel": "Cancelar",
   "save": "Guardar",
   "publish": "Publicar",
+  "archive": "Archivar",
   "status": "Estado",
   "created": "Creado",
   "our_network": "Nuestra Red",
@@ -149,6 +150,7 @@
     "quote": "El territorio no es un espacio para ser explotado. Es un ser que debe ser escuchado."
   },
   "Admin": {
-    "enter_title": "Ingrese título"
+    "enter_title": "Ingrese título",
+    "locale_saved": "Artículo en {language_lower} guardado"
   }
 }
