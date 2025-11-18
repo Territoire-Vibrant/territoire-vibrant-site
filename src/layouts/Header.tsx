@@ -4,7 +4,7 @@ import { type Locale, useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useState } from 'react'
 
-import { Check, ChevronDown, MenuIcon } from 'lucide-react'
+import { CaretDownIcon, CheckIcon, ListIcon } from '@phosphor-icons/react/dist/ssr'
 import {
   Dialog,
   DialogContent,
@@ -63,7 +63,7 @@ export const Header = () => {
           <div className='flex md:hidden'>
             <Dialog open={open} onOpenChange={(val) => setOpen(val)}>
               <DialogTrigger className='cursor-pointer transition-all ease-in hover:text-primary'>
-                <MenuIcon />
+                <ListIcon />
               </DialogTrigger>
 
               <DialogContent className='flex h-screen w-screen max-w-screen flex-col items-center justify-center rounded-none border-none bg-black/50 text-background shadow-none sm:max-w-screen'>
@@ -201,7 +201,7 @@ export const Header = () => {
                   className='flex items-center gap-1 border-none bg-background/50 hover:bg-primary hover:text-background'
                 >
                   {localeLabelKey[locale] ? t(localeLabelKey[locale] as any) : locale.toUpperCase()}
-                  <ChevronDown className='size-4 opacity-60' />
+                  <CaretDownIcon className='size-4 opacity-60' />
                   <span className='sr-only'>Language</span>
                 </Button>
               </DropdownMenuTrigger>
@@ -216,7 +216,9 @@ export const Header = () => {
                     <span className='mr-2'>
                       {localeLabelKey[loc] ? t(localeLabelKey[loc] as any) : loc.toUpperCase()}
                     </span>
-                    {loc === locale && <Check className='ml-auto size-4 text-primary group-hover:text-background' />}
+                    {loc === locale && (
+                      <CheckIcon className='ml-auto size-4 text-primary group-hover:text-background' />
+                    )}
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>

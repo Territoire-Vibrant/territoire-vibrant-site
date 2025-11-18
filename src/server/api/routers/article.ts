@@ -29,13 +29,11 @@ export const articleRouter = createTRPCRouter({
     .input(
       z.object({
         articleId: z.string().min(1),
-        locale: z.enum(['en', 'es', 'fr', 'pt']).optional(),
       })
     )
     .query(async ({ ctx, input }) => {
-      const locale = input.locale ?? 'en'
       const translation = await ctx.db.articleTranslation.findFirst({
-        where: { articleId: input.articleId, locale },
+        where: { articleId: input.articleId },
         include: { article: true },
       })
       return translation
@@ -44,13 +42,11 @@ export const articleRouter = createTRPCRouter({
     .input(
       z.object({
         articleId: z.string().min(1),
-        locale: z.enum(['en', 'es', 'fr', 'pt']).optional(),
       })
     )
     .query(async ({ ctx, input }) => {
-      const locale = input.locale ?? 'en'
       const translation = await ctx.db.articleTranslation.findFirst({
-        where: { articleId: input.articleId, locale },
+        where: { articleId: input.articleId },
         include: { article: { include: { translations: true } } },
       })
       return translation

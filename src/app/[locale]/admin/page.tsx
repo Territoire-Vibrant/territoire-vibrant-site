@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
-import { ArchiveIcon, CheckIcon, NotebookPenIcon } from 'lucide-react'
+import { ArchiveIcon, CheckIcon, NotePencilIcon } from '@phosphor-icons/react/dist/ssr'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import { Filters } from './components/Filters'
 
@@ -41,11 +41,11 @@ export default async function AdminPage({
   const statusIcon = (status: PublishStatus) => {
     switch (status) {
       case 'DRAFT':
-        return <NotebookPenIcon className='size-7 rounded-full bg-yellow-500 p-1.5 text-background' />
+        return <NotePencilIcon weight='fill' className='size-7 rounded-full bg-yellow-500 p-1.5 text-background' />
       case 'ARCHIVED':
-        return <ArchiveIcon className='size-7 rounded-full bg-neutral-500 p-1.5 text-background' />
+        return <ArchiveIcon weight='fill' className='size-7 rounded-full bg-neutral-500 p-1.5 text-background' />
       case 'PUBLISHED':
-        return <CheckIcon className='size-7 rounded-full bg-primary p-1.5 text-background' />
+        return <CheckIcon weight='fill' className='size-7 rounded-full bg-primary p-1.5 text-background' />
     }
   }
 

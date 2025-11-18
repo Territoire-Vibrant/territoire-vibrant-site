@@ -6,7 +6,14 @@ import Image from 'next/image'
 import ImagePlaceholder1 from '~/assets/images/mission/mission-essence.svg'
 import ImagePlaceholder2 from '~/assets/images/mission/mission-values.svg'
 
-import { Globe, HeartHandshake, Leaf, Lightbulb, Shield, Users } from 'lucide-react'
+import {
+  GlobeIcon,
+  HandHeartIcon,
+  LeafIcon,
+  LightbulbIcon,
+  ShieldIcon,
+  UsersIcon,
+} from '@phosphor-icons/react/dist/ssr'
 import { Button } from '~/components/ui/button'
 import { Section } from '~/layouts/Section'
 
@@ -27,25 +34,25 @@ export default function MissionPage() {
   const t = useTranslations()
 
   const values = [
-    { label: t('Mission.essence.values.item1'), Icon: HeartHandshake, color: 'bg-rose-100 text-rose-700' },
-    { label: t('Mission.essence.values.item2'), Icon: Users, color: 'bg-sky-100 text-sky-700' },
-    { label: t('Mission.essence.values.item3'), Icon: Leaf, color: 'bg-green-100 text-green-700' },
-    { label: t('Mission.essence.values.item4'), Icon: Lightbulb, color: 'bg-amber-100 text-amber-700' },
-    { label: t('Mission.essence.values.item5'), Icon: Shield, color: 'bg-indigo-100 text-indigo-700' },
-    { label: t('Mission.essence.values.item6'), Icon: Globe, color: 'bg-violet-100 text-violet-700' },
+    { label: t('Mission.essence.values.item1'), Icon: HandHeartIcon, color: 'bg-rose-100 text-rose-700' },
+    { label: t('Mission.essence.values.item2'), Icon: UsersIcon, color: 'bg-sky-100 text-sky-700' },
+    { label: t('Mission.essence.values.item3'), Icon: LeafIcon, color: 'bg-green-100 text-green-700' },
+    { label: t('Mission.essence.values.item4'), Icon: LightbulbIcon, color: 'bg-amber-100 text-amber-700' },
+    { label: t('Mission.essence.values.item5'), Icon: ShieldIcon, color: 'bg-indigo-100 text-indigo-700' },
+    { label: t('Mission.essence.values.item6'), Icon: GlobeIcon, color: 'bg-violet-100 text-violet-700' },
   ]
 
   return (
     <>
       <Section
         limitWidth={false}
-        className='flex w-full flex-col items-center bg-gradient-to-b from-green-50 to-background px-6 py-14 lg:py-20'
+        className='flex w-full flex-col items-center bg-linear-to-b from-green-50 to-background px-6 py-14 lg:py-20'
       >
         <div className='flex w-full max-w-3xl flex-col items-center text-center'>
           <div className='flex items-center space-x-2'>
-            <Leaf aria-hidden className='size-8 text-green-800' />
+            <LeafIcon aria-hidden className='size-8 text-green-800' />
 
-            <h1 className='bg-gradient-to-r from-green-800 to-emerald-600 bg-clip-text font-extrabold text-4xl text-transparent sm:text-5xl'>
+            <h1 className='bg-linear-to-r from-green-800 to-emerald-600 bg-clip-text font-extrabold text-4xl text-transparent sm:text-5xl'>
               {t('mission')}
             </h1>
           </div>
@@ -58,7 +65,7 @@ export default function MissionPage() {
 
           <Button
             asChild
-            className='mt-6 rounded-full bg-gradient-to-r from-green-800 to-emerald-600 p-7 text-background text-base shadow-lg transition-all ease-in hover:opacity-90'
+            className='mt-6 rounded-full bg-linear-to-r from-green-800 to-emerald-600 p-7 text-background text-base shadow-lg transition-all ease-in hover:opacity-90'
           >
             <a href='#essence' aria-label={t('Mission.essence.title')}>
               {t('Mission.essence.title')}
@@ -75,7 +82,7 @@ export default function MissionPage() {
             <div className='space-y-4 text-neutral-700'>
               <div className='flex items-start gap-4 rounded-xl border border-neutral-200 bg-background/80 p-5 shadow-sm backdrop-blur-sm'>
                 <div className='inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-emerald-700'>
-                  <HeartHandshake className='size-5' aria-hidden='true' />
+                  <HandHeartIcon className='size-5' aria-hidden='true' />
                 </div>
 
                 <div className='space-y-1'>
@@ -87,7 +94,7 @@ export default function MissionPage() {
 
               <div className='flex items-start gap-4 rounded-xl border border-neutral-200 bg-background/80 p-5 shadow-sm backdrop-blur-sm'>
                 <div className='inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-amber-700'>
-                  <Lightbulb className='size-5' aria-hidden='true' />
+                  <LightbulbIcon className='size-5' aria-hidden='true' />
                 </div>
 
                 <div className='space-y-1'>
@@ -114,7 +121,7 @@ export default function MissionPage() {
       </Section>
 
       <Section className='w-full px-6 py-12 lg:py-16'>
-        <div className='mx-auto max-w-6xl rounded-3xl border border-neutral-200 bg-gradient-to-b from-background to-green-50 p-6 shadow-sm ring-1 ring-neutral-100 sm:p-10'>
+        <div className='mx-auto max-w-6xl rounded-3xl border border-neutral-200 bg-linear-to-b from-background to-green-50 p-6 shadow-sm ring-1 ring-neutral-100 sm:p-10'>
           <div className='space-y-6'>
             <h3 className='font-semibold text-green-900 text-xl sm:text-2xl'>{t('Mission.essence.values.title')}</h3>
 
