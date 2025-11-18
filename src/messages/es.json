@@ -147,5 +147,8 @@
       }
     },
     "quote": "El territorio no es un espacio para ser explotado. Es un ser que debe ser escuchado."
+  },
+  "Admin": {
+    "enter_title": "Ingrese título"
   }
 }

@@ -147,5 +147,8 @@
       }
     },
     "quote": "O território não é um espaço a ser explorado. É um ser a ser escutado."
+  },
+  "Admin": {
+    "enter_title": "Digite o título"
   }
 }

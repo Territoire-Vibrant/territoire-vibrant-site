@@ -1,12 +1,15 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import MDEditor from '@uiw/react-md-editor'
 import { useLocale, useTranslations } from 'next-intl'
-import { useMemo, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import ReactMarkdown from 'react-markdown'
+import { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 import remarkGfm from 'remark-gfm'
 import z from 'zod'
+
+import '@uiw/react-markdown-preview/markdown.css'
+import '@uiw/react-md-editor/markdown-editor.css'
 
 import { CheckIcon, ClockIcon, XIcon } from '@phosphor-icons/react/dist/ssr'
 import { Button } from '~/components/ui/button'
@@ -74,6 +77,7 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
     handleSubmit,
     getValues,
     watch,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<ArticleFormValues>({
     resolver: zodResolver(ArticleFormSchema),
@@ -85,11 +89,11 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
 
   const watchTranslations = watch('translations') ?? []
 
-  const validLocales = useMemo(() => {
-    return watchTranslations
-      .filter((tr: TranslationInput) => PublicationSchema.safeParse(tr).success)
-      .map((tr: TranslationInput) => tr.locale)
-  }, [watchTranslations])
+  const validLocales = watchTranslations
+    .filter((tr: TranslationInput) => PublicationSchema.safeParse(tr).success)
+    .map((tr: TranslationInput) => tr.locale)
+
+  const canPublish = validLocales.length === LOCALES.length
 
   const buildPayload = (values: ArticleFormValues, overrideStatus?: ArticleFormInitial['status']) => ({
     status: overrideStatus ?? status,
@@ -131,6 +135,16 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
     setStatus('PUBLISHED')
     await persist('PUBLISHED', values)
   })
+
+  const markLocaleAsDirty = (loc: (typeof LOCALES)[number]) =>
+    setSavedLocales((prev) => {
+      if (!prev.has(loc)) {
+        return prev
+      }
+      const next = new Set(prev)
+      next.delete(loc)
+      return next
+    })
 
   return (
     <div className='space-y-4'>
@@ -178,6 +192,7 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
             title: '',
             bodyMd: '',
           }
+          const previewHeading = tr.title?.trim() || 'Preview'
 
           return (
             <TabsContent key={loc} value={loc} className='mt-4 flex w-full flex-col gap-6 lg:flex-row'>
@@ -190,22 +205,14 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
                   id={`title-${loc}`}
                   type='text'
                   className='h-9 rounded-md border px-3 text-sm shadow-sm'
-                  placeholder='Title'
+                  placeholder={t('Admin.enter_title')}
                   {...register(`translations.${LOCALES.indexOf(loc)}.title`, {
-                    onChange: () =>
-                      setSavedLocales((prev) => {
-                        if (prev.has(loc)) {
-                          const next = new Set(prev)
-                          next.delete(loc)
-                          return next
-                        }
-                        return prev
-                      }),
+                    onChange: () => markLocaleAsDirty(loc),
                   })}
                 />
 
                 {errors.translations?.[LOCALES.indexOf(loc)]?.title && (
-                  <p className='text-destructive text-xs'>
+                  <p className='font-semibold text-destructive text-xs'>
                     {String(errors.translations?.[LOCALES.indexOf(loc)]?.title?.message)}
                   </p>
                 )}
@@ -215,25 +222,29 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
                     Markdown ({loc.toUpperCase()})
                   </label>
 
-                  <textarea
-                    id={`body-${loc}`}
-                    className='min-h-60 resize-none rounded-md border p-3 text-sm shadow-sm'
-                    placeholder='Write markdown here...'
-                    {...register(`translations.${LOCALES.indexOf(loc)}.bodyMd`, {
-                      onChange: () =>
-                        setSavedLocales((prev) => {
-                          if (prev.has(loc)) {
-                            const next = new Set(prev)
-                            next.delete(loc)
-                            return next
-                          }
-                          return prev
-                        }),
-                    })}
+                  <Controller
+                    control={control}
+                    name={`translations.${LOCALES.indexOf(loc)}.bodyMd`}
+                    render={({ field }) => (
+                      <div data-color-mode='light' className='rounded-md border shadow-sm'>
+                        <MDEditor
+                          value={field.value ?? ''}
+                          onChange={(value) => {
+                            field.onChange(value ?? '')
+                            markLocaleAsDirty(loc)
+                          }}
+                          onBlur={field.onBlur}
+                          textareaProps={{ id: `body-${loc}` }}
+                          height={300}
+                          preview='edit'
+                          extraCommands={[]}
+                        />
+                      </div>
+                    )}
                   />
 
                   {errors.translations?.[LOCALES.indexOf(loc)]?.bodyMd && (
-                    <p className='text-destructive text-xs'>
+                    <p className='font-semibold text-destructive text-xs'>
                       {String(errors.translations?.[LOCALES.indexOf(loc)]?.bodyMd?.message)}
                     </p>
                   )}
@@ -241,11 +252,15 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
               </div>
 
               <div className='mt-8 w-full rounded-md border p-3'>
-                <p className='mb-2 font-medium text-sm'>Preview</p>
+                <p className='mb-2 font-medium text-sm'>{previewHeading}</p>
 
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {(getValues(`translations.${LOCALES.indexOf(loc)}.bodyMd`) as string) || ''}
-                </ReactMarkdown>
+                <div data-color-mode='light'>
+                  <MDEditor.Markdown
+                    source={(getValues(`translations.${LOCALES.indexOf(loc)}.bodyMd`) as string) || ''}
+                    remarkPlugins={[remarkGfm]}
+                    className='wmde-markdown wmde-markdown-color text-sm'
+                  />
+                </div>
               </div>
             </TabsContent>
           )
@@ -263,11 +278,11 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
           {t('cancel')}
         </Button>
 
-        <Button type='button' disabled={disabled || validLocales.length === 0} onClick={onSave}>
+        <Button type='button' disabled={disabled} onClick={onSave}>
           <ClockIcon /> {t('save')}
         </Button>
 
-        <Button type='button' disabled={disabled || validLocales.length === 0} onClick={onPublish}>
+        <Button type='button' disabled={disabled || !canPublish} onClick={onPublish}>
           <CheckIcon /> {t('publish')}
         </Button>
       </div>

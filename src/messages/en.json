@@ -147,5 +147,8 @@
       }
     },
     "quote": "The territory is not a space to be exploited. It is a being to be listened to."
+  },
+  "Admin": {
+    "enter_title": "Enter title"
   }
 }
