@@ -6,7 +6,6 @@ import { notFound } from 'next/navigation'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
-import { Button } from '~/components/ui/button'
 import { Link } from '~/i18n/navigation'
 import { Section } from '~/layouts/Section'
 import { db } from '~/server/db'
@@ -70,28 +69,28 @@ export default async function PublicationArticlePage({
   return (
     <Section className='px-6 py-12'>
       <div className='mx-auto flex w-full max-w-3xl flex-col gap-6'>
-        <div>
-          <Button asChild variant='ghost' size='sm'>
-            <Link href='/publications'>{t('Publications.back')}</Link>
-          </Button>
-        </div>
-
-        <header className='space-y-4'>
-          <p className='font-semibold text-primary text-sm uppercase tracking-[0.2em]'>{t('publications')}</p>
+        <div className='space-y-4'>
+          <Link
+            href='/publications'
+            className='font-semibold text-primary text-sm uppercase tracking-[0.2em] hover:underline'
+          >
+            {t('publications')}
+          </Link>
 
           <h1 className='font-bold text-4xl text-foreground tracking-tight'>{translation.title}</h1>
 
           <div className='flex flex-wrap items-center gap-3 font-medium text-muted-foreground text-xs'>
             <span>{t('Publications.published_on', { date: formatDate(activeLocale, article.createdAt) })}</span>
-            {isFallback ? (
+
+            {!!isFallback && (
               <span className='rounded-full bg-muted px-2 py-1 font-semibold text-[11px] text-foreground uppercase tracking-wide'>
                 {t('Publications.fallback_notice', { language: languageName })}
               </span>
-            ) : null}
+            )}
           </div>
-        </header>
+        </div>
 
-        <div className='wmde-markdown wmde-markdown-color text-base leading-relaxed'>
+        <div className='wmde-markdown-color text-base leading-relaxed'>
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{translation.bodyMd}</ReactMarkdown>
         </div>
       </div>

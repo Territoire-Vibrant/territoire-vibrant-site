@@ -11,9 +11,16 @@ import type { PublishStatus } from 'generated/prisma'
 import { toExcerpt } from '~/lib/utils'
 
 export default async function AdminPage({
+  params,
   searchParams,
-}: { searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
-  const sp = await searchParams
+}: {
+  params: Promise<{ locale: string }>
+  searchParams?: Promise<Record<string, string | string[] | undefined>>
+}) {
+  const [{ locale: routeLocale }, sp] = await Promise.all([
+    params,
+    searchParams ?? Promise.resolve<Record<string, string | string[] | undefined> | undefined>(undefined),
+  ])
   const rawQuery = sp?.q
   const rawStatus = sp?.status
   const rawSort = sp?.sort
@@ -28,10 +35,26 @@ export default async function AdminPage({
   const tx = (key: string) => (t as unknown as (k: string) => string)(key)
 
   const articles = await api.article.getAll()
-  const locale = typeof rawLocale === 'string' ? rawLocale : undefined
+  const locale = typeof rawLocale === 'string' ? rawLocale : routeLocale
+  const normalizedLocale = locale?.toLowerCase()
+  const queryNormalized = query.toLocaleLowerCase()
   const filtered = articles
     .filter((a) => (status ? a.status === status : true))
-    .filter((a) => (query ? a.id.includes(query) : true))
+    .filter((a) => {
+      if (!queryNormalized) {
+        return true
+      }
+
+      const idMatches = a.id.toLocaleLowerCase().includes(queryNormalized)
+      if (idMatches) {
+        return true
+      }
+
+      return a.translations.some((tr) => {
+        const content = `${tr.title ?? ''} ${tr.bodyMd ?? ''}`
+        return content.toLocaleLowerCase().includes(queryNormalized)
+      })
+    })
     .sort((a, b) => {
       if (sort === 'newest') return b.createdAt.getTime() - a.createdAt.getTime()
       if (sort === 'oldest') return a.createdAt.getTime() - b.createdAt.getTime()
@@ -45,7 +68,7 @@ export default async function AdminPage({
       case 'ARCHIVED':
         return <ArchiveIcon weight='fill' className='size-7 rounded-full bg-neutral-500 p-1.5 text-background' />
       case 'PUBLISHED':
-        return <CheckIcon weight='fill' className='size-7 rounded-full bg-primary p-1.5 text-background' />
+        return <CheckIcon weight='bold' className='size-7 rounded-full bg-primary p-1.5 text-background' />
     }
   }
 
@@ -60,7 +83,10 @@ export default async function AdminPage({
       <div className='grid gap-4 md:grid-cols-3'>
         {filtered.length ? (
           filtered.map((article) => {
-            const translation = article.translations.find((tr) => tr.locale === locale) ?? article.translations[0]
+            const translation =
+              article.translations.find((tr) => tr.locale.toLowerCase() === normalizedLocale) ??
+              article.translations.find((tr) => tr.locale === 'en') ??
+              article.translations[0]
 
             return (
               <div key={article.id} className='flex flex-col rounded-lg border p-4'>

@@ -77,17 +77,13 @@ export default async function PublicationsPage({
   return (
     <Section className='px-6 py-12'>
       <div className='mx-auto flex w-full max-w-5xl flex-col gap-10'>
-        <header className='space-y-3'>
-          <p className='font-semibold text-primary text-sm uppercase tracking-[0.2em]'>{t('publications')}</p>
-
+        <div className='space-y-3'>
           <h1 className='font-bold text-4xl text-foreground tracking-tight'>{t('Publications.title')}</h1>
 
           <p className='max-w-2xl text-base text-muted-foreground'>{t('Publications.subtitle')}</p>
-        </header>
+        </div>
 
-        {publishedArticles.length === 0 ? (
-          <p className='text-muted-foreground'>{t('no_publications_yet')}</p>
-        ) : (
+        {publishedArticles.length > 0 ? (
           <div className='flex flex-col gap-10'>
             {publishedArticles.map((articleCard) => {
               const publishedLabel = t('Publications.published_on', {
@@ -101,11 +97,11 @@ export default async function PublicationsPage({
                     <div className='flex flex-wrap items-center gap-3 font-medium text-muted-foreground text-xs'>
                       <span>{publishedLabel}</span>
 
-                      {articleCard.isFallback ? (
+                      {!!articleCard.isFallback && (
                         <span className='rounded-full bg-muted px-2 py-1 font-semibold text-[11px] text-foreground uppercase tracking-wide'>
                           {t('Publications.fallback_notice', { language: languageName })}
                         </span>
-                      ) : null}
+                      )}
                     </div>
 
                     <h2 className='font-semibold text-2xl text-foreground'>{articleCard.title}</h2>
@@ -113,15 +109,19 @@ export default async function PublicationsPage({
                     <p className='text-base text-muted-foreground leading-relaxed'>{articleCard.excerpt}</p>
 
                     <div className='pt-2'>
-                      <Button asChild variant='ghost' size='sm'>
-                        <Link href={`/publications/${articleCard.id}`}>{t('Publications.read_more')}</Link>
-                      </Button>
+                      <Link href={`/publications/${articleCard.id}`}>
+                        <Button size='sm' className='cursor-pointer'>
+                          {t('Publications.read_more')}
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </article>
               )
             })}
           </div>
+        ) : (
+          <p className='text-muted-foreground'>{t('no_publications_yet')}</p>
         )}
       </div>
     </Section>
