@@ -1,7 +1,11 @@
 {
-  "i18n-ally.localesPaths": ["i18n", "messages"],
+  "i18n-ally.localesPaths": ["src/messages"],
   "i18n-ally.sourceLanguage": "en",
   "i18n-ally.keystyle": "nested",
+  "i18n-ally.displayLanguage": "pt",
+  "i18n-ally.enabledFrameworks": ["general"],
+  "i18n-ally.enabledParsers": ["json"],
+  "i18n-ally.sortKeys": true,
   "cSpell.words": ["angela", "González", "lilliam", "Lilliam", "psychopedagogy", "spanish"],
   "typescript.tsdk": "node_modules\\typescript\\lib"
 }
