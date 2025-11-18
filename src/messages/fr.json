@@ -31,6 +31,14 @@
   "created": "Créé",
   "our_network": "Notre Réseau",
   "publications_search_placeholder": "Rechercher des publications",
+  "Publications": {
+    "title": "Publications",
+    "subtitle": "Idées, nouvelles et récits de notre réseau collaboratif.",
+    "published_on": "Publié le {date}",
+    "read_more": "Lire l'article",
+    "back": "Retour aux publications",
+    "fallback_notice": "Affichage de la version en {language}."
+  },
   "publish_status": {
     "DRAFT": "Brouillon",
     "PUBLISHED": "Publié",

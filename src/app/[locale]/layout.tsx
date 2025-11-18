@@ -6,7 +6,7 @@ import type { Metadata } from 'next'
 import { type Locale, NextIntlClientProvider, hasLocale } from 'next-intl'
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server'
 import { Geist, Geist_Mono } from 'next/font/google'
-// biome-ignore lint/nursery/noRestrictedImports: notFound is a Next.js function
+// biome-ignore lint/nursery/noRestrictedImports: notFound is a Next.js helper we intentionally use here
 import { notFound } from 'next/navigation'
 import type { ReactNode } from 'react'
 

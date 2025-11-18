@@ -31,6 +31,14 @@
   "created": "Created",
   "our_network": "Our Network",
   "publications_search_placeholder": "Search publications",
+  "Publications": {
+    "title": "Publications",
+    "subtitle": "Insights, news, and stories from our collaborative network.",
+    "published_on": "Published on {date}",
+    "read_more": "Read article",
+    "back": "Back to publications",
+    "fallback_notice": "Showing the {language} version."
+  },
   "publish_status": {
     "DRAFT": "Draft",
     "PUBLISHED": "Published",

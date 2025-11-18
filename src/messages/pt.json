@@ -31,6 +31,14 @@
   "created": "Criado",
   "our_network": "Nossa Rede",
   "publications_search_placeholder": "Buscar publicações",
+  "Publications": {
+    "title": "Publicações",
+    "subtitle": "Insights, notícias e histórias da nossa rede colaborativa.",
+    "published_on": "Publicado em {date}",
+    "read_more": "Ler artigo",
+    "back": "Voltar para publicações",
+    "fallback_notice": "Exibindo a versão em {language}."
+  },
   "publish_status": {
     "DRAFT": "Rascunho",
     "PUBLISHED": "Publicado",

@@ -1,7 +1,7 @@
 import { UserButton } from '@clerk/nextjs'
 import type { ReactNode } from 'react'
 
-import { Toaster } from "~/components/ui/sonner"
+import { Toaster } from '~/components/ui/sonner'
 
 import { Link } from '~/i18n/navigation'
 
