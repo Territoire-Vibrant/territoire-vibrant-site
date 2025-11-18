@@ -360,7 +360,7 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
         })}
       </Tabs>
 
-      <div className='flex items-center gap-2 pt-2'>
+      <div className='flex flex-wrap items-center gap-2 pt-2'>
         <Button
           type='button'
           variant='outline'

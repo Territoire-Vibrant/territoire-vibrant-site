@@ -1,10 +1,13 @@
+import '@uiw/react-markdown-preview/markdown.css'
+
 import { getTranslations } from 'next-intl/server'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 import { Button } from '~/components/ui/button'
 import { Section } from '~/layouts/Section'
 
 import { Link } from '~/i18n/navigation'
-import { toExcerpt } from '~/lib/utils'
 import { api } from '~/trpc/server'
 
 const SUPPORTED_LOCALES = ['en', 'es', 'fr', 'pt'] as const
@@ -26,13 +29,27 @@ const formatDate = (locale: Locale, date: Date) => {
   return new Intl.DateTimeFormat(locale, { dateStyle: 'long' }).format(date)
 }
 
+const buildPreviewMarkdown = (md: string, maxParagraphs = 2, maxChars = 600) => {
+  const trimmed = md.trim()
+  if (!trimmed) return ''
+
+  const paragraphs = trimmed.split(/\n{2,}/)
+  let preview = paragraphs.slice(0, maxParagraphs).join('\n\n')
+
+  if (preview.length > maxChars) {
+    preview = `${preview.slice(0, maxChars).trimEnd()}…`
+  }
+
+  return preview
+}
+
 type PublishedArticleCard = {
   id: string
   title: string
-  excerpt: string
   createdAt: Date
   locale: Locale
   isFallback: boolean
+  previewMd: string
 }
 
 export default async function PublicationsPage({
@@ -66,10 +83,10 @@ export default async function PublicationsPage({
       return {
         id: article.id,
         title: translation.title,
-        excerpt: toExcerpt(translation.bodyMd, 220),
         createdAt: article.createdAt,
         locale: translation.locale as Locale,
         isFallback: translation.locale !== activeLocale,
+        previewMd: buildPreviewMarkdown(translation.bodyMd),
       }
     })
     .filter((articleCard): articleCard is PublishedArticleCard => articleCard !== null)
@@ -106,7 +123,9 @@ export default async function PublicationsPage({
 
                     <h2 className='font-semibold text-2xl text-foreground'>{articleCard.title}</h2>
 
-                    <p className='text-base text-muted-foreground leading-relaxed'>{articleCard.excerpt}</p>
+                    <div className='text-base text-muted-foreground leading-relaxed [&_a]:underline'>
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{articleCard.previewMd}</ReactMarkdown>
+                    </div>
 
                     <div className='pt-2'>
                       <Link href={`/publications/${articleCard.id}`}>

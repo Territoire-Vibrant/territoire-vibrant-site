@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl'
 import { type ChangeEvent, useEffect, useMemo, useState } from 'react'
 
 import { Button } from '~/components/ui/button'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select'
 
 import { Link, useRouter } from '~/i18n/navigation'
 
@@ -67,9 +68,6 @@ export const Filters = ({ initialQuery, initialSort, initialStatus }: Props) => 
   }, [status])
 
   const onChangeQuery = (e: ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)
-  const onChangeSort = (e: ChangeEvent<HTMLSelectElement>) => setSort(e.target.value)
-  const onChangeStatus = (e: ChangeEvent<HTMLSelectElement>) => setStatus((e.target.value as PublishStatusValue) || '')
-
   return (
     <div className='flex w-full flex-col items-center gap-2 md:flex-row'>
       <input
@@ -82,34 +80,39 @@ export const Filters = ({ initialQuery, initialSort, initialStatus }: Props) => 
       />
 
       <div className='flex w-full items-center gap-2 md:w-auto'>
-        <select
-          name='sort'
-          value={sort}
-          onChange={onChangeSort}
-          className='h-9 rounded-md border px-2 text-sm shadow-sm'
+        <Select value={sort} onValueChange={setSort}>
+          <SelectTrigger className='h-9 w-full border px-2 text-sm shadow-sm md:w-40'>
+            <SelectValue placeholder={t('newest')} />
+          </SelectTrigger>
+
+          <SelectContent>
+            <SelectItem value='newest'>{t('newest')}</SelectItem>
+            <SelectItem value='oldest'>{t('oldest')}</SelectItem>
+          </SelectContent>
+        </Select>
+
+        <Select
+          value={status ? status : 'ALL'}
+          onValueChange={(value) => setStatus(value === 'ALL' ? '' : (value as PublishStatusValue))}
         >
-          <option value='newest'>{t('newest')}</option>
-          <option value='oldest'>{t('oldest')}</option>
-        </select>
+          <SelectTrigger className='h-9 w-full border px-2 text-sm shadow-sm md:w-48'>
+            <SelectValue placeholder={t('all_statuses')} />
+          </SelectTrigger>
 
-        <select
-          name='status'
-          value={status}
-          onChange={onChangeStatus}
-          className='h-9 rounded-md border px-2 text-sm shadow-sm'
-        >
-          <option value=''>{t('all_statuses')}</option>
+          <SelectContent>
+            <SelectItem value='ALL'>{t('all_statuses')}</SelectItem>
 
-          {STATUSES.map((s) => (
-            <option key={s} value={s}>
-              {t(`publish_status.${s}`)}
-            </option>
-          ))}
-        </select>
+            {STATUSES.map((s) => (
+              <SelectItem key={s} value={s}>
+                {t(`publish_status.${s}`)}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
 
-        <Button variant='outline'>
-          <Link href='/admin/publication/create'>{t('create')}</Link>
-        </Button>
+        <Link href='/admin/publication/create'>
+          <Button className='cursor-pointer'>{t('create')}</Button>
+        </Link>
       </div>
     </div>
   )

@@ -9,6 +9,7 @@ import remarkGfm from 'remark-gfm'
 import { Link } from '~/i18n/navigation'
 import { Section } from '~/layouts/Section'
 import { db } from '~/server/db'
+import Loading from '../../loading'
 
 const SUPPORTED_LOCALES = ['en', 'es', 'fr', 'pt'] as const
 
