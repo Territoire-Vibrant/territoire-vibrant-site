@@ -128,7 +128,7 @@ export default async function AdminPage({
                     href={`/admin/publication/${article.id}`}
                     className='font-semibold text-primary text-sm hover:underline'
                   >
-                    {t('find_out_more')}
+                    {t('view')}
                   </Link>
 
                   <p className='text-muted-foreground italic'>

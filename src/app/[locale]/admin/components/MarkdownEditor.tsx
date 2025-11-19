@@ -146,8 +146,23 @@ export const MarkdownEditor = ({
     editorProps: {
       attributes: {
         class: clsx(
-          'prose prose-sm h-full min-h-[200px] w-full max-w-none rounded-b-md border border-t-0 bg-background px-3 py-2 selection:bg-primary/20 selection:text-foreground focus:outline-none',
-          disabled && 'pointer-events-none opacity-75'
+          'bg-background',
+          'border',
+          'border-t-0',
+          'focus:outline-none',
+          'h-full',
+          'max-w-none',
+          'min-h-[200px]',
+          'prose',
+          'prose-sm',
+          'px-3',
+          'py-2',
+          'rounded-b-md',
+          'selection:bg-primary/20',
+          'selection:text-foreground',
+          'text-justify',
+          'w-full',
+          disabled && ['pointer-events-none', 'opacity-75']
         ),
       },
     },
@@ -360,7 +375,7 @@ export const MarkdownEditor = ({
       </div>
 
       <div style={{ minHeight: `${height}px` }}>
-        <EditorContent id={id} editor={editor} onBlur={onBlurAction} className='h-full min-h-[inherit]' />
+        <EditorContent id={id} editor={editor} onBlur={onBlurAction} className='h-full min-h-[inherit] text-justify' />
       </div>
     </div>
   )

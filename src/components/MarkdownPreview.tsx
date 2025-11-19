@@ -24,20 +24,38 @@ const Code: Components['code'] = ({ className, children, ...props }) => {
 }
 
 const components: Components = {
-  h1: ({ node, ...props }) => <h1 className='mt-6 font-semibold text-2xl first:mt-0' {...props} />,
-  h2: ({ node, ...props }) => <h2 className='mt-5 font-semibold text-xl first:mt-0' {...props} />,
-  h3: ({ node, ...props }) => <h3 className='mt-4 font-semibold text-lg first:mt-0' {...props} />,
-  h4: ({ node, ...props }) => <h4 className='mt-4 font-semibold text-base first:mt-0' {...props} />,
-  h5: ({ node, ...props }) => <h5 className='mt-3 font-medium text-base tracking-wide first:mt-0' {...props} />,
-  h6: ({ node, ...props }) => (
-    <h6 className='mt-3 font-medium text-muted-foreground text-sm tracking-wide first:mt-0' {...props} />
+  h1: ({ node, ...props }) => <h1 className={clsx('first:mt-0', 'mt-6', 'font-semibold', 'text-2xl')} {...props} />,
+  h2: ({ node, ...props }) => <h2 className={clsx('first:mt-0', 'mt-5', 'font-semibold', 'text-xl')} {...props} />,
+  h3: ({ node, ...props }) => <h3 className={clsx('first:mt-0', 'mt-4', 'font-semibold', 'text-lg')} {...props} />,
+  h4: ({ node, ...props }) => <h4 className={clsx('first:mt-0', 'mt-4', 'font-semibold', 'text-base')} {...props} />,
+  h5: ({ node, ...props }) => (
+    <h5 className={clsx('first:mt-0', 'mt-3', 'font-medium', 'text-base', 'tracking-wide')} {...props} />
   ),
-  p: ({ node, ...props }) => <p className='mt-3 text-muted-foreground leading-relaxed first:mt-0' {...props} />,
+  h6: ({ node, ...props }) => (
+    <h6
+      className={clsx('first:mt-0', 'mt-3', 'font-medium', 'text-sm', 'tracking-wide', 'text-muted-foreground')}
+      {...props}
+    />
+  ),
+  p: ({ node, ...props }) => (
+    <p className={clsx('first:mt-0', 'leading-relaxed', 'mt-3', 'text-justify', 'text-muted-foreground')} {...props} />
+  ),
   ul: ({ node, ...props }) => <ul className='mt-3 list-disc space-y-2 pl-6' {...props} />,
   ol: ({ node, ...props }) => <ol className='mt-3 list-decimal space-y-2 pl-6' {...props} />,
-  li: ({ node, ...props }) => <li className='leading-relaxed' {...props} />,
+  li: ({ node, ...props }) => <li className={clsx('text-justify', 'leading-relaxed')} {...props} />,
   blockquote: ({ node, ...props }) => (
-    <blockquote className='mt-4 border-primary/40 border-l-4 pl-4 text-muted-foreground italic' {...props} />
+    <blockquote
+      className={clsx(
+        'mt-4',
+        'border-l-4',
+        'border-primary/40',
+        'pl-4',
+        'italic',
+        'text-justify',
+        'text-muted-foreground'
+      )}
+      {...props}
+    />
   ),
   a: ({ node, ...props }) => (
     <a
@@ -83,7 +101,18 @@ export const MarkdownPreview = ({ markdown, className, emptyPlaceholder }: Markd
   }
 
   return (
-    <div className={clsx('prose prose-sm dark:prose-invert max-w-none', className)}>
+    <div
+      className={clsx(
+        'prose',
+        'prose-sm',
+        'dark:prose-invert',
+        'max-w-none',
+        'prose-blockquote:text-justify',
+        'prose-li:text-justify',
+        'prose-p:text-justify',
+        className
+      )}
+    >
       <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]} components={components}>
         {content}
       </ReactMarkdown>
