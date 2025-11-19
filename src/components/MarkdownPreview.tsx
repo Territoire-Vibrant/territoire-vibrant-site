@@ -28,11 +28,9 @@ const components: Components = {
   h2: ({ node, ...props }) => <h2 className='mt-5 font-semibold text-xl first:mt-0' {...props} />,
   h3: ({ node, ...props }) => <h3 className='mt-4 font-semibold text-lg first:mt-0' {...props} />,
   h4: ({ node, ...props }) => <h4 className='mt-4 font-semibold text-base first:mt-0' {...props} />,
-  h5: ({ node, ...props }) => (
-    <h5 className='mt-3 font-medium text-base uppercase tracking-wide first:mt-0' {...props} />
-  ),
+  h5: ({ node, ...props }) => <h5 className='mt-3 font-medium text-base tracking-wide first:mt-0' {...props} />,
   h6: ({ node, ...props }) => (
-    <h6 className='mt-3 font-medium text-muted-foreground text-sm uppercase tracking-wide first:mt-0' {...props} />
+    <h6 className='mt-3 font-medium text-muted-foreground text-sm tracking-wide first:mt-0' {...props} />
   ),
   p: ({ node, ...props }) => <p className='mt-3 text-muted-foreground leading-relaxed first:mt-0' {...props} />,
   ul: ({ node, ...props }) => <ul className='mt-3 list-disc space-y-2 pl-6' {...props} />,
@@ -62,11 +60,8 @@ const components: Components = {
   hr: () => <hr className='my-6 border-border/70' />,
   img: ({ node, alt, ...props }) => (
     <figure className='mt-4 flex flex-col gap-2'>
-      <img
-        alt={alt ?? 'article image'}
-        className='max-h-96 w-full rounded-md object-cover'
-        {...props}
-      />
+      {/* biome-ignore lint/a11y/useAltText: <explanation> */}
+      <img alt={alt ?? 'article image'} className='max-h-96 w-full rounded-md object-cover' {...props} />
       {alt ? <figcaption className='text-center text-muted-foreground text-xs'>{alt}</figcaption> : null}
     </figure>
   ),

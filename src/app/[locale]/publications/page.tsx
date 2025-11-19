@@ -2,8 +2,8 @@ import '@uiw/react-markdown-preview/markdown.css'
 
 import { getTranslations } from 'next-intl/server'
 
+import { MarkdownPreview } from '~/components/MarkdownPreview'
 import { Button } from '~/components/ui/button'
-import { MarkdownPreview } from '~/components/ui/markdown-preview'
 import { Section } from '~/layouts/Section'
 
 import { Link } from '~/i18n/navigation'

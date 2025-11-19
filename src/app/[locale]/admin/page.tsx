@@ -4,7 +4,7 @@ import { ArchiveIcon, CheckIcon, NotePencilIcon } from '@phosphor-icons/react/di
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import { Filters } from './components/Filters'
 
-import { MarkdownPreview } from '~/components/ui/markdown-preview'
+import { MarkdownPreview } from '~/components/MarkdownPreview'
 import { Link } from '~/i18n/navigation'
 import { api } from '~/trpc/server'
 
@@ -73,18 +73,18 @@ export default async function AdminPage({
   }
 
   const buildPreviewMarkdown = (md: string, maxParagraphs = 2, maxChars = 600) => {
-  const trimmed = md.trim()
-  if (!trimmed) return ''
+    const trimmed = md.trim()
+    if (!trimmed) return ''
 
-  const paragraphs = trimmed.split(/\n{2,}/)
-  let preview = paragraphs.slice(0, maxParagraphs).join('\n\n')
+    const paragraphs = trimmed.split(/\n{2,}/)
+    let preview = paragraphs.slice(0, maxParagraphs).join('\n\n')
 
-  if (preview.length > maxChars) {
-    preview = `${preview.slice(0, maxChars).trimEnd()}…`
+    if (preview.length > maxChars) {
+      preview = `${preview.slice(0, maxChars).trimEnd()}…`
+    }
+
+    return preview
   }
-
-  return preview
-}
 
   return (
     <div className='mt-10 flex w-full max-w-6xl flex-col gap-6 px-6'>
@@ -118,7 +118,10 @@ export default async function AdminPage({
                   </TooltipProvider>
                 </div>
 
-                <MarkdownPreview markdown={buildPreviewMarkdown(translation?.bodyMd ?? '')} className='my-2 text-muted-foreground text-sm' />
+                <MarkdownPreview
+                  markdown={buildPreviewMarkdown(translation?.bodyMd ?? '')}
+                  className='my-2 text-muted-foreground text-sm'
+                />
 
                 <div className='flex items-center justify-between text-xs'>
                   <Link

@@ -8,8 +8,8 @@ import { toast } from 'sonner'
 import z from 'zod'
 
 import { ArchiveIcon, CheckIcon, ClockIcon, XIcon } from '@phosphor-icons/react/dist/ssr'
+import { MarkdownPreview } from '~/components/MarkdownPreview'
 import { Button } from '~/components/ui/button'
-import { MarkdownPreview } from '~/components/ui/markdown-preview'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs'
 import { MarkdownEditor } from '../../components/MarkdownEditor'
 
@@ -343,7 +343,7 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
                 <MarkdownPreview
                   markdown={(getValues(`translations.${LOCALES.indexOf(loc)}.bodyMd`) as string) || ''}
                   className='min-h-[200px]'
-                  emptyPlaceholder={t('Admin.preview_empty') ?? 'Nothing to preview yet.'}
+                  emptyPlaceholder={t('Admin.preview_empty')}
                 />
               </div>
             </TabsContent>

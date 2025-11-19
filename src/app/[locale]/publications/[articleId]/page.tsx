@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server'
 // biome-ignore lint/nursery/noRestrictedImports: notFound is a Next.js helper we intentionally use here
 import { notFound } from 'next/navigation'
 
-import { MarkdownPreview } from '~/components/ui/markdown-preview'
+import { MarkdownPreview } from '~/components/MarkdownPreview'
 import { Section } from '~/layouts/Section'
 
 import { Link } from '~/i18n/navigation'
@@ -90,9 +90,7 @@ export default async function PublicationArticlePage({
           </div>
         </div>
 
-
-          <MarkdownPreview markdown={translation.bodyMd} />
-
+        <MarkdownPreview markdown={translation.bodyMd} />
       </div>
     </Section>
   )

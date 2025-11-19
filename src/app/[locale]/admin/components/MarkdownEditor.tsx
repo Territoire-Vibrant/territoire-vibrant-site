@@ -17,7 +17,10 @@ import {
   ListNumbersIcon,
   QuotesIcon,
   TextBIcon,
+  TextHFiveIcon,
+  TextHFourIcon,
   TextHOneIcon,
+  TextHSixIcon,
   TextHThreeIcon,
   TextHTwoIcon,
   TextItalicIcon,
@@ -97,7 +100,6 @@ export const MarkdownEditor = ({
 }: MarkdownEditorProps) => {
   const lastMarkdown = useRef(value ?? '')
   const [selectionEmpty, setSelectionEmpty] = useState(true)
-  const [isSourceMode, setIsSourceMode] = useState(false)
 
   const extensions = useMemo(
     () => [
@@ -144,7 +146,7 @@ export const MarkdownEditor = ({
     editorProps: {
       attributes: {
         class: clsx(
-          'prose prose-sm h-full min-h-[200px] w-full max-w-none rounded-b-md border border-t-0 bg-background px-3 py-2 focus:outline-none selection:bg-primary/20 selection:text-foreground',
+          'prose prose-sm h-full min-h-[200px] w-full max-w-none rounded-b-md border border-t-0 bg-background px-3 py-2 selection:bg-primary/20 selection:text-foreground focus:outline-none',
           disabled && 'pointer-events-none opacity-75'
         ),
       },
@@ -194,7 +196,7 @@ export const MarkdownEditor = ({
     }
   }, [editor])
 
-  const setHeading = (level: 1 | 2 | 3) => {
+  const setHeading = (level: 1 | 2 | 3 | 4 | 5 | 6) => {
     if (!editor) {
       return
     }
@@ -231,7 +233,7 @@ export const MarkdownEditor = ({
   }
 
   const hasSelection = !selectionEmpty
-  const controlsDisabled = disabled || !editor.isEditable || isSourceMode
+  const controlsDisabled = disabled || !editor.isEditable
 
   return (
     <div className={clsx('flex h-full flex-col rounded-md', className)}>
@@ -279,6 +281,27 @@ export const MarkdownEditor = ({
           label='Heading 3'
           onClick={() => setHeading(3)}
           active={editor.isActive('heading', { level: 3 })}
+          disabled={controlsDisabled}
+        />
+        <ToolbarButton
+          icon={<TextHFourIcon className='size-4' />}
+          label='Heading 4'
+          onClick={() => setHeading(4)}
+          active={editor.isActive('heading', { level: 4 })}
+          disabled={controlsDisabled}
+        />
+        <ToolbarButton
+          icon={<TextHFiveIcon className='size-4' />}
+          label='Heading 5'
+          onClick={() => setHeading(5)}
+          active={editor.isActive('heading', { level: 5 })}
+          disabled={controlsDisabled}
+        />
+        <ToolbarButton
+          icon={<TextHSixIcon className='size-4' />}
+          label='Heading 6'
+          onClick={() => setHeading(6)}
+          active={editor.isActive('heading', { level: 6 })}
           disabled={controlsDisabled}
         />
 
@@ -334,34 +357,10 @@ export const MarkdownEditor = ({
           onClick={() => editor.chain().focus().redo().run()}
           disabled={!editor.can().chain().focus().redo().run() || controlsDisabled}
         />
-
-        <div className='mx-1 h-6 w-px bg-border' />
-
-        <ToolbarButton
-          icon={<span className='text-[10px] font-semibold'>{'</>'}</span>}
-          label='Toggle source mode'
-          onClick={() => setIsSourceMode((current) => !current)}
-          active={isSourceMode}
-          disabled={disabled}
-        />
       </div>
 
       <div style={{ minHeight: `${height}px` }}>
-        {isSourceMode ? (
-          <textarea
-            id={id ? `${id}-source` : undefined}
-            value={value ?? ''}
-            onChange={(event) => onChangeAction(event.target.value)}
-            onBlur={onBlurAction}
-            placeholder={placeholder}
-            disabled={disabled}
-            spellCheck
-            className='h-full min-h-[inherit] w-full resize-none rounded-b-md border border-t-0 bg-background px-3 py-2 font-mono text-sm leading-relaxed outline-none focus:border-primary'
-            style={{ minHeight: `${height}px` }}
-          />
-        ) : (
-          <EditorContent id={id} editor={editor} onBlur={onBlurAction} className='h-full min-h-[inherit]' />
-        )}
+        <EditorContent id={id} editor={editor} onBlur={onBlurAction} className='h-full min-h-[inherit]' />
       </div>
     </div>
   )
