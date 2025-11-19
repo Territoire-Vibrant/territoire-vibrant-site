@@ -8,7 +8,6 @@ import { toast } from 'sonner'
 import z from 'zod'
 
 import { ArchiveIcon, CheckIcon, ClockIcon, XIcon } from '@phosphor-icons/react/dist/ssr'
-import { MarkdownPreview } from '~/components/MarkdownPreview'
 import { Button } from '~/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs'
 import { MarkdownEditor } from '../../components/MarkdownEditor'
@@ -109,7 +108,6 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
   const {
     register,
     handleSubmit,
-    getValues,
     watch,
     control,
     formState: { errors, isSubmitting, isDirty },
@@ -277,15 +275,8 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
         </TabsList>
 
         {LOCALES.map((loc) => {
-          const tr = watchTranslations[LOCALES.indexOf(loc)] ?? {
-            locale: loc,
-            title: '',
-            bodyMd: '',
-          }
-          const previewHeading = tr.title?.trim() || 'Preview'
-
           return (
-            <TabsContent key={loc} value={loc} className='mt-4 flex w-full flex-col gap-6 lg:flex-row'>
+            <TabsContent key={loc} value={loc} className='mt-4 flex w-full flex-col gap-6'>
               <div className='flex w-full flex-col gap-3'>
                 <label className='font-medium text-sm' htmlFor={`title-${loc}`}>
                   Title ({loc.toUpperCase()})
@@ -335,16 +326,6 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
                     </p>
                   )}
                 </div>
-              </div>
-
-              <div className='mt-8 w-full rounded-md border p-3'>
-                <p className='mb-4 text-center font-medium text-lg'>{previewHeading}</p>
-
-                <MarkdownPreview
-                  markdown={(getValues(`translations.${LOCALES.indexOf(loc)}.bodyMd`) as string) || ''}
-                  className='min-h-[200px]'
-                  emptyPlaceholder={t('Admin.preview_empty')}
-                />
               </div>
             </TabsContent>
           )

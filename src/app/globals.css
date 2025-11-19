@@ -144,3 +144,105 @@
 section[id] {
   scroll-margin-top: 50px;
 }
+
+@layer components {
+  .markdown-editor__content.ProseMirror {
+    @apply max-w-none text-justify text-sm leading-relaxed;
+  }
+
+  .markdown-editor__content.ProseMirror > *:first-child {
+    @apply mt-0;
+  }
+
+  .markdown-editor__content.ProseMirror h1 {
+    @apply mt-6 text-2xl font-semibold;
+  }
+
+  .markdown-editor__content.ProseMirror h2 {
+    @apply mt-5 text-xl font-semibold;
+  }
+
+  .markdown-editor__content.ProseMirror h3 {
+    @apply mt-4 text-lg font-semibold;
+  }
+
+  .markdown-editor__content.ProseMirror h4 {
+    @apply mt-4 text-base font-semibold;
+  }
+
+  .markdown-editor__content.ProseMirror h5 {
+    @apply mt-3 text-base font-medium tracking-wide;
+  }
+
+  .markdown-editor__content.ProseMirror h6 {
+    @apply mt-3 text-sm font-medium tracking-wide text-muted-foreground;
+  }
+
+  .markdown-editor__content.ProseMirror p {
+    @apply mt-3 text-justify text-muted-foreground leading-relaxed;
+  }
+
+  .markdown-editor__content.ProseMirror ul {
+    @apply mt-3 list-disc space-y-2 pl-6;
+  }
+
+  .markdown-editor__content.ProseMirror ol {
+    @apply mt-3 list-decimal space-y-2 pl-6;
+  }
+
+  .markdown-editor__content.ProseMirror li {
+    @apply leading-relaxed text-justify;
+  }
+
+  .markdown-editor__content.ProseMirror blockquote {
+    @apply mt-4 border-l-4 border-primary/40 pl-4 italic text-justify text-muted-foreground;
+  }
+
+  .markdown-editor__content.ProseMirror hr {
+    @apply my-6 border-border/70;
+  }
+
+  .markdown-editor__content.ProseMirror strong {
+    @apply font-semibold text-foreground;
+  }
+
+  .markdown-editor__content.ProseMirror em {
+    @apply text-muted-foreground;
+  }
+
+  .markdown-editor__content.ProseMirror del {
+    @apply text-muted-foreground;
+  }
+
+  .markdown-editor__content.ProseMirror a {
+    @apply text-primary underline decoration-primary/20 underline-offset-2;
+  }
+
+  .markdown-editor__content.ProseMirror a:hover {
+    @apply decoration-primary;
+  }
+
+  .markdown-editor__content.ProseMirror :not(pre) > code {
+    @apply rounded bg-muted px-1.5 py-0.5 text-xs;
+  }
+
+  .markdown-editor__content.ProseMirror pre {
+    @apply mt-4 overflow-x-auto rounded-md bg-muted/70 p-3 text-sm leading-relaxed;
+  }
+
+  .markdown-editor__content.ProseMirror pre code {
+    @apply block font-mono;
+  }
+
+  .markdown-editor__content.ProseMirror figure {
+    @apply mt-4 flex flex-col gap-2;
+  }
+
+  .markdown-editor__content.ProseMirror img {
+    @apply max-h-96 w-full rounded-md object-cover;
+  }
+
+  .markdown-editor__content.ProseMirror figcaption {
+    @apply text-center text-xs text-muted-foreground;
+  }
+}

@@ -153,8 +153,6 @@ export const MarkdownEditor = ({
           'h-full',
           'max-w-none',
           'min-h-[200px]',
-          'prose',
-          'prose-sm',
           'px-3',
           'py-2',
           'rounded-b-md',
@@ -162,6 +160,7 @@ export const MarkdownEditor = ({
           'selection:text-foreground',
           'text-justify',
           'w-full',
+          'markdown-editor__content',
           disabled && ['pointer-events-none', 'opacity-75']
         ),
       },
