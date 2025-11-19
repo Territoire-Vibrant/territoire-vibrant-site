@@ -103,7 +103,7 @@ export default async function AdminPage({
               article.translations[0]
 
             return (
-              <div key={article.id} className='flex flex-col rounded-lg border p-4'>
+              <article key={article.id} className='flex h-full flex-col rounded-lg border p-4'>
                 <div className='flex items-center justify-between'>
                   <p className='font-semibold text-lg'>{translation?.title ?? article.id}</p>
 
@@ -123,7 +123,7 @@ export default async function AdminPage({
                   className='my-2 text-muted-foreground text-sm'
                 />
 
-                <div className='flex items-center justify-between text-xs'>
+                <div className='mt-auto flex items-center justify-between text-xs'>
                   <Link
                     href={`/admin/publication/${article.id}`}
                     className='font-semibold text-primary text-sm hover:underline'
@@ -135,7 +135,7 @@ export default async function AdminPage({
                     {article.createdAt.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}
                   </p>
                 </div>
-              </div>
+              </article>
             )
           })
         ) : (

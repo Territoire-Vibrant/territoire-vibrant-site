@@ -68,7 +68,7 @@ export default async function PublicationArticlePage({
 
   return (
     <Section className='px-6 py-12'>
-      <div className='mx-auto flex w-full max-w-3xl flex-col gap-6'>
+      <article className='mx-auto flex w-full max-w-3xl flex-col gap-6'>
         <div className='space-y-4'>
           <Link
             href='/publications'
@@ -91,7 +91,7 @@ export default async function PublicationArticlePage({
         </div>
 
         <MarkdownPreview markdown={translation.bodyMd} />
-      </div>
+      </article>
     </Section>
   )
 }
