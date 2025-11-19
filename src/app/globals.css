@@ -175,7 +175,7 @@ section[id] {
   }
 
   .markdown-editor__content.ProseMirror h6 {
-    @apply mt-3 text-sm font-medium tracking-wide text-muted-foreground;
+    @apply mt-3 text-sm font-normal tracking-wide text-muted-foreground;
   }
 
   .markdown-editor__content.ProseMirror p {

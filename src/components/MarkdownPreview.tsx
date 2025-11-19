@@ -32,10 +32,7 @@ const components: Components = {
     <h5 className={clsx('first:mt-0', 'mt-3', 'font-medium', 'text-base', 'tracking-wide')} {...props} />
   ),
   h6: ({ node, ...props }) => (
-    <h6
-      className={clsx('first:mt-0', 'mt-3', 'font-medium', 'text-sm', 'tracking-wide', 'text-muted-foreground')}
-      {...props}
-    />
+    <h6 className={clsx('first:mt-0', 'mt-3', 'text-sm', 'tracking-wide', 'text-muted-foreground')} {...props} />
   ),
   p: ({ node, ...props }) => (
     <p className={clsx('first:mt-0', 'leading-relaxed', 'mt-3', 'text-justify', 'text-muted-foreground')} {...props} />
