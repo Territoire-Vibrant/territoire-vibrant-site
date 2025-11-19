@@ -5,7 +5,7 @@ import Placeholder from '@tiptap/extension-placeholder'
 import { type Editor, EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import clsx from 'clsx'
-import { type ReactElement, useEffect, useMemo, useRef } from 'react'
+import { type ReactElement, useEffect, useMemo, useRef, useState } from 'react'
 import { Markdown } from 'tiptap-markdown'
 
 import {
@@ -96,6 +96,8 @@ export const MarkdownEditor = ({
   height = 300,
 }: MarkdownEditorProps) => {
   const lastMarkdown = useRef(value ?? '')
+  const [selectionEmpty, setSelectionEmpty] = useState(true)
+  const [isSourceMode, setIsSourceMode] = useState(false)
 
   const extensions = useMemo(
     () => [
@@ -142,7 +144,7 @@ export const MarkdownEditor = ({
     editorProps: {
       attributes: {
         class: clsx(
-          'prose prose-sm h-full min-h-[200px] w-full max-w-none rounded-b-md border border-t-0 bg-background px-3 py-2 focus:outline-none',
+          'prose prose-sm h-full min-h-[200px] w-full max-w-none rounded-b-md border border-t-0 bg-background px-3 py-2 focus:outline-none selection:bg-primary/20 selection:text-foreground',
           disabled && 'pointer-events-none opacity-75'
         ),
       },
@@ -173,6 +175,25 @@ export const MarkdownEditor = ({
     editor.setEditable(!disabled)
   }, [editor, disabled])
 
+  useEffect(() => {
+    if (!editor) {
+      return
+    }
+
+    const handleSelectionChange = () => {
+      setSelectionEmpty(editor.state.selection.empty)
+    }
+
+    handleSelectionChange()
+    editor.on('selectionUpdate', handleSelectionChange)
+    editor.on('transaction', handleSelectionChange)
+
+    return () => {
+      editor.off('selectionUpdate', handleSelectionChange)
+      editor.off('transaction', handleSelectionChange)
+    }
+  }, [editor])
+
   const setHeading = (level: 1 | 2 | 3) => {
     if (!editor) {
       return
@@ -186,7 +207,7 @@ export const MarkdownEditor = ({
   }
 
   const promptForLink = () => {
-    if (!editor) {
+    if (!editor || editor.state.selection.empty) {
       return
     }
     const previous = editor.getAttributes('link').href
@@ -209,7 +230,8 @@ export const MarkdownEditor = ({
     )
   }
 
-  const controlsDisabled = disabled || !editor.isEditable
+  const hasSelection = !selectionEmpty
+  const controlsDisabled = disabled || !editor.isEditable || isSourceMode
 
   return (
     <div className={clsx('flex h-full flex-col rounded-md', className)}>
@@ -295,7 +317,7 @@ export const MarkdownEditor = ({
           label='Insert link'
           onClick={promptForLink}
           active={editor.isActive('link')}
-          disabled={controlsDisabled}
+          disabled={controlsDisabled || !hasSelection}
         />
 
         <div className='mx-1 h-6 w-px bg-border' />
@@ -312,10 +334,34 @@ export const MarkdownEditor = ({
           onClick={() => editor.chain().focus().redo().run()}
           disabled={!editor.can().chain().focus().redo().run() || controlsDisabled}
         />
+
+        <div className='mx-1 h-6 w-px bg-border' />
+
+        <ToolbarButton
+          icon={<span className='text-[10px] font-semibold'>{'</>'}</span>}
+          label='Toggle source mode'
+          onClick={() => setIsSourceMode((current) => !current)}
+          active={isSourceMode}
+          disabled={disabled}
+        />
       </div>
 
       <div style={{ minHeight: `${height}px` }}>
-        <EditorContent id={id} editor={editor} onBlur={onBlurAction} className='h-full min-h-[inherit]' />
+        {isSourceMode ? (
+          <textarea
+            id={id ? `${id}-source` : undefined}
+            value={value ?? ''}
+            onChange={(event) => onChangeAction(event.target.value)}
+            onBlur={onBlurAction}
+            placeholder={placeholder}
+            disabled={disabled}
+            spellCheck
+            className='h-full min-h-[inherit] w-full resize-none rounded-b-md border border-t-0 bg-background px-3 py-2 font-mono text-sm leading-relaxed outline-none focus:border-primary'
+            style={{ minHeight: `${height}px` }}
+          />
+        ) : (
+          <EditorContent id={id} editor={editor} onBlur={onBlurAction} className='h-full min-h-[inherit]' />
+        )}
       </div>
     </div>
   )

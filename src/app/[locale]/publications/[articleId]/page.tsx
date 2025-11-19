@@ -3,13 +3,12 @@ import '@uiw/react-markdown-preview/markdown.css'
 import { getTranslations } from 'next-intl/server'
 // biome-ignore lint/nursery/noRestrictedImports: notFound is a Next.js helper we intentionally use here
 import { notFound } from 'next/navigation'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
+
+import { MarkdownPreview } from '~/components/ui/markdown-preview'
+import { Section } from '~/layouts/Section'
 
 import { Link } from '~/i18n/navigation'
-import { Section } from '~/layouts/Section'
 import { db } from '~/server/db'
-import Loading from '../../loading'
 
 const SUPPORTED_LOCALES = ['en', 'es', 'fr', 'pt'] as const
 
@@ -91,9 +90,9 @@ export default async function PublicationArticlePage({
           </div>
         </div>
 
-        <div className='wmde-markdown-color text-base leading-relaxed'>
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{translation.bodyMd}</ReactMarkdown>
-        </div>
+
+          <MarkdownPreview markdown={translation.bodyMd} />
+
       </div>
     </Section>
   )
