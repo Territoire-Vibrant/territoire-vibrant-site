@@ -345,7 +345,7 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
               </div>
 
               <div className='mt-8 w-full rounded-md border p-3'>
-                <p className='mb-2 font-medium text-lg'>{previewHeading}</p>
+                <p className='mb-2 text-center font-medium text-lg'>{previewHeading}</p>
 
                 <div data-color-mode='light'>
                   <MDEditor.Markdown
