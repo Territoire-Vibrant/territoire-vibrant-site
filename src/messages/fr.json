@@ -159,6 +159,8 @@
   },
   "Admin": {
     "enter_title": "Entrez le titre",
-    "locale_saved": "Article en {language_lower} enregistré"
+    "enter_content": "Saisissez le contenu",
+    "locale_saved": "Article en {language_lower} enregistré",
+    "preview_empty": "Écrivez dans l’éditeur pour afficher un aperçu ici."
   }
 }

@@ -159,6 +159,8 @@
   },
   "Admin": {
     "enter_title": "Digite o título",
-    "locale_saved": "Artigo em {language_lower} salvo"
+    "enter_content": "Digite o conteúdo",
+    "locale_saved": "Artigo em {language_lower} salvo",
+    "preview_empty": "Escreva algo no editor para visualizar aqui."
   }
 }

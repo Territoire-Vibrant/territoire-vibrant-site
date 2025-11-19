@@ -159,6 +159,8 @@
   },
   "Admin": {
     "enter_title": "Enter title",
-    "locale_saved": "{language} article saved"
+    "enter_content": "Enter content",
+    "locale_saved": "{language} article saved",
+    "preview_empty": "Write something in the editor to see the preview here."
   }
 }

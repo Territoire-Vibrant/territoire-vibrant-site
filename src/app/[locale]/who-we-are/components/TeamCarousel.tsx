@@ -1,6 +1,6 @@
 'use client'
 
-import Autoplay from 'embla-carousel-autoplay'
+import AutoScroll from 'embla-carousel-auto-scroll'
 import { useTranslations } from 'next-intl'
 
 import Angela from '~/assets/images/members/angela.png'
@@ -21,14 +21,19 @@ export const TeamCarousel = () => {
         loop: true,
       }}
       plugins={[
-        Autoplay({
-          delay: 2000,
+        AutoScroll({
+          playOnInit: true,
+          speed: 1.3,
+          stopOnInteraction: false,
+          stopOnMouseEnter: true,
+          stopOnFocusIn: false,
+          startDelay: 0,
         }),
       ]}
       className='w-full max-w-6xl'
     >
       <CarouselContent className='py-2'>
-        <CarouselItem className='lg:basis-1/3 sm:basis-1/2'>
+        <CarouselItem className='lg:basis-1/4 md:basis-1/3 sm:basis-1/2'>
           <TeamCard
             name={t('WhoWeAre.team.marco.name')}
             position={t('WhoWeAre.team.marco.role')}
@@ -37,7 +42,7 @@ export const TeamCarousel = () => {
           />
         </CarouselItem>
 
-        <CarouselItem className='lg:basis-1/3 sm:basis-1/2'>
+        <CarouselItem className='lg:basis-1/4 md:basis-1/3 sm:basis-1/2'>
           <TeamCard
             name={t('WhoWeAre.team.pedro.name')}
             position={t('WhoWeAre.team.pedro.role')}
@@ -46,7 +51,7 @@ export const TeamCarousel = () => {
           />
         </CarouselItem>
 
-        <CarouselItem className='lg:basis-1/3 sm:basis-1/2'>
+        <CarouselItem className='lg:basis-1/4 md:basis-1/3 sm:basis-1/2'>
           <TeamCard
             name={t('WhoWeAre.team.lilliam.name')}
             position={t('WhoWeAre.team.lilliam.role')}
@@ -55,7 +60,7 @@ export const TeamCarousel = () => {
           />
         </CarouselItem>
 
-        <CarouselItem className='lg:basis-1/3 sm:basis-1/2'>
+        <CarouselItem className='lg:basis-1/4 md:basis-1/3 sm:basis-1/2'>
           <TeamCard
             name={t('WhoWeAre.team.erica.name')}
             position={t('WhoWeAre.team.erica.role')}
@@ -64,7 +69,7 @@ export const TeamCarousel = () => {
           />
         </CarouselItem>
 
-        <CarouselItem className='lg:basis-1/3 sm:basis-1/2'>
+        <CarouselItem className='lg:basis-1/4 md:basis-1/3 sm:basis-1/2'>
           <TeamCard
             name={t('WhoWeAre.team.angela.name')}
             position={t('WhoWeAre.team.angela.role')}
@@ -74,8 +79,8 @@ export const TeamCarousel = () => {
         </CarouselItem>
       </CarouselContent>
 
-      <CarouselPrevious className='hidden md:flex' />
-      <CarouselNext className='hidden md:flex' />
+      <CarouselPrevious className='hidden' />
+      <CarouselNext className='hidden' />
     </Carousel>
   )
 }

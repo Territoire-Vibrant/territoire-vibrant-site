@@ -57,8 +57,8 @@ export const SponsorsMarquee = ({
         ))}
       </CarouselContent>
 
-      <CarouselPrevious className='hidden sm:flex' />
-      <CarouselNext className='hidden sm:flex' />
+      <CarouselPrevious className='hidden' />
+      <CarouselNext className='hidden' />
     </Carousel>
   )
 }

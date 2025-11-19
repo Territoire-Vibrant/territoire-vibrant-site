@@ -1,20 +1,17 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import MDEditor from '@uiw/react-md-editor'
 import { useLocale, useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import remarkGfm from 'remark-gfm'
 import { toast } from 'sonner'
 import z from 'zod'
 
-import '@uiw/react-markdown-preview/markdown.css'
-import '@uiw/react-md-editor/markdown-editor.css'
-
 import { ArchiveIcon, CheckIcon, ClockIcon, XIcon } from '@phosphor-icons/react/dist/ssr'
 import { Button } from '~/components/ui/button'
+import { MarkdownPreview } from '~/components/ui/markdown-preview'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs'
+import { MarkdownEditor } from '../../components/MarkdownEditor'
 
 import { useRouter } from '~/i18n/navigation'
 import { api } from '~/trpc/react'
@@ -310,7 +307,7 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
                   </p>
                 )}
 
-                <div className='flex flex-col gap-3'>
+                <div className='flex h-full flex-col gap-3'>
                   <label className='font-medium text-sm' htmlFor={`body-${loc}`}>
                     Markdown ({loc.toUpperCase()})
                   </label>
@@ -319,20 +316,16 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
                     control={control}
                     name={`translations.${LOCALES.indexOf(loc)}.bodyMd`}
                     render={({ field }) => (
-                      <div data-color-mode='light' className='rounded-md border shadow-sm'>
-                        <MDEditor
-                          value={field.value ?? ''}
-                          onChange={(value) => {
-                            field.onChange(value ?? '')
-                            markLocaleAsDirty(loc)
-                          }}
-                          onBlur={field.onBlur}
-                          textareaProps={{ id: `body-${loc}` }}
-                          height={300}
-                          preview='edit'
-                          extraCommands={[]}
-                        />
-                      </div>
+                      <MarkdownEditor
+                        id={`body-${loc}`}
+                        value={field.value ?? ''}
+                        onChangeAction={(markdown: string) => {
+                          field.onChange(markdown)
+                          markLocaleAsDirty(loc)
+                        }}
+                        onBlurAction={field.onBlur}
+                        placeholder={t('Admin.enter_content')}
+                      />
                     )}
                   />
 
@@ -345,15 +338,13 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
               </div>
 
               <div className='mt-8 w-full rounded-md border p-3'>
-                <p className='mb-2 text-center font-medium text-lg'>{previewHeading}</p>
+                <p className='mb-4 text-center font-medium text-lg'>{previewHeading}</p>
 
-                <div data-color-mode='light'>
-                  <MDEditor.Markdown
-                    source={(getValues(`translations.${LOCALES.indexOf(loc)}.bodyMd`) as string) || ''}
-                    remarkPlugins={[remarkGfm]}
-                    className='wmde-markdown wmde-markdown-color text-sm'
-                  />
-                </div>
+                <MarkdownPreview
+                  markdown={(getValues(`translations.${LOCALES.indexOf(loc)}.bodyMd`) as string) || ''}
+                  className='min-h-[200px]'
+                  emptyPlaceholder={t('Admin.preview_empty') ?? 'Nothing to preview yet.'}
+                />
               </div>
             </TabsContent>
           )
