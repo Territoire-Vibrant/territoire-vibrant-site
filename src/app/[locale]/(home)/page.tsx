@@ -10,11 +10,12 @@ import ProjectThreeImage from '~/assets/images/projects/project_3.png'
 import { Section } from '~/layouts/Section'
 import { CarouselBox } from './components/CarouselBox'
 import { ProjectCard } from './components/ProjectCard'
+import { ServicesSection } from './components/ServicesSection'
 import { SponsorsMarquee } from './components/SponsorsMarquee'
 
 import { Link } from '~/i18n/navigation'
 
-export default function Home() {
+export default function HomePage() {
   const t = useTranslations()
 
   return (
@@ -84,6 +85,7 @@ export default function Home() {
           <div className='hover:-mt-1 transition-all ease-in'>
             <Link
               href='/more-projects'
+              prefetch
               className='bg-background px-4 py-3 font-semibold text-foreground text-sm transition-all ease-in hover:bg-primary hover:text-background'
             >
               {t('more_projects')}
@@ -109,6 +111,139 @@ export default function Home() {
           />
         </div>
       </Section>
+
+      <ServicesSection />
+
+      {false && (
+        <Section limitWidth={false} className='flex w-full justify-center bg-foreground px-6 py-16 text-background'>
+          <div className='flex w-full max-w-5xl flex-col gap-12'>
+            <div className='flex flex-col items-center gap-6 text-center'>
+              <h5 className='text-balance font-bold text-3xl leading-tight md:text-4xl'>
+                {t('Home.services_2.title')}
+              </h5>
+              <div className='w-full rounded-3xl border border-background/15 bg-background/5 p-6 shadow-background/10 shadow-lg sm:p-10'>
+                <div className='space-y-4 text-left text-background/80 text-base leading-relaxed sm:text-lg'>
+                  {[1, 2, 3, 4, 5, 6, 7].map((i) => (
+                    <p key={i}>
+                      {/* @ts-ignore */}
+                      {t(`Home.services_2.p${i}`)}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className='grid gap-8 lg:grid-cols-2'>
+              <article className='flex flex-col gap-4 rounded-3xl border border-background/15 bg-background/5 p-6 shadow-background/10 shadow-lg transition-transform duration-300 hover:bg-background/10 sm:p-8'>
+                <div className='flex items-center gap-3 text-primary'>
+                  <span aria-hidden className='text-2xl leading-none'>
+                    ◆
+                  </span>
+                  <h6 className='font-semibold text-background text-lg md:text-xl'>{t('Home.services_2.est.title')}</h6>
+                </div>
+
+                <div className='space-y-4 text-background/80'>
+                  <p>{t('Home.services_2.est.p1')}</p>
+                  <p>{t('Home.services_2.est.p2')}</p>
+
+                  <div className='rounded-2xl border border-background/10 bg-background/5 p-4'>
+                    <p className='font-semibold text-background'>{t('Home.services_2.est.list_title')}</p>
+                    <ul className='list-inside list-disc columns-1 gap-2 pt-3 lg:columns-3 md:columns-2'>
+                      {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => (
+                        <li key={i} className='py-1 text-sm sm:text-base'>
+                          {/* @ts-ignore */}
+                          {t(`Home.services_2.est.list.item${i}`)}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <p>{t('Home.services_2.est.p3')}</p>
+                  <p>{t('Home.services_2.est.p4')}</p>
+                </div>
+              </article>
+
+              <article className='flex flex-col gap-4 rounded-3xl border border-background/15 bg-background/5 p-6 shadow-background/10 shadow-lg transition-transform duration-300 hover:bg-background/10 sm:p-8'>
+                <div className='flex items-center gap-3 text-primary'>
+                  <span aria-hidden className='text-2xl leading-none'>
+                    ◆
+                  </span>
+                  <h6 className='font-semibold text-background text-lg md:text-xl'>{t('Home.services_2.mvt.title')}</h6>
+                </div>
+
+                <div className='space-y-4 text-background/80'>
+                  <p>{t('Home.services_2.mvt.p1')}</p>
+                  <p>{t('Home.services_2.mvt.p2')}</p>
+
+                  <div className='rounded-2xl border border-background/10 bg-background/5 p-4'>
+                    <p className='font-semibold text-background'>{t('Home.services_2.mvt.list_title')}</p>
+                    <ul className='list-inside list-disc columns-1 gap-2 pt-3 lg:columns-3 md:columns-2'>
+                      {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                        <li key={i} className='py-1 text-sm sm:text-base'>
+                          {/* @ts-ignore */}
+                          {t(`Home.services_2.mvt.list.item${i}`)}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <p>{t('Home.services_2.mvt.p3')}</p>
+                  <p>{t('Home.services_2.mvt.p4')}</p>
+                  <p>{t('Home.services_2.mvt.p5')}</p>
+                </div>
+              </article>
+
+              <article className='flex flex-col gap-4 rounded-3xl border border-background/15 bg-background/5 p-6 shadow-background/10 shadow-lg transition-transform duration-300 lg:col-span-2 hover:bg-background/10 sm:p-8'>
+                <div className='flex items-center gap-3 text-primary'>
+                  <span aria-hidden className='text-2xl leading-none'>
+                    ◆
+                  </span>
+                  <h6 className='font-semibold text-background text-lg md:text-xl'>{t('Home.services_2.rse.title')}</h6>
+                </div>
+
+                <div className='space-y-4 text-background/80'>
+                  <div className='grid gap-1 text-primary/70 text-sm uppercase tracking-[0.2em]'>
+                    <span>{t('Home.services_2.rse.p1')}</span>
+                    <span>{t('Home.services_2.rse.p2')}</span>
+                    <span>{t('Home.services_2.rse.p3')}</span>
+                  </div>
+
+                  <p>{t('Home.services_2.rse.p4')}</p>
+
+                  <div className='rounded-2xl border border-background/10 bg-background/5 p-4'>
+                    <ul className='list-inside list-disc columns-1 gap-2 lg:columns-4 md:columns-2'>
+                      {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                        <li key={i} className='py-1 text-sm sm:text-base'>
+                          {/* @ts-ignore */}
+                          {t(`Home.services_2.rse.list.item${i}`)}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className='grid gap-1 text-primary/70 text-sm uppercase tracking-[0.2em]'>
+                    <span>{t('Home.services_2.rse.p5')}</span>
+                    <span>{t('Home.services_2.rse.p6')}</span>
+                    <span>{t('Home.services_2.rse.p7')}</span>
+                    <span>{t('Home.services_2.rse.p8')}</span>
+                  </div>
+                </div>
+              </article>
+
+              <article className='flex flex-col gap-4 rounded-3xl border border-background/15 bg-background/5 p-6 shadow-background/10 shadow-lg transition-transform duration-300 hover:bg-background/10 sm:p-8'>
+                <div className='flex items-center gap-3 text-primary'>
+                  <span aria-hidden className='text-2xl leading-none'>
+                    ◆
+                  </span>
+                  <h6 className='font-semibold text-background text-lg md:text-xl'>{t('Home.services_2.ivt.title')}</h6>
+                </div>
+
+                <p className='text-background/80'>{t('Home.services_2.est.p3')}</p>
+              </article>
+            </div>
+          </div>
+        </Section>
+      )}
     </>
   )
 }

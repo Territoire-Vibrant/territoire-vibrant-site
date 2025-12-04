@@ -98,10 +98,10 @@ export const Header = () => {
                   </li>
 
                   <li
-                    data-current-page={pathname === '/services'}
+                    data-current-page={pathname.includes('services')}
                     className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
                   >
-                    <Link href='/services' prefetch onClick={() => setOpen(false)}>
+                    <Link href='/#services' prefetch onClick={() => setOpen(false)}>
                       {t('services')}
                     </Link>
                   </li>
@@ -155,10 +155,10 @@ export const Header = () => {
             </li>
 
             <li
-              data-current-page={pathname === '/services'}
+              data-current-page={pathname.includes('services')}
               className='transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
             >
-              <Link href='/services' prefetch>
+              <Link href='/#services' prefetch>
                 {t('services')}
               </Link>
             </li>
@@ -198,7 +198,7 @@ export const Header = () => {
                 <Button
                   variant='outline'
                   size='sm'
-                  className='flex items-center gap-1 border-none bg-background/50 hover:bg-primary hover:text-background'
+                  className='flex items-center gap-1 rounded-none border-none bg-background/50 hover:bg-primary hover:text-background'
                 >
                   {localeLabelKey[locale] ? t(localeLabelKey[locale] as any) : locale.toUpperCase()}
                   <CaretDownIcon className='size-4 opacity-60' />

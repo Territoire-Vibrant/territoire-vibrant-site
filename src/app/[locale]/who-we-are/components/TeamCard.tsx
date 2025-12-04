@@ -16,7 +16,7 @@ export const TeamCard = ({ name, position, bio, image }: TeamCardProps) => {
         <Image src={image ?? PlaceholderImage} alt={name} className='aspect-4/3 w-full object-cover' />
       </div>
 
-      <div className='h-full rounded-b-xl bg-[#E0EBD5] px-6 pt-6 transition-all ease-in group-hover:bg-primary'>
+      <div className='h-full rounded-b-xl bg-tertiary px-6 pt-6 transition-all ease-in group-hover:bg-primary'>
         <h3 className='font-semibold text-lg text-neutral-900 transition-all ease-in group-hover:text-background'>
           {name}
         </h3>

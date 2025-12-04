@@ -31,6 +31,7 @@
   "status": "Status",
   "created": "Criado",
   "our_network": "Nossa Rede",
+  "know_our_architecture": "Conheça Nossa Arquitetura",
   "publications_search_placeholder": "Buscar publicações",
   "Publications": {
     "title": "Publicações",
@@ -83,6 +84,115 @@
       "project_3": {
         "title": "As vozes viventes",
         "description": "Vozes viventes é um projeto artístico-pedagógico de co-criação artistica com jovens, realizado em parceria com escolas públicas e técnicas."
+      }
+    },
+    "services": {
+      "title": "Nossos Serviços",
+      "living_territories": "Territórios que respiram",
+      "territorial_solutions": "Soluções Territoriais",
+      "service_1": {
+        "title": "RSE Territorial (APL Vibrante)",
+        "description": "Aplicamos nossa arquitetura proprietária para fortalecer pertencimento, regenerar vínculos e ativar ecossistemas em empresas, municípios e organizações."
+      },
+      "service_2": {
+        "title": "Diagnóstico Vibrante Territorial",
+        "description": "Leitura sensível e sistêmica da vitalidade territorial, baseada em relações, cultura, identidade e dinâmicas organizacionais."
+      },
+      "service_3": {
+        "title": "Estratégias de Pertencimento e Vitalidade",
+        "description": "Planos criados para ampliar coesão social, engajamento interno, participação comunitária e cultura de convivência."
+      },
+      "service_4": {
+        "title": "Projetos Regenerativos e Inovação Social",
+        "description": "Iniciativas que unem território, criatividade, impacto social e processos regenerativos em diferentes contextos."
+      },
+      "service_5": {
+        "title": "Governança Territorial Participativa",
+        "description": "Modelos colaborativos que aproximam atores, fortalecem decisões coletivas e constroem ecossistemas de responsabilidade compartilhada."
+      },
+      "service_6": {
+        "title": "Cultura, Memória e Economia Criativa",
+        "description": "Projetos que ativam identidade, narrativas locais, expressões culturais e cadeias criativas como motores de desenvolvimento."
+      },
+      "service_7": {
+        "title": "Formação e Acompanhamento (para equipes)",
+        "description": "Programas formativos para lideranças, equipes e coletivos que desejam integrar visão territorial e práticas vivas de governança."
+      },
+      "service_8": {
+        "title": "Consultoria Estratégica Territorial",
+        "description": "Apoio técnico para empresas, instituições e municípios que buscam alinhar visão, estratégia e impacto territorial de forma integrada."
+      }
+    },
+    "services_2": {
+      "title": "Territórios que Respiram — A Estrutura Viva por Trás do APL Vibrante (RSE Territorial)",
+      "p1": "Respiram pela cultura, pela memória, pelas relações que sustentam a vida coletiva.",
+      "p2": "Respiram pelo que chamamos de Ecologia Sistêmica Territorial (EST) — o campo vivo onde afetos, saberes, organizações, comunidades e futuros se encontram.",
+      "p3": "A EST é a lente que revela o que diagnósticos tradicionais não alcançam: a vitalidade pulsante do território.",
+      "p4": "É dentro dessa ecologia que nasce o MVT — Método Vibrante Territorial, uma arquitetura regenerativa criada para ativar pertencimento, fortalecer vínculos, impulsionar inovação social e ampliar a vitalidade comunitária em contextos diversos.",
+      "p5": "O MVT não tenta enquadrar territórios.",
+      "p6": "Ele os escuta.",
+      "p7": "E, a partir dessa escuta profunda, desperta o que já existe — mas estava adormecido.",
+      "est": {
+        "title": "EST — Ecologia Sistêmica Territorial (o campo)",
+        "p1": "A EST é a ciência sensível dos territórios vivos.",
+        "p2": "Ela compreende aquilo que só moradores, artistas, crianças, anciãos, trabalhadores e histórias conseguem contar.",
+        "list_title": "A EST revela:",
+        "list": {
+          "item1": "vínculos invisíveis",
+          "item2": "confiança comunitária",
+          "item3": "identidade cultural",
+          "item4": "redes afetivas",
+          "item5": "modos de vida",
+          "item6": "potência criativa",
+          "item7": "ecologia emocional",
+          "item8": "ritmo social",
+          "item9": "vocações coletivas"
+        },
+        "p3": "É a ecologia que emerge do encontro entre comunidade, instituições, natureza e memória, onde cada relação produz vida, sentido e futuro.",
+        "p4": "Por isso o MVT opera dentro da EST: porque é um método que parte da vida real, não de categorias estáticas."
+      },
+      "mvt": {
+        "title": "MVT — Método Vibrante Territorial",
+        "p1": "O MVT é o coração operativo da Território Vibrante.",
+        "p2": "Ele traduz a EST em prática — com técnica, presença, sensibilidade e rigor.",
+        "list_title": "O MVT atua sobre:",
+        "list": {
+          "item1": "pertencimento humano",
+          "item2": "escuta ativa",
+          "item3": "governança viva",
+          "item4": "regeneração comunitária",
+          "item5": "economia criativa",
+          "item6": "cultura como energia social",
+          "item7": "natureza como organismo",
+          "item8": "inovação emergente"
+        },
+        "p3": "O MVT não organiza o território de fora para dentro.",
+        "p4": "Ele reativa, de dentro para fora.",
+        "p5": "E é a partir dessa lógica que nasce nosso RSE Territorial."
+      },
+      "rse": {
+        "title": "RSE Territorial — nossa forma de aplicação",
+        "p1": "Nosso RSE Territorial não é corporativo.",
+        "p2": "Não é checklist.",
+        "p3": "Não é relatório.",
+        "p4": "É responsabilidade social e territorial aplicada com o MVT — um modelo que funciona simultaneamente para:",
+        "list": {
+          "item1": "empresas",
+          "item2": "prefeituras",
+          "item3": "ONGs",
+          "item4": "escolas",
+          "item5": "ecossistemas culturais",
+          "item6": "iniciativas ambientais",
+          "item7": "comunidades",
+          "item8": "territórios criativos"
+        },
+        "p5": "Aqui, ação social vira ecossistema.",
+        "p6": "Impacto vira pertencimento.",
+        "p7": "Projeto vira regeneração.",
+        "p8": "O RSE Territorial é a ponte entre intenção e território — e só existe porque o MVT lhe dá corpo."
+      },
+      "ivt": {
+        "title": "IVT — Indicadores de Vitalidade Territorial (o componente técnico)"
       }
     }
   },

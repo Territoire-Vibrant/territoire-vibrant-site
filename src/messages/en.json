@@ -31,6 +31,7 @@
   "status": "Status",
   "created": "Created",
   "our_network": "Our Network",
+  "know_our_architecture": "Know Our Architecture",
   "publications_search_placeholder": "Search publications",
   "Publications": {
     "title": "Publications",
@@ -83,6 +84,115 @@
       "project_3": {
         "title": "Voices of the Living",
         "description": "Vozes viventes is an artistic-pedagogical project of artistic co-creation with young people, carried out in partnership with public and technical schools."
+      }
+    },
+    "services": {
+      "title": "Our Services",
+      "living_territories": "Living territories",
+      "territorial_solutions": "Territorial Solutions",
+      "service_1": {
+        "title": "Territorial CSR (Vibrant LPA)",
+        "description": "We apply our proprietary architecture to strengthen belonging, regenerate bonds, and activate ecosystems in companies, municipalities, and organizations."
+      },
+      "service_2": {
+        "title": "Vibrant Territorial Diagnosis",
+        "description": "Sensitive and systemic reading of territorial vitality, based on relationships, culture, identity, and organizational dynamics."
+      },
+      "service_3": {
+        "title": "Belonging and Vitality Strategies",
+        "description": "Plans created to expand social cohesion, internal engagement, community participation, and a culture of coexistence."
+      },
+      "service_4": {
+        "title": "Regenerative Projects and Social Innovation",
+        "description": "Initiatives that unite territory, creativity, social impact, and regenerative processes in different contexts."
+      },
+      "service_5": {
+        "title": "Participatory Territorial Governance",
+        "description": "Collaborative models that bring actors together, strengthen collective decisions, and build ecosystems of shared responsibility."
+      },
+      "service_6": {
+        "title": "Culture, Memory, and Creative Economy",
+        "description": "Projects that activate identity, local narratives, cultural expressions, and creative chains as engines of development."
+      },
+      "service_7": {
+        "title": "Training and Accompaniment (for teams)",
+        "description": "Training programs for leaders, teams, and collectives who wish to integrate territorial vision and living governance practices."
+      },
+      "service_8": {
+        "title": "Strategic Territorial Consulting",
+        "description": "Technical support for companies, institutions, and municipalities seeking to align vision, strategy, and territorial impact in an integrated way."
+      }
+    },
+    "services_2": {
+      "title": "Breathing Territories — The Living Structure Behind Vibrant LPA (Territorial CSR)",
+      "p1": "They breathe through culture, memory, and the relationships that sustain collective life.",
+      "p2": "They breathe through what we call Systemic Territorial Ecology (STE) — the living field where affections, knowledge, organizations, communities, and futures meet.",
+      "p3": "STE is the lens that reveals what traditional diagnoses miss: the pulsating vitality of the territory.",
+      "p4": "It is within this ecology that the VTM — Vibrant Territorial Method is born, a regenerative architecture created to activate belonging, strengthen bonds, boost social innovation, and expand community vitality in diverse contexts.",
+      "p5": "The VTM does not try to frame territories.",
+      "p6": "It listens to them.",
+      "p7": "And, from this deep listening, it awakens what already exists — but was dormant.",
+      "est": {
+        "title": "STE — Systemic Territorial Ecology (the field)",
+        "p1": "STE is the sensitive science of living territories.",
+        "p2": "It understands what only residents, artists, children, elders, workers, and stories can tell.",
+        "list_title": "STE reveals:",
+        "list": {
+          "item1": "invisible bonds",
+          "item2": "community trust",
+          "item3": "cultural identity",
+          "item4": "affective networks",
+          "item5": "ways of life",
+          "item6": "creative power",
+          "item7": "emotional ecology",
+          "item8": "social rhythm",
+          "item9": "collective vocations"
+        },
+        "p3": "It is the ecology that emerges from the encounter between community, institutions, nature, and memory, where every relationship produces life, meaning, and future.",
+        "p4": "That is why the VTM operates within STE: because it is a method that starts from real life, not static categories."
+      },
+      "mvt": {
+        "title": "VTM — Vibrant Territorial Method",
+        "p1": "The VTM is the operative heart of Territoire Vibrant.",
+        "p2": "It translates STE into practice — with technique, presence, sensitivity, and rigor.",
+        "list_title": "The VTM acts on:",
+        "list": {
+          "item1": "human belonging",
+          "item2": "active listening",
+          "item3": "living governance",
+          "item4": "community regeneration",
+          "item5": "creative economy",
+          "item6": "culture as social energy",
+          "item7": "nature as an organism",
+          "item8": "emergent innovation"
+        },
+        "p3": "The VTM does not organize the territory from the outside in.",
+        "p4": "It reactivates it, from the inside out.",
+        "p5": "And it is from this logic that our Territorial CSR is born."
+      },
+      "rse": {
+        "title": "Territorial CSR — our form of application",
+        "p1": "Our Territorial CSR is not corporate.",
+        "p2": "It is not a checklist.",
+        "p3": "It is not a report.",
+        "p4": "It is social and territorial responsibility applied with the VTM — a model that works simultaneously for:",
+        "list": {
+          "item1": "companies",
+          "item2": "municipalities",
+          "item3": "NGOs",
+          "item4": "schools",
+          "item5": "cultural ecosystems",
+          "item6": "environmental initiatives",
+          "item7": "communities",
+          "item8": "creative territories"
+        },
+        "p5": "Here, social action becomes an ecosystem.",
+        "p6": "Impact becomes belonging.",
+        "p7": "Project becomes regeneration.",
+        "p8": "Territorial CSR is the bridge between intention and territory — and it only exists because the VTM gives it body."
+      },
+      "ivt": {
+        "title": "TVI — Territorial Vitality Indicators (the technical component)"
       }
     }
   },
