@@ -33,6 +33,8 @@
   "our_network": "Nuestra Red",
   "know_our_architecture": "Conozca Nuestra Arquitectura",
   "publications_search_placeholder": "Buscar publicaciones",
+  "founder": "Fundador",
+  "architect_of_Territories": "Arquitecto de Territorios",
   "Publications": {
     "title": "Publicaciones",
     "subtitle": "Ideas, noticias e historias de nuestra red colaborativa.",
@@ -122,7 +124,9 @@
         "title": "Consultoría Estratégica Territorial",
         "description": "Apoyo técnico para empresas, instituciones y municipios que buscan alinear visión, estrategia e impacto territorial de forma integrada."
       }
-    }
+    },
+    "banner_sentence_1": "Construimos innovación social desde el territorio vivo",
+    "banner_sentence_2": "Toda transformación social comienza en el territorio que nos conforma"
   },
   "WhoWeAre": {
     "intro": {

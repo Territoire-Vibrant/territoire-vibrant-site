@@ -2,12 +2,15 @@ import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 
 import CommunityImage from '~/assets/images/home/hero/community.jpg'
+import HomeBanner1 from '~/assets/images/home/home_banner_1.png'
+import HomeBanner2 from '~/assets/images/home/home_banner_2.png'
 import LandscapeImage from '~/assets/images/home/intro/landscape.jpg'
 import ProjectOneImage from '~/assets/images/projects/project_1.png'
 import ProjectTwoImage from '~/assets/images/projects/project_2.png'
 import ProjectThreeImage from '~/assets/images/projects/project_3.png'
 
 import { Section } from '~/layouts/Section'
+import { BannerCarousel } from './components/BannerCarousel'
 import { CarouselBox } from './components/CarouselBox'
 import { ProjectCard } from './components/ProjectCard'
 import { ServicesSection } from './components/ServicesSection'
@@ -22,7 +25,7 @@ export default function HomePage() {
     <>
       <Section className='flex w-full flex-col items-center justify-between gap-24 px-6 py-12 md:flex-row'>
         {/* Hero text */}
-        <div className='flex max-w-[450px] flex-col items-center gap-6 md:w-1/2'>
+        <div className='flex max-w-112.5 flex-col items-center gap-6 md:w-1/2'>
           <h1 className='flex size-full flex-col items-center gap-2 text-center font-bold text-2xl md:flex-row md:flex-wrap md:items-start md:text-start lg:text-3xl'>
             {t.rich('Home.hero.h1', {
               v: (chunks) => <span className='text-3xl text-primary leading-8 lg:text-4xl'>{chunks}</span>,
@@ -33,7 +36,7 @@ export default function HomePage() {
         </div>
 
         {/* Hero grid */}
-        <div className='grid size-full gap-4 lg:max-h-[410px] md:w-1/2 md:grid-cols-2 md:grid-rows-3'>
+        <div className='grid size-full gap-4 lg:max-h-102.5 md:w-1/2 md:grid-cols-2 md:grid-rows-3'>
           {/* Box 1 - Green text */}
           <div className='order-1 flex size-full flex-col justify-between space-y-4 rounded-2xl bg-primary/60 p-4 md:row-span-2'>
             <div className='w-3/4 font-bold text-xl'>{t('Home.hero.box1.title')}</div>
@@ -113,6 +116,25 @@ export default function HomePage() {
       </Section>
 
       <ServicesSection />
+
+      <Section className='px-6 py-12'>
+        <BannerCarousel
+          slides={[
+            {
+              src: HomeBanner1,
+              alt: 'Banner 1',
+              topSentence: t('Home.banner_sentence_1'),
+              bottomSentence: `Mac Neves | ${t('territoire_vibrant')} ${t('founder')}`,
+            },
+            {
+              src: HomeBanner2,
+              alt: 'Banner 2',
+              topSentence: t('Home.banner_sentence_2'),
+              bottomSentence: `Mac Neves | ${t('territoire_vibrant')} ${t('architect_of_Territories')}`,
+            },
+          ]}
+        />
+      </Section>
     </>
   )
 }
