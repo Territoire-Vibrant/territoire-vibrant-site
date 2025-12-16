@@ -124,11 +124,8 @@ export const Header = () => {
                     </Link>
                   </li>
 
-                  <li
-                    data-current-page={pathname === '/contact'}
-                    className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
-                  >
-                    <Link href='/contact' prefetch onClick={() => setOpen(false)}>
+                  <li className='transition-all ease-in'>
+                    <Link href='/#contact' prefetch onClick={() => setOpen(false)}>
                       {t('contact')}
                     </Link>
                   </li>
@@ -181,11 +178,8 @@ export const Header = () => {
               </Link>
             </li>
 
-            <li
-              data-current-page={pathname === '/contact'}
-              className='transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
-            >
-              <Link href='/contact' prefetch>
+            <li className='transition-all ease-in hover:scale-105 hover:text-primary'>
+              <Link href='/#contact' prefetch>
                 {t('contact')}
               </Link>
             </li>
