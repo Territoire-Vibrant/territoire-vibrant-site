@@ -2,9 +2,13 @@
 
 import Autoplay from 'embla-carousel-autoplay'
 import Fade from 'embla-carousel-fade'
+import { useTranslations } from 'next-intl'
 import Image, { type StaticImageData } from 'next/image'
 
+import { Button } from '~/components/ui/button'
 import { Carousel, CarouselContent, CarouselItem } from '~/components/ui/carousel'
+
+import { Link } from '~/i18n/navigation'
 
 export type BannerSlide = {
   src: StaticImageData | string
@@ -14,6 +18,8 @@ export type BannerSlide = {
 }
 
 export function BannerCarousel({ slides }: { slides: BannerSlide[] }) {
+  const t = useTranslations()
+
   return (
     <Carousel
       opts={{ loop: true }}
@@ -50,6 +56,16 @@ export function BannerCarousel({ slides }: { slides: BannerSlide[] }) {
           </CarouselItem>
         ))}
       </CarouselContent>
+
+      <Link href='/portfolio' prefetch>
+        <Button
+          type='button'
+          variant='outline'
+          className='-translate-y-1/2 absolute top-full left-4 cursor-pointer transition-all ease-in lg:top-[96%] sm:top-[95%] hover:bg-primary hover:text-background'
+        >
+          {t('portfolio')}
+        </Button>
+      </Link>
     </Carousel>
   )
 }

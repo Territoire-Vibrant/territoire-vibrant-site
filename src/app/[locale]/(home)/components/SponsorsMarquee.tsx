@@ -1,6 +1,7 @@
 'use client'
 
 import AutoScroll from 'embla-carousel-auto-scroll'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 
 import Inflorescence from '~/assets/images/partners/inflorescence.png'
@@ -15,6 +16,8 @@ export const SponsorsMarquee = ({
 }: {
   className?: string
 }) => {
+  const t = useTranslations()
+
   const items = [
     { id: 1, label: 'So&Co', logo: SoAndCo, url: 'https://www.soetco.ca/' },
     { id: 2, label: 'Inflorescence', logo: Inflorescence, url: 'http://www.cliniqueinflorescence.com/' },
@@ -29,7 +32,7 @@ export const SponsorsMarquee = ({
 
   return (
     <Carousel
-      className={cn('marquee-mask w-full max-w-7xl select-none overflow-x-clip px-12', className)}
+      className={cn('marquee-mask w-full max-w-7xl select-none overflow-x-clip px-12 lg:px-20', className)}
       opts={{ loop: true, align: 'start', dragFree: true }}
       plugins={[
         AutoScroll({

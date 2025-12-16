@@ -73,7 +73,13 @@ export default function HomePage() {
         </div>
       </Section>
 
-      <Section limitWidth={false} className='flex justify-center bg-foreground'>
+      <Section limitWidth={false} className='flex flex-col items-center bg-foreground'>
+        <div className='relative w-full max-w-6xl'>
+          <p className='absolute top-0 left-12 bg-secondary px-4 py-2 font-medium text-foreground text-sm lg:left-4'>
+            {t('partners')}
+          </p>
+        </div>
+
         <SponsorsMarquee />
       </Section>
 
@@ -134,6 +140,10 @@ export default function HomePage() {
             },
           ]}
         />
+      </Section>
+
+      <Section id='contact' className='relative px-6 py-12'>
+        Contact
       </Section>
     </>
   )

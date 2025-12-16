@@ -134,8 +134,8 @@ html {
 
 /* Fade edges so items enter/exit smoothly */
 .marquee-mask {
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
 }
 
 /* Smooth anchor scrolling (respects reduced motion) */
