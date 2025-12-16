@@ -19,8 +19,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.36.2",
-    "@hookform/resolvers": "^3.10.0",
+    "@clerk/nextjs": "^6.36.3",
+    "@hookform/resolvers": "^5.2.2",
     "@phosphor-icons/react": "^2.1.10",
     "@prisma/client": "^6.19.1",
     "@radix-ui/react-dialog": "^1.1.15",
