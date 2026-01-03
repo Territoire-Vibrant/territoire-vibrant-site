@@ -52,8 +52,14 @@
   },
   "Home": {
     "hero": {
-      "h1": "Here belonging <v>Vibrates</v>",
-      "h2": "We use creativity, territorial intelligence, and collaborative management to transform communities into sustainable territories.",
+      "h1": {
+        "title": "Intelligence of <v>Living</v> territories",
+        "subtext": "We start by reading local symbolic capital and how people, projects, and decisions connect in organizations or regional territories.\n\nFrom there, we support the alignment and cooperation that generate sustainable, coherent, and lasting impact projects."
+      },
+      "h2": {
+        "title": "Here belonging <v>Vibrates</v>",
+        "subtext": "We work through creativity, territorial intelligence, and collaborative management to transform communities into sustainable territories."
+      },
       "box1": {
         "title": "Community-based tourism",
         "subtext": "Experiences that strengthen local communities, generate income, and value the territory's culture."

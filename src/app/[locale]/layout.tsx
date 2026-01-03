@@ -43,8 +43,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const t = await getTranslations({ locale: locale as Locale })
 
   return {
-    title: `${t('territoire_vibrant')} | ${t.markup('Home.hero.h1', { v: (chunks: string) => chunks })}`,
-    description: t('Home.hero.h2'),
+    title: `${t('territoire_vibrant')} | ${t.markup('Home.hero.h1.title', { v: (chunks: string) => chunks })}`,
+    description: t('Home.hero.h1.subtext'),
   }
 }
 

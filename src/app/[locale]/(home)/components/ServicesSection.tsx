@@ -87,7 +87,7 @@ export const ServicesSection = () => {
     <Section id='services' className='flex flex-col items-center gap-12 px-6 pt-14 pb-8 text-foreground'>
       <div className='grid w-[80vw] gap-12 md:w-full md:grid-cols-[minmax(0,1.6fr)_minmax(0,2.4fr)] xl:gap-16'>
         <div className='flex flex-col items-center gap-6'>
-          <h4 className='text-left font-bold text-2xl'>{t('Home.services.title')}</h4>
+          <h5 className='text-left font-bold text-2xl'>{t('Home.services.title')}</h5>
 
           <div className='flex flex-col gap-3'>
             {services.map((service, index) => {
@@ -137,7 +137,7 @@ export const ServicesSection = () => {
               {services.map((service) => (
                 <CarouselItem key={service.title} className='h-full pb-10 pl-6'>
                   <div className='mt-6 flex flex-col gap-4'>
-                    <h5 className='font-semibold text-2xl md:text-3xl'>{service.title}</h5>
+                    <h6 className='font-semibold text-2xl md:text-3xl'>{service.title}</h6>
 
                     <p className='text-base text-foreground/80 leading-relaxed md:text-lg'>{service.description}</p>
                   </div>

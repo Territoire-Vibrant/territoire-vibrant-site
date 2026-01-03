@@ -251,3 +251,56 @@ section[id] {
     @apply text-center text-xs text-muted-foreground;
   }
 }
+
+@keyframes tv-vibrate-5s {
+  0%,
+  85%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  2% {
+    transform: translate3d(-0.7px, 0, 0) rotate(-0.6deg);
+  }
+  4% {
+    transform: translate3d(0.7px, 0, 0) rotate(0.6deg);
+  }
+  6% {
+    transform: translate3d(-1px, 0, 0) rotate(-0.9deg);
+  }
+  8% {
+    transform: translate3d(1px, 0, 0) rotate(0.9deg);
+  }
+  10% {
+    transform: translate3d(-0.9px, 0, 0) rotate(-0.75deg);
+  }
+  12% {
+    transform: translate3d(0.9px, 0, 0) rotate(0.75deg);
+  }
+  14% {
+    transform: translate3d(-0.75px, 0, 0) rotate(-0.6deg);
+  }
+  16% {
+    transform: translate3d(0.75px, 0, 0) rotate(0.6deg);
+  }
+  18% {
+    transform: translate3d(-0.5px, 0, 0) rotate(-0.4deg);
+  }
+  20% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+@layer utilities {
+  .tv-vibrate-5s {
+    display: inline-block;
+    transform-origin: center;
+    will-change: transform;
+    animation: tv-vibrate-5s 5s ease-in-out infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tv-vibrate-5s {
+    animation: none;
+  }
+}

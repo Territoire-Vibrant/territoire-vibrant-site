@@ -58,9 +58,9 @@ export const Header = () => {
           </li>
         </ul>
 
-        <div className='flex flex-row-reverse items-center gap-4 md:flex-row'>
+        <div className='flex flex-row-reverse items-center gap-4 lg:flex-row'>
           {/* Mobile links */}
-          <div className='flex md:hidden'>
+          <div className='flex lg:hidden'>
             <Dialog open={open} onOpenChange={(val) => setOpen(val)}>
               <DialogTrigger className='cursor-pointer transition-all ease-in hover:text-primary'>
                 <ListIcon />
@@ -135,7 +135,7 @@ export const Header = () => {
           </div>
 
           {/* Desktop links */}
-          <ul className='hidden items-center gap-6 md:flex'>
+          <ul className='hidden items-center gap-6 lg:flex'>
             <li
               data-current-page={pathname === '/who-we-are'}
               className='transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'

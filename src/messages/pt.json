@@ -52,8 +52,14 @@
   },
   "Home": {
     "hero": {
-      "h1": "Aqui o pertencimento <v>Vibra</v>",
-      "h2": "Atuamos com criatividade, inteligência territorial e gestão colaborativa para transformar comunidades em territórios sustentáveis.",
+      "h1": {
+        "title": "Inteligência de territórios <v>Vivos</v>",
+        "subtext": "Partimos da leitura do capital simbólico local e de como pessoas, projetos e decisões se conectam em organizações ou territórios regionais.\n\nA partir disso, apoiamos o alinhamento e a cooperação que geram projetos de impacto sustentáveis, coerentes e duradouros."
+      },
+      "h2": {
+        "title": "Aqui o pertencimento <v>Vibra</v>",
+        "subtext": "Trabalhamos a partir de criatividade, inteligência territorial e gestão colaborativa para transformar comunidades em territórios sustentáveis."
+      },
       "box1": {
         "title": "Turismo de base comunitária",
         "subtext": "Experiências que fortalecem comunidades locais, geram renda e valorizam a cultura do território."

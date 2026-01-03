@@ -64,7 +64,7 @@ export default function WhoWeArePage() {
       </Section>
 
       <Section className='flex w-full flex-col items-center space-y-8 px-6 py-12'>
-        <h2 className='font-semibold text-2xl tracking-tight'>{t('our_network')}</h2>
+        <h3 className='font-semibold text-2xl tracking-tight'>{t('our_network')}</h3>
 
         <TeamCarousel />
       </Section>

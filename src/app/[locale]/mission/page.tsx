@@ -98,7 +98,7 @@ export default function MissionPage() {
                 </div>
 
                 <div className='space-y-1'>
-                  <h3 className='font-semibold text-xl'>{t('Mission.essence.vision.title')}</h3>
+                  <h4 className='font-semibold text-xl'>{t('Mission.essence.vision.title')}</h4>
 
                   <p>{t('Mission.essence.vision.p')}</p>
                 </div>
@@ -123,7 +123,7 @@ export default function MissionPage() {
       <Section className='w-full px-6 py-12 lg:py-16'>
         <div className='mx-auto max-w-6xl rounded-3xl border border-neutral-200 bg-linear-to-b from-background to-green-50 p-6 shadow-sm ring-1 ring-neutral-100 sm:p-10'>
           <div className='space-y-6'>
-            <h3 className='font-semibold text-green-900 text-xl sm:text-2xl'>{t('Mission.essence.values.title')}</h3>
+            <h5 className='font-semibold text-green-900 text-xl sm:text-2xl'>{t('Mission.essence.values.title')}</h5>
 
             <div className='grid gap-8 lg:grid-cols-2 lg:gap-10'>
               <div className='order-2 space-y-4 text-neutral-700 lg:order-1'>
