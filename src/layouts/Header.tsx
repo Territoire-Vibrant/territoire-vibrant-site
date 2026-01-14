@@ -2,9 +2,9 @@
 
 import { type Locale, useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-import { CaretDownIcon, CheckIcon, ListIcon } from '@phosphor-icons/react/dist/ssr'
+import { CheckIcon, GlobeIcon, ListIcon, MagnifyingGlassIcon, XIcon } from '@phosphor-icons/react/dist/ssr'
 import {
   Dialog,
   DialogContent,
@@ -23,10 +23,27 @@ import { routing } from '~/i18n/routing'
 export const Header = () => {
   const t = useTranslations()
   const locale = useLocale()
-
   const pathname = usePathname()
   const router = useRouter()
+
   const [open, setOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const searchInputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (searchOpen && searchInputRef.current) {
+      searchInputRef.current.focus()
+    }
+  }, [searchOpen])
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      // TODO: Implement search functionality
+      console.log('Searching for:', searchQuery)
+    }
+  }
 
   const localeLabelKey: Record<string, string> = {
     en: 'english',
@@ -144,10 +161,10 @@ export const Header = () => {
           </div>
 
           {/* Desktop links */}
-          <ul className='hidden items-center gap-6 lg:flex'>
+          <ul className='ml-6 hidden items-center gap-6 lg:flex'>
             <li
               data-current-page={pathname === '/method'}
-              className='transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
+              className='whitespace-nowrap transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
             >
               <Link href='/method' prefetch>
                 {t('method')}
@@ -156,7 +173,7 @@ export const Header = () => {
 
             <li
               data-current-page={pathname === '/who-we-are'}
-              className='transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
+              className='whitespace-nowrap transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
             >
               <Link href='/who-we-are' prefetch>
                 {t('who_we_are')}
@@ -171,7 +188,7 @@ export const Header = () => {
 
             <li
               data-current-page={pathname.includes('services')}
-              className='transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
+              className='whitespace-nowrap transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
             >
               <Link href='/#services' prefetch>
                 {t('services')}
@@ -180,7 +197,7 @@ export const Header = () => {
 
             <li
               data-current-page={pathname === '/publications'}
-              className='transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
+              className='whitespace-nowrap transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
             >
               <Link href='/publications' prefetch>
                 {t('publications')}
@@ -189,7 +206,7 @@ export const Header = () => {
 
             <li
               data-current-page={pathname === '/magazine'}
-              className='transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
+              className='whitespace-nowrap transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
             >
               <Link href='/magazine' prefetch>
                 {t('magazine')}
@@ -203,38 +220,70 @@ export const Header = () => {
             </li>
           </ul>
 
-          {/* Language switcher */}
-          <div>
-            <DropdownMenu modal={false}>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant='outline'
-                  size='sm'
-                  className='flex items-center gap-1 rounded-none border-none bg-background/50 hover:bg-primary hover:text-background'
-                >
-                  {localeLabelKey[locale] ? t(localeLabelKey[locale] as any) : locale.toUpperCase()}
-                  <CaretDownIcon className='size-4 opacity-60' />
-                  <span className='sr-only'>Language</span>
-                </Button>
-              </DropdownMenuTrigger>
+          <div className='ml-6 flex items-center gap-1'>
+            {/* Search */}
+            <div className='relative flex items-center'>
+              <div
+                className={`flex items-center overflow-hidden transition-all duration-300 ease-in-out ${
+                  searchOpen ? 'w-48 md:w-64' : 'w-0'
+                }`}
+              >
+                <form onSubmit={handleSearch} className='flex w-full items-center'>
+                  <input
+                    ref={searchInputRef}
+                    type='text'
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder={t('search')}
+                    className='h-9 w-full border-primary/30 border-b bg-transparent px-2 text-sm outline-none focus:border-primary placeholder:text-muted-foreground'
+                  />
+                </form>
+              </div>
 
-              <DropdownMenuContent align='end'>
-                {routing.locales.map((loc) => (
-                  <DropdownMenuItem
-                    key={loc}
-                    className='group transition-all ease-in focus:bg-primary/50 focus:text-background'
-                    onClick={() => handleLanguageChange(loc as Locale)}
-                  >
-                    <span className='mr-2'>
-                      {localeLabelKey[loc] ? t(localeLabelKey[loc] as any) : loc.toUpperCase()}
-                    </span>
-                    {loc === locale && (
-                      <CheckIcon className='ml-auto size-4 text-primary group-hover:text-background' />
-                    )}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+              <Button
+                variant='ghost'
+                size='icon'
+                className='rounded-none hover:bg-primary hover:text-background'
+                onClick={() => {
+                  if (searchOpen && searchQuery) {
+                    setSearchQuery('')
+                  }
+                  setSearchOpen(!searchOpen)
+                }}
+              >
+                {searchOpen ? <XIcon className='size-5' /> : <MagnifyingGlassIcon className='size-5' />}
+                <span className='sr-only'>{searchOpen ? 'Close search' : 'Open search'}</span>
+              </Button>
+            </div>
+
+            {/* Language switcher */}
+            <div>
+              <DropdownMenu modal={false}>
+                <DropdownMenuTrigger asChild>
+                  <Button variant='ghost' size='icon' className='rounded-none hover:bg-primary hover:text-background'>
+                    <GlobeIcon className='size-5' />
+                    <span className='sr-only'>Language</span>
+                  </Button>
+                </DropdownMenuTrigger>
+
+                <DropdownMenuContent align='end'>
+                  {routing.locales.map((loc) => (
+                    <DropdownMenuItem
+                      key={loc}
+                      className='group transition-all ease-in focus:bg-primary focus:text-background'
+                      onClick={() => handleLanguageChange(loc as Locale)}
+                    >
+                      <span className='mr-2'>
+                        {localeLabelKey[loc] ? t(localeLabelKey[loc] as any) : loc.toUpperCase()}
+                      </span>
+                      {loc === locale && (
+                        <CheckIcon className='ml-auto size-4 text-primary group-hover:text-background' />
+                      )}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           </div>
         </div>
       </nav>
