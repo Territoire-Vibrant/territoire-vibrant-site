@@ -116,11 +116,11 @@ export const Header = () => {
                   </li>
 
                   <li
-                    data-current-page={pathname === '/blog'}
+                    data-current-page={pathname === '/magazine'}
                     className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
                   >
-                    <Link href='/blog' prefetch onClick={() => setOpen(false)}>
-                      Blog
+                    <Link href='/magazine' prefetch onClick={() => setOpen(false)}>
+                      {t('magazine')}
                     </Link>
                   </li>
 
@@ -170,11 +170,11 @@ export const Header = () => {
             </li>
 
             <li
-              data-current-page={pathname === '/blog'}
+              data-current-page={pathname === '/magazine'}
               className='transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
             >
-              <Link href='/blog' prefetch>
-                Blog
+              <Link href='/magazine' prefetch>
+                {t('magazine')}
               </Link>
             </li>
 
