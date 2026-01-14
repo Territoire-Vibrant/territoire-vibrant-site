@@ -147,7 +147,7 @@ export const ServicesSection = () => {
 
             <div className='transition-all ease-in hover:mb-1'>
               <Link
-                href='/our-method'
+                href='/method'
                 prefetch
                 className='bg-primary px-4 py-3 font-semibold text-background text-sm transition-all ease-in hover:opacity-90'
               >

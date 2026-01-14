@@ -83,6 +83,15 @@ export const Header = () => {
                   </li>
 
                   <li
+                    data-current-page={pathname === '/method'}
+                    className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
+                  >
+                    <Link href='/method' prefetch onClick={() => setOpen(false)}>
+                      {t('method')}
+                    </Link>
+                  </li>
+
+                  <li
                     data-current-page={pathname === '/who-we-are'}
                     className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
                   >
@@ -136,6 +145,15 @@ export const Header = () => {
 
           {/* Desktop links */}
           <ul className='hidden items-center gap-6 lg:flex'>
+            <li
+              data-current-page={pathname === '/method'}
+              className='transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
+            >
+              <Link href='/method' prefetch>
+                {t('method')}
+              </Link>
+            </li>
+
             <li
               data-current-page={pathname === '/who-we-are'}
               className='transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
