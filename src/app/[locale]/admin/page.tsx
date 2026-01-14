@@ -64,11 +64,15 @@ export default async function AdminPage({
   const statusIcon = (status: PublishStatus) => {
     switch (status) {
       case 'DRAFT':
-        return <NotePencilIcon weight='fill' className='size-7 rounded-full bg-yellow-500 p-1.5 text-background' />
+        return (
+          <NotePencilIcon weight='fill' className='size-7 shrink-0 rounded-full bg-yellow-500 p-1.5 text-background' />
+        )
       case 'ARCHIVED':
-        return <ArchiveIcon weight='fill' className='size-7 rounded-full bg-neutral-500 p-1.5 text-background' />
+        return (
+          <ArchiveIcon weight='fill' className='size-7 shrink-0 rounded-full bg-neutral-500 p-1.5 text-background' />
+        )
       case 'PUBLISHED':
-        return <CheckIcon weight='bold' className='size-7 rounded-full bg-primary p-1.5 text-background' />
+        return <CheckIcon weight='bold' className='size-7 shrink-0 rounded-full bg-primary p-1.5 text-background' />
     }
   }
 
