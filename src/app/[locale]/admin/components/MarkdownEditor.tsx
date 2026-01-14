@@ -1,21 +1,24 @@
 'use client'
 
+import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
 import Placeholder from '@tiptap/extension-placeholder'
 import { type Editor, EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import clsx from 'clsx'
-import { type ReactElement, useEffect, useMemo, useRef, useState } from 'react'
+import { type ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Markdown } from 'tiptap-markdown'
 
 import {
   ArrowUUpLeftIcon,
   ArrowUUpRightIcon,
   CodeSimpleIcon,
+  ImageIcon,
   LinkSimpleIcon,
   ListBulletsIcon,
   ListNumbersIcon,
   QuotesIcon,
+  SpinnerIcon,
   TextBIcon,
   TextHFiveIcon,
   TextHFourIcon,
@@ -26,6 +29,7 @@ import {
   TextItalicIcon,
   TextStrikethroughIcon,
 } from '@phosphor-icons/react/dist/ssr'
+import type { UploadError, UploadResponse } from '~/app/api/upload/route'
 
 type MarkdownEditorProps = {
   id?: string
@@ -99,7 +103,9 @@ export const MarkdownEditor = ({
   height = 300,
 }: MarkdownEditorProps) => {
   const lastMarkdown = useRef(value ?? '')
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const [selectionEmpty, setSelectionEmpty] = useState(true)
+  const [isUploading, setIsUploading] = useState(false)
 
   const extensions = useMemo(
     () => [
@@ -116,6 +122,10 @@ export const MarkdownEditor = ({
       Link.configure({
         openOnClick: false,
         validate: (href) => /^https?:\/\//i.test(href) || href.startsWith('mailto:'),
+      }),
+      Image.configure({
+        inline: false,
+        allowBase64: false,
       }),
       Placeholder.configure({
         placeholder: placeholder ?? '',
@@ -238,6 +248,47 @@ export const MarkdownEditor = ({
     editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
   }
 
+  const handleImageUpload = useCallback(
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0]
+      if (!file || !editor) {
+        return
+      }
+
+      setIsUploading(true)
+      try {
+        const formData = new FormData()
+        formData.append('file', file)
+
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData,
+        })
+
+        const data = (await response.json()) as UploadResponse | UploadError
+
+        if (!response.ok || 'error' in data) {
+          throw new Error('error' in data ? data.error : 'Upload failed')
+        }
+
+        editor.chain().focus().setImage({ src: data.url, alt: file.name }).run()
+      } catch (error) {
+        console.error('Image upload failed:', error)
+        window.alert(error instanceof Error ? error.message : 'Failed to upload image')
+      } finally {
+        setIsUploading(false)
+        if (fileInputRef.current) {
+          fileInputRef.current.value = ''
+        }
+      }
+    },
+    [editor]
+  )
+
+  const triggerImageUpload = () => {
+    fileInputRef.current?.click()
+  }
+
   if (!editor) {
     return (
       <div className={clsx('rounded-md border bg-muted/50 p-4 text-muted-foreground text-sm', className)}>
@@ -355,6 +406,20 @@ export const MarkdownEditor = ({
           onClick={promptForLink}
           active={editor.isActive('link')}
           disabled={controlsDisabled || !hasSelection}
+        />
+        <ToolbarButton
+          icon={isUploading ? <SpinnerIcon className='size-4 animate-spin' /> : <ImageIcon className='size-4' />}
+          label='Insert image'
+          onClick={triggerImageUpload}
+          active={editor.isActive('image')}
+          disabled={controlsDisabled || isUploading}
+        />
+        <input
+          ref={fileInputRef}
+          type='file'
+          accept='image/jpeg,image/png,image/gif,image/webp'
+          onChange={handleImageUpload}
+          className='hidden'
         />
 
         <div className='mx-1 h-6 w-px bg-border' />
