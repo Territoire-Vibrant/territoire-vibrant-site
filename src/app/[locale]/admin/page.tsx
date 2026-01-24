@@ -91,7 +91,7 @@ export default async function AdminPage({
   }
 
   return (
-    <div className='mt-10 flex w-full max-w-6xl flex-col gap-6 px-6'>
+    <div className='mt-10 flex w-full max-w-6xl flex-col gap-6 px-6 pb-10'>
       <div className='flex flex-wrap items-center gap-4'>
         <Filters initialQuery={query} initialSort={sort} initialStatus={status} />
       </div>
