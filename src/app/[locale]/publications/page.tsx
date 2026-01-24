@@ -5,6 +5,7 @@ import { getTranslations } from 'next-intl/server'
 import { MarkdownPreview } from '~/components/MarkdownPreview'
 import { Button } from '~/components/ui/button'
 import { Section } from '~/layouts/Section'
+import { METHOD_ARTICLE_ID } from '~/lib/constants'
 
 import { Link } from '~/i18n/navigation'
 import { api } from '~/trpc/server'
@@ -65,7 +66,7 @@ export default async function PublicationsPage({
   const articles = await api.article.getAll()
 
   const publishedArticles: PublishedArticleCard[] = articles
-    .filter((article) => article.status === 'PUBLISHED')
+    .filter((article) => article.status === 'PUBLISHED' && article.id !== METHOD_ARTICLE_ID)
     .map((article) => {
       const translationForLocale = article.translations.find(
         (translation) => translation.locale === activeLocale && translation.published

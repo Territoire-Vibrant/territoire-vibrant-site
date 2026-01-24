@@ -1,11 +1,12 @@
 import { getTranslations } from 'next-intl/server'
 
-import { ArchiveIcon, CheckIcon, NotePencilIcon } from '@phosphor-icons/react/dist/ssr'
+import { ArchiveIcon, BookOpenIcon, CheckIcon, NotePencilIcon } from '@phosphor-icons/react/dist/ssr'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import { Filters } from './components/Filters'
 
 import { MarkdownPreview } from '~/components/MarkdownPreview'
 import { Link } from '~/i18n/navigation'
+import { METHOD_ARTICLE_ID } from '~/lib/constants'
 import { api } from '~/trpc/server'
 
 import type { PublishStatus } from 'generated/prisma'
@@ -106,10 +107,31 @@ export default async function AdminPage({
               article.translations.find((tr) => tr.locale === 'en') ??
               article.translations[0]
 
+            const isMethodArticle = article.id === METHOD_ARTICLE_ID
+
             return (
-              <article key={article.id} className='flex h-full flex-col rounded-lg border p-4'>
-                <div className='flex items-center justify-between'>
-                  <p className='font-semibold text-lg'>{translation?.title ?? article.id}</p>
+              <article
+                key={article.id}
+                className={`flex h-full flex-col rounded-lg border p-4 ${isMethodArticle ? 'border-primary/50 bg-primary/5 ring-1 ring-primary/20' : ''}`}
+              >
+                <div className='flex justify-between'>
+                  <div className='flex items-center gap-2'>
+                    <p className='font-semibold text-lg'>{translation?.title ?? article.id}</p>
+
+                    {isMethodArticle && (
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <BookOpenIcon weight='fill' className='size-5 text-primary' />
+                          </TooltipTrigger>
+
+                          <TooltipContent>
+                            <p>{t('method')}</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    )}
+                  </div>
 
                   <TooltipProvider>
                     <Tooltip>
