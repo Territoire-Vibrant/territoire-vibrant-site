@@ -79,11 +79,8 @@ const createComponents = (): Components => ({
   code: Code,
   hr: () => <hr className='my-6 border-border/70' />,
   img: ({ node, alt, ...props }) => (
-    <figure className='mt-4 flex flex-col gap-2'>
-      {/* biome-ignore lint/a11y/useAltText: <explanation> */}
-      <img alt={alt ?? 'article image'} className='h-auto max-w-full rounded-md' {...props} />
-      {alt ? <figcaption className='text-center text-muted-foreground text-xs'>{alt}</figcaption> : null}
-    </figure>
+    // biome-ignore lint/a11y/useAltText: alt is passed via props spread
+    <img alt={alt ?? 'article image'} className='mt-4 h-auto max-w-full rounded-md' {...props} />
   ),
   strong: ({ node, ...props }) => <strong className='font-semibold text-foreground' {...props} />,
   mark: ({ node, ...props }) => <mark className='bg-primary/20 text-foreground' {...props} />,
