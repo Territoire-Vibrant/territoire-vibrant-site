@@ -3,14 +3,19 @@
 import clsx from 'clsx'
 import ReactMarkdown, { type Components } from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
+import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
 
 import 'highlight.js/styles/github.css'
+
+const HIGHLIGHT_START = '‹‹HL››'
+const HIGHLIGHT_END = '‹‹/HL››'
 
 type MarkdownPreviewProps = {
   markdown: string
   className?: string
   emptyPlaceholder?: string
+  highlightMode?: boolean
 }
 
 const Code: Components['code'] = ({ className, children, ...props }) => {
@@ -23,7 +28,7 @@ const Code: Components['code'] = ({ className, children, ...props }) => {
   )
 }
 
-const components: Components = {
+const createComponents = (): Components => ({
   h1: ({ node, ...props }) => <h1 className={clsx('first:mt-0', 'mt-6', 'font-semibold', 'text-2xl')} {...props} />,
   h2: ({ node, ...props }) => <h2 className={clsx('first:mt-0', 'mt-5', 'font-semibold', 'text-xl')} {...props} />,
   h3: ({ node, ...props }) => <h3 className={clsx('first:mt-0', 'mt-4', 'font-semibold', 'text-lg')} {...props} />,
@@ -81,13 +86,19 @@ const components: Components = {
     </figure>
   ),
   strong: ({ node, ...props }) => <strong className='font-semibold text-foreground' {...props} />,
+  mark: ({ node, ...props }) => <mark className='bg-primary/20 text-foreground' {...props} />,
   em: ({ node, ...props }) => <em className='text-muted-foreground' {...props} />,
   del: ({ node, ...props }) => <del className='text-muted-foreground' {...props} />,
   pre: ({ node, children, ...props }) => children,
-}
+})
 
-export const MarkdownPreview = ({ markdown, className, emptyPlaceholder }: MarkdownPreviewProps) => {
-  const content = markdown?.trim()
+export const MarkdownPreview = ({
+  markdown,
+  className,
+  emptyPlaceholder,
+  highlightMode = false,
+}: MarkdownPreviewProps) => {
+  let content = markdown?.trim()
 
   if (!content) {
     return (
@@ -96,6 +107,13 @@ export const MarkdownPreview = ({ markdown, className, emptyPlaceholder }: Markd
       </p>
     )
   }
+
+  // Convert highlight markers to HTML <mark> tags when highlightMode is enabled
+  if (highlightMode) {
+    content = content.replaceAll(HIGHLIGHT_START, '<mark>').replaceAll(HIGHLIGHT_END, '</mark>')
+  }
+
+  const components = createComponents()
 
   return (
     <div
@@ -110,7 +128,7 @@ export const MarkdownPreview = ({ markdown, className, emptyPlaceholder }: Markd
         className
       )}
     >
-      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]} components={components}>
+      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw, rehypeHighlight]} components={components}>
         {content}
       </ReactMarkdown>
     </div>

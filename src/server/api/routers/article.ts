@@ -2,18 +2,46 @@ import { z } from 'zod'
 import { createTRPCRouter, publicProcedure } from '~/server/api/trpc'
 
 export const articleRouter = createTRPCRouter({
-  // hello: publicProcedure.input(z.object({ text: z.string() })).query(({ input }) => {
-  //   return {
-  //     greeting: `Hello ${input.text}`,
-  //   }
-  // }),
-  // create: publicProcedure.input(z.object({ name: z.string().min(1) })).mutation(async ({ ctx, input }) => {
-  //   return ctx.db.post.create({
-  //     data: {
-  //       name: input.name,
-  //     },
-  //   })
-  // }),
+  search: publicProcedure
+    .input(
+      z.object({
+        query: z.string().min(1),
+        locale: z.enum(['en', 'es', 'fr', 'pt']).optional(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const searchTerm = input.query.toLowerCase()
+
+      const articles = await ctx.db.article.findMany({
+        where: {
+          status: 'PUBLISHED',
+          translations: {
+            some: {
+              published: true,
+              OR: [
+                { title: { contains: searchTerm, mode: 'insensitive' } },
+                { bodyMd: { contains: searchTerm, mode: 'insensitive' } },
+              ],
+            },
+          },
+        },
+        orderBy: { createdAt: 'desc' },
+        include: {
+          translations: {
+            where: {
+              published: true,
+              OR: [
+                { title: { contains: searchTerm, mode: 'insensitive' } },
+                { bodyMd: { contains: searchTerm, mode: 'insensitive' } },
+              ],
+            },
+            select: { id: true, locale: true, title: true, bodyMd: true, published: true },
+          },
+        },
+      })
+
+      return articles
+    }),
   getAll: publicProcedure.query(async ({ ctx }) => {
     const articles = await ctx.db.article.findMany({
       orderBy: { createdAt: 'desc' },

@@ -215,5 +215,13 @@
     "enter_content": "Digite o conteúdo",
     "locale_saved": "Artigo em {language_lower} salvo",
     "preview_empty": "Escreva algo no editor para visualizar aqui."
+  },
+  "Search": {
+    "title": "Busca",
+    "results_for": "Resultados para \"{query}\"",
+    "results_count": "{count, plural, =1 {# resultado} other {# resultados}}",
+    "enter_query": "Digite um termo de busca para encontrar publicações.",
+    "no_results": "Nenhum resultado encontrado. Tente outro termo de busca.",
+    "browse_publications": "Ver todas as publicações"
   }
 }
