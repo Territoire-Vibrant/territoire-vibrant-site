@@ -40,6 +40,29 @@ type MarkdownEditorProps = {
   disabled?: boolean
   className?: string
   height?: number
+  articleId?: string
+}
+
+const extractImageUrls = (editor: Editor): string[] => {
+  const urls: string[] = []
+  editor.state.doc.descendants((node) => {
+    if (node.type.name === 'image' && node.attrs.src) {
+      urls.push(node.attrs.src)
+    }
+  })
+  return urls
+}
+
+const deleteImageFromStorage = async (url: string) => {
+  try {
+    await fetch('/api/upload', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url }),
+    })
+  } catch (error) {
+    console.error('Failed to delete image:', error)
+  }
 }
 
 const toolbarButtonBase =
@@ -101,16 +124,18 @@ export const MarkdownEditor = ({
   disabled = false,
   className,
   height = 300,
+  articleId,
 }: MarkdownEditorProps) => {
   const lastMarkdown = useRef(value ?? '')
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const previousImagesRef = useRef<Set<string>>(new Set())
   const [selectionEmpty, setSelectionEmpty] = useState(true)
   const [isUploading, setIsUploading] = useState(false)
 
   const extensions = useMemo(
     () => [
       Markdown.configure({
-        html: false,
+        html: true,
         tightLists: true,
         bulletListMarker: '-',
         transformPastedText: true,
@@ -123,7 +148,31 @@ export const MarkdownEditor = ({
         openOnClick: false,
         validate: (href) => /^https?:\/\//i.test(href) || href.startsWith('mailto:'),
       }),
-      Image.configure({
+      Image.extend({
+        addNodeView() {
+          return ({ node, HTMLAttributes }) => {
+            const container = document.createElement('div')
+            container.className = 'my-4'
+
+            const img = document.createElement('img')
+            img.src = node.attrs.src
+            img.alt = node.attrs.alt ?? ''
+            img.className = 'max-h-96 w-full rounded-md object-cover'
+
+            img.onerror = () => {
+              container.innerHTML = `
+                <div class="flex flex-col items-center justify-center gap-2 rounded-md border-2 border-dashed border-destructive/50 bg-destructive/5 p-6 text-destructive">
+                  <span class="text-sm font-medium">Failed to load image</span>
+                  <span class="text-xs opacity-70 break-all max-w-full">${node.attrs.src || 'No URL'}</span>
+                </div>
+              `
+            }
+
+            container.appendChild(img)
+            return { dom: container }
+          }
+        },
+      }).configure({
         inline: false,
         allowBase64: false,
       }),
@@ -143,10 +192,24 @@ export const MarkdownEditor = ({
     onCreate: ({ editor: instance }) => {
       const storage = getMarkdownStorage(instance)
       lastMarkdown.current = storage?.getMarkdown() ?? ''
+      // Initialize tracked images
+      previousImagesRef.current = new Set(extractImageUrls(instance))
     },
     onUpdate: ({ editor: instance }) => {
       const storage = getMarkdownStorage(instance)
       const markdown = storage?.getMarkdown() ?? ''
+
+      // Check for removed images and delete them from storage
+      const currentImages = new Set(extractImageUrls(instance))
+      const previousImages = previousImagesRef.current
+
+      for (const url of previousImages) {
+        if (!currentImages.has(url)) {
+          deleteImageFromStorage(url)
+        }
+      }
+      previousImagesRef.current = currentImages
+
       if (markdown === lastMarkdown.current) {
         return
       }
@@ -259,6 +322,9 @@ export const MarkdownEditor = ({
       try {
         const formData = new FormData()
         formData.append('file', file)
+        if (articleId) {
+          formData.append('articleId', articleId)
+        }
 
         const response = await fetch('/api/upload', {
           method: 'POST',
@@ -272,6 +338,8 @@ export const MarkdownEditor = ({
         }
 
         editor.chain().focus().setImage({ src: data.url, alt: file.name }).run()
+        // Add to tracked images immediately
+        previousImagesRef.current.add(data.url)
       } catch (error) {
         console.error('Image upload failed:', error)
         window.alert(error instanceof Error ? error.message : 'Failed to upload image')
@@ -282,7 +350,7 @@ export const MarkdownEditor = ({
         }
       }
     },
-    [editor]
+    [editor, articleId]
   )
 
   const triggerImageUpload = () => {

@@ -316,6 +316,7 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
                         }}
                         onBlurAction={field.onBlur}
                         placeholder={t('Admin.enter_content')}
+                        articleId={defaultValues?.articleId}
                       />
                     )}
                   />
