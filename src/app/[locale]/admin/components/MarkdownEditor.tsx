@@ -123,7 +123,7 @@ export const MarkdownEditor = ({
   placeholder,
   disabled = false,
   className,
-  height = 300,
+  height = 400,
   articleId,
 }: MarkdownEditorProps) => {
   const lastMarkdown = useRef(value ?? '')
@@ -209,39 +209,48 @@ export const MarkdownEditor = ({
     [placeholder]
   )
 
+  const handlePastedImage = useCallback(
+    (file: File) => {
+      setIsUploading(true)
+      uploadImage(file)
+        .then((url) => {
+          if (url && editorRef.current) {
+            editorRef.current
+              .chain()
+              .focus()
+              .setImage({ src: url, alt: file.name || 'Pasted image' })
+              .run()
+          }
+        })
+        .catch((error) => {
+          console.error('Paste image upload failed:', error)
+          window.alert(error instanceof Error ? error.message : 'Failed to upload pasted image')
+        })
+        .finally(() => {
+          setIsUploading(false)
+        })
+    },
+    [uploadImage]
+  )
+
   const handlePaste = useCallback(
-    async (view: { state: { selection: { from: number } } }, event: ClipboardEvent) => {
+    (_view: unknown, event: ClipboardEvent): boolean => {
       const items = event.clipboardData?.items
       if (!items) return false
 
       for (const item of items) {
         if (item.type.startsWith('image/')) {
-          event.preventDefault()
           const file = item.getAsFile()
-          if (!file || !editorRef.current) return true
+          if (!file || !editorRef.current) return false
 
-          setIsUploading(true)
-          try {
-            const url = await uploadImage(file)
-            if (url && editorRef.current) {
-              editorRef.current
-                .chain()
-                .focus()
-                .setImage({ src: url, alt: file.name || 'Pasted image' })
-                .run()
-            }
-          } catch (error) {
-            console.error('Paste image upload failed:', error)
-            window.alert(error instanceof Error ? error.message : 'Failed to upload pasted image')
-          } finally {
-            setIsUploading(false)
-          }
+          event.preventDefault()
+          handlePastedImage(file)
           return true
         }
       }
       return false
     },
-    [uploadImage]
+    [handlePastedImage]
   )
 
   const editor = useEditor({
@@ -282,15 +291,12 @@ export const MarkdownEditor = ({
       attributes: {
         class: clsx(
           'bg-background',
-          'border',
-          'border-t-0',
           'focus:outline-none',
           'h-full',
           'max-w-none',
-          'min-h-[200px]',
+          'min-h-full',
           'px-3',
           'py-2',
-          'rounded-b-md',
           'selection:bg-primary/20',
           'selection:text-foreground',
           'text-justify',
@@ -416,8 +422,11 @@ export const MarkdownEditor = ({
   const controlsDisabled = disabled || !editor.isEditable
 
   return (
-    <div className={clsx('flex h-full flex-col rounded-md', className)}>
-      <div className='flex flex-wrap items-center gap-1 border-b bg-muted/60 px-2 py-1.5'>
+    <div
+      className={clsx('flex resize-y flex-col overflow-hidden rounded-md border', className)}
+      style={{ minHeight: `${height}px`, height: `${height}px` }}
+    >
+      <div className='sticky top-0 z-10 flex flex-wrap items-center gap-1 border-b bg-muted/60 px-2 py-1.5'>
         <ToolbarButton
           icon={<TextBIcon className='size-4' />}
           label='Bold'
@@ -553,8 +562,8 @@ export const MarkdownEditor = ({
         />
       </div>
 
-      <div style={{ minHeight: `${height}px` }}>
-        <EditorContent id={id} editor={editor} onBlur={onBlurAction} className='h-full min-h-[inherit] text-justify' />
+      <div className='flex-1 overflow-y-auto'>
+        <EditorContent id={id} editor={editor} onBlur={onBlurAction} className='h-full text-justify' />
       </div>
     </div>
   )
