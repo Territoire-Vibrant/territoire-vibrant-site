@@ -129,8 +129,34 @@ export const MarkdownEditor = ({
   const lastMarkdown = useRef(value ?? '')
   const fileInputRef = useRef<HTMLInputElement>(null)
   const previousImagesRef = useRef<Set<string>>(new Set())
+  const editorRef = useRef<Editor | null>(null)
   const [selectionEmpty, setSelectionEmpty] = useState(true)
   const [isUploading, setIsUploading] = useState(false)
+
+  const uploadImage = useCallback(
+    async (file: File): Promise<string | null> => {
+      const formData = new FormData()
+      formData.append('file', file)
+      if (articleId) {
+        formData.append('articleId', articleId)
+      }
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const data = (await response.json()) as UploadResponse | UploadError
+
+      if (!response.ok || 'error' in data) {
+        throw new Error('error' in data ? data.error : 'Upload failed')
+      }
+
+      previousImagesRef.current.add(data.url)
+      return data.url
+    },
+    [articleId]
+  )
 
   const extensions = useMemo(
     () => [
@@ -183,6 +209,41 @@ export const MarkdownEditor = ({
     [placeholder]
   )
 
+  const handlePaste = useCallback(
+    async (view: { state: { selection: { from: number } } }, event: ClipboardEvent) => {
+      const items = event.clipboardData?.items
+      if (!items) return false
+
+      for (const item of items) {
+        if (item.type.startsWith('image/')) {
+          event.preventDefault()
+          const file = item.getAsFile()
+          if (!file || !editorRef.current) return true
+
+          setIsUploading(true)
+          try {
+            const url = await uploadImage(file)
+            if (url && editorRef.current) {
+              editorRef.current
+                .chain()
+                .focus()
+                .setImage({ src: url, alt: file.name || 'Pasted image' })
+                .run()
+            }
+          } catch (error) {
+            console.error('Paste image upload failed:', error)
+            window.alert(error instanceof Error ? error.message : 'Failed to upload pasted image')
+          } finally {
+            setIsUploading(false)
+          }
+          return true
+        }
+      }
+      return false
+    },
+    [uploadImage]
+  )
+
   const editor = useEditor({
     editable: !disabled,
     extensions,
@@ -194,6 +255,7 @@ export const MarkdownEditor = ({
       lastMarkdown.current = storage?.getMarkdown() ?? ''
       // Initialize tracked images
       previousImagesRef.current = new Set(extractImageUrls(instance))
+      editorRef.current = instance
     },
     onUpdate: ({ editor: instance }) => {
       const storage = getMarkdownStorage(instance)
@@ -237,6 +299,7 @@ export const MarkdownEditor = ({
           disabled && ['pointer-events-none', 'opacity-75']
         ),
       },
+      handlePaste: (view, event) => handlePaste(view, event),
     },
   })
 
@@ -320,26 +383,10 @@ export const MarkdownEditor = ({
 
       setIsUploading(true)
       try {
-        const formData = new FormData()
-        formData.append('file', file)
-        if (articleId) {
-          formData.append('articleId', articleId)
+        const url = await uploadImage(file)
+        if (url) {
+          editor.chain().focus().setImage({ src: url, alt: file.name }).run()
         }
-
-        const response = await fetch('/api/upload', {
-          method: 'POST',
-          body: formData,
-        })
-
-        const data = (await response.json()) as UploadResponse | UploadError
-
-        if (!response.ok || 'error' in data) {
-          throw new Error('error' in data ? data.error : 'Upload failed')
-        }
-
-        editor.chain().focus().setImage({ src: data.url, alt: file.name }).run()
-        // Add to tracked images immediately
-        previousImagesRef.current.add(data.url)
       } catch (error) {
         console.error('Image upload failed:', error)
         window.alert(error instanceof Error ? error.message : 'Failed to upload image')
@@ -350,7 +397,7 @@ export const MarkdownEditor = ({
         }
       }
     },
-    [editor, articleId]
+    [editor, uploadImage]
   )
 
   const triggerImageUpload = () => {
