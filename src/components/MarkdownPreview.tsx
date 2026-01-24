@@ -81,7 +81,7 @@ const createComponents = (): Components => ({
   img: ({ node, alt, ...props }) => (
     <figure className='mt-4 flex flex-col gap-2'>
       {/* biome-ignore lint/a11y/useAltText: <explanation> */}
-      <img alt={alt ?? 'article image'} className='max-h-96 w-full rounded-md object-cover' {...props} />
+      <img alt={alt ?? 'article image'} className='h-auto max-w-full rounded-md' {...props} />
       {alt ? <figcaption className='text-center text-muted-foreground text-xs'>{alt}</figcaption> : null}
     </figure>
   ),

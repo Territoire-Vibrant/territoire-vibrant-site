@@ -176,14 +176,14 @@ export const MarkdownEditor = ({
       }),
       Image.extend({
         addNodeView() {
-          return ({ node, HTMLAttributes }) => {
+          return ({ node }) => {
             const container = document.createElement('div')
             container.className = 'my-4'
 
             const img = document.createElement('img')
             img.src = node.attrs.src
             img.alt = node.attrs.alt ?? ''
-            img.className = 'max-h-96 w-full rounded-md object-cover'
+            img.className = 'max-w-full h-auto rounded-md'
 
             img.onerror = () => {
               container.innerHTML = `
