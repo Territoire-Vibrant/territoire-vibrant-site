@@ -2,6 +2,7 @@ import { DeleteObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3'
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { R2_BUCKET, R2_PUBLIC_URL, r2Client } from '~/server/r2'
+import { DeleteRequestSchema, type UploadError, type UploadResponse } from './schema'
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
 
@@ -14,21 +15,6 @@ const uploadConfig = UploadConfigSchema.parse({
   allowedTypes: ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
   maxSize: MAX_FILE_SIZE,
 })
-
-export const UploadResponseSchema = z.object({
-  url: z.string().url(),
-})
-
-export const UploadErrorSchema = z.object({
-  error: z.string(),
-})
-
-export const DeleteRequestSchema = z.object({
-  url: z.string().url(),
-})
-
-export type UploadResponse = z.infer<typeof UploadResponseSchema>
-export type UploadError = z.infer<typeof UploadErrorSchema>
 
 const extractKeyFromUrl = (url: string): string | null => {
   try {

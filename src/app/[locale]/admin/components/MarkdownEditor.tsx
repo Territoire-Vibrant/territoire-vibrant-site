@@ -29,7 +29,7 @@ import {
   TextItalicIcon,
   TextStrikethroughIcon,
 } from '@phosphor-icons/react/dist/ssr'
-import type { UploadError, UploadResponse } from '~/app/api/upload/route'
+import type { UploadError, UploadResponse } from '~/app/api/upload/schema'
 
 type MarkdownEditorProps = {
   id?: string
