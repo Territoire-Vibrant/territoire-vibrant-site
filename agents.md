@@ -219,4 +219,3 @@ When generating code, follow this order:
 3. **Define Server Action / API:** How is data persisted?
 4. **Create Custom Hook:** Stitch `useOptimistic`, `ActionState`, and `Mutation`.
 5. **Build UI:** Create the layout with `Suspense` boundaries and CSS `view-transition-name` properties for morphing effects.
-

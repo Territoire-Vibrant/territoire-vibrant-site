@@ -1,8 +1,32 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.8.2/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.13/schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "off"
+      }
+    }
+  },
+  "css": {
+    "parser": {
+      "allowWrongLineComments": true,
+      "cssModules": true,
+      "tailwindDirectives": true
+    }
+  },
   "files": {
     "ignoreUnknown": true,
-    "ignore": [".next", "node_modules/**", "generated/**", "**/dist", "**/out", "public/**/*.js"]
+    "includes": [
+      "**",
+      "!**/.next",
+      "!**/node_modules",
+      "!**/dist",
+      "!**/out",
+      "!**/public/**/*.js",
+      "!**/generated",
+      "!**/.turbo",
+      "!**/.env"
+    ]
   },
   "formatter": {
     "attributePosition": "auto",
@@ -10,9 +34,6 @@
     "indentWidth": 2,
     "lineEnding": "lf",
     "lineWidth": 120
-  },
-  "organizeImports": {
-    "enabled": true
   },
   "javascript": {
     "formatter": {
@@ -34,8 +55,13 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
       "a11y": {
+        "noNoninteractiveTabindex": {
+          "level": "off"
+        },
+        "noStaticElementInteractions": {
+          "level": "warn"
+        },
         "recommended": true,
         "useAriaPropsForRole": {
           "level": "warn"
@@ -45,9 +71,6 @@
         },
         "useKeyWithMouseEvents": {
           "level": "warn"
-        },
-        "noNoninteractiveTabindex": {
-          "level": "off"
         }
       },
       "complexity": {
@@ -72,40 +95,54 @@
           "fix": "safe",
           "level": "warn",
           "options": {
-            "attributes": ["classList"],
-            "functions": ["clsx", "cva", "tw", "cn"]
-          }
-        },
-        "noRestrictedImports": {
-          "level": "error",
-          "options": {
-            "paths": {
-              "next/link": "use “~/i18n/navigation” instead",
-              "next/navigation": "use “~/i18n/navigation” instead"
-            }
+            "attributes": [
+              "classList"
+            ],
+            "functions": [
+              "clsx",
+              "cva",
+              "tw",
+              "cn"
+            ]
           }
         }
       },
       "performance": {
         "recommended": true
       },
+      "recommended": true,
       "security": {
-        "recommended": true,
         "noDangerouslySetInnerHtml": {
           "level": "off"
-        }
+        },
+        "recommended": true
       },
       "style": {
-        "recommended": true,
         "noNonNullAssertion": {
           "level": "off"
-        }
+        },
+        "noRestrictedImports": {
+          "level": "error",
+          "options": {
+            "paths": {
+              "@phosphor-icons/react": "use “@phosphor-icons/react/dist/ssr” instead",
+              "next/navigation": "use “~/i18n/navigation” instead"
+            }
+          }
+        },
+        "recommended": true
       },
       "suspicious": {
-        "recommended": true,
         "noExplicitAny": {
           "level": "off"
-        }
+        },
+        "noNonNullAssertedOptionalChain": {
+          "level": "warn"
+        },
+        "noUnknownAtRules": {
+          "level": "off"
+        },
+        "recommended": true
       }
     }
   }
