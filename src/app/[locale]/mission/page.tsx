@@ -17,11 +17,7 @@ import {
 import { Button } from '~/components/ui/button'
 import { Section } from '~/layouts/Section'
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale: locale as Locale })
 
@@ -131,7 +127,7 @@ export default function MissionPage() {
                   {values.map(({ label, Icon, color }) => (
                     <div
                       key={label}
-                      className='group hover:-translate-y-0.5 flex items-start gap-4 rounded-xl border border-neutral-200 bg-background p-5 shadow-sm ring-1 ring-neutral-100 transition will-change-transform hover:shadow-md'
+                      className='group flex items-start gap-4 rounded-xl border border-neutral-200 bg-background p-5 shadow-sm ring-1 ring-neutral-100 transition will-change-transform hover:-translate-y-0.5 hover:shadow-md'
                     >
                       <div className={`inline-flex size-10 shrink-0 items-center justify-center rounded-lg ${color}`}>
                         <Icon className='size-5' aria-hidden='true' />

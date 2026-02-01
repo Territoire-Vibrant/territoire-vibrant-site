@@ -51,7 +51,7 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
           imageUrl: user.imageUrl ?? undefined,
         },
       })
-    } catch (err) {
+    } catch (_err) {
       // Fallback to minimal upsert if Clerk API fails.
       await db.user.upsert({ where: { id: userId }, update: {}, create: { id: userId } })
     }

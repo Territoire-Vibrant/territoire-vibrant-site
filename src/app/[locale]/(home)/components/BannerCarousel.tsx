@@ -61,7 +61,7 @@ export function BannerCarousel({ slides }: { slides: BannerSlide[] }) {
         <Button
           type='button'
           variant='outline'
-          className='-translate-y-1/2 absolute top-full left-4 h-fit cursor-pointer rounded-sm px-2 py-1.5 text-xs transition-all ease-in lg:top-[96%] sm:top-[95%] hover:bg-primary hover:text-background'
+          className='absolute top-full left-4 h-fit -translate-y-1/2 cursor-pointer rounded-sm px-2 py-1.5 text-xs transition-all ease-in hover:bg-primary hover:text-background sm:top-[95%] lg:top-[96%]'
         >
           {t('portfolio')}
         </Button>

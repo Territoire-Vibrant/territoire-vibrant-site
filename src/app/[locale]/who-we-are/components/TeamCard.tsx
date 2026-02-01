@@ -11,7 +11,7 @@ type TeamCardProps = {
 
 export const TeamCard = ({ name, position, bio, image }: TeamCardProps) => {
   return (
-    <div className='hover:-mt-2 group flex h-[400px] select-none flex-col rounded-xl border bg-background shadow-sm transition-all ease-in'>
+    <div className='group flex h-[400px] select-none flex-col rounded-xl border bg-background shadow-sm transition-all ease-in hover:-mt-2'>
       <div className='px-6 pt-6'>
         <Image src={image ?? PlaceholderImage} alt={name} className='aspect-4/3 w-full object-cover' />
       </div>

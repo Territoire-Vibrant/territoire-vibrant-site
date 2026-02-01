@@ -11,7 +11,7 @@ export const ProjectCard = ({ image, title, description }: ProjectCardProps) => 
   return (
     <Link
       href=''
-      className='hover:-mt-5 group flex h-100 w-72 select-none flex-col items-center justify-center rounded-2xl shadow-lg transition-all ease-in'
+      className='group flex h-100 w-72 select-none flex-col items-center justify-center rounded-2xl shadow-lg transition-all ease-in hover:-mt-5'
     >
       <Image src={image} alt={title} className='h-[45%] w-full rounded-t-2xl bg-background object-cover' />
 

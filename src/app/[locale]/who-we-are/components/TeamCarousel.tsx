@@ -33,7 +33,7 @@ export const TeamCarousel = () => {
       className='w-full max-w-6xl'
     >
       <CarouselContent className='py-2'>
-        <CarouselItem className='lg:basis-1/4 md:basis-1/3 sm:basis-1/2'>
+        <CarouselItem className='sm:basis-1/2 md:basis-1/3 lg:basis-1/4'>
           <TeamCard
             name={t('WhoWeAre.team.marco.name')}
             position={t('WhoWeAre.team.marco.role')}
@@ -42,7 +42,7 @@ export const TeamCarousel = () => {
           />
         </CarouselItem>
 
-        <CarouselItem className='lg:basis-1/4 md:basis-1/3 sm:basis-1/2'>
+        <CarouselItem className='sm:basis-1/2 md:basis-1/3 lg:basis-1/4'>
           <TeamCard
             name={t('WhoWeAre.team.pedro.name')}
             position={t('WhoWeAre.team.pedro.role')}
@@ -51,7 +51,7 @@ export const TeamCarousel = () => {
           />
         </CarouselItem>
 
-        <CarouselItem className='lg:basis-1/4 md:basis-1/3 sm:basis-1/2'>
+        <CarouselItem className='sm:basis-1/2 md:basis-1/3 lg:basis-1/4'>
           <TeamCard
             name={t('WhoWeAre.team.lilliam.name')}
             position={t('WhoWeAre.team.lilliam.role')}
@@ -60,7 +60,7 @@ export const TeamCarousel = () => {
           />
         </CarouselItem>
 
-        <CarouselItem className='lg:basis-1/4 md:basis-1/3 sm:basis-1/2'>
+        <CarouselItem className='sm:basis-1/2 md:basis-1/3 lg:basis-1/4'>
           <TeamCard
             name={t('WhoWeAre.team.erica.name')}
             position={t('WhoWeAre.team.erica.role')}
@@ -69,7 +69,7 @@ export const TeamCarousel = () => {
           />
         </CarouselItem>
 
-        <CarouselItem className='lg:basis-1/4 md:basis-1/3 sm:basis-1/2'>
+        <CarouselItem className='sm:basis-1/2 md:basis-1/3 lg:basis-1/4'>
           <TeamCard
             name={t('WhoWeAre.team.angela.name')}
             position={t('WhoWeAre.team.angela.role')}

@@ -9,11 +9,7 @@ import Landscape from '~/assets/images/home/hero/landscape.png'
 import { Section } from '~/layouts/Section'
 import { TeamCarousel } from './components/TeamCarousel'
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale: locale as Locale })
 

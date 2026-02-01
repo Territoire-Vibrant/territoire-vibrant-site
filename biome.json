@@ -95,15 +95,8 @@
           "fix": "safe",
           "level": "warn",
           "options": {
-            "attributes": [
-              "classList"
-            ],
-            "functions": [
-              "clsx",
-              "cva",
-              "tw",
-              "cn"
-            ]
+            "attributes": ["classList"],
+            "functions": ["clsx", "cva", "tw", "cn"]
           }
         }
       },

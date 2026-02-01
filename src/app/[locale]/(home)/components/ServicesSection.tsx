@@ -126,7 +126,7 @@ export const ServicesSection = () => {
         <Carousel
           opts={{ align: 'start', loop: false }}
           setApi={setCarouselApi}
-          className='h-full w-[80vw] rounded-3xl border border-foreground/10 bg-foreground/2 p-6 md:w-full sm:p-8'
+          className='h-full w-[80vw] rounded-3xl border border-foreground/10 bg-foreground/2 p-6 sm:p-8 md:w-full'
         >
           <div className='flex h-full flex-col'>
             <div className='flex items-center justify-between font-semibold text-primary/60 text-sm uppercase tracking-[0.3em]'>

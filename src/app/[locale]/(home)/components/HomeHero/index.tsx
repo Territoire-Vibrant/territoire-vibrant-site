@@ -16,7 +16,7 @@ export const HomeHero = () => {
       <HeroTextCarousel />
 
       {/* Hero grid */}
-      <div className='grid size-full gap-4 lg:max-h-102.5 md:w-1/2 md:grid-cols-2 md:grid-rows-3'>
+      <div className='grid size-full gap-4 md:w-1/2 md:grid-cols-2 md:grid-rows-3 lg:max-h-102.5'>
         {/* Box 1 - Green text */}
         <div className='order-1 flex size-full flex-col justify-between space-y-4 rounded-2xl bg-primary/60 p-4 md:row-span-2'>
           <div className='w-3/4 font-bold text-xl'>{t('Home.hero.box1.title')}</div>
@@ -33,7 +33,7 @@ export const HomeHero = () => {
           <Image
             src={CommunityImage}
             alt={t('Home.hero.box2.community_image_alt')}
-            className='size-full max-h-36 rounded-2xl object-cover md:max-h-full sm:max-h-40'
+            className='size-full max-h-36 rounded-2xl object-cover sm:max-h-40 md:max-h-full'
           />
         </div>
 
@@ -42,7 +42,7 @@ export const HomeHero = () => {
           <Image
             src={LandscapeImage}
             alt={t('Home.hero.box2.landscape_image_alt')}
-            className='size-full max-h-36 rounded-2xl object-cover md:max-h-full sm:max-h-40'
+            className='size-full max-h-36 rounded-2xl object-cover sm:max-h-40 md:max-h-full'
           />
         </div>
 

@@ -165,7 +165,7 @@ export const Header = () => {
           <ul className='ml-6 hidden items-center gap-6 lg:flex'>
             <li
               data-current-page={pathname === '/method'}
-              className='whitespace-nowrap transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
+              className='whitespace-nowrap transition-all ease-in hover:scale-105 hover:text-primary data-[current-page=true]:font-semibold'
             >
               <Link href='/method' prefetch>
                 {t('method')}
@@ -174,7 +174,7 @@ export const Header = () => {
 
             <li
               data-current-page={pathname === '/who-we-are'}
-              className='whitespace-nowrap transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
+              className='whitespace-nowrap transition-all ease-in hover:scale-105 hover:text-primary data-[current-page=true]:font-semibold'
             >
               <Link href='/who-we-are' prefetch>
                 {t('who_we_are')}
@@ -189,7 +189,7 @@ export const Header = () => {
 
             <li
               data-current-page={pathname.includes('services')}
-              className='whitespace-nowrap transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
+              className='whitespace-nowrap transition-all ease-in hover:scale-105 hover:text-primary data-[current-page=true]:font-semibold'
             >
               <Link href='/#services' prefetch>
                 {t('services')}
@@ -198,7 +198,7 @@ export const Header = () => {
 
             <li
               data-current-page={pathname === '/publications'}
-              className='whitespace-nowrap transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
+              className='whitespace-nowrap transition-all ease-in hover:scale-105 hover:text-primary data-[current-page=true]:font-semibold'
             >
               <Link href='/publications' prefetch>
                 {t('publications')}
@@ -207,7 +207,7 @@ export const Header = () => {
 
             <li
               data-current-page={pathname === '/magazine'}
-              className='whitespace-nowrap transition-all ease-in hover:scale-105 data-[current-page=true]:font-semibold hover:text-primary'
+              className='whitespace-nowrap transition-all ease-in hover:scale-105 hover:text-primary data-[current-page=true]:font-semibold'
             >
               <Link href='/magazine' prefetch>
                 {t('magazine')}
@@ -236,7 +236,7 @@ export const Header = () => {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder={t('search')}
-                    className='h-9 w-full border-primary/30 border-b bg-transparent px-2 text-sm outline-none focus:border-primary placeholder:text-muted-foreground'
+                    className='h-9 w-full border-primary/30 border-b bg-transparent px-2 text-sm outline-none placeholder:text-muted-foreground focus:border-primary'
                   />
                 </form>
               </div>

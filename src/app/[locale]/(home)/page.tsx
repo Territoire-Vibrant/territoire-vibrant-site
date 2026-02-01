@@ -42,7 +42,7 @@ export default function HomePage() {
         <div className='flex w-full max-w-4xl flex-col items-center justify-between space-y-8 px-4 text-center md:flex-row md:space-y-0'>
           <h3 className='font-bold text-2xl text-background'>{t('featured_projects')}</h3>
 
-          <div className='hover:-mt-1 transition-all ease-in'>
+          <div className='transition-all ease-in hover:-mt-1'>
             <Link
               href='/more-projects'
               prefetch
@@ -53,7 +53,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className='grid max-w-6xl grid-cols-1 place-items-center gap-8 lg:grid-cols-3 md:grid-cols-2 md:gap-4'>
+        <div className='grid max-w-6xl grid-cols-1 place-items-center gap-8 md:grid-cols-2 md:gap-4 lg:grid-cols-3'>
           <ProjectCard
             image={ProjectOneImage}
             title={t('Home.projects.project_1.title')}

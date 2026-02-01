@@ -19,7 +19,7 @@ export const CarouselBox = () => {
       className='flex size-full'
     >
       <CarouselContent className='size-full'>
-        <CarouselItem className='flex flex-col justify-between space-y-4 '>
+        <CarouselItem className='flex flex-col justify-between space-y-4'>
           <div className='w-3/4 font-bold text-xl'>{t('Home.hero.box4_slide1.title')}</div>
 
           <p className='opacity-80'>{t('Home.hero.box4_slide1.subtext')}</p>
@@ -29,7 +29,7 @@ export const CarouselBox = () => {
           </Link>
         </CarouselItem>
 
-        <CarouselItem className='flex flex-col justify-between space-y-4 '>
+        <CarouselItem className='flex flex-col justify-between space-y-4'>
           <div className='w-3/4 font-bold text-xl'>{t('Home.hero.box4_slide2.title')}</div>
 
           <p className='opacity-80'>{t('Home.hero.box4_slide2.subtext')}</p>

@@ -11,12 +11,8 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 
 import { cn } from '~/lib/utils'
 
-export const SponsorsMarquee = ({
-  className,
-}: {
-  className?: string
-}) => {
-  const t = useTranslations()
+export const SponsorsMarquee = ({ className }: { className?: string }) => {
+  const _t = useTranslations()
 
   const items = [
     { id: 1, label: 'So&Co', logo: SoAndCo, url: 'https://www.soetco.ca/' },
@@ -49,7 +45,7 @@ export const SponsorsMarquee = ({
         {track.map((item, idx) => (
           <CarouselItem
             key={item.key ?? `${item.id}-${idx}`}
-            className='basis-1/2 lg:basis-1/5 md:basis-1/4 sm:basis-1/3'
+            className='basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5'
           >
             <a href={item.url} target='_blank' rel='noopener noreferrer'>
               <div className='flex h-full items-center justify-center'>
