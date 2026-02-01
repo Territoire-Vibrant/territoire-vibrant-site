@@ -13,7 +13,7 @@ const adminLoginPatterns = ['/admin/login(.*)', ...routing.locales.map((l) => `/
 const isAdminRoute = createRouteMatcher(adminPatterns)
 const isPublicAdminRoute = createRouteMatcher(adminLoginPatterns)
 
-export default clerkMiddleware(async (auth, req: NextRequest) => {
+const proxy = clerkMiddleware(async (auth, req: NextRequest) => {
   if (isAdminRoute(req) && !isPublicAdminRoute(req)) {
     const { userId, redirectToSignIn, sessionClaims } = await auth()
     if (!userId) {
@@ -32,7 +32,7 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
   // Skip next-intl for API and tRPC routes.
   const pathname = req.nextUrl.pathname
   if (pathname.startsWith('/api') || pathname.startsWith('/trpc')) {
-    // Ensure Clerk still marks the request as passing through middleware
+    // Ensure Clerk still marks the request as passing through proxy
     return NextResponse.next()
   }
 
@@ -40,10 +40,12 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
   return intlMiddleware(req)
 })
 
+export default proxy
+
 export const config = {
   // Match all pathnames except for
   // - … if they start with `/_next` or `/_vercel`
   // - … the ones containing a dot (e.g. `favicon.ico`)
-  // Ensure tRPC endpoint with dotted paths (e.g., /api/trpc/article.createArticle) still runs through middleware
+  // Ensure tRPC endpoint with dotted paths (e.g., /api/trpc/article.createArticle) still runs through proxy
   matcher: ['/((?!_next|_vercel|.*\\..*).*)', '/api/trpc/:path*'],
 }

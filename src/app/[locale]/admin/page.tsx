@@ -9,7 +9,7 @@ import { Link } from '~/i18n/navigation'
 import { METHOD_ARTICLE_ID } from '~/lib/constants'
 import { api } from '~/trpc/server'
 
-import type { PublishStatus } from 'generated/prisma'
+import type { PublishStatus } from 'generated/prisma/client'
 
 export default async function AdminPage({
   params,
