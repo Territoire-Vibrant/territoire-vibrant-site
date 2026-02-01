@@ -79,14 +79,14 @@ const createComponents = (): Components => ({
   code: Code,
   hr: () => <hr className='my-6 border-border/70' />,
   img: ({ node, alt, ...props }) => (
-    // biome-ignore lint/a11y/useAltText: alt is passed via props spread
+    // biome-ignore lint/performance/noImgElement: markdown content has dynamic src; next/image would require remote config and dimensions
     <img alt={alt ?? 'article image'} className='mt-4 h-auto max-w-full rounded-md' {...props} />
   ),
   strong: ({ node, ...props }) => <strong className='font-semibold text-foreground' {...props} />,
   mark: ({ node, ...props }) => <mark className='bg-primary/20 text-foreground' {...props} />,
   em: ({ node, ...props }) => <em className='text-muted-foreground' {...props} />,
   del: ({ node, ...props }) => <del className='text-muted-foreground' {...props} />,
-  pre: ({ node, children, ...props }) => children,
+  pre: ({ children }) => children,
 })
 
 export const MarkdownPreview = ({

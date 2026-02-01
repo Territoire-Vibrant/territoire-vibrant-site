@@ -12,7 +12,7 @@ export default async function PublicationEditPage({
     locale: string
   }>
 }) {
-  const { articleId, locale } = await params
+  const { articleId } = await params
 
   await getTranslations() // ensure messages available for client form
 

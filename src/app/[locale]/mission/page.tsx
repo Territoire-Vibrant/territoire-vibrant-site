@@ -123,9 +123,9 @@ export default function MissionPage() {
 
             <div className='grid gap-8 lg:grid-cols-2 lg:gap-10'>
               <div className='order-2 space-y-4 text-neutral-700 lg:order-1'>
-                <div className='grid grid-cols-1 gap-4 sm:grid-cols-2' role='list'>
+                <ul className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
                   {values.map(({ label, Icon, color }) => (
-                    <div
+                    <li
                       key={label}
                       className='group flex items-start gap-4 rounded-xl border border-neutral-200 bg-background p-5 shadow-sm ring-1 ring-neutral-100 transition will-change-transform hover:-translate-y-0.5 hover:shadow-md'
                     >
@@ -133,12 +133,10 @@ export default function MissionPage() {
                         <Icon className='size-5' aria-hidden='true' />
                       </div>
 
-                      <p className='text-neutral-700' role='listitem'>
-                        {label}
-                      </p>
-                    </div>
+                      <p className='text-neutral-700'>{label}</p>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
 
               <div className='order-1 flex items-center justify-center lg:order-2'>

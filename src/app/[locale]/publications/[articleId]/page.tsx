@@ -1,8 +1,8 @@
 import '@uiw/react-markdown-preview/markdown.css'
 
 import { getTranslations } from 'next-intl/server'
-// biome-ignore lint/nursery/noRestrictedImports: notFound is a Next.js helper we intentionally use here
-import { notFound } from 'next/navigation'
+
+import { notFound } from '~/i18n/navigation'
 
 import { MarkdownPreview } from '~/components/MarkdownPreview'
 import { Section } from '~/layouts/Section'

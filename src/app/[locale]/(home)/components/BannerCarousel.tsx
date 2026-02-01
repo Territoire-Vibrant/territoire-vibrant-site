@@ -35,7 +35,7 @@ export function BannerCarousel({ slides }: { slides: BannerSlide[] }) {
     >
       <CarouselContent className='ml-0 grid grid-cols-1 *:pl-0'>
         {slides.map((slide, i) => (
-          // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+          // biome-ignore lint/suspicious/noArrayIndexKey: index is stable for carousel slides
           <CarouselItem key={i} className='col-start-1 row-start-1'>
             <div className='flex flex-col'>
               <p className='py-3 text-center font-medium md:text-2xl'>{slide.topSentence}</p>
