@@ -223,5 +223,30 @@
     "enter_query": "Ingrese un término de búsqueda para encontrar publicaciones.",
     "no_results": "No se encontraron resultados. Intente con otro término de búsqueda.",
     "browse_publications": "Ver todas las publicaciones"
+  },
+  "Contact": {
+    "title": "Contáctenos",
+    "subtitle": "¿Tiene una idea, proyecto o asociación en mente? Nos encantaría saber de usted.",
+    "phone": "Teléfono",
+    "email": "Email",
+    "form_title": "Envíe su mensaje",
+    "subject": "Asunto",
+    "select_subject": "Seleccione un asunto",
+    "subjects": {
+      "partnership": "Proponer asociación",
+      "quote": "Solicitud de presupuesto",
+      "invitation": "Invitaciones",
+      "other": "Otros"
+    },
+    "name": "Su nombre",
+    "name_placeholder": "Ingrese su nombre completo",
+    "your_email": "Su email",
+    "email_placeholder": "Ingrese su email",
+    "message": "Mensaje",
+    "message_placeholder": "Escriba su mensaje aquí...",
+    "send": "Enviar mensaje",
+    "success_title": "¡Mensaje enviado!",
+    "success": "Gracias por contactarnos. Le responderemos pronto.",
+    "error": "Ocurrió un error al enviar su mensaje. Por favor, inténtelo de nuevo."
   }
 }

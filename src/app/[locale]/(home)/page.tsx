@@ -8,6 +8,7 @@ import ProjectThreeImage from '~/assets/images/projects/project_3.png'
 
 import { Section } from '~/layouts/Section'
 import { BannerCarousel } from './components/BannerCarousel'
+import { ContactSection } from './components/ContactSection'
 import { HomeHero } from './components/HomeHero'
 import { ProjectCard } from './components/ProjectCard'
 import { ServicesSection } from './components/ServicesSection'
@@ -93,9 +94,7 @@ export default function HomePage() {
         />
       </Section>
 
-      <Section id='contact' className='relative px-6 py-12'>
-        Contact
-      </Section>
+      <ContactSection />
     </>
   )
 }

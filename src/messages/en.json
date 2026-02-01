@@ -223,5 +223,30 @@
     "enter_query": "Enter a search term to find publications.",
     "no_results": "No results found. Try a different search term.",
     "browse_publications": "Browse all publications"
+  },
+  "Contact": {
+    "title": "Get in Touch",
+    "subtitle": "Have an idea, project, or partnership in mind? We'd love to hear from you.",
+    "phone": "Phone",
+    "email": "Email",
+    "form_title": "Send your message",
+    "subject": "Subject",
+    "select_subject": "Select a subject",
+    "subjects": {
+      "partnership": "Propose partnership",
+      "quote": "Request a quote",
+      "invitation": "Invitations",
+      "other": "Other"
+    },
+    "name": "Your name",
+    "name_placeholder": "Enter your full name",
+    "your_email": "Your email",
+    "email_placeholder": "Enter your email",
+    "message": "Message",
+    "message_placeholder": "Write your message here...",
+    "send": "Send message",
+    "success_title": "Message sent!",
+    "success": "Thank you for reaching out. We'll get back to you soon.",
+    "error": "An error occurred while sending your message. Please try again."
   }
 }
