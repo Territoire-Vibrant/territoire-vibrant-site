@@ -248,5 +248,12 @@
     "success_title": "¡Mensaje enviado!",
     "success": "Gracias por contactarnos. Le responderemos pronto.",
     "error": "Ocurrió un error al enviar su mensaje. Por favor, inténtelo de nuevo."
+  },
+  "Footer": {
+    "quick_links": "Enlaces Rápidos",
+    "recent_articles": "Artículos Recientes",
+    "all_rights_reserved": "Todos los derechos reservados.",
+    "privacy_policy": "Política de Privacidad",
+    "terms_of_use": "Términos de Uso"
   }
 }

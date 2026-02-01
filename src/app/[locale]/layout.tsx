@@ -13,6 +13,7 @@ import type { ReactNode } from 'react'
 import '../globals.css'
 
 import { routing } from '~/i18n/routing'
+import { Footer } from '~/layouts/Footer'
 import { Header } from '~/layouts/Header'
 import { db } from '~/server/db'
 import { TRPCReactProvider } from '~/trpc/react'
@@ -98,6 +99,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
             <TRPCReactProvider>
               <Header />
               <main className='mx-auto'>{children}</main>
+              <Footer />
             </TRPCReactProvider>
           </NextIntlClientProvider>
         </body>

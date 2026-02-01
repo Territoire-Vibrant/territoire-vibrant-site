@@ -248,5 +248,12 @@
     "success_title": "Message sent!",
     "success": "Thank you for reaching out. We'll get back to you soon.",
     "error": "An error occurred while sending your message. Please try again."
+  },
+  "Footer": {
+    "quick_links": "Quick Links",
+    "recent_articles": "Recent Articles",
+    "all_rights_reserved": "All rights reserved.",
+    "privacy_policy": "Privacy Policy",
+    "terms_of_use": "Terms of Use"
   }
 }
