@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 
 import Inflorescence from '~/assets/images/partners/inflorescence.png'
+import MonCarrefourWeb from '~/assets/images/partners/mon-carrefour-web.png'
 import SoAndCo from '~/assets/images/partners/so&co.png'
 
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '~/components/ui/carousel'
@@ -16,7 +17,8 @@ export const SponsorsMarquee = ({ className }: { className?: string }) => {
 
   const items = [
     { id: 1, label: 'So&Co', logo: SoAndCo, url: 'https://www.soetco.ca/' },
-    { id: 2, label: 'Inflorescence', logo: Inflorescence, url: 'http://www.cliniqueinflorescence.com/' },
+    { id: 2, label: 'Inflorescence', logo: Inflorescence, url: 'https://www.cliniqueinflorescence.com/' },
+    { id: 3, label: 'Mon Carrefour Web', logo: MonCarrefourWeb, url: 'https://moncarrefourweb.org/' },
   ]
 
   // Repeat the items to create a longer track so autoplay feels continuous even with few sponsors.
