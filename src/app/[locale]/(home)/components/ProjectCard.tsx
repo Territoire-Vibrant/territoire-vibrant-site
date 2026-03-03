@@ -11,14 +11,14 @@ export const ProjectCard = ({ image, title, description }: ProjectCardProps) => 
   return (
     <Link
       href=''
-      className='group flex h-100 w-72 select-none flex-col items-center justify-center rounded-2xl shadow-lg transition-all ease-in hover:-mt-5'
+      className='group flex h-111 w-64 select-none flex-col items-center justify-center shadow-lg transition-all ease-in hover:-mt-5'
     >
-      <Image src={image} alt={title} className='h-[45%] w-full rounded-t-2xl bg-background object-cover' />
+      <Image src={image} alt={title} className='h-[45%] w-full bg-background object-cover' />
 
-      <div className='flex h-[65%] flex-col items-center space-y-2 rounded-b-2xl bg-tertiary p-6 text-center transition-all ease-in group-hover:bg-primary group-hover:text-background'>
+      <div className='flex h-[65%] flex-col items-center space-y-2 bg-tertiary p-6 text-center transition-all ease-in group-hover:bg-primary group-hover:text-background'>
         <div className='font-bold text-lg'>{title}</div>
 
-        <div className='opacity-80'>{description}</div>
+        <div className='text-sm opacity-80'>{description}</div>
       </div>
     </Link>
   )
