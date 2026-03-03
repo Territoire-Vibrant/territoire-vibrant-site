@@ -18,7 +18,7 @@ export const HomeHero = () => {
       {/* Hero grid */}
       <div className='grid size-full gap-4 md:w-1/2 md:grid-cols-2 md:grid-rows-3 lg:max-h-102.5'>
         {/* Box 1 - Green text */}
-        <div className='order-1 flex size-full flex-col justify-between space-y-4 rounded-2xl bg-primary/60 p-4 md:row-span-2'>
+        <div className='order-1 flex size-full flex-col justify-between space-y-4 bg-primary/60 p-4 md:row-span-2'>
           <div className='w-3/4 font-bold text-xl'>{t('Home.hero.box1.title')}</div>
 
           <p className='opacity-80'>{t('Home.hero.box1.subtext')}</p>
@@ -29,25 +29,25 @@ export const HomeHero = () => {
         </div>
 
         {/* Box 2 - Community image */}
-        <div className='order-2 size-full rounded-2xl md:col-start-2 md:row-start-1'>
+        <div className='order-2 size-full md:col-start-2 md:row-start-1'>
           <Image
             src={CommunityImage}
             alt={t('Home.hero.box2.community_image_alt')}
-            className='size-full max-h-36 rounded-2xl object-cover sm:max-h-40 md:max-h-full'
+            className='size-full max-h-36 object-cover sm:max-h-40 md:max-h-full'
           />
         </div>
 
         {/* Box 3 - Landscape image */}
-        <div className='size-full max-h-36 rounded-2xl md:row-start-3'>
+        <div className='size-full max-h-36 md:row-start-3'>
           <Image
             src={LandscapeImage}
             alt={t('Home.hero.box2.landscape_image_alt')}
-            className='size-full max-h-36 rounded-2xl object-cover sm:max-h-40 md:max-h-full'
+            className='size-full max-h-36 object-cover sm:max-h-40 md:max-h-full'
           />
         </div>
 
         {/* Box 4 - Carousel */}
-        <div className='order-3 size-full select-none rounded-2xl bg-[#4b3223]/75 p-4 text-background md:col-start-2 md:row-span-2 md:row-start-2'>
+        <div className='order-3 size-full select-none bg-[#4b3223]/75 p-4 text-background md:col-start-2 md:row-span-2 md:row-start-2'>
           <CarouselBox />
         </div>
       </div>

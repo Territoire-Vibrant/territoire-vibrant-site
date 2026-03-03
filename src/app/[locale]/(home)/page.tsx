@@ -27,7 +27,7 @@ export default function HomePage() {
 
       <Section limitWidth={false} className='flex flex-col items-center bg-foreground'>
         <div className='relative w-full max-w-6xl'>
-          <p className='absolute top-0 left-12 z-10 bg-secondary px-4 py-2 font-medium text-foreground text-sm lg:left-4'>
+          <p className='absolute top-0 left-12 z-10 bg-white px-4 py-2 font-medium text-foreground text-sm lg:left-4'>
             {t('partners')}
           </p>
         </div>
