@@ -1,10 +1,10 @@
 import { getTranslations } from 'next-intl/server'
 
 import { ArchiveIcon, BookOpenIcon, CheckIcon, NotePencilIcon } from '@phosphor-icons/react/dist/ssr'
+import { MarkdownPreview } from '~/components/MarkdownPreview'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import { Filters } from './components/Filters'
 
-import { MarkdownPreview } from '~/components/MarkdownPreview'
 import { Link } from '~/i18n/navigation'
 import { METHOD_ARTICLE_ID } from '~/lib/constants'
 import { api } from '~/trpc/server'
@@ -151,7 +151,7 @@ export default async function AdminPage({
 
                 <div className='mt-auto flex items-center justify-between text-xs'>
                   <Link
-                    href={`/admin/publication/${article.id}`}
+                    href={`/admin/content/${article.id}`}
                     className='font-semibold text-primary text-sm hover:underline'
                   >
                     {t('view')}

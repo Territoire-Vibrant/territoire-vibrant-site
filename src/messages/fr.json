@@ -18,6 +18,7 @@
   "spanish": "Espagnol",
   "french": "Français",
   "no_publications_yet": "Aucune publication pour le moment.",
+  "no_products_yet": "Aucun produit disponible pour le moment.",
   "search": "Rechercher",
   "newest": "Plus récentes",
   "oldest": "Plus anciennes",
@@ -39,6 +40,18 @@
   "partners": "Partenaires",
   "magazine": "revue",
   "method": "Méthode",
+  "content": "Contenu",
+  "content_page_title": "Contenu",
+  "content_page_subtitle": "Choisissez une catégorie à explorer",
+  "shop_page_title": "Boutique",
+  "shop_page_subtitle": "Produits exclusifs de Território Vibrante",
+  "buy_now": "Acheter Maintenant",
+  "add_to_cart": "Ajouter au panier",
+  "buy_on_amazon": "Acheter sur Amazon",
+  "product_physical": "Physique",
+  "product_digital": "Numérique",
+  "out_of_stock": "Rupture de stock",
+  "contact_us": "Commander",
   "Publications": {
     "title": "Publications",
     "subtitle": "Idées, nouvelles et récits de notre réseau collaboratif.",
@@ -46,6 +59,9 @@
     "read_more": "Lire l'article",
     "back": "Retour aux publications",
     "fallback_notice": "Affichage de la version en {language}."
+  },
+  "Shop": {
+    "title": "Boutique"
   },
   "publish_status": {
     "DRAFT": "Brouillon",

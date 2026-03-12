@@ -4,7 +4,14 @@ import { type Locale, useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 
-import { CheckIcon, GlobeIcon, ListIcon, MagnifyingGlassIcon, XIcon } from '@phosphor-icons/react/dist/ssr'
+import {
+  CheckIcon,
+  GlobeIcon,
+  ListIcon,
+  MagnifyingGlassIcon,
+  ShoppingCartIcon,
+  XIcon,
+} from '@phosphor-icons/react/dist/ssr'
 import {
   Dialog,
   DialogContent,
@@ -13,7 +20,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '~/components/ui/dialog'
-
 import { Button } from '~/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '~/components/ui/dropdown-menu'
 
@@ -134,20 +140,20 @@ export const Header = () => {
                   </li>
 
                   <li
-                    data-current-page={pathname === '/publications'}
+                    data-current-page={pathname.includes('publications')}
                     className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
                   >
-                    <Link href='/publications' prefetch onClick={() => setOpen(false)}>
-                      {t('publications')}
+                    <Link href='/content' prefetch onClick={() => setOpen(false)}>
+                      {t('content')}
                     </Link>
                   </li>
 
                   <li
-                    data-current-page={pathname === '/magazine'}
+                    data-current-page={pathname === '/shop'}
                     className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
                   >
-                    <Link href='/magazine' prefetch onClick={() => setOpen(false)}>
-                      {t('magazine')}
+                    <Link href='/shop' prefetch onClick={() => setOpen(false)}>
+                      {t('Shop.title')}
                     </Link>
                   </li>
 
@@ -197,20 +203,20 @@ export const Header = () => {
             </li>
 
             <li
-              data-current-page={pathname === '/publications'}
+              data-current-page={pathname.includes('publications')}
               className='whitespace-nowrap transition-all ease-in hover:scale-105 hover:text-primary data-[current-page=true]:font-semibold'
             >
-              <Link href='/publications' prefetch>
-                {t('publications')}
+              <Link href='/content' prefetch>
+                {t('content')}
               </Link>
             </li>
 
             <li
-              data-current-page={pathname === '/magazine'}
+              data-current-page={pathname === '/shop'}
               className='whitespace-nowrap transition-all ease-in hover:scale-105 hover:text-primary data-[current-page=true]:font-semibold'
             >
-              <Link href='/magazine' prefetch>
-                {t('magazine')}
+              <Link href='/shop' prefetch>
+                {t('Shop.title')}
               </Link>
             </li>
 
@@ -256,6 +262,14 @@ export const Header = () => {
                 <span className='sr-only'>{searchOpen ? 'Close search' : 'Open search'}</span>
               </Button>
             </div>
+
+            {/* Shopping Cart */}
+            <Link href='/shop' prefetch>
+              <Button variant='ghost' size='icon' className='rounded-none hover:bg-primary hover:text-background'>
+                <ShoppingCartIcon className='size-5' />
+                <span className='sr-only'>Shopping Cart</span>
+              </Button>
+            </Link>
 
             {/* Language switcher */}
             <div>

@@ -98,6 +98,17 @@ export default async function PublicationsPage({
           <h1 className='font-bold text-4xl text-foreground tracking-tight'>{t('Publications.title')}</h1>
 
           <p className='max-w-2xl text-base text-muted-foreground'>{t('Publications.subtitle')}</p>
+
+          <div className='flex flex-wrap items-center gap-4 pt-2'>
+            <Link href='/magazine'>
+              <Button
+                variant='outline'
+                className='cursor-pointer border-primary text-primary hover:bg-primary hover:text-white'
+              >
+                {t('magazine')}
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {publishedArticles.length > 0 ? (
@@ -128,7 +139,7 @@ export default async function PublicationsPage({
                     </div>
 
                     <div className='pt-2'>
-                      <Link href={`/publications/${articleCard.id}`}>
+                      <Link href={`/content/${articleCard.id}`}>
                         <Button size='sm' className='cursor-pointer'>
                           {t('Publications.read_more')}
                         </Button>

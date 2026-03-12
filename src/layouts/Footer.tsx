@@ -77,12 +77,8 @@ export const Footer = async () => {
                 </Link>
               </li>
               <li>
-                <Link
-                  href='/publications'
-                  prefetch
-                  className='text-background/70 transition-colors hover:text-secondary'
-                >
-                  {t('publications')}
+                <Link href='/content' prefetch className='text-background/70 transition-colors hover:text-secondary'>
+                  {t('content')}
                 </Link>
               </li>
             </ul>
@@ -96,7 +92,7 @@ export const Footer = async () => {
                 recentArticles.map((article) => (
                   <li key={article.id}>
                     <Link
-                      href={`/publications/${article.id}`}
+                      href={`/content/${article.id}`}
                       prefetch
                       className='line-clamp-2 text-background/70 transition-colors hover:text-secondary'
                     >

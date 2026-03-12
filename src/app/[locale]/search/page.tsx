@@ -195,7 +195,7 @@ export default async function SearchPage({
                     </div>
 
                     <div className='pt-2'>
-                      <Link href={`/publications/${result.id}`}>
+                      <Link href={`/content/${result.id}`}>
                         <Button size='sm' className='cursor-pointer'>
                           {t('Publications.read_more')}
                         </Button>
@@ -209,7 +209,7 @@ export default async function SearchPage({
         ) : query.trim() ? (
           <div className='flex flex-col items-center gap-4 py-16 text-center'>
             <p className='text-lg text-muted-foreground'>{t('Search.no_results')}</p>
-            <Link href='/publications'>
+            <Link href='/content'>
               <Button variant='outline' className='cursor-pointer'>
                 {t('Search.browse_publications')}
               </Button>
