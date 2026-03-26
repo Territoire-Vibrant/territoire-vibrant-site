@@ -36,7 +36,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     <div className='group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'>
       <Link
         href={`/shop/${product.id}`}
-        className='relative block aspect-[4/3] w-full shrink-0 overflow-hidden bg-amber-50 outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2'
+        className='relative block aspect-4/3 w-full shrink-0 overflow-hidden bg-amber-50 outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2'
       >
         {product.imageUrl ? (
           <Image

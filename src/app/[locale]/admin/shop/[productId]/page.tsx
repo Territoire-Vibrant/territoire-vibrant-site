@@ -51,12 +51,12 @@ export default async function AdminShopProductDetailPage({ params }: { params: P
       </div>
 
       <div className='overflow-hidden rounded-xl border border-border bg-card shadow-sm'>
-        <div className='relative aspect-[16/10] w-full bg-muted'>
+        <div className='relative aspect-16/10 w-full bg-muted'>
           {product.imageUrl ? (
             // biome-ignore lint/performance/noImgElement: admin detail must support any image host
             <img src={product.imageUrl} alt={product.name} className='size-full object-cover' />
           ) : (
-            <div className='flex size-full min-h-[200px] items-center justify-center bg-linear-to-br from-amber-100 to-orange-100 px-4'>
+            <div className='flex size-full min-h-50 items-center justify-center bg-linear-to-br from-amber-100 to-orange-100 px-4'>
               <span className='text-center font-semibold text-amber-800/50 text-lg tracking-tight sm:text-2xl'>
                 {t('territoire_vibrant')}
               </span>

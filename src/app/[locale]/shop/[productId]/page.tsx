@@ -82,7 +82,7 @@ export default async function ShopProductDetailPage({ params }: PageProps) {
         </Button>
 
         <div className='overflow-hidden rounded-2xl bg-white shadow-md'>
-          <div className='relative aspect-[16/10] w-full bg-amber-50'>
+          <div className='relative aspect-16/10 w-full bg-amber-50'>
             {product.imageUrl ? (
               <Image
                 src={product.imageUrl}
