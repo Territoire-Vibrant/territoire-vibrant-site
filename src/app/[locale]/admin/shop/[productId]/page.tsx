@@ -25,14 +25,15 @@ export default async function AdminShopEditPage({ params }: { params: Promise<{ 
     price: Number(product.price),
     type: product.type,
     imageUrl: product.imageUrl ?? '',
-    stock: product.stock,
     isActive: product.isActive,
     amazonUrl: product.amazonUrl ?? '',
   }
 
   return (
     <div className='mx-auto w-full max-w-6xl px-6 py-10'>
-      <h1 className='mb-8 font-semibold text-2xl'>{t('admin_shop_edit_product')}</h1>
+      <div className='mx-auto mb-8 max-w-3xl'>
+        <h1 className='font-semibold text-2xl text-foreground tracking-tight'>{t('admin_shop_edit_product')}</h1>
+      </div>
       <ProductForm mode='edit' productId={product.id} defaultValues={defaultValues} />
     </div>
   )

@@ -9,7 +9,6 @@ export const productAdminUpsertSchema = z
     price: z.number().finite().positive().max(99_999_999),
     type: productTypeSchema,
     imageUrl: z.string().max(2048).optional(),
-    stock: z.number().finite().int().min(0).max(999_999_999),
     isActive: z.boolean(),
     amazonUrl: z.string().max(2048).optional(),
   })
@@ -40,7 +39,6 @@ export function toPrismaProductData(input: ProductAdminUpsertInput) {
     price: input.price,
     type: input.type,
     imageUrl: (input.imageUrl?.trim() ?? '') || null,
-    stock: input.stock,
     isActive: input.isActive,
     amazonUrl: (input.amazonUrl?.trim() ?? '') || null,
   }

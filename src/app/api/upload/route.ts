@@ -30,7 +30,18 @@ export async function POST(request: Request) {
   try {
     const formData = await request.formData()
     const file = formData.get('file') as File | null
-    const articleId = formData.get('articleId') as string | null
+    const articleIdRaw = formData.get('articleId')
+    const productIdRaw = formData.get('productId')
+    const articleId = typeof articleIdRaw === 'string' ? articleIdRaw.trim() : ''
+    const productId = typeof productIdRaw === 'string' ? productIdRaw.trim() : ''
+
+    if (articleId && productId) {
+      return NextResponse.json<UploadError>({ error: 'Provide only one of articleId or productId' }, { status: 400 })
+    }
+
+    if (productId && !z.string().uuid().safeParse(productId).success) {
+      return NextResponse.json<UploadError>({ error: 'Invalid productId' }, { status: 400 })
+    }
 
     if (!file) {
       return NextResponse.json<UploadError>({ error: 'No file provided' }, { status: 400 })
@@ -51,8 +62,7 @@ export async function POST(request: Request) {
     const extension = file.name.split('.').pop() ?? 'jpg'
     const filename = `${Date.now()}-${crypto.randomUUID()}.${extension}`
 
-    // Organize by articleId if provided, otherwise use 'unsorted'
-    const folder = articleId ? `articles/${articleId}` : 'unsorted'
+    const folder = articleId ? `articles/${articleId}` : productId ? `products/${productId}` : 'unsorted'
     const key = `${folder}/${filename}`
 
     await r2Client.send(

@@ -32,7 +32,9 @@
   "admin_shop_field_type": "Tipo",
   "admin_shop_field_price": "Precio",
   "admin_shop_field_image_url": "URL de la imagen",
-  "admin_shop_field_stock": "Stock",
+  "admin_shop_upload_image": "Subir imagen",
+  "admin_shop_upload_success": "Imagen subida.",
+  "admin_shop_upload_error": "No se pudo subir la imagen.",
   "admin_shop_field_active": "Visible en la tienda",
   "admin_shop_field_amazon_url": "Enlace Amazon (opcional)",
   "admin_shop_type_physical": "Físico",
@@ -72,7 +74,6 @@
   "buy_on_amazon": "Comprar en Amazon",
   "product_physical": "Físico",
   "product_digital": "Digital",
-  "out_of_stock": "Agotado",
   "contact_us": "Pedir",
   "Publications": {
     "title": "Publicaciones",

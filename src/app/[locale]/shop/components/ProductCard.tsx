@@ -19,7 +19,6 @@ type Product = {
   price: string
   imageUrl: string | null
   type: ProductType
-  stock: number
   amazonUrl: string | null
 }
 
@@ -48,7 +47,6 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     checkoutMutation.mutate({ productId: product.id })
   }
 
-  const isOutOfStock = product.stock <= 0 && product.type === 'PHYSICAL'
   const price = Number(product.price)
   const formattedPrice = new Intl.NumberFormat('en-CA', {
     style: 'currency',
@@ -95,7 +93,6 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         <div className='mt-auto flex flex-col gap-3'>
           <div className='flex items-center justify-between'>
             <span className='font-bold text-amber-800 text-xl'>{formattedPrice}</span>
-            {isOutOfStock && <span className='font-medium text-red-600 text-sm'>{t('out_of_stock')}</span>}
           </div>
 
           <div className='flex flex-col gap-2'>
@@ -108,7 +105,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
               </a>
             )}
 
-            {!isOutOfStock && !product.amazonUrl && (
+            {!product.amazonUrl && (
               <Button
                 className='w-full gap-2 bg-primary hover:bg-primary/90'
                 size='sm'
@@ -120,18 +117,16 @@ export const ProductCard = ({ product }: ProductCardProps) => {
               </Button>
             )}
 
-            {!isOutOfStock && (
-              <a href={`mailto:${contactEmail}?subject=Order: ${encodeURIComponent(product.name)}`} className='w-full'>
-                <Button
-                  className='w-full gap-2 border-stone-200 text-stone-600 hover:bg-stone-50'
-                  variant='outline'
-                  size='sm'
-                >
-                  <EnvelopeIcon className='size-4' />
-                  {t('contact_us')}
-                </Button>
-              </a>
-            )}
+            <a href={`mailto:${contactEmail}?subject=Order: ${encodeURIComponent(product.name)}`} className='w-full'>
+              <Button
+                className='w-full gap-2 border-stone-200 text-stone-600 hover:bg-stone-50'
+                variant='outline'
+                size='sm'
+              >
+                <EnvelopeIcon className='size-4' />
+                {t('contact_us')}
+              </Button>
+            </a>
           </div>
         </div>
       </div>

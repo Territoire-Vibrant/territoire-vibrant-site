@@ -1,15 +1,20 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { ArrowLeftIcon, CaretDownIcon } from '@phosphor-icons/react/dist/ssr'
 import { useTranslations } from 'next-intl'
+import type { ChangeEvent, ReactNode } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import type { z } from 'zod'
 
+import type { UploadError, UploadResponse } from '~/app/api/upload/schema'
 import { Button } from '~/components/ui/button'
 
 import { Link, useRouter } from '~/i18n/navigation'
 import { productAdminUpsertSchema } from '~/lib/product-admin-schema'
+import { cn } from '~/lib/utils'
 import { api } from '~/trpc/react'
 
 export type ProductFormDefaults = {
@@ -18,7 +23,6 @@ export type ProductFormDefaults = {
   price: number
   type: 'PHYSICAL' | 'DIGITAL'
   imageUrl: string
-  stock: number
   isActive: boolean
   amazonUrl: string
 }
@@ -35,16 +39,46 @@ const defaultEmpty: ProductFormDefaults = {
   price: 9.99,
   type: 'PHYSICAL',
   imageUrl: '',
-  stock: 0,
   isActive: true,
   amazonUrl: '',
 }
 
 type FormValues = z.infer<typeof productAdminUpsertSchema>
 
+const controlClass = cn(
+  'w-full rounded-md border border-input bg-background px-3 text-foreground text-sm shadow-xs outline-none transition-[color,box-shadow]',
+  'placeholder:text-muted-foreground',
+  'focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
+  'disabled:cursor-not-allowed disabled:opacity-50',
+  'aria-[invalid=true]:border-destructive dark:bg-input/30'
+)
+
+const inputClass = cn(controlClass, 'h-9')
+const textareaClass = cn(controlClass, 'min-h-[120px] resize-y py-2.5')
+const selectClass = cn(inputClass, 'cursor-pointer appearance-none pr-10')
+const numberInputClass = cn(
+  inputClass,
+  '[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none'
+)
+
+function FieldLabel({ htmlFor, children }: { htmlFor: string; children: ReactNode }) {
+  return (
+    <label htmlFor={htmlFor} className='font-medium text-foreground text-sm leading-none'>
+      {children}
+    </label>
+  )
+}
+
+function FieldError({ message }: { message?: string }) {
+  if (!message) return null
+  return <p className='text-destructive text-xs leading-snug'>{message}</p>
+}
+
 export function ProductForm({ mode, productId, defaultValues }: ProductFormProps) {
   const t = useTranslations()
   const router = useRouter()
+  const imageFileInputRef = useRef<HTMLInputElement>(null)
+  const [isUploadingImage, setIsUploadingImage] = useState(false)
 
   const createMutation = api.product.create.useMutation({
     onSuccess: () => {
@@ -69,6 +103,8 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(productAdminUpsertSchema),
@@ -76,6 +112,62 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
   })
 
   const pending = createMutation.isPending || updateMutation.isPending || isSubmitting
+  const imageUrlWatch = watch('imageUrl')
+  const imagePreviewSrc = imageUrlWatch?.trim()
+  const showImagePreview = Boolean(imagePreviewSrc && /^https?:\/\//i.test(imagePreviewSrc))
+
+  const uploadProductImage = useCallback(
+    async (file: File) => {
+      const formData = new FormData()
+      formData.append('file', file)
+      if (mode === 'edit' && productId) {
+        formData.append('productId', productId)
+      }
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const data = (await response.json()) as UploadResponse | UploadError
+
+      if (!response.ok || 'error' in data) {
+        throw new Error('error' in data ? data.error : t('admin_shop_upload_error'))
+      }
+
+      return data.url
+    },
+    [mode, productId, t]
+  )
+
+  const handleImageFileChange = useCallback(
+    async (event: ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0]
+      if (!file) {
+        return
+      }
+
+      setIsUploadingImage(true)
+      try {
+        const url = await uploadProductImage(file)
+        setValue('imageUrl', url, { shouldValidate: true, shouldDirty: true })
+        toast.success(t('admin_shop_upload_success'))
+      } catch (error) {
+        console.error('Product image upload failed:', error)
+        toast.error(error instanceof Error ? error.message : t('admin_shop_upload_error'))
+      } finally {
+        setIsUploadingImage(false)
+        if (imageFileInputRef.current) {
+          imageFileInputRef.current.value = ''
+        }
+      }
+    },
+    [setValue, t, uploadProductImage]
+  )
+
+  const triggerImageUpload = () => {
+    imageFileInputRef.current?.click()
+  }
 
   const onSubmit = (values: FormValues) => {
     if (mode === 'create') {
@@ -90,119 +182,170 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
   }
 
   return (
-    <div className='mx-auto w-full max-w-2xl space-y-8'>
-      <Link href='/admin/shop' className='font-medium text-primary text-sm hover:underline'>
-        {t('admin_shop_back')}
-      </Link>
+    <div className='mx-auto w-full max-w-3xl space-y-6'>
+      <Button
+        variant='ghost'
+        size='sm'
+        className='-ml-2.5 h-9 gap-1.5 text-muted-foreground hover:text-foreground'
+        asChild
+      >
+        <Link href='/admin/shop'>
+          <ArrowLeftIcon className='size-4' aria-hidden />
+          {t('admin_shop_back')}
+        </Link>
+      </Button>
 
-      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-5'>
-        <div className='flex flex-col gap-2'>
-          <label className='font-medium text-sm' htmlFor='product-name'>
-            {t('admin_shop_field_name')}
-          </label>
+      <div className='rounded-xl border border-border bg-card p-6 text-card-foreground shadow-sm sm:p-8'>
+        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-8'>
           <input
-            id='product-name'
-            type='text'
-            className='h-9 rounded-md border px-3 text-sm shadow-sm'
-            {...register('name')}
+            ref={imageFileInputRef}
+            type='file'
+            accept='image/jpeg,image/png,image/gif,image/webp'
+            className='sr-only'
+            tabIndex={-1}
+            aria-hidden
+            onChange={handleImageFileChange}
           />
-          {errors.name && <p className='text-destructive text-xs'>{errors.name.message}</p>}
-        </div>
 
-        <div className='flex flex-col gap-2'>
-          <label className='font-medium text-sm' htmlFor='product-description'>
-            {t('admin_shop_field_description')}
-          </label>
-          <textarea
-            id='product-description'
-            rows={4}
-            className='rounded-md border px-3 py-2 text-sm shadow-sm'
-            {...register('description')}
-          />
-          {errors.description && <p className='text-destructive text-xs'>{String(errors.description.message)}</p>}
-        </div>
+          <div className='space-y-4'>
+            <div className='space-y-2'>
+              <FieldLabel htmlFor='product-name'>{t('admin_shop_field_name')}</FieldLabel>
+              <input
+                id='product-name'
+                type='text'
+                className={inputClass}
+                aria-invalid={!!errors.name}
+                {...register('name')}
+              />
+              <FieldError message={errors.name?.message} />
+            </div>
 
-        <div className='grid gap-4 sm:grid-cols-2'>
-          <div className='flex flex-col gap-2'>
-            <label className='font-medium text-sm' htmlFor='product-type'>
-              {t('admin_shop_field_type')}
-            </label>
-            <select id='product-type' className='h-9 rounded-md border px-3 text-sm shadow-sm' {...register('type')}>
-              <option value='PHYSICAL'>{t('admin_shop_type_physical')}</option>
-              <option value='DIGITAL'>{t('admin_shop_type_digital')}</option>
-            </select>
-            {errors.type && <p className='text-destructive text-xs'>{errors.type.message}</p>}
+            <div className='space-y-2'>
+              <FieldLabel htmlFor='product-description'>{t('admin_shop_field_description')}</FieldLabel>
+              <textarea
+                id='product-description'
+                rows={4}
+                className={textareaClass}
+                aria-invalid={!!errors.description}
+                {...register('description')}
+              />
+              <FieldError message={errors.description?.message} />
+            </div>
           </div>
 
-          <div className='flex flex-col gap-2'>
-            <label className='font-medium text-sm' htmlFor='product-price'>
-              {t('admin_shop_field_price')}
-            </label>
-            <input
-              id='product-price'
-              type='number'
-              step='0.01'
-              min='0.01'
-              className='h-9 rounded-md border px-3 text-sm shadow-sm'
-              {...register('price', { valueAsNumber: true })}
-            />
-            {errors.price && <p className='text-destructive text-xs'>{errors.price.message}</p>}
+          <div className='h-px bg-border' aria-hidden />
+
+          <div className='grid gap-6 sm:grid-cols-2'>
+            <div className='space-y-2 sm:col-span-1'>
+              <FieldLabel htmlFor='product-type'>{t('admin_shop_field_type')}</FieldLabel>
+              <div className='relative'>
+                <select id='product-type' className={selectClass} aria-invalid={!!errors.type} {...register('type')}>
+                  <option value='PHYSICAL'>{t('admin_shop_type_physical')}</option>
+                  <option value='DIGITAL'>{t('admin_shop_type_digital')}</option>
+                </select>
+                <CaretDownIcon
+                  className='pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-muted-foreground'
+                  aria-hidden
+                />
+              </div>
+              <FieldError message={errors.type?.message} />
+            </div>
+
+            <div className='space-y-2 sm:col-span-1'>
+              <FieldLabel htmlFor='product-price'>{t('admin_shop_field_price')}</FieldLabel>
+              <input
+                id='product-price'
+                type='number'
+                step='0.01'
+                min='0.01'
+                className={numberInputClass}
+                aria-invalid={!!errors.price}
+                {...register('price', { valueAsNumber: true })}
+              />
+              <FieldError message={errors.price?.message} />
+            </div>
           </div>
-        </div>
 
-        <div className='flex flex-col gap-2'>
-          <label className='font-medium text-sm' htmlFor='product-image'>
-            {t('admin_shop_field_image_url')}
-          </label>
-          <input
-            id='product-image'
-            type='url'
-            placeholder='https://'
-            className='h-9 rounded-md border px-3 text-sm shadow-sm'
-            {...register('imageUrl')}
-          />
-          {errors.imageUrl && <p className='text-destructive text-xs'>{errors.imageUrl.message}</p>}
-        </div>
+          <div className='h-px bg-border' aria-hidden />
 
-        <div className='flex flex-col gap-2'>
-          <label className='font-medium text-sm' htmlFor='product-stock'>
-            {t('admin_shop_field_stock')}
-          </label>
-          <input
-            id='product-stock'
-            type='number'
-            min={0}
-            step={1}
-            className='h-9 rounded-md border px-3 text-sm shadow-sm'
-            {...register('stock', { valueAsNumber: true })}
-          />
-          {errors.stock && <p className='text-destructive text-xs'>{errors.stock.message}</p>}
-        </div>
+          <div className='space-y-4'>
+            <div className='space-y-2'>
+              <FieldLabel htmlFor='product-image'>{t('admin_shop_field_image_url')}</FieldLabel>
+              <div className='flex flex-col gap-2 sm:flex-row sm:items-stretch'>
+                <input
+                  id='product-image'
+                  type='url'
+                  placeholder='https://'
+                  className={cn(inputClass, 'min-w-0 sm:flex-1')}
+                  aria-invalid={!!errors.imageUrl}
+                  {...register('imageUrl')}
+                />
+                <Button
+                  type='button'
+                  variant='outline'
+                  className='shrink-0 sm:w-auto'
+                  disabled={isUploadingImage}
+                  isLoading={isUploadingImage}
+                  onClick={triggerImageUpload}
+                >
+                  {t('admin_shop_upload_image')}
+                </Button>
+              </div>
+              <FieldError message={errors.imageUrl?.message} />
+              {showImagePreview && imagePreviewSrc ? (
+                <div className='overflow-hidden rounded-lg border border-border bg-muted/30 p-2'>
+                  {/* biome-ignore lint/performance/noImgElement: Arbitrary preview URL from admin; Next Image requires remotePatterns per host */}
+                  <img
+                    src={imagePreviewSrc}
+                    alt=''
+                    className='mx-auto max-h-48 w-auto max-w-full rounded-md object-contain'
+                  />
+                </div>
+              ) : null}
+            </div>
 
-        <div className='flex flex-col gap-2'>
-          <label className='font-medium text-sm' htmlFor='product-amazon'>
-            {t('admin_shop_field_amazon_url')}
-          </label>
-          <input
-            id='product-amazon'
-            type='url'
-            placeholder='https://'
-            className='h-9 rounded-md border px-3 text-sm shadow-sm'
-            {...register('amazonUrl')}
-          />
-          {errors.amazonUrl && <p className='text-destructive text-xs'>{errors.amazonUrl.message}</p>}
-        </div>
+            <div className='space-y-2'>
+              <FieldLabel htmlFor='product-amazon'>{t('admin_shop_field_amazon_url')}</FieldLabel>
+              <input
+                id='product-amazon'
+                type='url'
+                placeholder='https://'
+                className={inputClass}
+                aria-invalid={!!errors.amazonUrl}
+                {...register('amazonUrl')}
+              />
+              <FieldError message={errors.amazonUrl?.message} />
+            </div>
+          </div>
 
-        <label className='flex cursor-pointer items-center gap-2'>
-          <input type='checkbox' className='size-4 rounded border' {...register('isActive')} />
-          <span className='font-medium text-sm'>{t('admin_shop_field_active')}</span>
-        </label>
-        {errors.isActive && <p className='text-destructive text-xs'>{errors.isActive.message}</p>}
+          <div className='h-px bg-border' aria-hidden />
 
-        <Button type='submit' disabled={pending} className='w-fit'>
-          {t('save')}
-        </Button>
-      </form>
+          <div className='space-y-2'>
+            <label
+              htmlFor='product-active'
+              className='flex cursor-pointer items-center gap-3 rounded-lg border border-border bg-muted/25 px-4 py-3.5 transition-colors hover:bg-muted/40 has-focus-visible:ring-2 has-focus-visible:ring-ring has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-background'
+            >
+              <input
+                id='product-active'
+                type='checkbox'
+                className='size-4 shrink-0 rounded border border-input text-primary accent-primary focus-visible:outline-none'
+                {...register('isActive')}
+              />
+              <span className='font-medium text-foreground text-sm'>{t('admin_shop_field_active')}</span>
+            </label>
+            <FieldError message={errors.isActive?.message} />
+          </div>
+
+          <div className='flex flex-wrap items-center gap-3 border-border border-t pt-6'>
+            <Button type='submit' disabled={pending} isLoading={pending}>
+              {t('save')}
+            </Button>
+            <Button variant='outline' type='button' asChild>
+              <Link href='/admin/shop'>{t('cancel')}</Link>
+            </Button>
+          </div>
+        </form>
+      </div>
     </div>
   )
 }
