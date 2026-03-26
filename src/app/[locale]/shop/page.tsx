@@ -16,7 +16,7 @@ export default async function ShopPage() {
   })
 
   return (
-    <Section limitWidth={false} className='min-h-screen bg-linear-to-b from-amber-50/50 to-stone-100 px-6 py-12'>
+    <Section limitWidth={false} className='bg-linear-to-b from-amber-50/50 to-stone-100 px-6 py-12'>
       <div className='mx-auto flex w-full max-w-6xl flex-col gap-10'>
         <div className='space-y-3 text-center'>
           <h1 className='font-bold text-4xl text-stone-800 tracking-tight'>{t('shop_page_title')}</h1>

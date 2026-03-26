@@ -7,10 +7,11 @@ import { auth, clerkClient } from '@clerk/nextjs/server'
  * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
  * need to use are documented accordingly near the end.
  */
-import { initTRPC } from '@trpc/server'
+import { initTRPC, TRPCError } from '@trpc/server'
 import superjson from 'superjson'
 import { ZodError } from 'zod'
 
+import { isAdminFromSessionClaims } from '~/lib/utils'
 import { db } from '~/server/db'
 
 /**
@@ -136,3 +137,14 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
  * are logged in.
  */
 export const publicProcedure = t.procedure.use(timingMiddleware)
+
+const enforceUserIsAdmin = t.middleware(async ({ next }) => {
+  const { userId, sessionClaims } = await auth()
+  if (!userId || !isAdminFromSessionClaims(sessionClaims)) {
+    throw new TRPCError({ code: 'FORBIDDEN', message: 'Admin only' })
+  }
+  return next()
+})
+
+/** Mutations and queries that must only run for Clerk users flagged as admin. */
+export const adminProcedure = publicProcedure.use(enforceUserIsAdmin)

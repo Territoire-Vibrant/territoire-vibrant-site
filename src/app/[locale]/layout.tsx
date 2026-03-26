@@ -7,8 +7,8 @@ import { type Locale, NextIntlClientProvider, hasLocale } from 'next-intl'
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server'
 import { Geist, Geist_Mono } from 'next/font/google'
 
-import { notFound } from '~/i18n/navigation'
 import type { ReactNode } from 'react'
+import { notFound } from '~/i18n/navigation'
 
 import '../globals.css'
 
@@ -96,10 +96,9 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
           <SpeedInsights />
 
           <NextIntlClientProvider locale={locale} messages={messages}>
-            <TRPCReactProvider>
+            <TRPCReactProvider trailing={<Footer />}>
               <Header />
-              <main className='mx-auto'>{children}</main>
-              <Footer />
+              <main className='mx-auto min-h-[50dvh] w-full min-w-0 flex-1'>{children}</main>
             </TRPCReactProvider>
           </NextIntlClientProvider>
         </body>

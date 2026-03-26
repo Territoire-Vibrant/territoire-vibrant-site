@@ -1,5 +1,6 @@
 import { articleRouter } from '~/server/api/routers/article'
 import { contactRouter } from '~/server/api/routers/contact'
+import { productRouter } from '~/server/api/routers/product'
 import { shopRouter } from '~/server/api/routers/shop'
 import { createCallerFactory, createTRPCRouter } from '~/server/api/trpc'
 
@@ -11,6 +12,7 @@ import { createCallerFactory, createTRPCRouter } from '~/server/api/trpc'
 export const appRouter = createTRPCRouter({
   article: articleRouter,
   contact: contactRouter,
+  product: productRouter,
   shop: shopRouter,
 })
 

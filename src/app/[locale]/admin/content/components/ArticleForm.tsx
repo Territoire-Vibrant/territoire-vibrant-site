@@ -186,9 +186,9 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
 
       // After creating, go to the edit page for the primary locale
       if (res?.id) {
-        router.replace(`/admin/publication/${res.id}`, { locale })
+        router.replace(`/admin/content/${res.id}`, { locale })
       } else {
-        router.replace('/admin', { locale })
+        router.replace('/admin/content', { locale })
       }
     } else if (mode === 'edit' && defaultValues?.articleId) {
       const res = await updateMutation.mutateAsync({ articleId: defaultValues.articleId, ...payload })
@@ -197,7 +197,7 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
       emitSavedToasts(dirtyLocales)
 
       if (nextStatus === 'PUBLISHED') {
-        router.replace('/admin', { locale })
+        router.replace('/admin/content', { locale })
       }
     }
   }
@@ -338,7 +338,7 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
           type='button'
           variant='outline'
           disabled={disabled}
-          onClick={() => router.replace('/admin', { locale })}
+          onClick={() => router.replace('/admin/content', { locale })}
         >
           <XIcon />
           {t('cancel')}

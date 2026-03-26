@@ -13,7 +13,18 @@ const adminLoginPatterns = ['/admin/login(.*)', ...routing.locales.map((l) => `/
 const isAdminRoute = createRouteMatcher(adminPatterns)
 const isPublicAdminRoute = createRouteMatcher(adminLoginPatterns)
 
+/** `/admin` or `/{locale}/admin` only — not `/admin/content`, `/admin/shop`, etc. */
+function isAdminIndexPath(pathname: string) {
+  const p = pathname.replace(/\/$/, '') || '/'
+  if (p === '/admin') {
+    return true
+  }
+  return routing.locales.some((loc) => p === `/${loc}/admin`)
+}
+
 const proxy = clerkMiddleware(async (auth, req: NextRequest) => {
+  const pathname = req.nextUrl.pathname
+
   if (isAdminRoute(req) && !isPublicAdminRoute(req)) {
     const { userId, redirectToSignIn, sessionClaims } = await auth()
     if (!userId) {
@@ -27,10 +38,16 @@ const proxy = clerkMiddleware(async (auth, req: NextRequest) => {
       const url = new URL('/', req.url)
       return NextResponse.redirect(url)
     }
+
+    // Avoid RSC redirect() on /admin (throws NEXT_REDIRECT → dev error overlay flash)
+    if (isAdminIndexPath(pathname)) {
+      const url = req.nextUrl.clone()
+      url.pathname = `${pathname.replace(/\/$/, '')}/content`
+      return NextResponse.redirect(url)
+    }
   }
 
   // Skip next-intl for API and tRPC routes.
-  const pathname = req.nextUrl.pathname
   if (pathname.startsWith('/api') || pathname.startsWith('/trpc')) {
     // Ensure Clerk still marks the request as passing through proxy
     return NextResponse.next()

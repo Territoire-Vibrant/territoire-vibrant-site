@@ -59,22 +59,22 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <div className='group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'>
-      <div className='relative aspect-4/3 overflow-hidden bg-amber-50'>
+      <div className='relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-amber-50'>
         {product.imageUrl ? (
           <Image
             src={product.imageUrl}
             alt={product.name}
-            width={500}
-            height={500}
-            className='h-full w-full object-cover transition-transform duration-500 group-hover:scale-105'
+            fill
+            sizes='(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw'
+            className='object-cover transition-transform duration-500 group-hover:scale-105'
           />
         ) : (
-          <div className='flex h-full w-full items-center justify-center bg-linear-to-br from-amber-100 to-orange-100'>
+          <div className='absolute inset-0 flex items-center justify-center bg-linear-to-br from-amber-100 to-orange-100'>
             <span className='font-bold text-4xl text-amber-800/40'>TV</span>
           </div>
         )}
 
-        <div className='absolute top-3 left-3'>
+        <div className='absolute top-3 left-3 z-10'>
           <span
             className={`rounded-full px-3 py-1 font-semibold text-xs uppercase tracking-wide ${
               product.type === 'PHYSICAL' ? 'bg-amber-700 text-amber-50' : 'bg-green-700 text-green-50'

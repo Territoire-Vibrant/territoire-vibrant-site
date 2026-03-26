@@ -66,7 +66,7 @@ export const Header = () => {
   }
 
   return (
-    <header className='sticky top-0 z-30 flex select-none items-center justify-center bg-background/70 backdrop-blur-xl'>
+    <header className='sticky top-0 z-30 flex shrink-0 select-none items-center justify-center bg-background/70 backdrop-blur-xl'>
       <nav className='flex h-16 w-full max-w-6xl items-center justify-between px-6'>
         <ul className='flex items-center'>
           <li>

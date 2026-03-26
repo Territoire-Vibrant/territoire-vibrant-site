@@ -110,7 +110,7 @@ export const Filters = ({ initialQuery, initialSort, initialStatus }: Props) => 
           </SelectContent>
         </Select>
 
-        <Link href='/admin/publication/create'>
+        <Link href='/admin/content/create'>
           <Button className='cursor-pointer'>{t('create')}</Button>
         </Link>
       </div>
