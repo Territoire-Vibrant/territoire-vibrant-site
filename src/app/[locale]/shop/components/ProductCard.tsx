@@ -2,13 +2,10 @@
 
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { useState } from 'react'
 
-import { ArrowSquareOutIcon, CreditCardIcon, EnvelopeIcon } from '@phosphor-icons/react/dist/ssr'
-import { toast } from 'sonner'
-import { Button } from '~/components/ui/button'
+import { ShopProductPurchaseActions } from './ShopProductPurchaseActions'
 
-import { api } from '~/trpc/react'
+import { Link } from '~/i18n/navigation'
 
 type ProductType = 'PHYSICAL' | 'DIGITAL'
 
@@ -19,7 +16,7 @@ type Product = {
   price: string
   imageUrl: string | null
   type: ProductType
-  amazonUrl: string | null
+  partnerStoreUrl: string | null
 }
 
 interface ProductCardProps {
@@ -28,24 +25,6 @@ interface ProductCardProps {
 
 export const ProductCard = ({ product }: ProductCardProps) => {
   const t = useTranslations()
-  const [loading, setLoading] = useState(false)
-
-  const checkoutMutation = api.shop.createCheckoutSession.useMutation({
-    onSuccess: (data) => {
-      if (data.url) {
-        window.location.href = data.url
-      }
-    },
-    onError: (_err) => {
-      toast.error('Erro ao iniciar checkout')
-      setLoading(false)
-    },
-  })
-
-  const handleBuyNow = async () => {
-    setLoading(true)
-    checkoutMutation.mutate({ productId: product.id })
-  }
 
   const price = Number(product.price)
   const formattedPrice = new Intl.NumberFormat('en-CA', {
@@ -53,11 +32,12 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     currency: 'CAD',
   }).format(price)
 
-  const contactEmail = 'macneves@territoirevibrant.ca'
-
   return (
     <div className='group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'>
-      <div className='relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-amber-50'>
+      <Link
+        href={`/shop/${product.id}`}
+        className='relative block aspect-[4/3] w-full shrink-0 overflow-hidden bg-amber-50 outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2'
+      >
         {product.imageUrl ? (
           <Image
             src={product.imageUrl}
@@ -67,12 +47,14 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             className='object-cover transition-transform duration-500 group-hover:scale-105'
           />
         ) : (
-          <div className='absolute inset-0 flex items-center justify-center bg-linear-to-br from-amber-100 to-orange-100'>
-            <span className='font-bold text-4xl text-amber-800/40'>TV</span>
+          <div className='absolute inset-0 flex items-center justify-center bg-linear-to-br from-amber-100 to-orange-100 px-3'>
+            <span className='text-center font-semibold text-amber-800/50 text-lg leading-tight tracking-tight sm:text-xl'>
+              {t('territoire_vibrant')}
+            </span>
           </div>
         )}
 
-        <div className='absolute top-3 left-3 z-10'>
+        <div className='pointer-events-none absolute top-3 left-3 z-10'>
           <span
             className={`rounded-full px-3 py-1 font-semibold text-xs uppercase tracking-wide ${
               product.type === 'PHYSICAL' ? 'bg-amber-700 text-amber-50' : 'bg-green-700 text-green-50'
@@ -81,53 +63,26 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             {product.type === 'PHYSICAL' ? t('product_physical') : t('product_digital')}
           </span>
         </div>
-      </div>
+      </Link>
 
       <div className='flex flex-1 flex-col p-5'>
-        <h3 className='mb-2 line-clamp-2 font-semibold text-lg text-stone-800'>{product.name}</h3>
+        <Link
+          href={`/shop/${product.id}`}
+          className='mb-2 line-clamp-2 font-semibold text-lg text-stone-800 transition-colors hover:text-primary hover:underline'
+        >
+          {product.name}
+        </Link>
 
-        {product.description && (
+        {product.description ? (
           <p className='mb-4 line-clamp-3 flex-1 text-sm text-stone-600'>{product.description}</p>
-        )}
+        ) : null}
 
         <div className='mt-auto flex flex-col gap-3'>
           <div className='flex items-center justify-between'>
             <span className='font-bold text-amber-800 text-xl'>{formattedPrice}</span>
           </div>
 
-          <div className='flex flex-col gap-2'>
-            {product.amazonUrl && (
-              <a href={product.amazonUrl} target='_blank' rel='noopener noreferrer' className='w-full'>
-                <Button className='w-full gap-2 bg-primary hover:bg-primary/90' size='sm'>
-                  <ArrowSquareOutIcon className='size-4' />
-                  {t('buy_on_amazon')}
-                </Button>
-              </a>
-            )}
-
-            {!product.amazonUrl && (
-              <Button
-                className='w-full gap-2 bg-primary hover:bg-primary/90'
-                size='sm'
-                onClick={handleBuyNow}
-                disabled={loading}
-              >
-                <CreditCardIcon className='size-4' />
-                {loading ? 'Processando...' : t('buy_now' as any)}
-              </Button>
-            )}
-
-            <a href={`mailto:${contactEmail}?subject=Order: ${encodeURIComponent(product.name)}`} className='w-full'>
-              <Button
-                className='w-full gap-2 border-stone-200 text-stone-600 hover:bg-stone-50'
-                variant='outline'
-                size='sm'
-              >
-                <EnvelopeIcon className='size-4' />
-                {t('contact_us')}
-              </Button>
-            </a>
-          </div>
+          <ShopProductPurchaseActions productName={product.name} partnerStoreUrl={product.partnerStoreUrl} />
         </div>
       </div>
     </div>

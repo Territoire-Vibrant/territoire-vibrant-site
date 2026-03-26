@@ -25,7 +25,7 @@ const products = [
     price: 89.9,
     type: ProductType.PHYSICAL,
     imageUrl: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400',
-    amazonUrl: 'https://www.amazon.com/dp/XXXXX',
+    partnerStoreUrl: 'https://www.amazon.com/dp/XXXXX',
   },
   {
     name: 'Artigo Digital - Manual de Turismo Regenerativo',

@@ -19,7 +19,6 @@ export const env = createEnv({
     SMTP_USER: z.string().email(),
     SMTP_PASSWORD: z.string().min(1),
     CONTACT_EMAIL: z.string().email().default('macneves@territoirevibrant.ca'),
-    STRIPE_SECRET_KEY: z.string().min(1).default('sk_test_placeholder'),
   },
 
   /**
@@ -46,7 +45,6 @@ export const env = createEnv({
     SMTP_USER: process.env.SMTP_USER,
     SMTP_PASSWORD: process.env.SMTP_PASSWORD,
     CONTACT_EMAIL: process.env.CONTACT_EMAIL,
-    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
   },
   /**

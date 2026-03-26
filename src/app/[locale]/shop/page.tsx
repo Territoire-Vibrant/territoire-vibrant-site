@@ -35,7 +35,7 @@ export default async function ShopPage() {
                   price: String(product.price),
                   imageUrl: product.imageUrl,
                   type: product.type,
-                  amazonUrl: product.amazonUrl,
+                  partnerStoreUrl: product.partnerStoreUrl,
                 }}
               />
             ))}

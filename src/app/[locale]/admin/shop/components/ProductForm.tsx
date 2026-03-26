@@ -24,7 +24,7 @@ export type ProductFormDefaults = {
   type: 'PHYSICAL' | 'DIGITAL'
   imageUrl: string
   isActive: boolean
-  amazonUrl: string
+  partnerStoreUrl: string
 }
 
 type ProductFormProps = {
@@ -40,7 +40,7 @@ const defaultEmpty: ProductFormDefaults = {
   type: 'PHYSICAL',
   imageUrl: '',
   isActive: true,
-  amazonUrl: '',
+  partnerStoreUrl: '',
 }
 
 type FormValues = z.infer<typeof productAdminUpsertSchema>
@@ -271,25 +271,38 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
           <div className='space-y-4'>
             <div className='space-y-2'>
               <FieldLabel htmlFor='product-image'>{t('admin_shop_field_image_url')}</FieldLabel>
-              <div className='flex flex-col gap-2 sm:flex-row sm:items-stretch'>
+              <div className='flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-stretch'>
                 <input
                   id='product-image'
                   type='url'
                   placeholder='https://'
-                  className={cn(inputClass, 'min-w-0 sm:flex-1')}
+                  className={cn(inputClass, 'min-w-0 sm:min-w-[12rem] sm:flex-1')}
                   aria-invalid={!!errors.imageUrl}
                   {...register('imageUrl')}
                 />
-                <Button
-                  type='button'
-                  variant='outline'
-                  className='shrink-0 sm:w-auto'
-                  disabled={isUploadingImage}
-                  isLoading={isUploadingImage}
-                  onClick={triggerImageUpload}
-                >
-                  {t('admin_shop_upload_image')}
-                </Button>
+                <div className='flex flex-wrap gap-2'>
+                  <Button
+                    type='button'
+                    variant='outline'
+                    className='shrink-0 sm:w-auto'
+                    disabled={isUploadingImage}
+                    isLoading={isUploadingImage}
+                    onClick={triggerImageUpload}
+                  >
+                    {t('admin_shop_upload_image')}
+                  </Button>
+                  {imagePreviewSrc ? (
+                    <Button
+                      type='button'
+                      variant='ghost'
+                      className='text-destructive hover:bg-destructive/10 hover:text-destructive'
+                      disabled={isUploadingImage}
+                      onClick={() => setValue('imageUrl', '', { shouldValidate: true, shouldDirty: true })}
+                    >
+                      {t('admin_shop_remove_image')}
+                    </Button>
+                  ) : null}
+                </div>
               </div>
               <FieldError message={errors.imageUrl?.message} />
               {showImagePreview && imagePreviewSrc ? (
@@ -305,16 +318,16 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
             </div>
 
             <div className='space-y-2'>
-              <FieldLabel htmlFor='product-amazon'>{t('admin_shop_field_amazon_url')}</FieldLabel>
+              <FieldLabel htmlFor='product-partner-store'>{t('admin_shop_field_partner_store_url')}</FieldLabel>
               <input
-                id='product-amazon'
+                id='product-partner-store'
                 type='url'
                 placeholder='https://'
                 className={inputClass}
-                aria-invalid={!!errors.amazonUrl}
-                {...register('amazonUrl')}
+                aria-invalid={!!errors.partnerStoreUrl}
+                {...register('partnerStoreUrl')}
               />
-              <FieldError message={errors.amazonUrl?.message} />
+              <FieldError message={errors.partnerStoreUrl?.message} />
             </div>
           </div>
 

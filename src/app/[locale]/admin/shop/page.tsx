@@ -45,8 +45,10 @@ export default async function AdminShopPage() {
                       className='absolute inset-0 size-full object-cover'
                     />
                   ) : (
-                    <div className='absolute inset-0 flex items-center justify-center bg-linear-to-br from-amber-100 to-orange-100'>
-                      <span className='font-bold text-2xl text-amber-800/40'>TV</span>
+                    <div className='absolute inset-0 flex items-center justify-center bg-linear-to-br from-amber-100 to-orange-100 px-2'>
+                      <span className='text-center font-semibold text-amber-800/50 text-xs leading-tight sm:text-sm'>
+                        {t('territoire_vibrant')}
+                      </span>
                     </div>
                   )}
                 </div>
@@ -70,10 +72,16 @@ export default async function AdminShopPage() {
                   <h2 className='font-semibold text-lg leading-tight'>{product.name}</h2>
                   <p className='font-medium text-stone-800'>{formattedPrice}</p>
 
-                  <div className='mt-auto pt-2'>
+                  <div className='mt-auto flex flex-wrap gap-3 pt-2'>
                     <Link
                       href={`/admin/shop/${product.id}`}
                       className='font-semibold text-primary text-sm hover:underline'
+                    >
+                      {t('admin_shop_view')}
+                    </Link>
+                    <Link
+                      href={`/admin/shop/${product.id}/edit`}
+                      className='font-medium text-muted-foreground text-sm hover:text-foreground hover:underline'
                     >
                       {t('admin_shop_edit')}
                     </Link>

@@ -16,16 +16,16 @@ enum ProductType {
 }
 
 model Product {
-    id          String      @id @default(uuid())
-    createdAt   DateTime    @default(now())
-    updatedAt   DateTime    @updatedAt
-    name        String
-    description String?
-    price       Decimal     @db.Decimal(10, 2)
-    imageUrl    String?
-    type        ProductType @default(PHYSICAL)
-    isActive    Boolean     @default(true)
-    amazonUrl   String?
+    id              String      @id @default(uuid())
+    createdAt       DateTime    @default(now())
+    updatedAt       DateTime    @updatedAt
+    name            String
+    description     String?
+    price           Decimal     @db.Decimal(10, 2)
+    imageUrl        String?
+    type            ProductType @default(PHYSICAL)
+    isActive        Boolean     @default(true)
+    partnerStoreUrl String?     @map("amazonUrl")
 }
 
 enum PublishStatus {

@@ -10,10 +10,10 @@ export const productAdminUpsertSchema = z
     type: productTypeSchema,
     imageUrl: z.string().max(2048).optional(),
     isActive: z.boolean(),
-    amazonUrl: z.string().max(2048).optional(),
+    partnerStoreUrl: z.string().max(2048).optional(),
   })
   .superRefine((data, ctx) => {
-    for (const key of ['imageUrl', 'amazonUrl'] as const) {
+    for (const key of ['imageUrl', 'partnerStoreUrl'] as const) {
       const raw = data[key]
       const s = raw?.trim() ?? ''
       if (!s) {
@@ -40,6 +40,6 @@ export function toPrismaProductData(input: ProductAdminUpsertInput) {
     type: input.type,
     imageUrl: (input.imageUrl?.trim() ?? '') || null,
     isActive: input.isActive,
-    amazonUrl: (input.amazonUrl?.trim() ?? '') || null,
+    partnerStoreUrl: (input.partnerStoreUrl?.trim() ?? '') || null,
   }
 }
