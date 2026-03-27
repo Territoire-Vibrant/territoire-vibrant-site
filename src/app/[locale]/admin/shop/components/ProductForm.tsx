@@ -276,7 +276,7 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
                   id='product-image'
                   type='url'
                   placeholder='https://'
-                  className={cn(inputClass, 'min-w-0 sm:min-w-[12rem] sm:flex-1')}
+                  className={cn(inputClass, 'min-w-0 sm:min-w-48 sm:flex-1')}
                   aria-invalid={!!errors.imageUrl}
                   {...register('imageUrl')}
                 />
@@ -350,11 +350,14 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
           </div>
 
           <div className='flex flex-wrap items-center gap-3 border-border border-t pt-6'>
-            <Button type='submit' disabled={pending} isLoading={pending}>
+            <Link href='/admin/shop'>
+              <Button type='button' variant='outline' className='cursor-pointer'>
+                {t('cancel')}
+              </Button>
+            </Link>
+
+            <Button type='submit' disabled={pending} isLoading={pending} className='cursor-pointer'>
               {t('save')}
-            </Button>
-            <Button variant='outline' type='button' asChild>
-              <Link href='/admin/shop'>{t('cancel')}</Link>
             </Button>
           </div>
         </form>

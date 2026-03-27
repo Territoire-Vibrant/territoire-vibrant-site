@@ -34,6 +34,7 @@ export default async function AdminShopEditPage({ params }: { params: Promise<{ 
       <div className='mx-auto mb-8 max-w-3xl'>
         <h1 className='font-semibold text-2xl text-foreground tracking-tight'>{t('admin_shop_edit_product')}</h1>
       </div>
+
       <ProductForm mode='edit' productId={product.id} defaultValues={defaultValues} />
     </div>
   )

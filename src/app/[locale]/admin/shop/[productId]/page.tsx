@@ -30,12 +30,17 @@ export default async function AdminShopProductDetailPage({ params }: { params: P
   return (
     <div className='mx-auto w-full max-w-3xl px-6 py-10'>
       <div className='mb-6 flex flex-wrap items-center gap-3'>
-        <Button variant='ghost' size='sm' className='-ml-2 gap-2 text-muted-foreground hover:text-foreground' asChild>
-          <Link href='/admin/shop'>
+        <Link href='/admin/shop'>
+          <Button
+            variant='outline'
+            size='sm'
+            className='-ml-2 cursor-pointer text-muted-foreground hover:text-foreground'
+          >
             <ArrowLeftIcon className='size-4' aria-hidden />
             {t('admin_shop_back')}
-          </Link>
-        </Button>
+          </Button>
+        </Link>
+
         <Link
           href={`/admin/shop/${product.id}/edit`}
           className={cn(buttonVariants({ variant: 'default', size: 'sm' }), 'gap-2')}

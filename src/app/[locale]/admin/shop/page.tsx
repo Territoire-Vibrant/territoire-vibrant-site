@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
-import { buttonVariants } from '~/components/ui/button'
+import { Button, buttonVariants } from '~/components/ui/button'
 import { cn } from '~/lib/utils'
 
 import { Link } from '~/i18n/navigation'
@@ -36,7 +36,7 @@ export default async function AdminShopPage() {
                 key={product.id}
                 className='flex h-full flex-col overflow-hidden rounded-lg border bg-white shadow-sm'
               >
-                <div className='relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-amber-50'>
+                <div className='relative aspect-4/3 w-full shrink-0 overflow-hidden bg-amber-50'>
                   {product.imageUrl ? (
                     // biome-ignore lint/performance/noImgElement: admin list must support any image host (not only next.config remotePatterns)
                     <img
@@ -62,6 +62,7 @@ export default async function AdminShopPage() {
                     >
                       {product.type === 'PHYSICAL' ? t('admin_shop_type_physical') : t('admin_shop_type_digital')}
                     </span>
+
                     {!product.isActive && (
                       <span className='rounded-full bg-stone-200 px-2 py-0.5 font-medium text-stone-700 text-xs'>
                         {t('admin_shop_inactive')}
@@ -72,18 +73,17 @@ export default async function AdminShopPage() {
                   <h2 className='font-semibold text-lg leading-tight'>{product.name}</h2>
                   <p className='font-medium text-stone-800'>{formattedPrice}</p>
 
-                  <div className='mt-auto flex flex-wrap gap-3 pt-2'>
-                    <Link
-                      href={`/admin/shop/${product.id}`}
-                      className='font-semibold text-primary text-sm hover:underline'
-                    >
-                      {t('admin_shop_view')}
+                  <div className='mt-auto flex flex-wrap gap-2 pt-2'>
+                    <Link href={`/admin/shop/${product.id}`}>
+                      <Button variant='default' className='cursor-pointer'>
+                        {t('admin_shop_view')}
+                      </Button>
                     </Link>
-                    <Link
-                      href={`/admin/shop/${product.id}/edit`}
-                      className='font-medium text-muted-foreground text-sm hover:text-foreground hover:underline'
-                    >
-                      {t('admin_shop_edit')}
+
+                    <Link href={`/admin/shop/${product.id}/edit`}>
+                      <Button variant='outline' className='cursor-pointer'>
+                        {t('admin_shop_edit')}
+                      </Button>
                     </Link>
                   </div>
                 </div>

@@ -2,8 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-
-import { ShopProductPurchaseActions } from './ShopProductPurchaseActions'
+import { Button } from '~/components/ui/button'
 
 import { Link } from '~/i18n/navigation'
 
@@ -82,7 +81,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             <span className='font-bold text-amber-800 text-xl'>{formattedPrice}</span>
           </div>
 
-          <ShopProductPurchaseActions productName={product.name} partnerStoreUrl={product.partnerStoreUrl} />
+          <Link href={product.partnerStoreUrl ?? `/shop/${product.id}`} target='_blank'>
+            <Button type='button' className='cursor-pointer'>
+              {t('shop_buy_at_partner')}
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

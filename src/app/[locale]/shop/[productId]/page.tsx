@@ -6,7 +6,6 @@ import { z } from 'zod'
 
 import { ArrowLeftIcon } from '@phosphor-icons/react/dist/ssr'
 import { Button } from '~/components/ui/button'
-import { ShopProductPurchaseActions } from '../components/ShopProductPurchaseActions'
 
 import { Link, notFound } from '~/i18n/navigation'
 import { routing } from '~/i18n/routing'
@@ -120,11 +119,11 @@ export default async function ShopProductDetailPage({ params }: PageProps) {
               <p className='whitespace-pre-wrap text-base text-stone-600 leading-relaxed'>{product.description}</p>
             ) : null}
 
-            <ShopProductPurchaseActions
-              productName={product.name}
-              partnerStoreUrl={product.partnerStoreUrl}
-              buttonSize='default'
-            />
+            <Link href={product.partnerStoreUrl ?? `/shop/${product.id}`} target='_blank'>
+              <Button type='button' className='cursor-pointer'>
+                {t('shop_buy_at_partner')}
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
