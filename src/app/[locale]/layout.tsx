@@ -12,6 +12,8 @@ import { notFound } from '~/i18n/navigation'
 
 import '../globals.css'
 
+import { Toaster } from '~/components/ui/sonner'
+
 import { routing } from '~/i18n/routing'
 import { Footer } from '~/layouts/Footer'
 import { Header } from '~/layouts/Header'
@@ -94,6 +96,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
         <body className={`${geistSans.variable}${geistMono.variable} relative antialiased`}>
           <Analytics />
           <SpeedInsights />
+          <Toaster richColors />
 
           <NextIntlClientProvider locale={locale} messages={messages}>
             <TRPCReactProvider trailing={<Footer />}>

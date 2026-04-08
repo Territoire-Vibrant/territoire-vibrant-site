@@ -17,6 +17,7 @@
     "preview": "next build && next start",
     "start": "next start",
     "typecheck": "tsc --noEmit",
+    "react-doctor": "bunx -y react-doctor@latest .",
     "prepare": "husky"
   },
   "dependencies": {

@@ -73,3 +73,11 @@ model ArticleTranslation {
     @@unique([articleId, locale])
     @@index([locale])
 }
+
+model Lead {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    name      String
+    email     String
+    phone     String
+}
