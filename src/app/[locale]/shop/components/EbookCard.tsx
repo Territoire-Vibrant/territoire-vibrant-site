@@ -1,7 +1,7 @@
 'use client'
 
 import { BookOpenTextIcon } from '@phosphor-icons/react/dist/ssr'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useActionState, useEffect, useState } from 'react'
 import { toast } from 'sonner'
@@ -18,18 +18,24 @@ import {
   DialogTrigger,
 } from '~/components/ui/dialog'
 import { cn } from '~/lib/utils'
+import type { LeadLocale } from '~/schemas/lead'
 import { LeadCaptureSchema } from '~/schemas/lead'
 import { api } from '~/trpc/react'
 
 type FormState = {
+  deliveryStatus?: 'email_failed' | 'sent'
   errors?: Record<string, string[] | undefined>
   success?: boolean
   message?: string
 }
 
-export const EbookCard = () => {
+type EbookDialogFormProps = {
+  locale: LeadLocale
+  onEmailSent: () => void
+}
+
+const EbookDialogForm = ({ locale, onEmailSent }: EbookDialogFormProps) => {
   const t = useTranslations('Ebook')
-  const [open, setOpen] = useState(false)
   const mutation = api.lead.capture.useMutation()
 
   const [state, action, isPending] = useActionState(
@@ -38,6 +44,7 @@ export const EbookCard = () => {
         name: formData.get('name'),
         email: formData.get('email'),
         phone: formData.get('phone'),
+        locale: formData.get('locale'),
       }
 
       const validation = LeadCaptureSchema.safeParse(raw)
@@ -46,8 +53,8 @@ export const EbookCard = () => {
       }
 
       try {
-        await mutation.mutateAsync(validation.data)
-        return { success: true }
+        const result = await mutation.mutateAsync(validation.data)
+        return { success: true, deliveryStatus: result.deliveryStatus }
       } catch {
         return { success: false, message: t('error') }
       }
@@ -57,11 +64,11 @@ export const EbookCard = () => {
 
   // Close dialog and fire success toast once the mutation confirms
   useEffect(() => {
-    if (state?.success) {
-      setOpen(false)
+    if (state?.success && state.deliveryStatus === 'sent') {
+      onEmailSent()
       toast.success(t('success_title'), { description: t('email_sent_hint') })
     }
-  }, [state?.success, t])
+  }, [onEmailSent, state?.deliveryStatus, state?.success, t])
 
   const inputClass = (field: string) =>
     cn(
@@ -69,6 +76,105 @@ export const EbookCard = () => {
       'placeholder:text-foreground/40 focus:border-primary focus:ring-2 focus:ring-primary/20',
       state?.errors?.[field] && 'border-destructive'
     )
+
+  if (state?.success && state.deliveryStatus === 'email_failed') {
+    return (
+      <div className='flex flex-col gap-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-amber-950'>
+        <div className='space-y-1'>
+          <h3 className='font-semibold text-base'>{t('delivery_warning_title')}</h3>
+          <p className='text-amber-900/80 text-sm'>{t('delivery_warning_subtitle')}</p>
+        </div>
+        <Button asChild size='lg' className='bg-amber-600 hover:bg-amber-700'>
+          <a href='/ebook.pdf' download>
+            <BookOpenTextIcon weight='bold' />
+            {t('download')}
+          </a>
+        </Button>
+      </div>
+    )
+  }
+
+  return (
+    <form action={action} className='flex flex-col gap-4'>
+      <input type='hidden' name='locale' value={locale} />
+
+      {/* Name */}
+      <div className='flex flex-col gap-2'>
+        <label htmlFor='ebook-name' className='font-medium text-foreground text-sm'>
+          {t('name')}
+        </label>
+        <input
+          type='text'
+          id='ebook-name'
+          name='name'
+          required
+          placeholder={t('name_placeholder')}
+          className={inputClass('name')}
+        />
+        {state?.errors?.name && <p className='text-destructive text-sm'>{state.errors.name[0]}</p>}
+      </div>
+
+      {/* Email */}
+      <div className='flex flex-col gap-2'>
+        <label htmlFor='ebook-email' className='font-medium text-foreground text-sm'>
+          {t('email')}
+        </label>
+        <input
+          type='email'
+          id='ebook-email'
+          name='email'
+          required
+          placeholder={t('email_placeholder')}
+          className={inputClass('email')}
+        />
+        {state?.errors?.email && <p className='text-destructive text-sm'>{state.errors.email[0]}</p>}
+      </div>
+
+      {/* Phone */}
+      <div className='flex flex-col gap-2'>
+        <label htmlFor='ebook-phone' className='font-medium text-foreground text-sm'>
+          {t('phone')}
+        </label>
+        <input
+          type='tel'
+          id='ebook-phone'
+          name='phone'
+          required
+          placeholder={t('phone_placeholder')}
+          className={inputClass('phone')}
+        />
+        {state?.errors?.phone && <p className='text-destructive text-sm'>{state.errors.phone[0]}</p>}
+      </div>
+
+      {/* General mutation error */}
+      {state?.message && !state.success && <p className='text-destructive text-sm'>{state.message}</p>}
+
+      <Button type='submit' size='lg' isLoading={isPending} className='mt-1'>
+        <BookOpenTextIcon weight='bold' />
+        {t('submit')}
+      </Button>
+    </form>
+  )
+}
+
+export const EbookCard = () => {
+  const t = useTranslations('Ebook')
+  const locale = useLocale() as LeadLocale
+  const [open, setOpen] = useState(false)
+  const [formKey, setFormKey] = useState(0)
+
+  const handleOpenChange = (nextOpen: boolean) => {
+    setOpen(nextOpen)
+
+    if (!nextOpen) {
+      setFormKey((currentKey) => currentKey + 1)
+    }
+  }
+
+  const handleEmailSent = () => {
+    setOpen(false)
+    setFormKey((currentKey) => currentKey + 1)
+  }
 
   return (
     <div className='group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'>
@@ -100,7 +206,7 @@ export const EbookCard = () => {
             <span className='font-bold text-emerald-700 text-xl'>{t('shop_badge')}</span>
           </div>
 
-          <Dialog open={open} onOpenChange={setOpen}>
+          <Dialog open={open} onOpenChange={handleOpenChange}>
             <DialogTrigger asChild>
               <Button type='button' className='w-full cursor-pointer bg-emerald-600 hover:bg-emerald-700'>
                 {t('shop_button')}
@@ -113,63 +219,7 @@ export const EbookCard = () => {
                 <DialogDescription>{t('dialog_description')}</DialogDescription>
               </DialogHeader>
 
-              <form action={action} className='flex flex-col gap-4'>
-                {/* Name */}
-                <div className='flex flex-col gap-2'>
-                  <label htmlFor='ebook-name' className='font-medium text-foreground text-sm'>
-                    {t('name')}
-                  </label>
-                  <input
-                    type='text'
-                    id='ebook-name'
-                    name='name'
-                    required
-                    placeholder={t('name_placeholder')}
-                    className={inputClass('name')}
-                  />
-                  {state?.errors?.name && <p className='text-destructive text-sm'>{state.errors.name[0]}</p>}
-                </div>
-
-                {/* Email */}
-                <div className='flex flex-col gap-2'>
-                  <label htmlFor='ebook-email' className='font-medium text-foreground text-sm'>
-                    {t('email')}
-                  </label>
-                  <input
-                    type='email'
-                    id='ebook-email'
-                    name='email'
-                    required
-                    placeholder={t('email_placeholder')}
-                    className={inputClass('email')}
-                  />
-                  {state?.errors?.email && <p className='text-destructive text-sm'>{state.errors.email[0]}</p>}
-                </div>
-
-                {/* Phone */}
-                <div className='flex flex-col gap-2'>
-                  <label htmlFor='ebook-phone' className='font-medium text-foreground text-sm'>
-                    {t('phone')}
-                  </label>
-                  <input
-                    type='tel'
-                    id='ebook-phone'
-                    name='phone'
-                    required
-                    placeholder={t('phone_placeholder')}
-                    className={inputClass('phone')}
-                  />
-                  {state?.errors?.phone && <p className='text-destructive text-sm'>{state.errors.phone[0]}</p>}
-                </div>
-
-                {/* General mutation error */}
-                {state?.message && !state.success && <p className='text-destructive text-sm'>{state.message}</p>}
-
-                <Button type='submit' size='lg' isLoading={isPending} className='mt-1'>
-                  <BookOpenTextIcon weight='bold' />
-                  {t('submit')}
-                </Button>
-              </form>
+              <EbookDialogForm key={formKey} locale={locale} onEmailSent={handleEmailSent} />
             </DialogContent>
           </Dialog>
         </div>

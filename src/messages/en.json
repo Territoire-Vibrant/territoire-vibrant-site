@@ -310,6 +310,8 @@
     "submit": "Send me the e-book",
     "success_title": "Your e-book is ready!",
     "success_subtitle": "Thank you for your interest. Click the button below to download.",
+    "delivery_warning_title": "We received your request",
+    "delivery_warning_subtitle": "We could not send the e-book to your inbox right now. You can download it directly below.",
     "download": "Download e-book",
     "error": "An error occurred. Please try again.",
     "shop_button": "Download for free",

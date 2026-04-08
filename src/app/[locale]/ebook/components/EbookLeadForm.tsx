@@ -1,15 +1,17 @@
 'use client'
 
-import { ArrowDownIcon, BookOpenIcon, CheckCircleIcon } from '@phosphor-icons/react/dist/ssr'
-import { useTranslations } from 'next-intl'
+import { ArrowDownIcon, BookOpenIcon, CheckCircleIcon, WarningCircleIcon } from '@phosphor-icons/react/dist/ssr'
+import { useLocale, useTranslations } from 'next-intl'
 import { useActionState } from 'react'
 
 import { Button } from '~/components/ui/button'
 import { cn } from '~/lib/utils'
+import type { LeadLocale } from '~/schemas/lead'
 import { LeadCaptureSchema } from '~/schemas/lead'
 import { api } from '~/trpc/react'
 
 type FormState = {
+  deliveryStatus?: 'email_failed' | 'sent'
   errors?: Record<string, string[] | undefined>
   success?: boolean
   message?: string
@@ -17,6 +19,7 @@ type FormState = {
 
 export const EbookLeadForm = () => {
   const t = useTranslations('Ebook')
+  const locale = useLocale() as LeadLocale
   const mutation = api.lead.capture.useMutation()
 
   const [state, action, isPending] = useActionState(
@@ -25,6 +28,7 @@ export const EbookLeadForm = () => {
         name: formData.get('name'),
         email: formData.get('email'),
         phone: formData.get('phone'),
+        locale: formData.get('locale'),
       }
 
       const validation = LeadCaptureSchema.safeParse(raw)
@@ -34,8 +38,8 @@ export const EbookLeadForm = () => {
       }
 
       try {
-        await mutation.mutateAsync(validation.data)
-        return { success: true }
+        const result = await mutation.mutateAsync(validation.data)
+        return { success: true, deliveryStatus: result.deliveryStatus }
       } catch {
         return { success: false, message: t('error') }
       }
@@ -44,14 +48,29 @@ export const EbookLeadForm = () => {
   )
 
   if (state?.success) {
+    const warningState = state.deliveryStatus === 'email_failed'
+
     return (
       <div className='flex flex-col items-center gap-6 py-8 text-center'>
-        <div className='flex size-16 items-center justify-center rounded-full bg-primary/10 text-primary'>
-          <CheckCircleIcon className='size-8' weight='fill' />
+        <div
+          className={cn(
+            'flex size-16 items-center justify-center rounded-full',
+            warningState ? 'bg-amber-100 text-amber-700' : 'bg-primary/10 text-primary'
+          )}
+        >
+          {warningState ? (
+            <WarningCircleIcon className='size-8' weight='fill' />
+          ) : (
+            <CheckCircleIcon className='size-8' weight='fill' />
+          )}
         </div>
         <div>
-          <h3 className='font-semibold text-foreground text-xl'>{t('success_title')}</h3>
-          <p className='mt-1 text-foreground/70'>{t('success_subtitle')}</p>
+          <h3 className='font-semibold text-foreground text-xl'>
+            {warningState ? t('delivery_warning_title') : t('success_title')}
+          </h3>
+          <p className='mt-1 text-foreground/70'>
+            {warningState ? t('delivery_warning_subtitle') : t('success_subtitle')}
+          </p>
         </div>
         <a
           href='/ebook.pdf'
@@ -72,6 +91,7 @@ export const EbookLeadForm = () => {
 
   return (
     <form action={action} className='flex flex-col gap-5'>
+      <input type='hidden' name='locale' value={locale} />
       <h3 className='font-semibold text-foreground text-lg'>{t('form_title')}</h3>
 
       {/* Name */}

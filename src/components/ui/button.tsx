@@ -50,18 +50,23 @@ function Button({
   const Comp = asChild ? Slot : 'button'
   const isDisabled = disabled || isLoading
 
-  const renderedChildren = React.Children.map(children, (child) => {
-    if (!React.isValidElement(child)) {
-      return child
-    }
+  // When asChild=true, Slot expects a single React element (not an array).
+  // React.Children.map always returns an array, which makes Slot silently render nothing.
+  // So skip the mapping entirely when asChild is true.
+  const renderedChildren = asChild
+    ? children
+    : React.Children.map(children, (child) => {
+        if (!React.isValidElement(child)) {
+          return child
+        }
 
-    // Preserve non-icon children when loading; replace icons with spinner
-    if (!isLoading || typeof child.type === 'string') {
-      return child
-    }
+        // Preserve non-icon children when loading; replace icons with spinner
+        if (!isLoading || typeof child.type === 'string') {
+          return child
+        }
 
-    return <CircleNotchIcon className='size-4 animate-spin' aria-hidden='true' />
-  })
+        return <CircleNotchIcon className='size-4 animate-spin' aria-hidden='true' />
+      })
 
   return (
     <Comp
@@ -71,7 +76,7 @@ function Button({
       aria-disabled={isDisabled}
       {...props}
     >
-      {isLoading && renderedChildren?.length === 0 ? (
+      {isLoading && Array.isArray(renderedChildren) && renderedChildren.length === 0 ? (
         <CircleNotchIcon className='size-4 animate-spin' aria-hidden='true' />
       ) : (
         renderedChildren

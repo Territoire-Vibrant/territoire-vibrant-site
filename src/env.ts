@@ -15,10 +15,10 @@ export const env = createEnv({
     R2_SECRET_ACCESS_KEY: z.string().min(1),
     R2_BUCKET_NAME: z.string().min(1),
     R2_PUBLIC_URL: z.string().url(),
-    // Email (Gmail SMTP)
-    SMTP_USER: z.string().email(),
-    SMTP_PASSWORD: z.string().min(1),
-    CONTACT_EMAIL: z.string().email().default('macneves@territoirevibrant.ca'),
+    // Email (MailerSend)
+    MAILERSEND_API_KEY: z.string().min(1),
+    MAILERSEND_FROM_EMAIL: z.string().default('macneves@territoirevibrant.ca'),
+    CONTACT_EMAIL: z.string().default('macneves@territoirevibrant.ca'),
   },
 
   /**
@@ -42,8 +42,8 @@ export const env = createEnv({
     R2_SECRET_ACCESS_KEY: process.env.R2_SECRET_ACCESS_KEY,
     R2_BUCKET_NAME: process.env.R2_BUCKET_NAME,
     R2_PUBLIC_URL: process.env.R2_PUBLIC_URL,
-    SMTP_USER: process.env.SMTP_USER,
-    SMTP_PASSWORD: process.env.SMTP_PASSWORD,
+    MAILERSEND_API_KEY: process.env.MAILERSEND_API_KEY,
+    MAILERSEND_FROM_EMAIL: process.env.MAILERSEND_FROM_EMAIL,
     CONTACT_EMAIL: process.env.CONTACT_EMAIL,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
   },
