@@ -12,7 +12,7 @@ type Product = {
   id: string
   name: string
   description: string | null
-  price: string
+  formattedPrice: string
   imageUrl: string | null
   type: ProductType
   partnerStoreUrl: string | null
@@ -24,12 +24,6 @@ interface ProductCardProps {
 
 export const ProductCard = ({ product }: ProductCardProps) => {
   const t = useTranslations()
-
-  const price = Number(product.price)
-  const formattedPrice = new Intl.NumberFormat('en-CA', {
-    style: 'currency',
-    currency: 'CAD',
-  }).format(price)
 
   return (
     <div className='group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'>
@@ -78,7 +72,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
         <div className='mt-auto flex flex-col gap-3'>
           <div className='flex items-center justify-between'>
-            <span className='font-bold text-amber-800 text-xl'>{formattedPrice}</span>
+            <span className='font-bold text-amber-800 text-xl'>{product.formattedPrice}</span>
           </div>
 
           <Link href={product.partnerStoreUrl ?? `/shop/${product.id}`} target='_blank'>

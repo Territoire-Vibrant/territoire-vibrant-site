@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { hasLocale } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { LOCALE_CURRENCY, getPriceByCurrency } from '~/lib/currency'
+import { formatPrice } from '~/lib/format-price'
 import Image from 'next/image'
 import { z } from 'zod'
 
@@ -64,11 +66,8 @@ export default async function ShopProductDetailPage({ params }: PageProps) {
     notFound()
   }
 
-  const price = Number(product.price)
-  const formattedPrice = new Intl.NumberFormat('en-CA', {
-    style: 'currency',
-    currency: 'CAD',
-  }).format(price)
+  const currency = LOCALE_CURRENCY[locale] ?? 'CAD'
+  const formattedPrice = formatPrice(getPriceByCurrency(currency), locale, currency)
 
   return (
     <Section limitWidth={false} className='bg-linear-to-b from-amber-50/50 to-stone-100 px-6 py-12'>

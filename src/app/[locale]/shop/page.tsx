@@ -1,19 +1,18 @@
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 
-import { ShoppingBagIcon } from '@phosphor-icons/react/dist/ssr'
 import { Section } from '~/layouts/Section'
-import { ProductCard } from './components/ProductCard'
-
+import { LOCALE_CURRENCY, getPriceByCurrency } from '~/lib/currency'
+import { formatPrice } from '~/lib/format-price'
 import { db } from '~/server/db'
 
-export default async function ShopPage() {
-  // const { locale } = await params
-  const t = await getTranslations()
+import { EbookCard } from './components/EbookCard'
+import { ProductCard } from './components/ProductCard'
 
-  const products = await db.product.findMany({
-    where: { isActive: true },
-    orderBy: { createdAt: 'desc' },
-  })
+export default async function ShopPage() {
+  const [t, locale] = await Promise.all([getTranslations(), getLocale()])
+
+  const currency = LOCALE_CURRENCY[locale] ?? 'CAD'
+  const products = await db.product.findMany({ where: { isActive: true }, orderBy: { createdAt: 'desc' } })
 
   return (
     <Section limitWidth={false} className='bg-linear-to-b from-amber-50/50 to-stone-100 px-6 py-12'>
@@ -23,31 +22,26 @@ export default async function ShopPage() {
           <p className='mx-auto max-w-2xl text-base text-stone-600'>{t('shop_page_subtitle')}</p>
         </div>
 
-        {products.length > 0 ? (
-          <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-            {products.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={{
-                  id: product.id,
-                  name: product.name,
-                  description: product.description,
-                  price: String(product.price),
-                  imageUrl: product.imageUrl,
-                  type: product.type,
-                  partnerStoreUrl: product.partnerStoreUrl,
-                }}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className='flex flex-col items-center justify-center py-20'>
-            <div className='mb-4 rounded-full bg-amber-100 p-6'>
-              <ShoppingBagIcon className='size-10' />
-            </div>
-            <p className='text-lg text-stone-600'>{t('no_products_yet')}</p>
-          </div>
-        )}
+        {/* Grid always renders — EbookCard ensures there's always at least one item */}
+        <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+          {/* Free e-book download — always first */}
+          <EbookCard />
+
+          {products.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={{
+                id: product.id,
+                name: product.name,
+                description: product.description,
+                formattedPrice: formatPrice(getPriceByCurrency(currency), locale, currency),
+                imageUrl: product.imageUrl,
+                type: product.type,
+                partnerStoreUrl: product.partnerStoreUrl,
+              }}
+            />
+          ))}
+        </div>
       </div>
     </Section>
   )
