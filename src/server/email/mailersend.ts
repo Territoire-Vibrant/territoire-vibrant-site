@@ -34,33 +34,33 @@ const EBOOK_EMAIL_CONTENT: Record<
   }
 > = {
   en: {
-    subject: 'Your e-book: Vibrant Territories',
+    subject: 'Your e-book: Vibrant Territory',
     greeting: (name) => `Hello, ${name}!`,
     intro:
-      'Thank you for your interest in our e-book. Your free guide, "Vibrant Territories", is attached to this email.',
+      'Thank you for your interest in our e-book. Your free guide, "Vibrant Territory", is attached to this email.',
     outro: 'We hope it inspires your next project.',
     footer: 'Território Vibrante',
   },
   es: {
-    subject: 'Tu e-book: Territorios Vibrantes',
+    subject: 'Tu e-book: Territorio Vibrante',
     greeting: (name) => `¡Hola, ${name}!`,
     intro:
-      'Gracias por tu interés en nuestro e-book. Tu guía gratuita, "Territorios Vibrantes", está adjunta a este correo.',
+      'Gracias por tu interés en nuestro e-book. Tu guía gratuita, "Territorio Vibrante", está adjunta a este correo.',
     outro: 'Esperamos que inspire tu próximo proyecto.',
     footer: 'Território Vibrante',
   },
   fr: {
-    subject: 'Votre e-book : Territoires Vibrants',
+    subject: 'Votre e-book : Territoire Vibrant',
     greeting: (name) => `Bonjour, ${name} !`,
-    intro: `Merci pour votre intérêt pour notre e-book. Votre guide gratuit, "Territoires Vibrants", est joint à cet email.`,
+    intro: `Merci pour votre intérêt pour notre e-book. Votre guide gratuit, "Territoire Vibrant", est joint à cet email.`,
     outro: "Nous espérons qu'il inspirera votre prochain projet.",
     footer: 'Território Vibrante',
   },
   pt: {
-    subject: 'Seu e-book: Territórios Vibrantes',
+    subject: 'Seu e-book: Território Vibrante',
     greeting: (name) => `Olá, ${name}!`,
     intro:
-      'Obrigado pelo interesse no nosso e-book. O seu guia gratuito "Territórios Vibrantes" está anexado neste email.',
+      'Obrigado pelo interesse no nosso e-book. O seu guia gratuito "Território Vibrante" está anexado neste email.',
     outro: 'Esperamos que ele inspire o seu próximo projeto.',
     footer: 'Território Vibrante',
   },
