@@ -52,43 +52,10 @@ const highlightText = (text: string, query: string) => {
   return text.replace(regex, `${HIGHLIGHT_START}$1${HIGHLIGHT_END}`)
 }
 
-const renderHighlightedText = (text: string, query: string, keyPrefix: string) => {
-  const highlighted = highlightText(text, query)
-  const parts: React.ReactNode[] = []
-  let remaining = highlighted
-  let partIndex = 0
-
-  while (remaining.length > 0) {
-    const startIdx = remaining.indexOf(HIGHLIGHT_START)
-    if (startIdx === -1) {
-      parts.push(remaining)
-      break
-    }
-
-    if (startIdx > 0) {
-      parts.push(remaining.slice(0, startIdx))
-    }
-
-    const afterStart = remaining.slice(startIdx + HIGHLIGHT_START.length)
-    const endIdx = afterStart.indexOf(HIGHLIGHT_END)
-
-    if (endIdx === -1) {
-      parts.push(remaining)
-      break
-    }
-
-    const highlightedPart = afterStart.slice(0, endIdx)
-    parts.push(
-      <mark key={`${keyPrefix}-${partIndex}`} className='bg-primary/20 text-foreground'>
-        {highlightedPart}
-      </mark>
-    )
-    partIndex++
-
-    remaining = afterStart.slice(endIdx + HIGHLIGHT_END.length)
-  }
-
-  return parts
+type HighlightSegment = {
+  highlighted: boolean
+  key: string
+  value: string
 }
 
 type SearchResultCard = {
@@ -98,6 +65,54 @@ type SearchResultCard = {
   locale: Locale
   isFallback: boolean
   previewMd: string
+}
+
+const getHighlightSegments = (text: string, query: string): HighlightSegment[] => {
+  const highlighted = highlightText(text, query)
+  const segments: HighlightSegment[] = []
+  let remaining = highlighted
+  let offset = 0
+
+  while (remaining.length > 0) {
+    const startIdx = remaining.indexOf(HIGHLIGHT_START)
+    if (startIdx === -1) {
+      segments.push({ highlighted: false, key: `${offset}-plain`, value: remaining })
+      break
+    }
+
+    if (startIdx > 0) {
+      const plainText = remaining.slice(0, startIdx)
+      segments.push({ highlighted: false, key: `${offset}-plain`, value: plainText })
+      offset += plainText.length
+    }
+
+    const afterStart = remaining.slice(startIdx + HIGHLIGHT_START.length)
+    const endIdx = afterStart.indexOf(HIGHLIGHT_END)
+
+    if (endIdx === -1) {
+      segments.push({ highlighted: false, key: `${offset}-plain`, value: remaining })
+      break
+    }
+
+    const highlightedValue = afterStart.slice(0, endIdx)
+    segments.push({ highlighted: true, key: `${offset}-highlight`, value: highlightedValue })
+    offset += highlightedValue.length
+    remaining = afterStart.slice(endIdx + HIGHLIGHT_END.length)
+  }
+
+  return segments
+}
+
+const HighlightedText = ({ text, query, keyPrefix }: { text: string; query: string; keyPrefix: string }) => {
+  return getHighlightSegments(text, query).map((segment) =>
+    segment.highlighted ? (
+      <mark key={`${keyPrefix}-${segment.key}`} className='bg-primary/20 text-foreground'>
+        {segment.value}
+      </mark>
+    ) : (
+      <span key={`${keyPrefix}-${segment.key}`}>{segment.value}</span>
+    )
+  )
 }
 
 export default async function SearchPage({
@@ -187,7 +202,7 @@ export default async function SearchPage({
                     </div>
 
                     <h2 className='font-semibold text-2xl text-foreground'>
-                      {renderHighlightedText(result.title, query, result.id)}
+                      <HighlightedText text={result.title} query={query} keyPrefix={result.id} />
                     </h2>
 
                     <div className='text-base text-muted-foreground leading-relaxed [&_a]:underline'>

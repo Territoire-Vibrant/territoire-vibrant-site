@@ -1,6 +1,7 @@
 'use client'
 
 import { ArrowDownIcon, BookOpenIcon, CheckCircleIcon, WarningCircleIcon } from '@phosphor-icons/react/dist/ssr'
+import NextLink from 'next/link'
 import { useLocale, useTranslations } from 'next-intl'
 import { useActionState } from 'react'
 
@@ -72,9 +73,10 @@ export const EbookLeadForm = () => {
             {warningState ? t('delivery_warning_subtitle') : t('success_subtitle')}
           </p>
         </div>
-        <a
+        <NextLink
           href='/ebook.pdf'
           download
+          prefetch={false}
           className={cn(
             'inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3',
             'font-medium text-primary-foreground text-sm shadow-xs',
@@ -84,7 +86,7 @@ export const EbookLeadForm = () => {
         >
           <ArrowDownIcon className='size-4' weight='bold' />
           {t('download')}
-        </a>
+        </NextLink>
       </div>
     )
   }

@@ -14,9 +14,10 @@ export default async function PublicationEditPage({
 }) {
   const { articleId } = await params
 
-  await getTranslations() // ensure messages available for client form
-
-  const data = await api.article.getArticleForEdit({ articleId })
+  const [, data] = await Promise.all([
+    getTranslations(), // ensure messages available for client form
+    api.article.getArticleForEdit({ articleId }),
+  ])
 
   const defaultValues: ArticleFormInitial | undefined = data
     ? {

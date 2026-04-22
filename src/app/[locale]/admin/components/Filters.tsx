@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { type ChangeEvent, useEffect, useMemo, useState } from 'react'
+import { type ChangeEvent, useCallback, useEffect, useState } from 'react'
 
 import { Button } from '~/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select'
@@ -20,17 +20,18 @@ type Props = {
 export const Filters = ({ initialQuery, initialSort, initialStatus }: Props) => {
   const t = useTranslations()
   const router = useRouter()
-  const searchParams =
-    typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams()
+  const [queryDraft, setQueryDraft] = useState<string | null>(null)
+  const [sortDraft, setSortDraft] = useState<string | null>(null)
+  const [statusDraft, setStatusDraft] = useState<PublishStatusValue | '' | null>(null)
 
-  const [query, setQuery] = useState(initialQuery)
-  const [sort, setSort] = useState(initialSort || 'newest')
-  const [status, setStatus] = useState<PublishStatusValue | ''>(initialStatus ?? '')
+  const query = queryDraft ?? initialQuery
+  const sort = sortDraft ?? initialSort ?? 'newest'
+  const status = statusDraft ?? initialStatus ?? ''
 
   // Helper to write the URL with current state
-  const commit = useMemo(() => {
-    return (next: Partial<{ q: string; sort: string; status: string | undefined }>) => {
-      const params = new URLSearchParams(searchParams?.toString())
+  const commit = useCallback(
+    (next: Partial<{ q: string; sort: string; status: string | undefined }>) => {
+      const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams()
       if (next.q !== undefined) {
         const v = next.q.trim()
         if (v) params.set('q', v)
@@ -47,27 +48,35 @@ export const Filters = ({ initialQuery, initialSort, initialStatus }: Props) => 
       }
       const qs = params.toString()
       router.replace(qs ? `?${qs}` : '?', { scroll: false })
-    }
-  }, [router, searchParams.toString()])
+    },
+    [router]
+  )
 
   // Debounce query updates for responsiveness without spamming navigation
   useEffect(() => {
+    if (queryDraft === null) {
+      return
+    }
     const id = setTimeout(() => {
-      commit({ q: query })
+      commit({ q: queryDraft })
     }, 300)
     return () => clearTimeout(id)
-  }, [query, commit])
+  }, [queryDraft, commit])
 
   // Immediate update for sort and status
   useEffect(() => {
-    commit({ sort })
-  }, [sort])
+    if (sortDraft !== null) {
+      commit({ sort: sortDraft })
+    }
+  }, [sortDraft, commit])
 
   useEffect(() => {
-    commit({ status: status || undefined })
-  }, [status])
+    if (statusDraft !== null) {
+      commit({ status: statusDraft || undefined })
+    }
+  }, [statusDraft, commit])
 
-  const onChangeQuery = (e: ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)
+  const onChangeQuery = (e: ChangeEvent<HTMLInputElement>) => setQueryDraft(e.target.value)
   return (
     <div className='flex w-full flex-col items-center gap-2 md:flex-row'>
       <input
@@ -80,7 +89,7 @@ export const Filters = ({ initialQuery, initialSort, initialStatus }: Props) => 
       />
 
       <div className='flex w-full items-center gap-2 md:w-auto'>
-        <Select value={sort} onValueChange={setSort}>
+        <Select value={sort} onValueChange={setSortDraft}>
           <SelectTrigger className='h-9 w-full border px-2 text-sm shadow-sm md:w-40'>
             <SelectValue placeholder={t('newest')} />
           </SelectTrigger>
@@ -93,7 +102,7 @@ export const Filters = ({ initialQuery, initialSort, initialStatus }: Props) => 
 
         <Select
           value={status ? status : 'ALL'}
-          onValueChange={(value) => setStatus(value === 'ALL' ? '' : (value as PublishStatusValue))}
+          onValueChange={(value) => setStatusDraft(value === 'ALL' ? '' : (value as PublishStatusValue))}
         >
           <SelectTrigger className='h-9 w-full border px-2 text-sm shadow-sm md:w-48'>
             <SelectValue placeholder={t('all_statuses')} />

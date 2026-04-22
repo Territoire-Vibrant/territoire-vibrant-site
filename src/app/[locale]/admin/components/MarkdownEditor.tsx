@@ -99,6 +99,159 @@ const ToolbarButton = ({ icon, onClick, active, disabled, label }: ToolbarButton
   </button>
 )
 
+const ToolbarDivider = () => <div className='mx-1 h-6 w-px bg-border' />
+
+type MarkdownEditorToolbarProps = {
+  controlsDisabled: boolean
+  editor: Editor
+  hasSelection: boolean
+  isUploading: boolean
+  onHeadingChange: (level: 1 | 2 | 3 | 4 | 5 | 6) => void
+  onImageUpload: () => void
+  onLinkInsert: () => void
+}
+
+const MarkdownEditorToolbar = ({
+  controlsDisabled,
+  editor,
+  hasSelection,
+  isUploading,
+  onHeadingChange,
+  onImageUpload,
+  onLinkInsert,
+}: MarkdownEditorToolbarProps) => {
+  return (
+    <div className='sticky top-0 z-10 flex flex-wrap items-center gap-1 border-b bg-muted/60 px-2 py-1.5'>
+      <ToolbarButton
+        icon={<TextBIcon className='size-4' />}
+        label='Bold'
+        onClick={() => editor.chain().focus().toggleBold().run()}
+        active={editor.isActive('bold')}
+        disabled={controlsDisabled}
+      />
+      <ToolbarButton
+        icon={<TextItalicIcon className='size-4' />}
+        label='Italic'
+        onClick={() => editor.chain().focus().toggleItalic().run()}
+        active={editor.isActive('italic')}
+        disabled={controlsDisabled}
+      />
+      <ToolbarButton
+        icon={<TextStrikethroughIcon className='size-4' />}
+        label='Strikethrough'
+        onClick={() => editor.chain().focus().toggleStrike().run()}
+        active={editor.isActive('strike')}
+        disabled={controlsDisabled}
+      />
+
+      <ToolbarDivider />
+
+      <ToolbarButton
+        icon={<TextHOneIcon className='size-4' />}
+        label='Heading 1'
+        onClick={() => onHeadingChange(1)}
+        active={editor.isActive('heading', { level: 1 })}
+        disabled={controlsDisabled}
+      />
+      <ToolbarButton
+        icon={<TextHTwoIcon className='size-4' />}
+        label='Heading 2'
+        onClick={() => onHeadingChange(2)}
+        active={editor.isActive('heading', { level: 2 })}
+        disabled={controlsDisabled}
+      />
+      <ToolbarButton
+        icon={<TextHThreeIcon className='size-4' />}
+        label='Heading 3'
+        onClick={() => onHeadingChange(3)}
+        active={editor.isActive('heading', { level: 3 })}
+        disabled={controlsDisabled}
+      />
+      <ToolbarButton
+        icon={<TextHFourIcon className='size-4' />}
+        label='Heading 4'
+        onClick={() => onHeadingChange(4)}
+        active={editor.isActive('heading', { level: 4 })}
+        disabled={controlsDisabled}
+      />
+      <ToolbarButton
+        icon={<TextHFiveIcon className='size-4' />}
+        label='Heading 5'
+        onClick={() => onHeadingChange(5)}
+        active={editor.isActive('heading', { level: 5 })}
+        disabled={controlsDisabled}
+      />
+      <ToolbarButton
+        icon={<TextHSixIcon className='size-4' />}
+        label='Heading 6'
+        onClick={() => onHeadingChange(6)}
+        active={editor.isActive('heading', { level: 6 })}
+        disabled={controlsDisabled}
+      />
+
+      <ToolbarDivider />
+
+      <ToolbarButton
+        icon={<ListBulletsIcon className='size-4' />}
+        label='Bullet list'
+        onClick={() => editor.chain().focus().toggleBulletList().run()}
+        active={editor.isActive('bulletList')}
+        disabled={controlsDisabled}
+      />
+      <ToolbarButton
+        icon={<ListNumbersIcon className='size-4' />}
+        label='Numbered list'
+        onClick={() => editor.chain().focus().toggleOrderedList().run()}
+        active={editor.isActive('orderedList')}
+        disabled={controlsDisabled}
+      />
+      <ToolbarButton
+        icon={<QuotesIcon className='size-4' />}
+        label='Blockquote'
+        onClick={() => editor.chain().focus().toggleBlockquote().run()}
+        active={editor.isActive('blockquote')}
+        disabled={controlsDisabled}
+      />
+      <ToolbarButton
+        icon={<CodeSimpleIcon className='size-4' />}
+        label='Code block'
+        onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+        active={editor.isActive('codeBlock')}
+        disabled={controlsDisabled}
+      />
+      <ToolbarButton
+        icon={<LinkSimpleIcon className='size-4' />}
+        label='Insert link'
+        onClick={onLinkInsert}
+        active={editor.isActive('link')}
+        disabled={controlsDisabled || !hasSelection}
+      />
+      <ToolbarButton
+        icon={isUploading ? <SpinnerIcon className='size-4 animate-spin' /> : <ImageIcon className='size-4' />}
+        label='Insert image'
+        onClick={onImageUpload}
+        active={editor.isActive('image')}
+        disabled={controlsDisabled || isUploading}
+      />
+
+      <ToolbarDivider />
+
+      <ToolbarButton
+        icon={<ArrowUUpLeftIcon className='size-4' />}
+        label='Undo'
+        onClick={() => editor.chain().focus().undo().run()}
+        disabled={!editor.can().chain().focus().undo().run() || controlsDisabled}
+      />
+      <ToolbarButton
+        icon={<ArrowUUpRightIcon className='size-4' />}
+        label='Redo'
+        onClick={() => editor.chain().focus().redo().run()}
+        disabled={!editor.can().chain().focus().redo().run() || controlsDisabled}
+      />
+    </div>
+  )
+}
+
 type MarkdownStorage = {
   getMarkdown: () => string
   setMarkdown?: (markdown: string) => void
@@ -113,6 +266,67 @@ const getMarkdownStorage = (editor: Editor | null): MarkdownStorage | null => {
     return null
   }
   return storage
+}
+
+const useEditorValueSync = ({
+  disabled,
+  editor,
+  lastMarkdown,
+  value,
+}: {
+  disabled: boolean
+  editor: Editor | null
+  lastMarkdown: { current: string }
+  value: string
+}) => {
+  useEffect(() => {
+    if (!editor) {
+      return
+    }
+    const storage = getMarkdownStorage(editor)
+    const current = storage?.getMarkdown() ?? ''
+    if (value === current) {
+      return
+    }
+    lastMarkdown.current = value ?? ''
+    if (storage?.setMarkdown) {
+      storage.setMarkdown(value ?? '')
+      return
+    }
+    editor.commands.setContent(value ?? '')
+  }, [editor, value, lastMarkdown])
+
+  useEffect(() => {
+    if (!editor) {
+      return
+    }
+    editor.setEditable(!disabled)
+  }, [editor, disabled])
+}
+
+const useEditorSelectionEmpty = (editor: Editor | null) => {
+  const [selectionEmpty, setSelectionEmpty] = useState(true)
+
+  useEffect(() => {
+    if (!editor) {
+      return
+    }
+
+    const handleSelectionChange = () => {
+      setSelectionEmpty(editor.state.selection.empty)
+    }
+
+    handleSelectionChange()
+    editor.on('selectionUpdate', handleSelectionChange)
+    editor.on('transaction', handleSelectionChange)
+
+    return () => {
+      editor.off('selectionUpdate', handleSelectionChange)
+      editor.off('transaction', handleSelectionChange)
+    }
+  }, [editor])
+
+  return selectionEmpty
 }
 
 export const MarkdownEditor = ({
@@ -130,7 +344,6 @@ export const MarkdownEditor = ({
   const fileInputRef = useRef<HTMLInputElement>(null)
   const previousImagesRef = useRef<Set<string>>(new Set())
   const editorRef = useRef<Editor | null>(null)
-  const [selectionEmpty, setSelectionEmpty] = useState(true)
   const [isUploading, setIsUploading] = useState(false)
 
   const uploadImage = useCallback(
@@ -309,48 +522,8 @@ export const MarkdownEditor = ({
     },
   })
 
-  useEffect(() => {
-    if (!editor) {
-      return
-    }
-    const storage = getMarkdownStorage(editor)
-    const current = storage?.getMarkdown() ?? ''
-    if (value === current) {
-      return
-    }
-    lastMarkdown.current = value ?? ''
-    if (storage?.setMarkdown) {
-      storage.setMarkdown(value ?? '')
-      return
-    }
-    editor.commands.setContent(value ?? '')
-  }, [editor, value])
-
-  useEffect(() => {
-    if (!editor) {
-      return
-    }
-    editor.setEditable(!disabled)
-  }, [editor, disabled])
-
-  useEffect(() => {
-    if (!editor) {
-      return
-    }
-
-    const handleSelectionChange = () => {
-      setSelectionEmpty(editor.state.selection.empty)
-    }
-
-    handleSelectionChange()
-    editor.on('selectionUpdate', handleSelectionChange)
-    editor.on('transaction', handleSelectionChange)
-
-    return () => {
-      editor.off('selectionUpdate', handleSelectionChange)
-      editor.off('transaction', handleSelectionChange)
-    }
-  }, [editor])
+  useEditorValueSync({ disabled, editor, lastMarkdown, value })
+  const selectionEmpty = useEditorSelectionEmpty(editor)
 
   const setHeading = (level: 1 | 2 | 3 | 4 | 5 | 6) => {
     if (!editor) {
@@ -426,141 +599,22 @@ export const MarkdownEditor = ({
       className={clsx('flex resize-y flex-col overflow-hidden rounded-md border', className)}
       style={{ minHeight: `${height}px`, height: `${height}px` }}
     >
-      <div className='sticky top-0 z-10 flex flex-wrap items-center gap-1 border-b bg-muted/60 px-2 py-1.5'>
-        <ToolbarButton
-          icon={<TextBIcon className='size-4' />}
-          label='Bold'
-          onClick={() => editor.chain().focus().toggleBold().run()}
-          active={editor.isActive('bold')}
-          disabled={controlsDisabled}
-        />
-        <ToolbarButton
-          icon={<TextItalicIcon className='size-4' />}
-          label='Italic'
-          onClick={() => editor.chain().focus().toggleItalic().run()}
-          active={editor.isActive('italic')}
-          disabled={controlsDisabled}
-        />
-        <ToolbarButton
-          icon={<TextStrikethroughIcon className='size-4' />}
-          label='Strikethrough'
-          onClick={() => editor.chain().focus().toggleStrike().run()}
-          active={editor.isActive('strike')}
-          disabled={controlsDisabled}
-        />
-
-        <div className='mx-1 h-6 w-px bg-border' />
-
-        <ToolbarButton
-          icon={<TextHOneIcon className='size-4' />}
-          label='Heading 1'
-          onClick={() => setHeading(1)}
-          active={editor.isActive('heading', { level: 1 })}
-          disabled={controlsDisabled}
-        />
-        <ToolbarButton
-          icon={<TextHTwoIcon className='size-4' />}
-          label='Heading 2'
-          onClick={() => setHeading(2)}
-          active={editor.isActive('heading', { level: 2 })}
-          disabled={controlsDisabled}
-        />
-        <ToolbarButton
-          icon={<TextHThreeIcon className='size-4' />}
-          label='Heading 3'
-          onClick={() => setHeading(3)}
-          active={editor.isActive('heading', { level: 3 })}
-          disabled={controlsDisabled}
-        />
-        <ToolbarButton
-          icon={<TextHFourIcon className='size-4' />}
-          label='Heading 4'
-          onClick={() => setHeading(4)}
-          active={editor.isActive('heading', { level: 4 })}
-          disabled={controlsDisabled}
-        />
-        <ToolbarButton
-          icon={<TextHFiveIcon className='size-4' />}
-          label='Heading 5'
-          onClick={() => setHeading(5)}
-          active={editor.isActive('heading', { level: 5 })}
-          disabled={controlsDisabled}
-        />
-        <ToolbarButton
-          icon={<TextHSixIcon className='size-4' />}
-          label='Heading 6'
-          onClick={() => setHeading(6)}
-          active={editor.isActive('heading', { level: 6 })}
-          disabled={controlsDisabled}
-        />
-
-        <div className='mx-1 h-6 w-px bg-border' />
-
-        <ToolbarButton
-          icon={<ListBulletsIcon className='size-4' />}
-          label='Bullet list'
-          onClick={() => editor.chain().focus().toggleBulletList().run()}
-          active={editor.isActive('bulletList')}
-          disabled={controlsDisabled}
-        />
-        <ToolbarButton
-          icon={<ListNumbersIcon className='size-4' />}
-          label='Numbered list'
-          onClick={() => editor.chain().focus().toggleOrderedList().run()}
-          active={editor.isActive('orderedList')}
-          disabled={controlsDisabled}
-        />
-        <ToolbarButton
-          icon={<QuotesIcon className='size-4' />}
-          label='Blockquote'
-          onClick={() => editor.chain().focus().toggleBlockquote().run()}
-          active={editor.isActive('blockquote')}
-          disabled={controlsDisabled}
-        />
-        <ToolbarButton
-          icon={<CodeSimpleIcon className='size-4' />}
-          label='Code block'
-          onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-          active={editor.isActive('codeBlock')}
-          disabled={controlsDisabled}
-        />
-        <ToolbarButton
-          icon={<LinkSimpleIcon className='size-4' />}
-          label='Insert link'
-          onClick={promptForLink}
-          active={editor.isActive('link')}
-          disabled={controlsDisabled || !hasSelection}
-        />
-        <ToolbarButton
-          icon={isUploading ? <SpinnerIcon className='size-4 animate-spin' /> : <ImageIcon className='size-4' />}
-          label='Insert image'
-          onClick={triggerImageUpload}
-          active={editor.isActive('image')}
-          disabled={controlsDisabled || isUploading}
-        />
-        <input
-          ref={fileInputRef}
-          type='file'
-          accept='image/jpeg,image/png,image/gif,image/webp'
-          onChange={handleImageUpload}
-          className='hidden'
-        />
-
-        <div className='mx-1 h-6 w-px bg-border' />
-
-        <ToolbarButton
-          icon={<ArrowUUpLeftIcon className='size-4' />}
-          label='Undo'
-          onClick={() => editor.chain().focus().undo().run()}
-          disabled={!editor.can().chain().focus().undo().run() || controlsDisabled}
-        />
-        <ToolbarButton
-          icon={<ArrowUUpRightIcon className='size-4' />}
-          label='Redo'
-          onClick={() => editor.chain().focus().redo().run()}
-          disabled={!editor.can().chain().focus().redo().run() || controlsDisabled}
-        />
-      </div>
+      <MarkdownEditorToolbar
+        controlsDisabled={controlsDisabled}
+        editor={editor}
+        hasSelection={hasSelection}
+        isUploading={isUploading}
+        onHeadingChange={setHeading}
+        onImageUpload={triggerImageUpload}
+        onLinkInsert={promptForLink}
+      />
+      <input
+        ref={fileInputRef}
+        type='file'
+        accept='image/jpeg,image/png,image/gif,image/webp'
+        onChange={handleImageUpload}
+        className='hidden'
+      />
 
       <div className='flex-1 overflow-y-auto'>
         <EditorContent id={id} editor={editor} onBlur={onBlurAction} className='h-full text-justify' />

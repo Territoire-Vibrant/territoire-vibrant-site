@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
 import { Button, buttonVariants } from '~/components/ui/button'
+import { UnoptimizedImage } from '~/components/ui/unoptimized-image'
 import { cn } from '~/lib/utils'
 
 import { Link } from '~/i18n/navigation'
@@ -38,11 +39,12 @@ export default async function AdminShopPage() {
               >
                 <div className='relative aspect-4/3 w-full shrink-0 overflow-hidden bg-amber-50'>
                   {product.imageUrl ? (
-                    // biome-ignore lint/performance/noImgElement: admin list must support any image host (not only next.config remotePatterns)
-                    <img
+                    <UnoptimizedImage
                       src={product.imageUrl}
                       alt={product.name}
-                      className='absolute inset-0 size-full object-cover'
+                      fill
+                      sizes='(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'
+                      className='object-cover'
                     />
                   ) : (
                     <div className='absolute inset-0 flex items-center justify-center bg-linear-to-br from-amber-100 to-orange-100 px-2'>

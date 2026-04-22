@@ -4,13 +4,10 @@ import { type QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { httpBatchStreamLink, loggerLink } from '@trpc/client'
 import { createTRPCReact } from '@trpc/react-query'
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server'
-import { type ReactNode, Suspense, useEffect, useState } from 'react'
+import { type ReactNode, useEffect, useState } from 'react'
 import SuperJSON from 'superjson'
 
-import { usePathname } from '~/i18n/navigation'
 import type { AppRouter } from '~/server/api/root'
-// biome-ignore lint/style/noRestrictedImports: next-intl createNavigation does not export useSearchParams
-import { useSearchParams } from 'next/navigation'
 
 import { createQueryClient } from './query-client'
 
@@ -42,19 +39,12 @@ export type RouterInputs = inferRouterInputs<AppRouter>
  */
 export type RouterOutputs = inferRouterOutputs<AppRouter>
 
-function isModifiedClick(e: MouseEvent) {
+const isModifiedClick = (e: MouseEvent) => {
   return e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0
 }
 
-function NavigationLoadingSlot({ children }: { children: ReactNode }) {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+const NavigationLoadingSlot = ({ children }: { children: ReactNode }) => {
   const [pending, setPending] = useState(false)
-  const urlKey = `${pathname}?${searchParams.toString()}`
-
-  useEffect(() => {
-    setPending(false)
-  }, [urlKey])
 
   useEffect(() => {
     const onClickCapture = (e: MouseEvent) => {
@@ -93,9 +83,31 @@ function NavigationLoadingSlot({ children }: { children: ReactNode }) {
   }, [])
 
   useEffect(() => {
-    const onPopState = () => setPending(true)
-    window.addEventListener('popstate', onPopState)
-    return () => window.removeEventListener('popstate', onPopState)
+    const clearPending = () => setPending(false)
+    const originalPushState = window.history.pushState
+    const originalReplaceState = window.history.replaceState
+
+    window.history.pushState = function pushState(...args) {
+      const result = originalPushState.apply(this, args)
+      clearPending()
+      return result
+    }
+
+    window.history.replaceState = function replaceState(...args) {
+      const result = originalReplaceState.apply(this, args)
+      clearPending()
+      return result
+    }
+
+    window.addEventListener('popstate', clearPending)
+    window.addEventListener('pageshow', clearPending)
+
+    return () => {
+      window.history.pushState = originalPushState
+      window.history.replaceState = originalReplaceState
+      window.removeEventListener('popstate', clearPending)
+      window.removeEventListener('pageshow', clearPending)
+    }
   }, [])
 
   useEffect(() => {
@@ -142,17 +154,13 @@ export function TRPCReactProvider(props: { children: ReactNode; trailing?: React
         <api.Provider client={trpcClient} queryClient={queryClient}>
           {props.children}
         </api.Provider>
-        {props.trailing != null ? (
-          <Suspense fallback={null}>
-            <NavigationLoadingSlot>{props.trailing}</NavigationLoadingSlot>
-          </Suspense>
-        ) : null}
+        {props.trailing != null ? <NavigationLoadingSlot>{props.trailing}</NavigationLoadingSlot> : null}
       </div>
     </QueryClientProvider>
   )
 }
 
-function getBaseUrl() {
+const getBaseUrl = () => {
   if (typeof window !== 'undefined') return window.location.origin
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`
   return `http://localhost:${process.env.PORT ?? 3000}`

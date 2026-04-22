@@ -8,6 +8,8 @@ import remarkGfm from 'remark-gfm'
 
 import 'highlight.js/styles/github.css'
 
+import { UnoptimizedImage } from './ui/unoptimized-image'
+
 const HIGHLIGHT_START = '‹‹HL››'
 const HIGHLIGHT_END = '‹‹/HL››'
 
@@ -29,15 +31,35 @@ const Code: Components['code'] = ({ className, children, ...props }) => {
 }
 
 const createComponents = (): Components => ({
-  h1: ({ node, ...props }) => <h1 className={clsx('first:mt-0', 'mt-6', 'font-semibold', 'text-2xl')} {...props} />,
-  h2: ({ node, ...props }) => <h2 className={clsx('first:mt-0', 'mt-5', 'font-semibold', 'text-xl')} {...props} />,
-  h3: ({ node, ...props }) => <h3 className={clsx('first:mt-0', 'mt-4', 'font-semibold', 'text-lg')} {...props} />,
-  h4: ({ node, ...props }) => <h4 className={clsx('first:mt-0', 'mt-4', 'font-semibold', 'text-base')} {...props} />,
-  h5: ({ node, ...props }) => (
-    <h5 className={clsx('first:mt-0', 'mt-3', 'font-medium', 'text-base', 'tracking-wide')} {...props} />
+  h1: ({ node, children, ...props }) => (
+    <h1 className={clsx('first:mt-0', 'mt-6', 'font-semibold', 'text-2xl')} {...props}>
+      {children}
+    </h1>
   ),
-  h6: ({ node, ...props }) => (
-    <h6 className={clsx('first:mt-0', 'mt-3', 'text-sm', 'tracking-wide', 'text-muted-foreground')} {...props} />
+  h2: ({ node, children, ...props }) => (
+    <h2 className={clsx('first:mt-0', 'mt-5', 'font-semibold', 'text-xl')} {...props}>
+      {children}
+    </h2>
+  ),
+  h3: ({ node, children, ...props }) => (
+    <h3 className={clsx('first:mt-0', 'mt-4', 'font-semibold', 'text-lg')} {...props}>
+      {children}
+    </h3>
+  ),
+  h4: ({ node, children, ...props }) => (
+    <h4 className={clsx('first:mt-0', 'mt-4', 'font-semibold', 'text-base')} {...props}>
+      {children}
+    </h4>
+  ),
+  h5: ({ node, children, ...props }) => (
+    <h5 className={clsx('first:mt-0', 'mt-3', 'font-medium', 'text-base', 'tracking-wide')} {...props}>
+      {children}
+    </h5>
+  ),
+  h6: ({ node, children, ...props }) => (
+    <h6 className={clsx('first:mt-0', 'mt-3', 'text-sm', 'tracking-wide', 'text-muted-foreground')} {...props}>
+      {children}
+    </h6>
   ),
   p: ({ node, ...props }) => (
     <p className={clsx('first:mt-0', 'leading-relaxed', 'mt-3', 'text-justify', 'text-muted-foreground')} {...props} />
@@ -78,10 +100,17 @@ const createComponents = (): Components => ({
   td: ({ node, ...props }) => <td className='px-3 py-2 align-top' {...props} />,
   code: Code,
   hr: () => <hr className='my-6 border-border/70' />,
-  img: ({ node, alt, ...props }) => (
-    // biome-ignore lint/performance/noImgElement: markdown content has dynamic src; next/image would require remote config and dimensions
-    <img alt={alt ?? 'article image'} className='mt-4 h-auto max-w-full rounded-md' {...props} />
-  ),
+  img: ({ alt, src }) =>
+    typeof src === 'string' ? (
+      <UnoptimizedImage
+        src={src}
+        alt={alt ?? 'article image'}
+        width={1600}
+        height={900}
+        sizes='100vw'
+        className='mt-4 h-auto max-w-full rounded-md'
+      />
+    ) : null,
   strong: ({ node, ...props }) => <strong className='font-semibold text-foreground' {...props} />,
   mark: ({ node, ...props }) => <mark className='bg-primary/20 text-foreground' {...props} />,
   em: ({ node, ...props }) => <em className='text-muted-foreground' {...props} />,

@@ -3,6 +3,7 @@ import { z } from 'zod'
 
 import { ArrowLeftIcon, PencilSimpleIcon } from '@phosphor-icons/react/dist/ssr'
 import { Button, buttonVariants } from '~/components/ui/button'
+import { UnoptimizedImage } from '~/components/ui/unoptimized-image'
 
 import { Link, notFound } from '~/i18n/navigation'
 import { cn } from '~/lib/utils'
@@ -58,8 +59,13 @@ export default async function AdminShopProductDetailPage({ params }: { params: P
       <div className='overflow-hidden rounded-xl border border-border bg-card shadow-sm'>
         <div className='relative aspect-16/10 w-full bg-muted'>
           {product.imageUrl ? (
-            // biome-ignore lint/performance/noImgElement: admin detail must support any image host
-            <img src={product.imageUrl} alt={product.name} className='size-full object-cover' />
+            <UnoptimizedImage
+              src={product.imageUrl}
+              alt={product.name}
+              fill
+              sizes='(max-width: 768px) 100vw, 768px'
+              className='object-cover'
+            />
           ) : (
             <div className='flex size-full min-h-50 items-center justify-center bg-linear-to-br from-amber-100 to-orange-100 px-4'>
               <span className='text-center font-semibold text-amber-800/50 text-lg tracking-tight sm:text-2xl'>

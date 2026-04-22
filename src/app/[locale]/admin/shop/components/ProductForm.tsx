@@ -11,6 +11,7 @@ import type { z } from 'zod'
 
 import type { UploadError, UploadResponse } from '~/app/api/upload/schema'
 import { Button } from '~/components/ui/button'
+import { UnoptimizedImage } from '~/components/ui/unoptimized-image'
 
 import { Link, useRouter } from '~/i18n/navigation'
 import { productAdminUpsertSchema } from '~/lib/product-admin-schema'
@@ -307,10 +308,12 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
               <FieldError message={errors.imageUrl?.message} />
               {showImagePreview && imagePreviewSrc ? (
                 <div className='overflow-hidden rounded-lg border border-border bg-muted/30 p-2'>
-                  {/* biome-ignore lint/performance/noImgElement: Arbitrary preview URL from admin; Next Image requires remotePatterns per host */}
-                  <img
+                  <UnoptimizedImage
                     src={imagePreviewSrc}
                     alt=''
+                    width={1200}
+                    height={900}
+                    sizes='(max-width: 768px) 100vw, 768px'
                     className='mx-auto max-h-48 w-auto max-w-full rounded-md object-contain'
                   />
                 </div>

@@ -1,6 +1,7 @@
 'use client'
 
 import { BookOpenTextIcon } from '@phosphor-icons/react/dist/ssr'
+import NextLink from 'next/link'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useActionState, useEffect, useState } from 'react'
@@ -85,10 +86,10 @@ const EbookDialogForm = ({ locale, onEmailSent }: EbookDialogFormProps) => {
           <p className='text-amber-900/80 text-sm'>{t('delivery_warning_subtitle')}</p>
         </div>
         <Button asChild size='lg' className='bg-amber-600 hover:bg-amber-700'>
-          <a href='/ebook.pdf' download>
+          <NextLink href='/ebook.pdf' download prefetch={false}>
             <BookOpenTextIcon weight='bold' />
             {t('download')}
-          </a>
+          </NextLink>
         </Button>
       </div>
     )

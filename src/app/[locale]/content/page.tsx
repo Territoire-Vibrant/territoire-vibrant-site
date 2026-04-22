@@ -101,10 +101,12 @@ export default async function ContentPage({
   const categoryParam = Array.isArray(rawSearchParams.category) ? rawSearchParams.category[0] : rawSearchParams.category
   const activeCategory: ContentCategory = isContentCategory(categoryParam) ? categoryParam : 'publications'
 
-  const t = await getTranslations()
-  const tContent = await getTranslations('Content')
-  const tCaseStudies = await getTranslations('CaseStudies')
-  const articles = activeCategory === 'publications' ? await api.article.getAll() : []
+  const [t, tContent, tCaseStudies, articles] = await Promise.all([
+    getTranslations(),
+    getTranslations('Content'),
+    getTranslations('CaseStudies'),
+    activeCategory === 'publications' ? api.article.getAll() : Promise.resolve([]),
+  ])
 
   const publishedArticles: PublishedArticleCard[] = articles
     .filter((article) => article.status === 'PUBLISHED' && article.id !== METHOD_ARTICLE_ID)
