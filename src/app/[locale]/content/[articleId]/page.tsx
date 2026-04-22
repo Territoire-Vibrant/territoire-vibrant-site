@@ -71,7 +71,7 @@ export default async function PublicationArticlePage({
       <article className='mx-auto flex w-full max-w-3xl flex-col gap-6'>
         <div className='space-y-4'>
           <Link
-            href='/content'
+            href='/content?category=publications'
             className='font-semibold text-primary text-sm uppercase tracking-[0.2em] hover:underline'
           >
             {t('publications')}

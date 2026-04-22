@@ -1,28 +1,33 @@
 import '@uiw/react-markdown-preview/markdown.css'
 
+import { ArrowDownIcon } from '@phosphor-icons/react/dist/ssr'
+import type { Metadata } from 'next'
+import Image from 'next/image'
 import { getTranslations } from 'next-intl/server'
 
 import { MarkdownPreview } from '~/components/MarkdownPreview'
 import { Button } from '~/components/ui/button'
 import { Section } from '~/layouts/Section'
 import { METHOD_ARTICLE_ID } from '~/lib/constants'
+import {
+  CASE_STUDIES,
+  type ContentCategory,
+  type ContentLocale,
+  resolveContentLocale,
+  isContentCategory,
+} from '~/lib/case-studies'
+import { cn } from '~/lib/utils'
 
 import { Link } from '~/i18n/navigation'
 import { api } from '~/trpc/server'
 
-const SUPPORTED_LOCALES = ['en', 'es', 'fr', 'pt'] as const
-
-type Locale = (typeof SUPPORTED_LOCALES)[number]
+type Locale = ContentLocale
 
 const LOCALE_LABEL_KEYS: Record<Locale, 'english' | 'spanish' | 'french' | 'portuguese'> = {
   en: 'english',
   es: 'spanish',
   fr: 'french',
   pt: 'portuguese',
-}
-
-const resolveLocale = (value: string): Locale => {
-  return SUPPORTED_LOCALES.includes(value as Locale) ? (value as Locale) : 'en'
 }
 
 const formatDate = (locale: Locale, date: Date) => {
@@ -43,6 +48,11 @@ const buildPreviewMarkdown = (md: string, maxParagraphs = 2, maxChars = 600) => 
   return preview
 }
 
+type ContentCategoryLink = {
+  href: '/content?category=insights' | '/content?category=publications'
+  key: ContentCategory
+}
+
 type PublishedArticleCard = {
   id: string
   title: string
@@ -52,18 +62,49 @@ type PublishedArticleCard = {
   previewMd: string
 }
 
-export default async function PublicationsPage({
+const CATEGORY_LINKS: readonly ContentCategoryLink[] = [
+  { key: 'publications', href: '/content?category=publications' },
+  { key: 'insights', href: '/content?category=insights' },
+] as const
+
+export async function generateMetadata({
   params,
 }: {
   params: Promise<{
     locale: string
   }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const activeLocale = resolveContentLocale(locale)
+  const t = await getTranslations({ locale: activeLocale, namespace: 'Content' })
+
+  return {
+    title: t('title'),
+    description: t('subtitle'),
+  }
+}
+
+export default async function ContentPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{
+    locale: string
+  }>
+  searchParams: Promise<{
+    category?: string | string[]
+  }>
 }) {
   const { locale } = await params
-  const activeLocale = resolveLocale(locale)
+  const rawSearchParams = await searchParams
+  const activeLocale = resolveContentLocale(locale)
+  const categoryParam = Array.isArray(rawSearchParams.category) ? rawSearchParams.category[0] : rawSearchParams.category
+  const activeCategory: ContentCategory = isContentCategory(categoryParam) ? categoryParam : 'publications'
 
   const t = await getTranslations()
-  const articles = await api.article.getAll()
+  const tContent = await getTranslations('Content')
+  const tCaseStudies = await getTranslations('CaseStudies')
+  const articles = activeCategory === 'publications' ? await api.article.getAll() : []
 
   const publishedArticles: PublishedArticleCard[] = articles
     .filter((article) => article.status === 'PUBLISHED' && article.id !== METHOD_ARTICLE_ID)
@@ -95,63 +136,144 @@ export default async function PublicationsPage({
     <Section className='px-6 py-12'>
       <div className='mx-auto flex w-full max-w-5xl flex-col gap-10'>
         <div className='space-y-3'>
-          <h1 className='font-bold text-4xl text-foreground tracking-tight'>{t('Publications.title')}</h1>
+          <h1 className='font-bold text-4xl text-foreground tracking-tight'>{tContent('title')}</h1>
 
-          <p className='max-w-2xl text-base text-muted-foreground'>{t('Publications.subtitle')}</p>
+          <p className='max-w-2xl text-base text-muted-foreground'>{tContent('subtitle')}</p>
 
-          <div className='flex flex-wrap items-center gap-4 pt-2'>
-            <Link href='/magazine'>
-              <Button
-                variant='outline'
-                className='cursor-pointer border-primary text-primary hover:bg-primary hover:text-white'
-              >
-                {t('magazine')}
-              </Button>
-            </Link>
+          <div className='flex flex-wrap items-center gap-3 pt-2'>
+            {CATEGORY_LINKS.map((categoryLink) => (
+              <Link key={categoryLink.key} href={categoryLink.href}>
+                <span
+                  className={cn(
+                    'inline-flex h-10 items-center justify-center rounded-full border px-5 py-2 font-medium text-sm transition-all',
+                    activeCategory === categoryLink.key
+                      ? 'border-primary bg-primary text-primary-foreground shadow-xs'
+                      : 'border-border bg-background text-foreground hover:border-primary/60 hover:text-primary'
+                  )}
+                >
+                  {tContent(`categories.${categoryLink.key}`)}
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
 
-        {publishedArticles.length > 0 ? (
+        {activeCategory === 'publications' ? (
           <div className='flex flex-col gap-10'>
-            {publishedArticles.map((articleCard) => {
-              const publishedLabel = t('Publications.published_on', {
-                date: formatDate(activeLocale, articleCard.createdAt),
-              })
-              const languageName = t(LOCALE_LABEL_KEYS[articleCard.locale])
+            <div className='space-y-3'>
+              <h2 className='font-semibold text-2xl text-foreground'>{t('Publications.title')}</h2>
+              <p className='max-w-2xl text-base text-muted-foreground'>{t('Publications.subtitle')}</p>
 
-              return (
-                <article key={articleCard.id} className='rounded-2xl border border-border/60 p-6 shadow-xs'>
-                  <div className='flex flex-col gap-3'>
-                    <div className='flex flex-wrap items-center gap-3 font-medium text-muted-foreground text-xs'>
-                      <span>{publishedLabel}</span>
+              <div className='flex flex-wrap items-center gap-4 pt-2'>
+                <Link href='/magazine'>
+                  <Button
+                    variant='outline'
+                    className='cursor-pointer border-primary text-primary hover:bg-primary hover:text-white'
+                  >
+                    {t('magazine')}
+                  </Button>
+                </Link>
+              </div>
+            </div>
 
-                      {!!articleCard.isFallback && (
-                        <span className='rounded-full bg-muted px-2 py-1 font-semibold text-[11px] text-foreground uppercase tracking-wide'>
-                          {t('Publications.fallback_notice', { language: languageName })}
+            {publishedArticles.length > 0 ? (
+              <div className='flex flex-col gap-10'>
+                {publishedArticles.map((articleCard) => {
+                  const publishedLabel = t('Publications.published_on', {
+                    date: formatDate(activeLocale, articleCard.createdAt),
+                  })
+                  const languageName = t(LOCALE_LABEL_KEYS[articleCard.locale])
+
+                  return (
+                    <article key={articleCard.id} className='rounded-2xl border border-border/60 p-6 shadow-xs'>
+                      <div className='flex flex-col gap-3'>
+                        <div className='flex flex-wrap items-center gap-3 font-medium text-muted-foreground text-xs'>
+                          <span>{publishedLabel}</span>
+
+                          {!!articleCard.isFallback && (
+                            <span className='rounded-full bg-muted px-2 py-1 font-semibold text-[11px] text-foreground uppercase tracking-wide'>
+                              {t('Publications.fallback_notice', { language: languageName })}
+                            </span>
+                          )}
+                        </div>
+
+                        <h3 className='font-semibold text-2xl text-foreground'>{articleCard.title}</h3>
+
+                        <div className='text-base text-muted-foreground leading-relaxed [&_a]:underline'>
+                          <MarkdownPreview markdown={articleCard.previewMd} />
+                        </div>
+
+                        <div className='pt-2'>
+                          <Link href={`/content/${articleCard.id}`}>
+                            <Button size='sm' className='cursor-pointer'>
+                              {t('Publications.read_more')}
+                            </Button>
+                          </Link>
+                        </div>
+                      </div>
+                    </article>
+                  )
+                })}
+              </div>
+            ) : (
+              <p className='text-muted-foreground'>{t('no_publications_yet')}</p>
+            )}
+          </div>
+        ) : (
+          <div className='flex flex-col gap-8'>
+            <div className='space-y-3'>
+              <h2 className='font-semibold text-2xl text-foreground'>{tCaseStudies('title')}</h2>
+              <p className='max-w-3xl text-base text-muted-foreground'>{tCaseStudies('subtitle')}</p>
+            </div>
+
+            <div className='grid gap-6'>
+              {CASE_STUDIES.map((caseStudy) => (
+                <article
+                  key={caseStudy.id}
+                  className='overflow-hidden rounded-3xl border border-border/70 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'
+                >
+                  <div className='grid gap-0 md:grid-cols-[minmax(260px,340px)_1fr]'>
+                    <div className='relative min-h-[320px] bg-stone-100'>
+                      <Image
+                        src={caseStudy.coverImage}
+                        alt={caseStudy.coverAlt[activeLocale]}
+                        fill
+                        sizes='(max-width: 767px) 100vw, 340px'
+                        className='object-cover'
+                      />
+
+                      <div className='pointer-events-none absolute top-4 left-4 z-10'>
+                        <span className='rounded-full bg-stone-900 px-3 py-1 font-semibold text-[11px] text-stone-50 uppercase tracking-[0.2em]'>
+                          {tCaseStudies('file_type')}
                         </span>
-                      )}
+                      </div>
                     </div>
 
-                    <h2 className='font-semibold text-2xl text-foreground'>{articleCard.title}</h2>
+                    <div className='flex flex-col justify-between gap-6 p-6 sm:p-8'>
+                      <div className='space-y-4'>
+                        <h3 className='max-w-3xl font-semibold text-2xl text-foreground leading-tight'>
+                          {caseStudy.title[activeLocale]}
+                        </h3>
 
-                    <div className='text-base text-muted-foreground leading-relaxed [&_a]:underline'>
-                      <MarkdownPreview markdown={articleCard.previewMd} />
-                    </div>
+                        <p className='max-w-3xl text-base text-muted-foreground leading-relaxed'>
+                          {caseStudy.description[activeLocale]}
+                        </p>
+                      </div>
 
-                    <div className='pt-2'>
-                      <Link href={`/content/${articleCard.id}`}>
-                        <Button size='sm' className='cursor-pointer'>
-                          {t('Publications.read_more')}
+                      <div className='pt-2'>
+                        <Button asChild size='lg' className='cursor-pointer'>
+                          <a href={caseStudy.downloadUrl} download={caseStudy.downloadFileName}>
+                            <ArrowDownIcon weight='bold' />
+                            {tCaseStudies('download')}
+                          </a>
                         </Button>
-                      </Link>
+                      </div>
                     </div>
                   </div>
                 </article>
-              )
-            })}
+              ))}
+            </div>
           </div>
-        ) : (
-          <p className='text-muted-foreground'>{t('no_publications_yet')}</p>
         )}
       </div>
     </Section>

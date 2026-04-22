@@ -73,6 +73,27 @@
   "content": "Content",
   "content_page_title": "Content",
   "content_page_subtitle": "Choose a category to explore",
+  "Content": {
+    "title": "Content",
+    "subtitle": "Choose a category to explore.",
+    "categories": {
+      "publications": "Publications",
+      "insights": "Insights"
+    }
+  },
+  "CaseStudies": {
+    "title": "Insights",
+    "subtitle": "Territorial diagnostics, reports, and field-based readings available for download.",
+    "download": "Download PDF",
+    "file_type": "PDF",
+    "items": {
+      "santa_maria": {
+        "title": "Socio-Territorial Diagnostic of Santa Maria (Aracaju, Brazil)",
+        "description": "Territorial analysis based on three years of direct field immersion in the Santa Maria neighborhood (Aracaju, Brazil). The report transforms real social dynamics into structured indicators (0 to 1 scale), enabling a clear reading of the territory and concrete support for decision-making.",
+        "cover_alt": "Cover of the Santa Maria insight report"
+      }
+    }
+  },
   "shop_page_title": "Shop",
   "shop_page_subtitle": "Exclusive products from Território Vibrante",
   "shop_product_back": "Back to shop",

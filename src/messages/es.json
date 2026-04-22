@@ -73,6 +73,27 @@
   "content": "Contenido",
   "content_page_title": "Contenido",
   "content_page_subtitle": "Elige una categoría para explorar",
+  "Content": {
+    "title": "Contenido",
+    "subtitle": "Elige una categoría para explorar.",
+    "categories": {
+      "publications": "Publicaciones",
+      "insights": "Estudios de caso"
+    }
+  },
+  "CaseStudies": {
+    "title": "Estudios de caso",
+    "subtitle": "Diagnósticos territoriales, informes y lecturas de campo disponibles para descargar.",
+    "download": "Descargar PDF",
+    "file_type": "PDF",
+    "items": {
+      "santa_maria": {
+        "title": "Diagnóstico socioterritorial de Santa Maria (Aracaju, Brasil)",
+        "description": "Análisis territorial basado en tres años de inmersión directa en el terreno en el barrio Santa Maria (Aracaju, Brasil). El informe transforma dinámicas sociales reales en indicadores estructurados (escala de 0 a 1), lo que permite una lectura clara del territorio y un apoyo concreto para la toma de decisiones.",
+        "cover_alt": "Portada del estudio de caso Santa Maria"
+      }
+    }
+  },
   "shop_page_title": "Tienda",
   "shop_page_subtitle": "Productos exclusivos de Território Vibrante",
   "shop_product_back": "Volver a la tienda",
