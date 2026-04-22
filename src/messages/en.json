@@ -82,8 +82,6 @@
     }
   },
   "CaseStudies": {
-    "title": "Insights",
-    "subtitle": "Territorial diagnostics, reports, and field-based readings available for download.",
     "download": "Download PDF",
     "file_type": "PDF",
     "items": {
@@ -104,8 +102,6 @@
   "product_digital": "Digital",
   "contact_us": "Order",
   "Publications": {
-    "title": "Publications",
-    "subtitle": "Insights, news, and stories from our collaborative network.",
     "published_on": "Published on {date}",
     "read_more": "Read article",
     "back": "Back to publications",

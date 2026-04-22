@@ -160,20 +160,15 @@ export default async function ContentPage({
 
         {activeCategory === 'publications' ? (
           <div className='flex flex-col gap-10'>
-            <div className='space-y-3'>
-              <h2 className='font-semibold text-2xl text-foreground'>{t('Publications.title')}</h2>
-              <p className='max-w-2xl text-base text-muted-foreground'>{t('Publications.subtitle')}</p>
-
-              <div className='flex flex-wrap items-center gap-4 pt-2'>
-                <Link href='/magazine'>
-                  <Button
-                    variant='outline'
-                    className='cursor-pointer border-primary text-primary hover:bg-primary hover:text-white'
-                  >
-                    {t('magazine')}
-                  </Button>
-                </Link>
-              </div>
+            <div className='flex flex-wrap items-center gap-4'>
+              <Link href='/magazine'>
+                <Button
+                  variant='outline'
+                  className='cursor-pointer border-primary text-primary hover:bg-primary hover:text-white'
+                >
+                  {t('magazine')}
+                </Button>
+              </Link>
             </div>
 
             {publishedArticles.length > 0 ? (
@@ -221,17 +216,9 @@ export default async function ContentPage({
           </div>
         ) : (
           <div className='flex flex-col gap-8'>
-            <div className='space-y-3'>
-              <h2 className='font-semibold text-2xl text-foreground'>{tCaseStudies('title')}</h2>
-              <p className='max-w-3xl text-base text-muted-foreground'>{tCaseStudies('subtitle')}</p>
-            </div>
-
             <div className='grid gap-6'>
               {CASE_STUDIES.map((caseStudy) => (
-                <article
-                  key={caseStudy.id}
-                  className='overflow-hidden rounded-3xl border border-border/70 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'
-                >
+                <article key={caseStudy.id} className='overflow-hidden rounded-2xl border border-border/60 shadow-xs'>
                   <div className='grid gap-0 md:grid-cols-[minmax(260px,340px)_1fr]'>
                     <div className='relative min-h-[320px] bg-stone-100'>
                       <Image

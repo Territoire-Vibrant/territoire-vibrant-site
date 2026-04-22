@@ -82,8 +82,6 @@
     }
   },
   "CaseStudies": {
-    "title": "Études de cas",
-    "subtitle": "Diagnostics territoriaux, rapports et lectures de terrain disponibles en téléchargement.",
     "download": "Télécharger le PDF",
     "file_type": "PDF",
     "items": {
@@ -104,8 +102,6 @@
   "product_digital": "Numérique",
   "contact_us": "Commander",
   "Publications": {
-    "title": "Publications",
-    "subtitle": "Idées, nouvelles et récits de notre réseau collaboratif.",
     "published_on": "Publié le {date}",
     "read_more": "Lire l'article",
     "back": "Retour aux publications",
