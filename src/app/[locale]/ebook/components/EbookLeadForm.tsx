@@ -74,7 +74,7 @@ export const EbookLeadForm = () => {
           </p>
         </div>
         <NextLink
-          href='/ebook.pdf'
+          href='/downloads/ebook.pdf'
           download
           prefetch={false}
           className={cn(

@@ -157,7 +157,7 @@ export const sendContactEmail = async (input: {
 
 export const sendEbookEmail = async (input: { email: string; locale: LeadLocale; name: string }) => {
   const content = EBOOK_EMAIL_CONTENT[input.locale]
-  const ebookContent = await readFile(path.join(process.cwd(), 'public', 'ebook.pdf'))
+  const ebookContent = await readFile(path.join(process.cwd(), 'public', 'downloads', 'ebook.pdf'))
 
   return sendEmail({
     to: [{ email: input.email, name: input.name }],

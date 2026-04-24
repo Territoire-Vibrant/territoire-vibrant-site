@@ -86,7 +86,7 @@ const EbookDialogForm = ({ locale, onEmailSent }: EbookDialogFormProps) => {
           <p className='text-amber-900/80 text-sm'>{t('delivery_warning_subtitle')}</p>
         </div>
         <Button asChild size='lg' className='bg-amber-600 hover:bg-amber-700'>
-          <NextLink href='/ebook.pdf' download prefetch={false}>
+          <NextLink href='/downloads/ebook.pdf' download prefetch={false}>
             <BookOpenTextIcon weight='bold' />
             {t('download')}
           </NextLink>
