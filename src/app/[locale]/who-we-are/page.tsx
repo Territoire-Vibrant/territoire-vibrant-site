@@ -38,6 +38,7 @@ export default function WhoWeArePage() {
             <p>{t('WhoWeAre.intro.p1')}</p>
             <p>{t('WhoWeAre.intro.p2')}</p>
             <p>{t('WhoWeAre.intro.p3')}</p>
+            <p>{t('WhoWeAre.intro.p4')}</p>
           </div>
         </div>
       </Section>
