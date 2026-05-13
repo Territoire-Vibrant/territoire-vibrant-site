@@ -31,16 +31,17 @@ export default async function AdminContentPage({
   const status = typeof rawStatus === 'string' ? (rawStatus as PublishStatus) : undefined
   const sort = typeof rawSort === 'string' ? rawSort : 'newest'
 
-  const t = await getTranslations()
+  const [t, articles] = await Promise.all([getTranslations(), api.article.getAll()])
   const tx = (key: string) => (t as unknown as (k: string) => string)(key)
-
-  const articles = await api.article.getAll()
   const locale = typeof rawLocale === 'string' ? rawLocale : routeLocale
   const normalizedLocale = locale?.toLowerCase()
   const queryNormalized = query.toLocaleLowerCase()
   const filtered = articles
-    .filter((a) => (status ? a.status === status : true))
     .filter((a) => {
+      if (status && a.status !== status) {
+        return false
+      }
+
       if (!queryNormalized) {
         return true
       }

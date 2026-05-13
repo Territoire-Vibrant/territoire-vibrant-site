@@ -30,8 +30,15 @@ const LOCALE_LABEL_KEYS: Record<Locale, 'english' | 'spanish' | 'french' | 'port
   pt: 'portuguese',
 }
 
+const DATE_FORMATTERS: Record<Locale, Intl.DateTimeFormat> = {
+  en: new Intl.DateTimeFormat('en', { dateStyle: 'long' }),
+  es: new Intl.DateTimeFormat('es', { dateStyle: 'long' }),
+  fr: new Intl.DateTimeFormat('fr', { dateStyle: 'long' }),
+  pt: new Intl.DateTimeFormat('pt', { dateStyle: 'long' }),
+}
+
 const formatDate = (locale: Locale, date: Date) => {
-  return new Intl.DateTimeFormat(locale, { dateStyle: 'long' }).format(date)
+  return DATE_FORMATTERS[locale].format(date)
 }
 
 const buildPreviewMarkdown = (md: string, maxParagraphs = 2, maxChars = 600) => {
@@ -95,8 +102,7 @@ export default async function ContentPage({
     category?: string | string[]
   }>
 }) {
-  const { locale } = await params
-  const rawSearchParams = await searchParams
+  const [{ locale }, rawSearchParams] = await Promise.all([params, searchParams])
   const activeLocale = resolveContentLocale(locale)
   const categoryParam = Array.isArray(rawSearchParams.category) ? rawSearchParams.category[0] : rawSearchParams.category
   const activeCategory: ContentCategory = isContentCategory(categoryParam) ? categoryParam : 'publications'
@@ -108,37 +114,40 @@ export default async function ContentPage({
     activeCategory === 'publications' ? api.article.getAll() : Promise.resolve([]),
   ])
 
-  const publishedArticles: PublishedArticleCard[] = articles
-    .filter((article) => article.status === 'PUBLISHED' && article.id !== METHOD_ARTICLE_ID)
-    .map((article) => {
-      const translationForLocale = article.translations.find(
-        (translation) => translation.locale === activeLocale && translation.published
-      )
-      const fallbackTranslation = article.translations.find(
-        (translation) => translation.locale === 'en' && translation.published
-      )
-      const translation = translationForLocale ?? fallbackTranslation
+  const publishedArticles: PublishedArticleCard[] = articles.reduce<PublishedArticleCard[]>((cards, article) => {
+    if (article.status !== 'PUBLISHED' || article.id === METHOD_ARTICLE_ID) {
+      return cards
+    }
 
-      if (!translation) {
-        return null
-      }
+    const translationForLocale = article.translations.find(
+      (translation) => translation.locale === activeLocale && translation.published
+    )
+    const fallbackTranslation = article.translations.find(
+      (translation) => translation.locale === 'en' && translation.published
+    )
+    const translation = translationForLocale ?? fallbackTranslation
 
-      return {
-        id: article.id,
-        title: translation.title,
-        createdAt: article.createdAt,
-        locale: translation.locale as Locale,
-        isFallback: translation.locale !== activeLocale,
-        previewMd: buildPreviewMarkdown(translation.bodyMd),
-      }
+    if (!translation) {
+      return cards
+    }
+
+    cards.push({
+      id: article.id,
+      title: translation.title,
+      createdAt: article.createdAt,
+      locale: translation.locale as Locale,
+      isFallback: translation.locale !== activeLocale,
+      previewMd: buildPreviewMarkdown(translation.bodyMd),
     })
-    .filter((articleCard): articleCard is PublishedArticleCard => articleCard !== null)
+
+    return cards
+  }, [])
 
   return (
     <Section className='px-6 py-12'>
       <div className='mx-auto flex w-full max-w-5xl flex-col gap-10'>
         <div className='space-y-3'>
-          <h1 className='font-bold text-4xl text-foreground tracking-tight'>{tContent('title')}</h1>
+          <h1 className='font-semibold text-4xl text-foreground tracking-tight'>{tContent('title')}</h1>
 
           <p className='max-w-2xl text-base text-muted-foreground'>{tContent('subtitle')}</p>
 

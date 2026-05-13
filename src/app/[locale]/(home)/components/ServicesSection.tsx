@@ -87,7 +87,7 @@ export const ServicesSection = () => {
     <Section id='services' className='flex flex-col items-center gap-12 px-6 pt-14 pb-8 text-foreground'>
       <div className='grid w-[80vw] gap-12 md:w-full md:grid-cols-[minmax(0,1.6fr)_minmax(0,2.4fr)] xl:gap-16'>
         <div className='flex flex-col items-center gap-6'>
-          <h5 className='text-left font-bold text-2xl'>{t('Home.services.title')}</h5>
+          <h5 className='text-left font-semibold text-2xl'>{t('Home.services.title')}</h5>
 
           <div className='flex flex-col gap-3'>
             {services.map((service, index) => {

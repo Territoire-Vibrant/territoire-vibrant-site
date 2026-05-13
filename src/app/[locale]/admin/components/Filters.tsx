@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { type ChangeEvent, useCallback, useEffect, useState } from 'react'
+import { type ChangeEvent, useCallback, useEffect, useEffectEvent, useState } from 'react'
 
 import { Button } from '~/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select'
@@ -19,7 +19,7 @@ type Props = {
 
 export const Filters = ({ initialQuery, initialSort, initialStatus }: Props) => {
   const t = useTranslations()
-  const router = useRouter()
+  const { replace } = useRouter()
   const [queryDraft, setQueryDraft] = useState<string | null>(null)
   const [sortDraft, setSortDraft] = useState<string | null>(null)
   const [statusDraft, setStatusDraft] = useState<PublishStatusValue | '' | null>(null)
@@ -47,10 +47,11 @@ export const Filters = ({ initialQuery, initialSort, initialStatus }: Props) => 
         else params.delete('status')
       }
       const qs = params.toString()
-      router.replace(qs ? `?${qs}` : '?', { scroll: false })
+      replace(qs ? `?${qs}` : '?', { scroll: false })
     },
-    [router]
+    [replace]
   )
+  const commitLatest = useEffectEvent(commit)
 
   // Debounce query updates for responsiveness without spamming navigation
   useEffect(() => {
@@ -58,10 +59,10 @@ export const Filters = ({ initialQuery, initialSort, initialStatus }: Props) => 
       return
     }
     const id = setTimeout(() => {
-      commit({ q: queryDraft })
+      commitLatest({ q: queryDraft })
     }, 300)
     return () => clearTimeout(id)
-  }, [queryDraft, commit])
+  }, [queryDraft])
 
   // Immediate update for sort and status
   useEffect(() => {

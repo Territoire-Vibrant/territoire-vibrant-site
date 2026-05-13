@@ -21,12 +21,19 @@ const LOCALE_LABEL_KEYS: Record<Locale, 'english' | 'spanish' | 'french' | 'port
   pt: 'portuguese',
 }
 
+const DATE_FORMATTERS: Record<Locale, Intl.DateTimeFormat> = {
+  en: new Intl.DateTimeFormat('en', { dateStyle: 'long' }),
+  es: new Intl.DateTimeFormat('es', { dateStyle: 'long' }),
+  fr: new Intl.DateTimeFormat('fr', { dateStyle: 'long' }),
+  pt: new Intl.DateTimeFormat('pt', { dateStyle: 'long' }),
+}
+
 const resolveLocale = (value: string): Locale => {
   return SUPPORTED_LOCALES.includes(value as Locale) ? (value as Locale) : 'en'
 }
 
 const formatDate = (locale: Locale, date: Date) => {
-  return new Intl.DateTimeFormat(locale, { dateStyle: 'long' }).format(date)
+  return DATE_FORMATTERS[locale].format(date)
 }
 
 const buildPreviewMarkdown = (md: string, maxParagraphs = 2, maxChars = 600) => {
@@ -70,34 +77,26 @@ type SearchResultCard = {
 const getHighlightSegments = (text: string, query: string): HighlightSegment[] => {
   const highlighted = highlightText(text, query)
   const segments: HighlightSegment[] = []
-  let remaining = highlighted
+  const markerPattern = new RegExp(`${HIGHLIGHT_START}([\\s\\S]*?)${HIGHLIGHT_END}`, 'g')
   let offset = 0
+  let lastIndex = 0
 
-  while (remaining.length > 0) {
-    const startIdx = remaining.indexOf(HIGHLIGHT_START)
-    if (startIdx === -1) {
-      segments.push({ highlighted: false, key: `${offset}-plain`, value: remaining })
-      break
-    }
-
-    if (startIdx > 0) {
-      const plainText = remaining.slice(0, startIdx)
+  for (const match of highlighted.matchAll(markerPattern)) {
+    const matchIndex = match.index
+    if (matchIndex > lastIndex) {
+      const plainText = highlighted.slice(lastIndex, matchIndex)
       segments.push({ highlighted: false, key: `${offset}-plain`, value: plainText })
       offset += plainText.length
     }
 
-    const afterStart = remaining.slice(startIdx + HIGHLIGHT_START.length)
-    const endIdx = afterStart.indexOf(HIGHLIGHT_END)
-
-    if (endIdx === -1) {
-      segments.push({ highlighted: false, key: `${offset}-plain`, value: remaining })
-      break
-    }
-
-    const highlightedValue = afterStart.slice(0, endIdx)
+    const highlightedValue = match[1] ?? ''
     segments.push({ highlighted: true, key: `${offset}-highlight`, value: highlightedValue })
     offset += highlightedValue.length
-    remaining = afterStart.slice(endIdx + HIGHLIGHT_END.length)
+    lastIndex = matchIndex + match[0].length
+  }
+
+  if (lastIndex < highlighted.length) {
+    segments.push({ highlighted: false, key: `${offset}-plain`, value: highlighted.slice(lastIndex) })
   }
 
   return segments
@@ -126,45 +125,49 @@ export default async function SearchPage({
     q?: string
   }>
 }) {
-  const { locale } = await params
-  const { q: query = '' } = await searchParams
+  const [{ locale }, { q: query = '' }] = await Promise.all([params, searchParams])
   const activeLocale = resolveLocale(locale)
+  const trimmedQuery = query.trim()
 
-  const t = await getTranslations()
+  const [t, articles] = await Promise.all([
+    getTranslations(),
+    trimmedQuery ? api.article.search({ query: trimmedQuery, locale: activeLocale }) : Promise.resolve([]),
+  ])
 
   let searchResults: SearchResultCard[] = []
 
-  if (query.trim()) {
-    const articles = await api.article.search({ query: query.trim(), locale: activeLocale })
+  if (trimmedQuery) {
+    searchResults = articles.reduce<SearchResultCard[]>((results, article) => {
+      if (article.id === METHOD_ARTICLE_ID) {
+        return results
+      }
 
-    searchResults = articles
-      .filter((article) => article.id !== METHOD_ARTICLE_ID)
-      .map((article) => {
-        const translationForLocale = article.translations.find((translation) => translation.locale === activeLocale)
-        const fallbackTranslation = article.translations.find((translation) => translation.locale === 'en')
-        const translation = translationForLocale ?? fallbackTranslation
+      const translationForLocale = article.translations.find((translation) => translation.locale === activeLocale)
+      const fallbackTranslation = article.translations.find((translation) => translation.locale === 'en')
+      const translation = translationForLocale ?? fallbackTranslation
 
-        if (!translation) {
-          return null
-        }
+      if (!translation) {
+        return results
+      }
 
-        return {
-          id: article.id,
-          title: translation.title,
-          createdAt: article.createdAt,
-          locale: translation.locale as Locale,
-          isFallback: translation.locale !== activeLocale,
-          previewMd: buildPreviewMarkdown(highlightText(translation.bodyMd, query)),
-        }
+      results.push({
+        id: article.id,
+        title: translation.title,
+        createdAt: article.createdAt,
+        locale: translation.locale as Locale,
+        isFallback: translation.locale !== activeLocale,
+        previewMd: buildPreviewMarkdown(highlightText(translation.bodyMd, query)),
       })
-      .filter((result): result is SearchResultCard => result !== null)
+
+      return results
+    }, [])
   }
 
   return (
     <Section className='px-6 py-12'>
       <div className='mx-auto flex w-full max-w-5xl flex-col gap-10'>
         <div className='space-y-3'>
-          <h1 className='font-bold text-4xl text-foreground tracking-tight'>{t('Search.title')}</h1>
+          <h1 className='font-semibold text-4xl text-foreground tracking-tight'>{t('Search.title')}</h1>
 
           {query.trim() ? (
             <p className='max-w-2xl text-base text-muted-foreground'>

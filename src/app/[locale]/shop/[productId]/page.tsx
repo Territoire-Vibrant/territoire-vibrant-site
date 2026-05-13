@@ -56,11 +56,12 @@ export default async function ShopProductDetailPage({ params }: PageProps) {
     notFound()
   }
 
-  const t = await getTranslations()
-
-  const product = await db.product.findFirst({
-    where: { id: productId, isActive: true },
-  })
+  const [t, product] = await Promise.all([
+    getTranslations(),
+    db.product.findFirst({
+      where: { id: productId, isActive: true },
+    }),
+  ])
 
   if (!product) {
     notFound()
@@ -110,7 +111,7 @@ export default async function ShopProductDetailPage({ params }: PageProps) {
 
           <div className='flex flex-col gap-6 p-6 sm:p-8'>
             <div className='flex flex-col gap-2'>
-              <h1 className='font-bold text-3xl text-stone-800 tracking-tight'>{product.name}</h1>
+              <h1 className='font-semibold text-3xl text-stone-800 tracking-tight'>{product.name}</h1>
               <p className='font-bold text-2xl text-amber-800'>{formattedPrice}</p>
             </div>
 

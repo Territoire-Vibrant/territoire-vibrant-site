@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl'
+import type { Metadata } from 'next'
 
 import HomeBanner1 from '~/assets/images/home/home_banner_1.png'
 import HomeBanner2 from '~/assets/images/home/home_banner_2.png'
@@ -15,6 +16,11 @@ import { ServicesSection } from './components/ServicesSection'
 import { SponsorsMarquee } from './components/SponsorsMarquee'
 
 import { Link } from '~/i18n/navigation'
+
+export const metadata: Metadata = {
+  title: 'Territoire Vibrant',
+  description: 'Territoire Vibrant creates cultural and territorial projects.',
+}
 
 export default function HomePage() {
   const t = useTranslations()
@@ -38,10 +44,10 @@ export default function HomePage() {
       <Section
         id='projects'
         limitWidth={false}
-        className='flex flex-col items-center justify-center space-y-8 bg-foreground px-12 pb-12'
+        className='flex flex-col items-center justify-center gap-y-8 bg-foreground px-12 pb-12'
       >
-        <div className='flex w-full max-w-4xl flex-col items-center justify-between space-y-8 px-4 text-center md:flex-row md:space-y-0'>
-          <h3 className='font-bold text-2xl text-background'>{t('featured_projects')}</h3>
+        <div className='flex w-full max-w-4xl flex-col items-center justify-between gap-y-8 px-4 text-center md:flex-row'>
+          <h3 className='font-semibold text-2xl text-background'>{t('featured_projects')}</h3>
 
           <div className='transition-all ease-in hover:-mt-1'>
             <Link

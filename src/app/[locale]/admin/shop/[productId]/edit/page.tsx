@@ -8,13 +8,12 @@ import { api } from '~/trpc/server'
 
 export default async function AdminShopEditPage({ params }: { params: Promise<{ productId: string }> }) {
   const { productId } = await params
-  const t = await getTranslations()
 
   if (!z.string().uuid().safeParse(productId).success) {
     notFound()
   }
 
-  const product = await api.product.getById({ id: productId })
+  const [t, product] = await Promise.all([getTranslations(), api.product.getById({ id: productId })])
   if (!product) {
     notFound()
   }

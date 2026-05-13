@@ -77,14 +77,14 @@ function FieldError({ message }: { message?: string }) {
 
 export function ProductForm({ mode, productId, defaultValues }: ProductFormProps) {
   const t = useTranslations()
-  const router = useRouter()
+  const { push } = useRouter()
   const imageFileInputRef = useRef<HTMLInputElement>(null)
   const [isUploadingImage, setIsUploadingImage] = useState(false)
 
   const createMutation = api.product.create.useMutation({
     onSuccess: () => {
       toast.success(t('admin_shop_save_success'))
-      router.push('/admin/shop')
+      push('/admin/shop')
     },
     onError: () => {
       toast.error(t('admin_shop_save_error'))
@@ -94,7 +94,7 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
   const updateMutation = api.product.update.useMutation({
     onSuccess: () => {
       toast.success(t('admin_shop_save_success'))
-      router.push('/admin/shop')
+      push('/admin/shop')
     },
     onError: () => {
       toast.error(t('admin_shop_save_error'))

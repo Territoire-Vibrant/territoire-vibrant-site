@@ -4,7 +4,7 @@ import { BookOpenTextIcon } from '@phosphor-icons/react/dist/ssr'
 import NextLink from 'next/link'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { useActionState, useEffect, useState } from 'react'
+import { useActionState, useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 
 import EbookCoverImage from '~/assets/images/shop/free-ebook-cover.png'
@@ -38,6 +38,8 @@ type EbookDialogFormProps = {
 const EbookDialogForm = ({ locale, onEmailSent }: EbookDialogFormProps) => {
   const t = useTranslations('Ebook')
   const mutation = api.lead.capture.useMutation()
+  const onEmailSentRef = useRef(onEmailSent)
+  onEmailSentRef.current = onEmailSent
 
   const [state, action, isPending] = useActionState(
     async (_prev: FormState | null, formData: FormData): Promise<FormState> => {
@@ -66,10 +68,10 @@ const EbookDialogForm = ({ locale, onEmailSent }: EbookDialogFormProps) => {
   // Close dialog and fire success toast once the mutation confirms
   useEffect(() => {
     if (state?.success && state.deliveryStatus === 'sent') {
-      onEmailSent()
+      onEmailSentRef.current()
       toast.success(t('success_title'), { description: t('email_sent_hint') })
     }
-  }, [onEmailSent, state?.deliveryStatus, state?.success, t])
+  }, [state?.deliveryStatus, state?.success, t])
 
   const inputClass = (field: string) =>
     cn(

@@ -9,33 +9,34 @@ import { api } from '~/trpc/server'
 type Locale = 'en' | 'es' | 'fr' | 'pt'
 
 export const Footer = async () => {
-  const t = await getTranslations()
-  const locale = (await getLocale()) as Locale
+  const [t, locale] = await Promise.all([getTranslations(), getLocale() as Promise<Locale>])
 
   const currentYear = new Date().getFullYear()
 
   const articles = await api.article.getAll()
 
-  const recentArticles = articles
-    .filter((article) => article.status === 'PUBLISHED' && article.id !== METHOD_ARTICLE_ID)
-    .slice(0, 4)
-    .map((article) => {
-      const translationForLocale = article.translations.find(
-        (translation) => translation.locale === locale && translation.published
-      )
-      const fallbackTranslation = article.translations.find(
-        (translation) => translation.locale === 'en' && translation.published
-      )
-      const translation = translationForLocale ?? fallbackTranslation
+  const recentArticles = articles.reduce<{ id: string; title: string }[]>((recent, article) => {
+    if (recent.length >= 4 || article.status !== 'PUBLISHED' || article.id === METHOD_ARTICLE_ID) {
+      return recent
+    }
 
-      if (!translation) return null
+    const translationForLocale = article.translations.find(
+      (translation) => translation.locale === locale && translation.published
+    )
+    const fallbackTranslation = article.translations.find(
+      (translation) => translation.locale === 'en' && translation.published
+    )
+    const translation = translationForLocale ?? fallbackTranslation
 
-      return {
-        id: article.id,
-        title: translation.title,
-      }
+    if (!translation) return recent
+
+    recent.push({
+      id: article.id,
+      title: translation.title,
     })
-    .filter((article): article is { id: string; title: string } => article !== null)
+
+    return recent
+  }, [])
 
   return (
     <footer className='bg-foreground text-background'>

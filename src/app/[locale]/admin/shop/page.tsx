@@ -7,9 +7,13 @@ import { cn } from '~/lib/utils'
 import { Link } from '~/i18n/navigation'
 import { api } from '~/trpc/server'
 
+const CAD_FORMATTER = new Intl.NumberFormat('en-CA', {
+  style: 'currency',
+  currency: 'CAD',
+})
+
 export default async function AdminShopPage() {
-  const t = await getTranslations()
-  const products = await api.product.list()
+  const [t, products] = await Promise.all([getTranslations(), api.product.list()])
 
   return (
     <div className='mt-10 flex w-full max-w-6xl flex-col gap-6 px-6 pb-10'>
@@ -27,10 +31,7 @@ export default async function AdminShopPage() {
         <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
           {products.map((product) => {
             const price = Number(product.price)
-            const formattedPrice = new Intl.NumberFormat('en-CA', {
-              style: 'currency',
-              currency: 'CAD',
-            }).format(price)
+            const formattedPrice = CAD_FORMATTER.format(price)
 
             return (
               <article

@@ -4,7 +4,7 @@ import { type QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { httpBatchStreamLink, loggerLink } from '@trpc/client'
 import { createTRPCReact } from '@trpc/react-query'
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server'
-import { type ReactNode, useEffect, useState } from 'react'
+import { type ReactNode, useEffect, useState, useSyncExternalStore } from 'react'
 import SuperJSON from 'superjson'
 
 import type { AppRouter } from '~/server/api/root'
@@ -43,8 +43,33 @@ const isModifiedClick = (e: MouseEvent) => {
   return e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0
 }
 
+let navigationPending = false
+const navigationPendingListeners = new Set<() => void>()
+
+const setNavigationPending = (pending: boolean) => {
+  if (navigationPending === pending) {
+    return
+  }
+  navigationPending = pending
+  for (const listener of navigationPendingListeners) {
+    listener()
+  }
+}
+
+const subscribeNavigationPending = (listener: () => void) => {
+  navigationPendingListeners.add(listener)
+  return () => navigationPendingListeners.delete(listener)
+}
+
+const getNavigationPendingSnapshot = () => navigationPending
+const getServerNavigationPendingSnapshot = () => false
+
 const NavigationLoadingSlot = ({ children }: { children: ReactNode }) => {
-  const [pending, setPending] = useState(false)
+  const pending = useSyncExternalStore(
+    subscribeNavigationPending,
+    getNavigationPendingSnapshot,
+    getServerNavigationPendingSnapshot
+  )
 
   useEffect(() => {
     const onClickCapture = (e: MouseEvent) => {
@@ -72,7 +97,7 @@ const NavigationLoadingSlot = ({ children }: { children: ReactNode }) => {
         if (next === current) {
           return
         }
-        setPending(true)
+        setNavigationPending(true)
       } catch {
         // ignore invalid href
       }
@@ -83,7 +108,7 @@ const NavigationLoadingSlot = ({ children }: { children: ReactNode }) => {
   }, [])
 
   useEffect(() => {
-    const clearPending = () => setPending(false)
+    const clearPending = () => setNavigationPending(false)
     const originalPushState = window.history.pushState
     const originalReplaceState = window.history.replaceState
 
@@ -114,7 +139,7 @@ const NavigationLoadingSlot = ({ children }: { children: ReactNode }) => {
     if (!pending) {
       return
     }
-    const id = window.setTimeout(() => setPending(false), 15000)
+    const id = window.setTimeout(() => setNavigationPending(false), 15000)
     return () => window.clearTimeout(id)
   }, [pending])
 

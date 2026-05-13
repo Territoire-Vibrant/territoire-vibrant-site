@@ -88,14 +88,22 @@ const toValidTranslation = (tr: DraftTranslationInput): TranslationInput | null 
 export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
   const t = useTranslations()
   const locale = useLocale() as 'en' | 'es' | 'fr' | 'pt'
-  const router = useRouter()
+  const { replace } = useRouter()
 
   const [status, setStatus] = useState<ArticleFormInitial['status']>(defaultValues?.status ?? 'DRAFT')
   const [activeLocale, setActiveLocale] = useState<(typeof LOCALES)[number]>(locale)
   const [pendingAction, setPendingAction] = useState<'save' | 'publish' | 'archive' | null>(null)
   // Track which locale tabs have been successfully saved (persisted)
   const [savedLocales, setSavedLocales] = useState<Set<string>>(
-    () => new Set(defaultValues?.translations?.filter((t) => t.title && t.bodyMd).map((t) => t.locale) ?? [])
+    () =>
+      new Set(
+        defaultValues?.translations?.reduce<string[]>((locales, translation) => {
+          if (translation.title && translation.bodyMd) {
+            locales.push(translation.locale)
+          }
+          return locales
+        }, []) ?? []
+      )
   )
 
   const createMutation = api.article.createArticle.useMutation()
@@ -134,10 +142,13 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
 
   const watchTranslations = (watch('translations') ?? []) as DraftTranslationInput[]
 
-  const validLocales = watchTranslations
-    .map(toValidTranslation)
-    .filter((tr): tr is TranslationInput => tr !== null)
-    .map((tr) => tr.locale)
+  const validLocales = watchTranslations.reduce<TranslationInput['locale'][]>((locales, translation) => {
+    const validTranslation = toValidTranslation(translation)
+    if (validTranslation) {
+      locales.push(validTranslation.locale)
+    }
+    return locales
+  }, [])
 
   const canPublish = validLocales.length === LOCALES.length
   const canArchive = status !== 'ARCHIVED'
@@ -163,10 +174,13 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
 
   const buildPayload = (values: ArticleFormValues, overrideStatus?: ArticleFormInitial['status']) => {
     const nextStatus = overrideStatus ?? status
-    const translations = (values.translations ?? [])
-      .map(toValidTranslation)
-      .filter((tr): tr is TranslationInput => tr !== null)
-      .map((tr) => ({ ...tr, published: nextStatus === 'PUBLISHED' }))
+    const translations = (values.translations ?? []).reduce<TranslationInput[]>((validTranslations, translation) => {
+      const validTranslation = toValidTranslation(translation)
+      if (validTranslation) {
+        validTranslations.push({ ...validTranslation, published: nextStatus === 'PUBLISHED' })
+      }
+      return validTranslations
+    }, [])
 
     return {
       status: nextStatus,
@@ -176,7 +190,12 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
 
   const persist = async (nextStatus: ArticleFormInitial['status'], values: ArticleFormValues) => {
     const payload = buildPayload(values, nextStatus)
-    const dirtyLocales = payload.translations.map((tr) => tr.locale).filter((loc) => !savedLocales.has(loc))
+    const dirtyLocales = payload.translations.reduce<TranslationInput['locale'][]>((locales, translation) => {
+      if (!savedLocales.has(translation.locale)) {
+        locales.push(translation.locale)
+      }
+      return locales
+    }, [])
 
     if (mode === 'create') {
       const res = await createMutation.mutateAsync(payload)
@@ -186,9 +205,9 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
 
       // After creating, go to the edit page for the primary locale
       if (res?.id) {
-        router.replace(`/admin/content/${res.id}`, { locale })
+        replace(`/admin/content/${res.id}`, { locale })
       } else {
-        router.replace('/admin/content', { locale })
+        replace('/admin/content', { locale })
       }
     } else if (mode === 'edit' && defaultValues?.articleId) {
       const res = await updateMutation.mutateAsync({ articleId: defaultValues.articleId, ...payload })
@@ -197,7 +216,7 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
       emitSavedToasts(dirtyLocales)
 
       if (nextStatus === 'PUBLISHED') {
-        router.replace('/admin/content', { locale })
+        replace('/admin/content', { locale })
       }
     }
   }
@@ -338,7 +357,7 @@ export const ArticleForm = ({ mode, defaultValues }: ArticleFormProps) => {
           type='button'
           variant='outline'
           disabled={disabled}
-          onClick={() => router.replace('/admin/content', { locale })}
+          onClick={() => replace('/admin/content', { locale })}
         >
           <XIcon />
           {t('cancel')}

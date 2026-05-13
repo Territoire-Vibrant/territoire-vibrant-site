@@ -1,15 +1,12 @@
-'use client'
+import type { Metadata } from 'next'
 
-import { useClerk } from '@clerk/nextjs'
-import { useEffect } from 'react'
+import { LogoutClient } from './LogoutClient'
+
+export const metadata: Metadata = {
+  title: 'Logout',
+  description: 'Sign out of Territoire Vibrant.',
+}
 
 export default function LogoutPage() {
-  const { signOut } = useClerk()
-
-  useEffect(() => {
-    // Immediately sign out and redirect to home
-    void signOut({ redirectUrl: '/' })
-  }, [signOut])
-
-  return null
+  return <LogoutClient />
 }

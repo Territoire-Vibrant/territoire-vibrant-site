@@ -24,7 +24,7 @@ export const HeroTextCarousel = () => {
       <CarouselContent>
         <CarouselItem className='flex items-center justify-center'>
           <div className='flex flex-col gap-6'>
-            <h1 className='flex size-full flex-col gap-2 text-center font-bold text-2xl md:flex-row md:flex-wrap md:items-start md:text-start lg:text-3xl'>
+            <h1 className='flex size-full flex-col gap-2 text-center font-semibold text-2xl md:flex-row md:flex-wrap md:items-start md:text-start lg:text-3xl'>
               {t.rich('Home.hero.h1.title', {
                 v: (chunks) => (
                   <span className='tv-vibrate-5s text-3xl text-primary leading-8 lg:text-4xl'>{chunks}</span>
@@ -40,7 +40,7 @@ export const HeroTextCarousel = () => {
 
         <CarouselItem className='flex items-center justify-center'>
           <div className='flex flex-col gap-6'>
-            <h2 className='flex size-full flex-col gap-2 text-center font-bold text-2xl md:flex-row md:flex-wrap md:items-start md:text-start lg:text-3xl'>
+            <h2 className='flex size-full flex-col gap-2 text-center font-semibold text-2xl md:flex-row md:flex-wrap md:items-start md:text-start lg:text-3xl'>
               {t.rich('Home.hero.h2.title', {
                 v: (chunks) => (
                   <span className='tv-vibrate-5s text-3xl text-primary leading-8 lg:text-4xl'>{chunks}</span>

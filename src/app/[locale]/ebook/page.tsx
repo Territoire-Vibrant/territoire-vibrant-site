@@ -34,7 +34,7 @@ export default async function EbookPage() {
 
           {/* Headline and subtitle */}
           <div>
-            <h1 className='font-bold text-3xl text-foreground tracking-tight'>{t('hero_headline')}</h1>
+            <h1 className='font-semibold text-3xl text-foreground tracking-tight'>{t('hero_headline')}</h1>
             <p className='mt-3 max-w-md text-foreground/70 leading-relaxed'>{t('hero_subtitle')}</p>
           </div>
         </div>

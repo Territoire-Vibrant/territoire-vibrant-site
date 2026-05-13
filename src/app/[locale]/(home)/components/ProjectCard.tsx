@@ -15,7 +15,7 @@ export const ProjectCard = ({ image, title, description }: ProjectCardProps) => 
     >
       <Image src={image} alt={title} className='h-[45%] w-full bg-background object-cover' />
 
-      <div className='flex h-[65%] flex-col items-center space-y-2 bg-tertiary p-6 text-center transition-all ease-in group-hover:bg-primary group-hover:text-background'>
+      <div className='flex h-[65%] flex-col items-center gap-y-2 bg-tertiary p-6 text-center transition-all ease-in group-hover:bg-primary group-hover:text-background'>
         <div className='font-bold text-lg'>{title}</div>
 
         <div className='text-sm opacity-80'>{description}</div>

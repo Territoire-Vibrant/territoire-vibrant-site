@@ -45,10 +45,10 @@ export default function MissionPage() {
         className='flex w-full flex-col items-center bg-linear-to-b from-green-50 to-background px-6 py-14 lg:py-20'
       >
         <div className='flex w-full max-w-3xl flex-col items-center text-center'>
-          <div className='flex items-center space-x-2'>
+          <div className='flex items-center gap-x-2'>
             <LeafIcon aria-hidden className='size-8 text-green-800' />
 
-            <h1 className='bg-linear-to-r from-green-800 to-emerald-600 bg-clip-text font-extrabold text-4xl text-transparent sm:text-5xl'>
+            <h1 className='bg-linear-to-r from-green-800 to-emerald-600 bg-clip-text font-semibold text-4xl text-transparent sm:text-5xl'>
               {t('mission')}
             </h1>
           </div>
@@ -71,7 +71,7 @@ export default function MissionPage() {
       </Section>
 
       <Section id='essence' className='w-full space-y-8 px-6 py-12 lg:py-16'>
-        <h2 className='font-bold text-2xl text-green-900 tsm:text-3xl'>{t('Mission.essence.title')}</h2>
+        <h2 className='font-semibold text-2xl text-green-900 tsm:text-3xl'>{t('Mission.essence.title')}</h2>
 
         <div className='flex flex-col items-center md:flex-row'>
           <div className='space-y-6 md:w-1/2'>

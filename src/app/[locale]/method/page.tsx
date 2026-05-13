@@ -1,5 +1,6 @@
 import '@uiw/react-markdown-preview/markdown.css'
 
+import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 
 import { MarkdownPreview } from '~/components/MarkdownPreview'
@@ -19,12 +20,24 @@ const LOCALE_LABEL_KEYS: Record<Locale, 'english' | 'spanish' | 'french' | 'port
   pt: 'portuguese',
 }
 
+const DATE_FORMATTERS: Record<Locale, Intl.DateTimeFormat> = {
+  en: new Intl.DateTimeFormat('en', { dateStyle: 'long' }),
+  es: new Intl.DateTimeFormat('es', { dateStyle: 'long' }),
+  fr: new Intl.DateTimeFormat('fr', { dateStyle: 'long' }),
+  pt: new Intl.DateTimeFormat('pt', { dateStyle: 'long' }),
+}
+
 const resolveLocale = (value: string): Locale => {
   return SUPPORTED_LOCALES.includes(value as Locale) ? (value as Locale) : 'en'
 }
 
 const formatDate = (locale: Locale, date: Date) => {
-  return new Intl.DateTimeFormat(locale, { dateStyle: 'long' }).format(date)
+  return DATE_FORMATTERS[locale].format(date)
+}
+
+export const metadata: Metadata = {
+  title: 'Method',
+  description: 'Read about the Territoire Vibrant method.',
 }
 
 export default async function MethodPage({
@@ -37,10 +50,10 @@ export default async function MethodPage({
   const { locale } = await params
   const activeLocale = resolveLocale(locale)
 
-  const t = await getTranslations()
   const article = await api.article.getArticleForEdit({ articleId: METHOD_ARTICLE_ID })
 
   if (!article || article.article.status !== 'PUBLISHED') {
+    const t = await getTranslations()
     return (
       <Section className='px-6 py-12'>
         <div className='mx-auto flex w-full max-w-5xl flex-col gap-10'>
@@ -59,6 +72,7 @@ export default async function MethodPage({
   const translation = translationForLocale ?? fallbackTranslation
 
   if (!translation) {
+    const t = await getTranslations()
     return (
       <Section className='px-6 py-12'>
         <div className='mx-auto flex w-full max-w-5xl flex-col gap-10'>
@@ -69,6 +83,7 @@ export default async function MethodPage({
   }
 
   const isFallback = translation.locale !== activeLocale
+  const t = await getTranslations()
   const publishedLabel = t('Publications.published_on', {
     date: formatDate(activeLocale, article.article.createdAt),
   })
@@ -78,7 +93,7 @@ export default async function MethodPage({
     <Section className='px-6 py-12'>
       <div className='mx-auto flex w-full max-w-5xl flex-col gap-10'>
         <div className='space-y-3'>
-          <h1 className='font-bold text-4xl text-foreground tracking-tight'>{translation.title}</h1>
+          <h1 className='font-semibold text-4xl text-foreground tracking-tight'>{translation.title}</h1>
 
           <div className='flex flex-wrap items-center gap-3 font-medium text-muted-foreground text-xs'>
             <span>{publishedLabel}</span>

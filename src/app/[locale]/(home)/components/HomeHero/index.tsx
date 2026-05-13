@@ -18,7 +18,7 @@ export const HomeHero = () => {
       {/* Hero grid */}
       <div className='grid size-full gap-4 md:w-1/2 md:grid-cols-2 md:grid-rows-3 lg:max-h-102.5'>
         {/* Box 1 - Green text */}
-        <div className='order-1 flex size-full flex-col justify-between space-y-4 bg-primary/60 p-4 md:row-span-2'>
+        <div className='order-1 flex size-full flex-col justify-between gap-y-4 bg-primary/60 p-4 md:row-span-2'>
           <div className='w-3/4 font-bold text-xl'>{t('Home.hero.box1.title')}</div>
 
           <p className='opacity-80'>{t('Home.hero.box1.subtext')}</p>

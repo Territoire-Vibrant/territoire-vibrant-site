@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { getLocale, getTranslations } from 'next-intl/server'
 
 import { Section } from '~/layouts/Section'
@@ -7,6 +8,11 @@ import { db } from '~/server/db'
 
 import { EbookCard } from './components/EbookCard'
 import { ProductCard } from './components/ProductCard'
+
+export const metadata: Metadata = {
+  title: 'Shop',
+  description: 'Browse Territoire Vibrant products and downloads.',
+}
 
 export default async function ShopPage() {
   const [t, locale] = await Promise.all([getTranslations(), getLocale()])
@@ -18,7 +24,7 @@ export default async function ShopPage() {
     <Section limitWidth={false} className='bg-linear-to-b from-amber-50/50 to-stone-100 px-6 py-12'>
       <div className='mx-auto flex w-full max-w-6xl flex-col gap-10'>
         <div className='space-y-3 text-center'>
-          <h1 className='font-bold text-4xl text-stone-800 tracking-tight'>{t('shop_page_title')}</h1>
+          <h1 className='font-semibold text-4xl text-stone-800 tracking-tight'>{t('shop_page_title')}</h1>
           <p className='mx-auto max-w-2xl text-base text-stone-600'>{t('shop_page_subtitle')}</p>
         </div>
 

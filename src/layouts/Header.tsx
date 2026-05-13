@@ -30,7 +30,7 @@ export const Header = () => {
   const t = useTranslations()
   const locale = useLocale()
   const pathname = usePathname()
-  const router = useRouter()
+  const { push, replace } = useRouter()
 
   const [open, setOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
@@ -46,7 +46,7 @@ export const Header = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     if (searchQuery.trim()) {
-      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
+      push(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
       setSearchOpen(false)
       setSearchQuery('')
     }
@@ -60,7 +60,7 @@ export const Header = () => {
   }
 
   const handleLanguageChange = (newLocale: Locale) => {
-    router.replace(pathname, {
+    replace(pathname, {
       locale: newLocale,
     })
   }

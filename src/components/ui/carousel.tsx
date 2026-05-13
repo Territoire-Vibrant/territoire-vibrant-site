@@ -3,6 +3,7 @@
 import { ArrowLeftIcon, ArrowRightIcon } from '@phosphor-icons/react/dist/ssr'
 import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react'
 import * as React from 'react'
+import { use } from 'react'
 
 import { Button } from '~/components/ui/button'
 import { cn } from '~/lib/utils'
@@ -31,7 +32,7 @@ type CarouselContextProps = {
 const CarouselContext = React.createContext<CarouselContextProps | null>(null)
 
 function useCarousel() {
-  const context = React.useContext(CarouselContext)
+  const context = use(CarouselContext)
 
   if (!context) {
     throw new Error('useCarousel must be used within a <Carousel />')
@@ -58,12 +59,16 @@ function Carousel({
   )
   const [canScrollPrev, setCanScrollPrev] = React.useState(false)
   const [canScrollNext, setCanScrollNext] = React.useState(false)
+  const setApiRef = React.useRef(setApi)
+  const onSelectRef = React.useRef<(api: CarouselApi) => void>(() => undefined)
 
   const onSelect = React.useCallback((api: CarouselApi) => {
     if (!api) return
     setCanScrollPrev(api.canScrollPrev())
     setCanScrollNext(api.canScrollNext())
   }, [])
+  onSelectRef.current = onSelect
+  setApiRef.current = setApi
 
   const scrollPrev = React.useCallback(() => {
     api?.scrollPrev()
@@ -87,20 +92,25 @@ function Carousel({
   )
 
   React.useEffect(() => {
-    if (!api || !setApi) return
-    setApi(api)
-  }, [api, setApi])
+    if (!api || !setApiRef.current) return
+    setApiRef.current(api)
+  }, [api])
 
   React.useEffect(() => {
     if (!api) return
-    onSelect(api)
-    api.on('reInit', onSelect)
-    api.on('select', onSelect)
+    const handleSelect = (currentApi: CarouselApi) => {
+      onSelectRef.current(currentApi)
+    }
+
+    handleSelect(api)
+    api.on('reInit', handleSelect)
+    api.on('select', handleSelect)
 
     return () => {
-      api?.off('select', onSelect)
+      api.off('reInit', handleSelect)
+      api.off('select', handleSelect)
     }
-  }, [api, onSelect])
+  }, [api])
 
   return (
     <CarouselContext.Provider

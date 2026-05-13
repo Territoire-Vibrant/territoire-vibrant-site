@@ -9,24 +9,25 @@ import { Link, notFound } from '~/i18n/navigation'
 import { cn } from '~/lib/utils'
 import { api } from '~/trpc/server'
 
+const CAD_FORMATTER = new Intl.NumberFormat('en-CA', {
+  style: 'currency',
+  currency: 'CAD',
+})
+
 export default async function AdminShopProductDetailPage({ params }: { params: Promise<{ productId: string }> }) {
   const { productId } = await params
-  const t = await getTranslations()
 
   if (!z.string().uuid().safeParse(productId).success) {
     notFound()
   }
 
-  const product = await api.product.getById({ id: productId })
+  const [t, product] = await Promise.all([getTranslations(), api.product.getById({ id: productId })])
   if (!product) {
     notFound()
   }
 
   const price = Number(product.price)
-  const formattedPrice = new Intl.NumberFormat('en-CA', {
-    style: 'currency',
-    currency: 'CAD',
-  }).format(price)
+  const formattedPrice = CAD_FORMATTER.format(price)
 
   return (
     <div className='mx-auto w-full max-w-3xl px-6 py-10'>

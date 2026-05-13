@@ -32,7 +32,7 @@ export default function WhoWeArePage() {
         />
 
         <div className='space-y-6 lg:w-1/2'>
-          <h1 className='font-bold text-3xl tracking-tight sm:text-4xl'>{t('who_we_are')}</h1>
+          <h1 className='font-semibold text-3xl tracking-tight sm:text-4xl'>{t('who_we_are')}</h1>
 
           <div className='space-y-4 text-neutral-700'>
             <p>{t('WhoWeAre.intro.p1')}</p>
@@ -51,7 +51,7 @@ export default function WhoWeArePage() {
         />
 
         <div className='space-y-6 lg:w-1/2'>
-          <h2 className='font-bold text-3xl tracking-tight sm:text-4xl'>{t('WhoWeAre.network.chip')}</h2>
+          <h2 className='font-semibold text-3xl tracking-tight sm:text-4xl'>{t('WhoWeAre.network.chip')}</h2>
 
           <div className='space-y-4 text-neutral-700'>
             <p>{t('WhoWeAre.network.p1')}</p>
@@ -60,13 +60,13 @@ export default function WhoWeArePage() {
         </div>
       </Section>
 
-      <Section className='flex w-full flex-col items-center space-y-8 px-6 py-12'>
+      <Section className='flex w-full flex-col items-center gap-y-8 px-6 py-12'>
         <h3 className='font-semibold text-2xl tracking-tight'>{t('our_network')}</h3>
 
         <TeamCarousel />
       </Section>
 
-      <Section className='flex w-full flex-col items-center space-y-8 px-6 py-12 lg:py-16'>
+      <Section className='flex w-full flex-col items-center gap-y-8 px-6 py-12 lg:py-16'>
         <blockquote className='space-y-2 rounded-xl border border-neutral-200 bg-green-200 p-6 text-green-800'>
           <p>• {t('WhoWeAre.manifesto.p1')}</p>
           <p className='font-medium'>{t('WhoWeAre.manifesto.p2')}</p>

@@ -128,20 +128,22 @@ export const articleRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      await ctx.db.article.update({ where: { id: input.articleId }, data: { status: input.status } })
-      for (const tr of input.translations) {
-        await ctx.db.articleTranslation.upsert({
-          where: { articleId_locale: { articleId: input.articleId, locale: tr.locale } },
-          update: { title: tr.title, bodyMd: tr.bodyMd, published: tr.published ?? false },
-          create: {
-            articleId: input.articleId,
-            locale: tr.locale,
-            title: tr.title,
-            bodyMd: tr.bodyMd,
-            published: tr.published ?? false,
-          },
-        })
-      }
+      await Promise.all([
+        ctx.db.article.update({ where: { id: input.articleId }, data: { status: input.status } }),
+        ...input.translations.map((tr) =>
+          ctx.db.articleTranslation.upsert({
+            where: { articleId_locale: { articleId: input.articleId, locale: tr.locale } },
+            update: { title: tr.title, bodyMd: tr.bodyMd, published: tr.published ?? false },
+            create: {
+              articleId: input.articleId,
+              locale: tr.locale,
+              title: tr.title,
+              bodyMd: tr.bodyMd,
+              published: tr.published ?? false,
+            },
+          })
+        ),
+      ])
       const updated = await ctx.db.article.findUnique({
         where: { id: input.articleId },
         include: { translations: true },

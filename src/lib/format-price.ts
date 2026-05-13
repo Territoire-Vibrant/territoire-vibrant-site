@@ -15,10 +15,16 @@ const LOCALE_BCP47: Record<string, string> = {
   es: 'es-ES',
 }
 
+const FORMATTERS: Record<string, Intl.NumberFormat> = {
+  'en-CA:CAD': new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD' }),
+  'fr-CA:CAD': new Intl.NumberFormat('fr-CA', { style: 'currency', currency: 'CAD' }),
+  'pt-BR:BRL': new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }),
+  'es-ES:USD': new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'USD' }),
+}
+
 export function formatPrice(price: number, locale: string, currency: string): string {
   const bcp47 = LOCALE_BCP47[locale] ?? 'en-CA'
-  return new Intl.NumberFormat(bcp47, {
-    style: 'currency',
-    currency,
-  }).format(price)
+  const key = `${bcp47}:${currency}`
+  const formatter = FORMATTERS[key] ?? FORMATTERS['en-CA:CAD']!
+  return formatter.format(price)
 }
