@@ -1,5 +1,6 @@
 import '@uiw/react-markdown-preview/markdown.css'
 
+import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 
 import { MarkdownPreview } from '~/components/MarkdownPreview'
@@ -30,6 +31,24 @@ const DATE_FORMATTERS: Record<Locale, Intl.DateTimeFormat> = {
 
 const resolveLocale = (value: string): Locale => {
   return SUPPORTED_LOCALES.includes(value as Locale) ? (value as Locale) : 'en'
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{
+    locale: string
+  }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const activeLocale = resolveLocale(locale)
+  const t = await getTranslations({ locale: activeLocale, namespace: 'Search' })
+  const tRoot = await getTranslations({ locale: activeLocale })
+
+  return {
+    title: `${t('title')} - ${tRoot('territoire_vibrant')}`,
+    description: t('enter_query'),
+  }
 }
 
 const formatDate = (locale: Locale, date: Date) => {
