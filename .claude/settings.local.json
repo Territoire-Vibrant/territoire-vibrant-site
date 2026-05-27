@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs grep:*)",
+      "Bash(bun check:*)",
+      "Bash(python3 -c \":*)",
+      "Bash(*)",
+      "Read(*)",
+      "Edit(*)",
+      "Write(*)",
+      "mcp__Claude_in_Chrome__tabs_context_mcp"
+    ],
+    "defaultMode": "acceptEdits"
+  }
+}
