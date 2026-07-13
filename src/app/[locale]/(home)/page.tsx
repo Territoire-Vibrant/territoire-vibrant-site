@@ -14,6 +14,7 @@ import { HomeHero } from './components/HomeHero'
 import { ProjectCard } from './components/ProjectCard'
 import { ServicesSection } from './components/ServicesSection'
 import { SponsorsMarquee } from './components/SponsorsMarquee'
+import { StatsSection } from './components/StatsSection'
 
 import { Link } from '~/i18n/navigation'
 
@@ -27,24 +28,31 @@ export default function HomePage() {
 
   return (
     <>
-      <Section className='flex w-full flex-col items-center justify-between gap-24 px-6 py-12 md:flex-row'>
+      <Section className='max-w-[1180px]! px-6 py-12 lg:py-14'>
         <HomeHero />
       </Section>
 
-      <Section limitWidth={false} className='flex flex-col items-center bg-foreground'>
-        <div className='relative w-full max-w-6xl'>
-          <p className='absolute top-0 left-12 z-10 bg-white px-4 py-2 font-medium text-foreground text-sm lg:left-4'>
-            {t('partners')}
-          </p>
+      <Section limitWidth={false} className='bg-[#f1f4ec] px-6 py-8'>
+        <div className='mx-auto w-full max-w-[1240px]'>
+          <StatsSection />
         </div>
+      </Section>
 
-        <SponsorsMarquee />
+      <Section className='max-w-[1180px]! border-border/50 border-t px-6 py-5'>
+        <div className='flex flex-col items-center gap-6 md:flex-row md:justify-between'>
+          <div className='flex items-center gap-3'>
+            <span className='text-xl'>🌐</span>
+            <p className='max-w-sm text-muted-foreground text-sm leading-snug'>{t('Home.developed_between')}</p>
+          </div>
+
+          <SponsorsMarquee className='max-w-xl' />
+        </div>
       </Section>
 
       <Section
         id='projects'
         limitWidth={false}
-        className='flex flex-col items-center justify-center gap-y-8 bg-foreground px-12 pb-12'
+        className='flex flex-col items-center justify-center gap-y-8 bg-foreground px-12 pt-6 pb-12'
       >
         <div className='flex w-full max-w-4xl flex-col items-center justify-between gap-y-8 px-4 text-center md:flex-row'>
           <h3 className='font-semibold text-2xl text-background'>{t('featured_projects')}</h3>

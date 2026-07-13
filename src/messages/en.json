@@ -117,31 +117,35 @@
   },
   "Home": {
     "hero": {
-      "h1": {
-        "title": "Intelligence of <v>Living</v> territories",
-        "subtext": "We start by reading local symbolic capital and how people, projects, and decisions connect in organizations or regional territories.\n\nFrom there, we support the alignment and cooperation that generate sustainable, coherent, and lasting impact projects."
-      },
-      "h2": {
-        "title": "Here belonging <v>Vibrates</v>",
-        "subtext": "We work through creativity, territorial intelligence, and collaborative management to transform communities into sustainable territories."
-      },
-      "box1": {
+      "subtitle": "CONNECT · ACTIVATE · TRANSFORM",
+      "title": "Living Territorial <v>Intelligence</v>",
+      "paragraph_1": "We connect people, organizations, and territories to activate more collaborative, regenerative, and human ecosystems.",
+      "paragraph_2": "We transform local symbolic capital into collective intelligence, belonging, and lasting territorial impact.",
+      "cta_approach": "Discover our approach",
+      "cta_method": "See the method",
+      "box_tourism": {
         "title": "Community-based tourism",
         "subtext": "Experiences that strengthen local communities, generate income, and value the territory's culture."
       },
-      "box2": {
-        "community_image_alt": "A beautiful community",
-        "landscape_image_alt": "A beautiful landscape"
-      },
-      "box4_slide1": {
+      "box_economy": {
         "title": "Creative economy",
         "subtext": "Initiatives that transform the territory into sustainable economic value for local communities and cultures."
       },
-      "box4_slide2": {
-        "title": "Regenerative tourism",
-        "subtext": "We value natural and cultural roots to restore vitality to territories."
-      }
+      "community_image_alt": "Welcoming territories, thriving communities.",
+      "landscape_image_alt": "Nature, culture, and people in harmony."
     },
+    "stats": {
+      "communities": "+150",
+      "communities_label": "communities mobilized",
+      "territories": "+40",
+      "territories_label": "territories connected",
+      "partnerships": "+80",
+      "partnerships_label": "partnerships and collaborations",
+      "impact": "Impact",
+      "impact_label": "positive social, cultural and environmental"
+    },
+    "quote": "Vibrant territories don't happen by chance. They are built together.",
+    "developed_between": "Approach developed between Brazil and Quebec around territorial innovation and collaborative intelligence.",
     "intro": {
       "p": "We act with creativity, territorial intelligence, and collaborative management to transform realities into sustainable projects, connecting Brazil, Canada, and the world.",
       "cta_label": "Discover what a vibrant territory is",
@@ -341,6 +345,7 @@
     "email_sent_hint": "The e-book has been sent to your inbox."
   },
   "Footer": {
+    "partners_heading": "Partners and initiatives moving forward with us",
     "quick_links": "Quick Links",
     "recent_articles": "Recent Articles",
     "all_rights_reserved": "All rights reserved.",

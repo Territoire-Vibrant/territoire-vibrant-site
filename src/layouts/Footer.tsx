@@ -1,173 +1,72 @@
-import { EnvelopeSimple, InstagramLogo, LinkedinLogo, Phone } from '@phosphor-icons/react/dist/ssr'
-import { getLocale, getTranslations } from 'next-intl/server'
+import { GlobeHemisphereWestIcon } from '@phosphor-icons/react/dist/ssr'
+import { getTranslations } from 'next-intl/server'
 import Image from 'next/image'
 
-import { Link } from '~/i18n/navigation'
-import { METHOD_ARTICLE_ID } from '~/lib/constants'
-import { api } from '~/trpc/server'
+import Inflorescence from '~/assets/images/partners/inflorescence.png'
+import MonCarrefourWeb from '~/assets/images/partners/mon-carrefour-web.png'
+import SoAndCo from '~/assets/images/partners/so&co.png'
 
-type Locale = 'en' | 'es' | 'fr' | 'pt'
+const PARTNERS = [
+  { label: 'SO&CO', image: SoAndCo, href: 'https://www.soetco.ca/', sizeClass: 'size-[210px]' },
+  {
+    label: 'Inflorescence Clinique',
+    image: Inflorescence,
+    href: 'https://www.cliniqueinflorescence.com/',
+    sizeClass: 'size-[145px]',
+  },
+  {
+    label: 'Mon Carrefour Web',
+    image: MonCarrefourWeb,
+    href: 'https://moncarrefourweb.org/',
+    sizeClass: 'size-[130px]',
+  },
+] as const
 
 export const Footer = async () => {
-  const [t, locale] = await Promise.all([getTranslations(), getLocale() as Promise<Locale>])
-
-  const currentYear = new Date().getFullYear()
-
-  const articles = await api.article.getAll()
-
-  const recentArticles = articles.reduce<{ id: string; title: string }[]>((recent, article) => {
-    if (recent.length >= 4 || article.status !== 'PUBLISHED' || article.id === METHOD_ARTICLE_ID) {
-      return recent
-    }
-
-    const translationForLocale = article.translations.find(
-      (translation) => translation.locale === locale && translation.published
-    )
-    const fallbackTranslation = article.translations.find(
-      (translation) => translation.locale === 'en' && translation.published
-    )
-    const translation = translationForLocale ?? fallbackTranslation
-
-    if (!translation) return recent
-
-    recent.push({
-      id: article.id,
-      title: translation.title,
-    })
-
-    return recent
-  }, [])
+  const t = await getTranslations()
 
   return (
-    <footer className='bg-foreground text-background'>
-      <div className='mx-auto max-w-6xl px-6 py-12'>
-        <div className='grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4'>
-          {/* Logo and description */}
-          <div className='flex flex-col gap-4 lg:col-span-1'>
-            <Link href='/' prefetch>
-              <Image
-                src='/images/logotype_no_bg.png'
-                alt={t('territoire_vibrant')}
-                width={200}
-                height={60}
-                className='h-10 w-auto object-contain brightness-0 invert'
-              />
-            </Link>
-            <p className='whitespace-pre-line text-background/70 text-sm leading-relaxed'>
-              {t('Home.hero.h2.subtext')}
-            </p>
-          </div>
-
-          {/* Quick Links */}
-          <div className='flex flex-col gap-4'>
-            <h4 className='font-semibold text-secondary'>{t('Footer.quick_links')}</h4>
-            <ul className='flex flex-col gap-2 text-sm'>
-              <li>
-                <Link href='/' prefetch className='text-background/70 transition-colors hover:text-secondary'>
-                  {t('home')}
-                </Link>
-              </li>
-              <li>
-                <Link href='/method' prefetch className='text-background/70 transition-colors hover:text-secondary'>
-                  {t('method')}
-                </Link>
-              </li>
-              <li>
-                <Link href='/who-we-are' prefetch className='text-background/70 transition-colors hover:text-secondary'>
-                  {t('who_we_are')}
-                </Link>
-              </li>
-              <li>
-                <Link href='/content' prefetch className='text-background/70 transition-colors hover:text-secondary'>
-                  {t('content')}
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Recent Articles */}
-          <div className='flex flex-col gap-4'>
-            <h4 className='font-semibold text-secondary'>{t('Footer.recent_articles')}</h4>
-            <ul className='flex flex-col gap-2 text-sm'>
-              {recentArticles.length > 0 ? (
-                recentArticles.map((article) => (
-                  <li key={article.id}>
-                    <Link
-                      href={`/content/${article.id}`}
-                      prefetch
-                      className='line-clamp-2 text-background/70 transition-colors hover:text-secondary'
-                    >
-                      {article.title}
-                    </Link>
-                  </li>
-                ))
-              ) : (
-                <li className='text-background/50 text-xs'>{t('no_publications_yet')}</li>
-              )}
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div className='flex flex-col gap-4'>
-            <h4 className='font-semibold text-secondary'>{t('contact')}</h4>
-            <ul className='flex flex-col gap-3 text-sm'>
-              <li>
-                <a
-                  href='mailto:contato@territoirevibrant.ca'
-                  className='flex items-center gap-2 text-background/70 transition-colors hover:text-secondary'
-                >
-                  <EnvelopeSimple className='size-4' />
-                  <span>contato@territoirevibrant.ca</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href='tel:+15141234567'
-                  className='flex items-center gap-2 text-background/70 transition-colors hover:text-secondary'
-                >
-                  <Phone className='size-4' />
-                  <span>+1 (514) 123-4567</span>
-                </a>
-              </li>
-            </ul>
-
-            {/* Social Links */}
-            <div className='mt-2 flex gap-3'>
-              <a
-                href='https://instagram.com/territoirevibrant'
-                target='_blank'
-                rel='noopener noreferrer'
-                aria-label='Instagram'
-                className='flex size-9 items-center justify-center rounded-full bg-background/10 text-background/70 transition-all hover:bg-secondary hover:text-foreground'
-              >
-                <InstagramLogo className='size-5' />
-              </a>
-              <a
-                href='https://linkedin.com/company/territoirevibrant'
-                target='_blank'
-                rel='noopener noreferrer'
-                aria-label='LinkedIn'
-                className='flex size-9 items-center justify-center rounded-full bg-background/10 text-background/70 transition-all hover:bg-secondary hover:text-foreground'
-              >
-                <LinkedinLogo className='size-5' />
-              </a>
-            </div>
-          </div>
+    <footer className='border-foreground/8 border-t bg-[#f4f6ef]'>
+      <div className='mx-auto grid w-full max-w-[1180px] gap-8 px-6 py-9 lg:grid-cols-[250px_1fr] lg:items-center'>
+        <div>
+          <p className='font-semibold text-lg leading-snug'>{t('Footer.partners_heading')}</p>
+          <div className='mt-4 h-px w-10 bg-primary' aria-hidden />
         </div>
 
-        {/* Bottom bar */}
-        <div className='mt-10 flex flex-col items-center justify-between gap-4 border-background/10 border-t pt-6 text-sm md:flex-row'>
-          <p className='text-background/50'>
-            © {currentYear} {t('territoire_vibrant')}. {t('Footer.all_rights_reserved')}
-          </p>
-          <div className='flex gap-6'>
-            <Link href='/privacy' prefetch className='text-background/50 transition-colors hover:text-secondary'>
-              {t('Footer.privacy_policy')}
-            </Link>
-            <Link href='/terms' prefetch className='text-background/50 transition-colors hover:text-secondary'>
-              {t('Footer.terms_of_use')}
-            </Link>
+        <div className='grid grid-cols-2 items-center gap-5 sm:grid-cols-5'>
+          {PARTNERS.map((partner) => (
+            <a
+              key={partner.label}
+              href={partner.href}
+              target='_blank'
+              rel='noopener noreferrer'
+              aria-label={partner.label}
+              className='relative flex h-14 items-center justify-center overflow-hidden border-foreground/10 sm:border-l'
+            >
+              <Image
+                src={partner.image}
+                alt={partner.label}
+                className={`${partner.sizeClass} absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 opacity-70 brightness-0`}
+              />
+            </a>
+          ))}
+          <div className='flex h-14 items-center justify-center border-foreground/10 text-center font-serif text-lg leading-none sm:border-l'>
+            école
+            <br />
+            vivante
           </div>
+          <div className='flex h-14 items-center justify-center border-foreground/10 text-center text-xs leading-tight sm:border-l'>
+            <span className='font-semibold text-base'>1000 ÁRVORES</span>
+            <br />
+            POR AMANHÃ
+          </div>
+        </div>
+      </div>
+
+      <div className='border-foreground/8 border-t bg-background/60'>
+        <div className='mx-auto flex w-full max-w-[1180px] items-center gap-4 px-6 py-5 text-foreground/75 text-sm'>
+          <GlobeHemisphereWestIcon className='size-6 shrink-0 text-foreground' weight='duotone' />
+          <p>{t('Home.developed_between')}</p>
         </div>
       </div>
     </footer>

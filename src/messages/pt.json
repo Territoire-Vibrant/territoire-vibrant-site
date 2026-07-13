@@ -117,31 +117,35 @@
   },
   "Home": {
     "hero": {
-      "h1": {
-        "title": "Inteligência de territórios <v>Vivos</v>",
-        "subtext": "Partimos da leitura do capital simbólico local e de como pessoas, projetos e decisões se conectam em organizações ou territórios regionais.\n\nA partir disso, apoiamos o alinhamento e a cooperação que geram projetos de impacto sustentáveis, coerentes e duradouros."
-      },
-      "h2": {
-        "title": "Aqui o pertencimento <v>Vibra</v>",
-        "subtext": "Trabalhamos a partir de criatividade, inteligência territorial e gestão colaborativa para transformar comunidades em territórios sustentáveis."
-      },
-      "box1": {
+      "subtitle": "CONECTAR · ATIVAR · TRANSFORMAR",
+      "title": "Inteligência Territorial <v>Viva</v>",
+      "paragraph_1": "Conectamos pessoas, organizações e territórios para ativar ecossistemas mais colaborativos, regenerativos e humanos.",
+      "paragraph_2": "Transformamos capital simbólico local em inteligência coletiva, pertencimento e impacto territorial duradouro.",
+      "cta_approach": "Conheça nossa abordagem",
+      "cta_method": "Ver o método",
+      "box_tourism": {
         "title": "Turismo de base comunitária",
         "subtext": "Experiências que fortalecem comunidades locais, geram renda e valorizam a cultura do território."
       },
-      "box2": {
-        "community_image_alt": "Uma linda comunidade",
-        "landscape_image_alt": "Uma bela paisagem"
-      },
-      "box4_slide1": {
+      "box_economy": {
         "title": "Economia criativa",
         "subtext": "Iniciativas que transformam o território em valor econômico sustentável para comunidades e culturas locais."
       },
-      "box4_slide2": {
-        "title": "Turismo regenerativo",
-        "subtext": "Valorizamos as raízes naturais e culturais para devolver vitalidade aos territórios."
-      }
+      "community_image_alt": "Territórios que acolhem, comunidades que prosperam.",
+      "landscape_image_alt": "Natureza, cultura e pessoas em harmonia."
     },
+    "stats": {
+      "communities": "+150",
+      "communities_label": "comunidades mobilizadas",
+      "territories": "+40",
+      "territories_label": "territórios conectados",
+      "partnerships": "+80",
+      "partnerships_label": "parcerias e colaborações",
+      "impact": "Impacto",
+      "impact_label": "social, cultural e ambiental positivo"
+    },
+    "quote": "Territórios vibrantes não acontecem por acaso. Eles são construídos juntos.",
+    "developed_between": "Abordagem desenvolvida entre Brasil e Québec em torno da inovação territorial e da inteligência colaborativa.",
     "intro": {
       "p": "Atuamos com criatividade, inteligência territorial e gestão colaborativa para transformar realidades em projetos sustentáveis, conectando Brasil, Canadá e o mundo.",
       "cta_label": "Descubra o que é um território vibrante",
@@ -341,6 +345,7 @@
     "email_sent_hint": "O e-book foi enviado para o seu email."
   },
   "Footer": {
+    "partners_heading": "Parceiros e iniciativas que caminham conosco",
     "quick_links": "Links Rápidos",
     "recent_articles": "Artigos Recentes",
     "all_rights_reserved": "Todos os direitos reservados.",

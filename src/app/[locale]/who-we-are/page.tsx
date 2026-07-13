@@ -26,7 +26,7 @@ export default function WhoWeArePage() {
       <Section className='flex w-full flex-col items-center gap-10 px-6 py-12 lg:flex-row-reverse lg:py-16'>
         <Image
           src={Community}
-          alt={t('Home.hero.box2.community_image_alt')}
+          alt={t('Home.hero.community_image_alt')}
           className='aspect-4/3 w-full rounded-xl object-cover lg:w-1/2'
           priority
         />
@@ -46,7 +46,7 @@ export default function WhoWeArePage() {
       <Section className='flex w-full flex-col items-center gap-10 px-6 py-12 lg:flex-row lg:py-16'>
         <Image
           src={Landscape}
-          alt={t('Home.hero.box2.landscape_image_alt')}
+          alt={t('Home.hero.landscape_image_alt')}
           className='aspect-4/3 w-full rounded-xl object-cover lg:w-1/2'
         />
 

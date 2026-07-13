@@ -117,31 +117,35 @@
   },
   "Home": {
     "hero": {
-      "h1": {
-        "title": "Intelligence des territoires <v>Vivants</v>",
-        "subtext": "Nous partons de la lecture du capital symbolique local et de la manière dont les personnes, les projets et les décisions se connectent dans les organisations ou les territoires régionaux.\n\nÀ partir de là, nous soutenons l'alignement et la coopération qui génèrent des projets d'impact durables, cohérents et pérennes."
-      },
-      "h2": {
-        "title": "Ici, l'appartenance <v>Vibre</v>",
-        "subtext": "Nous travaillons à partir de la créativité, de l'intelligence territoriale et de la gestion collaborative pour transformer les communautés en territoires durables."
-      },
-      "box1": {
+      "subtitle": "CONNECTER · ACTIVER · TRANSFORMER",
+      "title": "Intelligence Territoriale <v>Vivante</v>",
+      "paragraph_1": "Nous connectons les personnes, les organisations et les territoires pour activer des écosystèmes plus collaboratifs, régénératifs et humains.",
+      "paragraph_2": "Nous transformons le capital symbolique local en intelligence collective, en appartenance et en impact territorial durable.",
+      "cta_approach": "Découvrez notre approche",
+      "cta_method": "Voir la méthode",
+      "box_tourism": {
         "title": "Tourisme communautaire",
         "subtext": "Des expériences qui renforcent les communautés locales, génèrent des revenus et valorisent la culture du territoire."
       },
-      "box2": {
-        "community_image_alt": "Une belle communauté",
-        "landscape_image_alt": "Un beau paysage"
-      },
-      "box4_slide1": {
+      "box_economy": {
         "title": "Économie créative",
         "subtext": "Des initiatives qui transforment le territoire en valeur économique durable pour les communautés et les cultures locales."
       },
-      "box4_slide2": {
-        "title": "Tourisme régénérateur",
-        "subtext": "Nous valorisons les racines naturelles et culturelles pour redonner vitalité aux territoires."
-      }
+      "community_image_alt": "Des territoires accueillants, des communautés qui prospèrent.",
+      "landscape_image_alt": "Nature, culture et personnes en harmonie."
     },
+    "stats": {
+      "communities": "+150",
+      "communities_label": "communautés mobilisées",
+      "territories": "+40",
+      "territories_label": "territoires connectés",
+      "partnerships": "+80",
+      "partnerships_label": "partenariats et collaborations",
+      "impact": "Impact",
+      "impact_label": "social, culturel et environnemental positif"
+    },
+    "quote": "Les territoires vibrants ne naissent pas par hasard. Ils se construisent ensemble.",
+    "developed_between": "Approche développée entre le Brésil et le Québec autour de l'innovation territoriale et de l'intelligence collaborative.",
     "intro": {
       "p": "Nous agissons avec créativité, intelligence territoriale et gestion collaborative pour transformer les réalités en projets durables, en connectant le Brésil, le Canada et le monde.",
       "cta_label": "Découvrez ce qu'est un territoire vibrant",
@@ -341,6 +345,7 @@
     "email_sent_hint": "L'e-book a été envoyé dans votre boîte de réception."
   },
   "Footer": {
+    "partners_heading": "Partenaires et initiatives qui avancent avec nous",
     "quick_links": "Liens Rapides",
     "recent_articles": "Articles Récents",
     "all_rights_reserved": "Tous droits réservés.",

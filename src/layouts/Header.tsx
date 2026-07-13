@@ -1,9 +1,5 @@
 'use client'
 
-import { type Locale, useLocale, useTranslations } from 'next-intl'
-import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
-
 import {
   CheckIcon,
   GlobeIcon,
@@ -12,6 +8,11 @@ import {
   ShoppingCartIcon,
   XIcon,
 } from '@phosphor-icons/react/dist/ssr'
+import { type Locale, useLocale, useTranslations } from 'next-intl'
+import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
+
+import { Button } from '~/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -20,285 +21,175 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '~/components/ui/dialog'
-import { Button } from '~/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '~/components/ui/dropdown-menu'
-
 import { Link, usePathname, useRouter } from '~/i18n/navigation'
 import { routing } from '~/i18n/routing'
+import { cn } from '~/lib/utils'
+
+const NAV_ITEMS = [
+  { href: '/method', label: 'method' },
+  { href: '/who-we-are', label: 'who_we_are' },
+  { href: '/#projects', label: 'projects' },
+  { href: '/services', label: 'services' },
+  { href: '/content', label: 'content' },
+  { href: '/shop', label: 'Shop.title' },
+  { href: '/contact', label: 'contact' },
+] as const
+
+const localeLabelKey: Record<string, string> = {
+  en: 'english',
+  pt: 'portuguese',
+  es: 'spanish',
+  fr: 'french',
+}
 
 export const Header = () => {
   const t = useTranslations()
   const locale = useLocale()
   const pathname = usePathname()
   const { push, replace } = useRouter()
-
-  const [open, setOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const searchInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    if (searchOpen && searchInputRef.current) {
-      searchInputRef.current.focus()
-    }
+    if (searchOpen) searchInputRef.current?.focus()
   }, [searchOpen])
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (searchQuery.trim()) {
-      push(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
-      setSearchOpen(false)
-      setSearchQuery('')
-    }
-  }
+  const handleSearch = (event: React.FormEvent) => {
+    event.preventDefault()
+    const query = searchQuery.trim()
+    if (!query) return
 
-  const localeLabelKey: Record<string, string> = {
-    en: 'english',
-    pt: 'portuguese',
-    es: 'spanish',
-    fr: 'french',
+    push(`/search?q=${encodeURIComponent(query)}`)
+    setSearchOpen(false)
+    setSearchQuery('')
   }
 
   const handleLanguageChange = (newLocale: Locale) => {
-    replace(pathname, {
-      locale: newLocale,
-    })
+    replace(pathname, { locale: newLocale })
+  }
+
+  const isCurrent = (href: (typeof NAV_ITEMS)[number]['href']) => {
+    if (href === '/#projects') return pathname === '/' && false
+    return pathname === href
   }
 
   return (
-    <header className='sticky top-0 z-30 flex shrink-0 select-none items-center justify-center bg-background/70 backdrop-blur-xl'>
-      <nav className='flex h-16 w-full max-w-6xl items-center justify-between px-6'>
-        <ul className='flex items-center'>
-          <li>
-            <Link href='/' prefetch>
-              <Image
-                src='/images/logotype_no_bg.png'
-                alt={t('territoire_vibrant')}
-                width={500}
-                height={500}
-                className='h-10 w-auto object-contain'
-              />
-            </Link>
-          </li>
-        </ul>
+    <header className='sticky top-0 z-40 border-foreground/10 border-b bg-background/95 backdrop-blur-xl'>
+      <nav className='mx-auto flex h-[72px] w-full max-w-[1180px] items-center justify-between px-5 sm:px-8'>
+        <Link href='/' prefetch aria-label={t('territoire_vibrant')} className='shrink-0'>
+          <Image
+            src='/images/logotype_no_bg.png'
+            alt={t('territoire_vibrant')}
+            width={500}
+            height={200}
+            priority
+            className='h-[46px] w-auto object-contain'
+          />
+        </Link>
 
-        <div className='flex flex-row-reverse items-center gap-4 lg:flex-row'>
-          {/* Mobile links */}
-          <div className='flex lg:hidden'>
-            <Dialog open={open} onOpenChange={(val) => setOpen(val)}>
-              <DialogTrigger className='cursor-pointer transition-all ease-in hover:text-primary'>
-                <ListIcon />
-              </DialogTrigger>
-
-              <DialogContent className='flex h-screen w-screen max-w-screen flex-col items-center justify-center rounded-none border-none bg-black/50 text-background shadow-none sm:max-w-screen'>
-                <DialogHeader className='sr-only'>
-                  <DialogTitle />
-                  <DialogDescription />
-                </DialogHeader>
-
-                <ul className='flex flex-col items-center gap-6 text-2xl'>
-                  <li
-                    data-current-page={pathname === '/'}
-                    className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
-                  >
-                    <Link href='/' prefetch onClick={() => setOpen(false)}>
-                      {t('home')}
-                    </Link>
-                  </li>
-
-                  <li
-                    data-current-page={pathname === '/method'}
-                    className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
-                  >
-                    <Link href='/method' prefetch onClick={() => setOpen(false)}>
-                      {t('method')}
-                    </Link>
-                  </li>
-
-                  <li
-                    data-current-page={pathname === '/who-we-are'}
-                    className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
-                  >
-                    <Link href='/who-we-are' prefetch onClick={() => setOpen(false)}>
-                      {t('who_we_are')}
-                    </Link>
-                  </li>
-
-                  <li className='transition-all ease-in'>
-                    <Link href='/#projects' prefetch onClick={() => setOpen(false)}>
-                      {t('projects')}
-                    </Link>
-                  </li>
-
-                  <li
-                    data-current-page={pathname.includes('services')}
-                    className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
-                  >
-                    <Link href='/#services' prefetch onClick={() => setOpen(false)}>
-                      {t('services')}
-                    </Link>
-                  </li>
-
-                  <li
-                    data-current-page={pathname.includes('publications')}
-                    className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
-                  >
-                    <Link href='/content' prefetch onClick={() => setOpen(false)}>
-                      {t('content')}
-                    </Link>
-                  </li>
-
-                  <li
-                    data-current-page={pathname === '/shop'}
-                    className='transition-all ease-in data-[current-page=true]:font-semibold data-[current-page=true]:text-neutral-400'
-                  >
-                    <Link href='/shop' prefetch onClick={() => setOpen(false)}>
-                      {t('Shop.title')}
-                    </Link>
-                  </li>
-
-                  <li className='transition-all ease-in'>
-                    <Link href='/#contact' prefetch onClick={() => setOpen(false)}>
-                      {t('contact')}
-                    </Link>
-                  </li>
-                </ul>
-              </DialogContent>
-            </Dialog>
-          </div>
-
-          {/* Desktop links */}
-          <ul className='ml-6 hidden items-center gap-6 lg:flex'>
-            <li
-              data-current-page={pathname === '/method'}
-              className='whitespace-nowrap transition-all ease-in hover:scale-105 hover:text-primary data-[current-page=true]:font-semibold'
-            >
-              <Link href='/method' prefetch>
-                {t('method')}
-              </Link>
-            </li>
-
-            <li
-              data-current-page={pathname === '/who-we-are'}
-              className='whitespace-nowrap transition-all ease-in hover:scale-105 hover:text-primary data-[current-page=true]:font-semibold'
-            >
-              <Link href='/who-we-are' prefetch>
-                {t('who_we_are')}
-              </Link>
-            </li>
-
-            <li className='transition-all ease-in hover:scale-105 hover:text-primary'>
-              <Link href='/#projects' prefetch>
-                {t('projects')}
-              </Link>
-            </li>
-
-            <li
-              data-current-page={pathname.includes('services')}
-              className='whitespace-nowrap transition-all ease-in hover:scale-105 hover:text-primary data-[current-page=true]:font-semibold'
-            >
-              <Link href='/#services' prefetch>
-                {t('services')}
-              </Link>
-            </li>
-
-            <li
-              data-current-page={pathname.includes('publications')}
-              className='whitespace-nowrap transition-all ease-in hover:scale-105 hover:text-primary data-[current-page=true]:font-semibold'
-            >
-              <Link href='/content' prefetch>
-                {t('content')}
-              </Link>
-            </li>
-
-            <li
-              data-current-page={pathname === '/shop'}
-              className='whitespace-nowrap transition-all ease-in hover:scale-105 hover:text-primary data-[current-page=true]:font-semibold'
-            >
-              <Link href='/shop' prefetch>
-                {t('Shop.title')}
-              </Link>
-            </li>
-
-            <li className='transition-all ease-in hover:scale-105 hover:text-primary'>
-              <Link href='/#contact' prefetch>
-                {t('contact')}
-              </Link>
-            </li>
+        <div className='flex items-center gap-2'>
+          <ul className='hidden items-stretch lg:flex'>
+            {NAV_ITEMS.map((item) => (
+              <li key={item.href} className='relative flex items-center'>
+                <Link
+                  href={item.href}
+                  prefetch
+                  aria-current={isCurrent(item.href) ? 'page' : undefined}
+                  className={cn(
+                    'relative flex h-[72px] items-center px-4 font-medium text-[15px] text-foreground/90 transition-colors hover:text-primary',
+                    'after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:origin-center after:scale-x-0 after:bg-primary after:transition-transform',
+                    isCurrent(item.href) && 'font-semibold text-primary after:scale-x-100'
+                  )}
+                >
+                  {t(item.label)}
+                </Link>
+              </li>
+            ))}
           </ul>
 
-          <div className='ml-6 flex items-center gap-1'>
-            {/* Search */}
+          <div className='flex items-center gap-0.5 lg:ml-3'>
             <div className='relative flex items-center'>
-              <div
-                className={`flex items-center overflow-hidden transition-all duration-300 ease-in-out ${
-                  searchOpen ? 'w-48 md:w-64' : 'w-0'
-                }`}
+              <form
+                onSubmit={handleSearch}
+                className={cn(
+                  'overflow-hidden transition-[width,opacity] duration-300',
+                  searchOpen ? 'w-40 opacity-100 sm:w-56' : 'w-0 opacity-0'
+                )}
               >
-                <form onSubmit={handleSearch} className='flex w-full items-center'>
-                  <input
-                    ref={searchInputRef}
-                    type='text'
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder={t('search')}
-                    className='h-9 w-full border-primary/30 border-b bg-transparent px-2 text-sm outline-none placeholder:text-muted-foreground focus:border-primary'
-                  />
-                </form>
-              </div>
-
+                <input
+                  ref={searchInputRef}
+                  type='search'
+                  value={searchQuery}
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                  placeholder={t('search')}
+                  className='h-10 w-full border-primary/30 border-b bg-transparent px-2 text-sm outline-none placeholder:text-foreground/40 focus:border-primary'
+                />
+              </form>
               <Button
                 variant='ghost'
                 size='icon'
-                className='rounded-none hover:bg-primary hover:text-background'
-                onClick={() => {
-                  if (searchOpen && searchQuery) {
-                    setSearchQuery('')
-                  }
-                  setSearchOpen(!searchOpen)
-                }}
+                aria-label={searchOpen ? 'Fechar busca' : t('search')}
+                className='rounded-full hover:bg-primary/10 hover:text-primary'
+                onClick={() => setSearchOpen((current) => !current)}
               >
                 {searchOpen ? <XIcon className='size-5' /> : <MagnifyingGlassIcon className='size-5' />}
-                <span className='sr-only'>{searchOpen ? 'Close search' : 'Open search'}</span>
               </Button>
             </div>
 
-            {/* Shopping Cart */}
-            <Link href='/shop' prefetch>
-              <Button variant='ghost' size='icon' className='rounded-none hover:bg-primary hover:text-background'>
+            <Link href='/shop' prefetch aria-label={t('Shop.title')}>
+              <Button variant='ghost' size='icon' className='rounded-full hover:bg-primary/10 hover:text-primary'>
                 <ShoppingCartIcon className='size-5' />
-                <span className='sr-only'>Shopping Cart</span>
               </Button>
             </Link>
 
-            {/* Language switcher */}
-            <div>
-              <DropdownMenu modal={false}>
-                <DropdownMenuTrigger asChild>
-                  <Button variant='ghost' size='icon' className='rounded-none hover:bg-primary hover:text-background'>
-                    <GlobeIcon className='size-5' />
-                    <span className='sr-only'>Language</span>
-                  </Button>
-                </DropdownMenuTrigger>
+            <DropdownMenu modal={false}>
+              <DropdownMenuTrigger asChild>
+                <Button variant='ghost' size='icon' className='rounded-full hover:bg-primary/10 hover:text-primary'>
+                  <GlobeIcon className='size-5' />
+                  <span className='sr-only'>Idioma</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align='end'>
+                {routing.locales.map((loc) => (
+                  <DropdownMenuItem key={loc} onClick={() => handleLanguageChange(loc as Locale)}>
+                    <span>{localeLabelKey[loc] ? t(localeLabelKey[loc] as never) : loc.toUpperCase()}</span>
+                    {loc === locale && <CheckIcon className='ml-auto size-4 text-primary' />}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-                <DropdownMenuContent align='end'>
-                  {routing.locales.map((loc) => (
-                    <DropdownMenuItem
-                      key={loc}
-                      className='group transition-all ease-in focus:bg-primary focus:text-background'
-                      onClick={() => handleLanguageChange(loc as Locale)}
-                    >
-                      <span className='mr-2'>
-                        {localeLabelKey[loc] ? t(localeLabelKey[loc] as any) : loc.toUpperCase()}
-                      </span>
-                      {loc === locale && (
-                        <CheckIcon className='ml-auto size-4 text-primary group-hover:text-background' />
-                      )}
-                    </DropdownMenuItem>
+            <Dialog open={menuOpen} onOpenChange={setMenuOpen}>
+              <DialogTrigger asChild>
+                <Button variant='ghost' size='icon' className='rounded-full lg:hidden'>
+                  <ListIcon className='size-6' />
+                  <span className='sr-only'>Abrir menu</span>
+                </Button>
+              </DialogTrigger>
+              <DialogContent className='inset-0 flex h-dvh w-screen max-w-none translate-x-0 translate-y-0 flex-col justify-center rounded-none border-0 bg-background p-8 sm:max-w-none'>
+                <DialogHeader className='sr-only'>
+                  <DialogTitle>Menu</DialogTitle>
+                  <DialogDescription>Navegação principal</DialogDescription>
+                </DialogHeader>
+                <ul className='flex flex-col items-center gap-5'>
+                  {NAV_ITEMS.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        prefetch
+                        className={cn('font-semibold text-2xl', isCurrent(item.href) && 'text-primary')}
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        {t(item.label)}
+                      </Link>
+                    </li>
                   ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
+                </ul>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </nav>

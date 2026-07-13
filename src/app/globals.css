@@ -3,7 +3,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 4rem;
+  scroll-padding-top: 4.5rem;
 }
 
 @custom-variant dark (&:is(.dark *));
@@ -128,7 +128,27 @@ html {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground ease-in-out transition-all;
+    @apply bg-background text-foreground;
+    min-width: 320px;
+  }
+}
+
+::selection {
+  background: color-mix(in srgb, var(--primary) 22%, transparent);
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  transition-duration: 180ms;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 260ms;
   }
 }
 
