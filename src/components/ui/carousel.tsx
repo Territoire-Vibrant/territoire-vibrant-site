@@ -17,7 +17,6 @@ type CarouselProps = {
   opts?: CarouselOptions
   plugins?: CarouselPlugin
   orientation?: 'horizontal' | 'vertical'
-  setApi?: (api: CarouselApi) => void
 }
 
 type CarouselContextProps = {
@@ -44,7 +43,6 @@ function useCarousel() {
 function Carousel({
   orientation = 'horizontal',
   opts,
-  setApi,
   plugins,
   className,
   children,
@@ -59,16 +57,12 @@ function Carousel({
   )
   const [canScrollPrev, setCanScrollPrev] = React.useState(false)
   const [canScrollNext, setCanScrollNext] = React.useState(false)
-  const setApiRef = React.useRef(setApi)
-  const onSelectRef = React.useRef<(api: CarouselApi) => void>(() => undefined)
 
   const onSelect = React.useCallback((api: CarouselApi) => {
     if (!api) return
     setCanScrollPrev(api.canScrollPrev())
     setCanScrollNext(api.canScrollNext())
   }, [])
-  onSelectRef.current = onSelect
-  setApiRef.current = setApi
 
   const scrollPrev = React.useCallback(() => {
     api?.scrollPrev()
@@ -92,14 +86,9 @@ function Carousel({
   )
 
   React.useEffect(() => {
-    if (!api || !setApiRef.current) return
-    setApiRef.current(api)
-  }, [api])
-
-  React.useEffect(() => {
     if (!api) return
     const handleSelect = (currentApi: CarouselApi) => {
-      onSelectRef.current(currentApi)
+      onSelect(currentApi)
     }
 
     handleSelect(api)
@@ -110,21 +99,24 @@ function Carousel({
       api.off('reInit', handleSelect)
       api.off('select', handleSelect)
     }
-  }, [api])
+  }, [api, onSelect])
+
+  const contextValue = React.useMemo<CarouselContextProps>(
+    () => ({
+      carouselRef,
+      api,
+      opts,
+      orientation: orientation || (opts?.axis === 'y' ? 'vertical' : 'horizontal'),
+      scrollPrev,
+      scrollNext,
+      canScrollPrev,
+      canScrollNext,
+    }),
+    [api, canScrollNext, canScrollPrev, carouselRef, opts, orientation, scrollNext, scrollPrev]
+  )
 
   return (
-    <CarouselContext.Provider
-      value={{
-        carouselRef,
-        api: api,
-        opts,
-        orientation: orientation || (opts?.axis === 'y' ? 'vertical' : 'horizontal'),
-        scrollPrev,
-        scrollNext,
-        canScrollPrev,
-        canScrollNext,
-      }}
-    >
+    <CarouselContext.Provider value={contextValue}>
       {/* biome-ignore lint/a11y/useSemanticElements: section does not support aria-roledescription; carousel needs it for a11y */}
       <div
         onKeyDownCapture={handleKeyDown}
@@ -227,4 +219,4 @@ function CarouselNext({
   )
 }
 
-export { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi }
+export { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi, useCarousel }

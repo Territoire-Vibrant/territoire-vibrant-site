@@ -35,7 +35,7 @@ export const HomeHero = () => {
         <div className='mt-9 flex flex-wrap items-center gap-5'>
           <Link
             href='/who-we-are'
-            className='inline-flex min-h-12 items-center gap-2 rounded-md bg-primary px-5 py-3 font-semibold text-primary-foreground text-sm shadow-sm transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-md'
+            className='inline-flex min-h-12 items-center gap-2 rounded-md bg-primary px-5 py-3 font-semibold text-primary-foreground text-sm shadow-sm transition-[transform,background-color,box-shadow] ease-out hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-md'
           >
             <LeafIcon size={18} weight='duotone' />
             {t('Home.hero.cta_approach')}
@@ -78,7 +78,7 @@ export const HomeHero = () => {
             priority
             className='absolute inset-0 size-full object-cover'
           />
-          <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent' />
+          <div className='absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent' />
           <figcaption className='absolute inset-x-0 bottom-0 p-5 font-semibold text-white leading-snug'>
             {t('Home.hero.community_image_alt')}
           </figcaption>
@@ -90,7 +90,7 @@ export const HomeHero = () => {
             alt={t('Home.hero.landscape_image_alt')}
             className='absolute inset-0 size-full object-cover'
           />
-          <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent' />
+          <div className='absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent' />
           <figcaption className='absolute inset-x-0 bottom-0 p-5 font-semibold text-white leading-snug'>
             {t('Home.hero.landscape_image_alt')}
           </figcaption>

@@ -19,14 +19,14 @@ export const productAdminUpsertSchema = z
       if (!s) {
         continue
       }
-      if (!z.string().url().safeParse(s).success) {
+      if (!z.url().safeParse(s).success) {
         ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Invalid URL', path: [key] })
       }
     }
   })
 
 export const productAdminUpdateSchema = productAdminUpsertSchema.extend({
-  id: z.string().uuid(),
+  id: z.uuid(),
 })
 
 export type ProductAdminUpsertInput = z.infer<typeof productAdminUpsertSchema>

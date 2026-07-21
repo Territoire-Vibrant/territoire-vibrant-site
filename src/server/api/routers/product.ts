@@ -10,7 +10,7 @@ export const productRouter = createTRPCRouter({
     })
   }),
 
-  getById: adminProcedure.input(z.object({ id: z.string().uuid() })).query(async ({ ctx, input }) => {
+  getById: adminProcedure.input(z.object({ id: z.uuid() })).query(async ({ ctx, input }) => {
     const product = await ctx.db.product.findUnique({
       where: { id: input.id },
     })

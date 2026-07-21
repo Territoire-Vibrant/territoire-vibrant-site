@@ -13,7 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs'
 import { MarkdownEditor } from '../../components/MarkdownEditor'
 
 import { useRouter } from '~/i18n/navigation'
-import { api } from '~/trpc/react'
+import { api } from '~/trpc/api'
 import { PublicationSchema } from './schema'
 
 const LOCALES = ['en', 'es', 'fr', 'pt'] as const

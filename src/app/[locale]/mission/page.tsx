@@ -61,7 +61,7 @@ export default function MissionPage() {
 
           <Button
             asChild
-            className='mt-6 rounded-full bg-linear-to-r from-green-800 to-emerald-600 p-7 text-background text-base shadow-lg transition-all ease-in hover:opacity-90'
+            className='mt-6 rounded-full bg-linear-to-r from-green-800 to-emerald-600 p-7 text-background text-base shadow-lg transition-opacity ease-out hover:opacity-90'
           >
             <a href='#essence' aria-label={t('Mission.essence.title')}>
               {t('Mission.essence.title')}
@@ -127,7 +127,7 @@ export default function MissionPage() {
                   {values.map(({ label, Icon, color }) => (
                     <li
                       key={label}
-                      className='group flex items-start gap-4 rounded-xl border border-neutral-200 bg-background p-5 shadow-sm ring-1 ring-neutral-100 transition will-change-transform hover:-translate-y-0.5 hover:shadow-md'
+                      className='group flex items-start gap-4 rounded-xl border border-neutral-200 bg-background p-5 shadow-sm ring-1 ring-neutral-100 transition-[transform,box-shadow] ease-out hover:-translate-y-0.5 hover:shadow-md'
                     >
                       <div className={`inline-flex size-10 shrink-0 items-center justify-center rounded-lg ${color}`}>
                         <Icon className='size-5' aria-hidden='true' />

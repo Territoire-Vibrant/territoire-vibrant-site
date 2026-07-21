@@ -2,13 +2,10 @@
 
 import { type QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { httpBatchStreamLink, loggerLink } from '@trpc/client'
-import { createTRPCReact } from '@trpc/react-query'
-import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server'
 import { type ReactNode, useEffect, useState, useSyncExternalStore } from 'react'
 import SuperJSON from 'superjson'
 
-import type { AppRouter } from '~/server/api/root'
-
+import { api } from './api'
 import { createQueryClient } from './query-client'
 
 let clientQueryClientSingleton: QueryClient | undefined
@@ -23,37 +20,32 @@ const getQueryClient = () => {
   return clientQueryClientSingleton
 }
 
-export const api = createTRPCReact<AppRouter>()
-
-/**
- * Inference helper for inputs.
- *
- * @example type HelloInput = RouterInputs['example']['hello']
- */
-export type RouterInputs = inferRouterInputs<AppRouter>
-
-/**
- * Inference helper for outputs.
- *
- * @example type HelloOutput = RouterOutputs['example']['hello']
- */
-export type RouterOutputs = inferRouterOutputs<AppRouter>
-
 const isModifiedClick = (e: MouseEvent) => {
   return e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0
 }
 
 let navigationPending = false
+let navigationNotificationQueued = false
 const navigationPendingListeners = new Set<() => void>()
+
+const notifyNavigationPendingListeners = () => {
+  if (navigationNotificationQueued) return
+
+  navigationNotificationQueued = true
+  queueMicrotask(() => {
+    navigationNotificationQueued = false
+    for (const listener of navigationPendingListeners) {
+      listener()
+    }
+  })
+}
 
 const setNavigationPending = (pending: boolean) => {
   if (navigationPending === pending) {
     return
   }
   navigationPending = pending
-  for (const listener of navigationPendingListeners) {
-    listener()
-  }
+  notifyNavigationPendingListeners()
 }
 
 const subscribeNavigationPending = (listener: () => void) => {

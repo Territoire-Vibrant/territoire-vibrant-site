@@ -16,7 +16,7 @@ import { UnoptimizedImage } from '~/components/ui/unoptimized-image'
 import { Link, useRouter } from '~/i18n/navigation'
 import { productAdminUpsertSchema } from '~/lib/product-admin-schema'
 import { cn } from '~/lib/utils'
-import { api } from '~/trpc/react'
+import { api } from '~/trpc/api'
 
 export type ProductFormDefaults = {
   name: string
@@ -130,11 +130,12 @@ export function ProductForm({ mode, productId, defaultValues }: ProductFormProps
         body: formData,
       })
 
-      const data = (await response.json()) as UploadResponse | UploadError
-
-      if (!response.ok || 'error' in data) {
-        throw new Error('error' in data ? data.error : t('admin_shop_upload_error'))
+      if (!response.ok) {
+        const errorData = (await response.json().catch(() => null)) as UploadError | null
+        throw new Error(errorData?.error ?? t('admin_shop_upload_error'))
       }
+
+      const data = (await response.json()) as UploadResponse
 
       return data.url
     },

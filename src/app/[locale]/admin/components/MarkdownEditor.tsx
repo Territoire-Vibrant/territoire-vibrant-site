@@ -6,7 +6,7 @@ import Placeholder from '@tiptap/extension-placeholder'
 import { type Editor, EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import clsx from 'clsx'
-import { type ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { type ReactElement, useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 import { Markdown } from 'tiptap-markdown'
 
 import {
@@ -305,28 +305,23 @@ const useEditorValueSync = ({
 }
 
 const useEditorSelectionEmpty = (editor: Editor | null) => {
-  const [selectionEmpty, setSelectionEmpty] = useState(true)
+  const subscribe = useCallback(
+    (onStoreChange: () => void) => {
+      if (!editor) return () => undefined
 
-  useEffect(() => {
-    if (!editor) {
-      return
-    }
+      editor.on('selectionUpdate', onStoreChange)
+      editor.on('transaction', onStoreChange)
 
-    const handleSelectionChange = () => {
-      setSelectionEmpty(editor.state.selection.empty)
-    }
+      return () => {
+        editor.off('selectionUpdate', onStoreChange)
+        editor.off('transaction', onStoreChange)
+      }
+    },
+    [editor]
+  )
+  const getSnapshot = useCallback(() => editor?.state.selection.empty ?? true, [editor])
 
-    handleSelectionChange()
-    editor.on('selectionUpdate', handleSelectionChange)
-    editor.on('transaction', handleSelectionChange)
-
-    return () => {
-      editor.off('selectionUpdate', handleSelectionChange)
-      editor.off('transaction', handleSelectionChange)
-    }
-  }, [editor])
-
-  return selectionEmpty
+  return useSyncExternalStore(subscribe, getSnapshot, () => true)
 }
 
 export const MarkdownEditor = ({
@@ -359,11 +354,12 @@ export const MarkdownEditor = ({
         body: formData,
       })
 
-      const data = (await response.json()) as UploadResponse | UploadError
-
-      if (!response.ok || 'error' in data) {
-        throw new Error('error' in data ? data.error : 'Upload failed')
+      if (!response.ok) {
+        const errorData = (await response.json().catch(() => null)) as UploadError | null
+        throw new Error(errorData?.error ?? 'Upload failed')
       }
+
+      const data = (await response.json()) as UploadResponse
 
       previousImagesRef.current.add(data.url)
       return data.url

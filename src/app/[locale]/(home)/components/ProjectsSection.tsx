@@ -46,12 +46,12 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
                 <LeafIcon size={20} weight='thin' className='text-[#8dbd2c]' />
               </div>
 
-              <p className='text-[0.98rem] leading-[1.75] text-white/84'>{t('Home.projects.description')}</p>
+              <p className='text-[0.98rem] text-white/84 leading-[1.75]'>{t('Home.projects.description')}</p>
 
               <Link
                 href='/contact'
                 prefetch
-                className='mt-8 inline-flex min-h-12 items-center gap-3 rounded-[9px] border border-[#77aa21] px-5 font-semibold text-sm transition-colors hover:bg-[#77aa21] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#a9d84b]'
+                className='mt-8 inline-flex min-h-12 items-center gap-3 rounded-[9px] border border-[#77aa21] px-5 font-semibold text-sm transition-colors hover:bg-[#77aa21] hover:text-white focus-visible:outline-2 focus-visible:outline-[#a9d84b] focus-visible:outline-offset-4'
               >
                 <HandshakeIcon size={19} weight='duotone' aria-hidden />
                 {t('Home.projects.partnership_cta')}
@@ -73,7 +73,7 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
         <div className='border-[#d9d9cf] border-b px-2 py-6 sm:px-5'>
           <div className='mx-auto flex max-w-[1200px] flex-col items-center gap-5 lg:flex-row'>
             <div className='w-full shrink-0 text-center lg:w-[225px] lg:text-left'>
-              <p className='font-semibold text-[0.9rem] leading-snug text-[#173425]'>{t('Footer.partners_heading')}</p>
+              <p className='font-semibold text-[#173425] text-[0.9rem] leading-snug'>{t('Footer.partners_heading')}</p>
               <span className='mx-auto mt-3 block h-px w-7 bg-[#82ac2c] lg:mx-0' aria-hidden />
             </div>
             <SponsorsMarquee />

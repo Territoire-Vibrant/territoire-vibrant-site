@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
-import { Button, buttonVariants } from '~/components/ui/button'
+import { Button } from '~/components/ui/button'
+import { buttonVariants } from '~/components/ui/button-variants'
 import { UnoptimizedImage } from '~/components/ui/unoptimized-image'
 import { cn } from '~/lib/utils'
 

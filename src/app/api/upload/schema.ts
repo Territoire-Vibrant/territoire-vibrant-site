@@ -1,15 +1,15 @@
 import { z } from 'zod'
 
-export const UploadResponseSchema = z.object({
-  url: z.string().url(),
+const UploadResponseSchema = z.object({
+  url: z.url(),
 })
 
-export const UploadErrorSchema = z.object({
+const UploadErrorSchema = z.object({
   error: z.string(),
 })
 
 export const DeleteRequestSchema = z.object({
-  url: z.string().url(),
+  url: z.url(),
 })
 
 export type UploadResponse = z.infer<typeof UploadResponseSchema>

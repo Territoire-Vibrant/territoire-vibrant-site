@@ -7,14 +7,14 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
-    DATABASE_URL: z.string().url(),
+    DATABASE_URL: z.url(),
     NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
     // Clouflare R2 (Object Storage)
     R2_ACCOUNT_ID: z.string().min(1),
     R2_ACCESS_KEY_ID: z.string().min(1),
     R2_SECRET_ACCESS_KEY: z.string().min(1),
     R2_BUCKET_NAME: z.string().min(1),
-    R2_PUBLIC_URL: z.string().url(),
+    R2_PUBLIC_URL: z.url(),
     // Email (MailerSend)
     MAILERSEND_API_KEY: z.string().min(1),
     MAILERSEND_FROM_EMAIL: z.string().default('macneves@territoirevibrant.ca'),
@@ -27,7 +27,7 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
-    NEXT_PUBLIC_APP_URL: z.string().url().default('http://localhost:3000'),
+    NEXT_PUBLIC_APP_URL: z.url().default('http://localhost:3000'),
   },
 
   /**

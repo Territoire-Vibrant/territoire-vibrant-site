@@ -9,7 +9,7 @@ import { api } from '~/trpc/server'
 export default async function AdminShopEditPage({ params }: { params: Promise<{ productId: string }> }) {
   const { productId } = await params
 
-  if (!z.string().uuid().safeParse(productId).success) {
+  if (!z.uuid().safeParse(productId).success) {
     notFound()
   }
 

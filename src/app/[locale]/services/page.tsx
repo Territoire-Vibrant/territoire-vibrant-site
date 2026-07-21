@@ -135,7 +135,7 @@ export default async function ServicesPage() {
         </div>
 
         <div className='mt-7 grid gap-5 lg:grid-cols-[215px_repeat(3,minmax(0,1fr))]'>
-          <aside className='rounded-xl border border-primary/45 bg-gradient-to-br from-[#f7faef] to-[#eef3e6] p-5'>
+          <aside className='rounded-xl border border-primary/45 bg-linear-to-br from-[#f7faef] to-[#eef3e6] p-5'>
             <div className='flex h-full flex-col justify-between gap-5'>
               <Principle icon={<LeafIcon />} title='Nossa missão'>
                 Fortalecer territórios através da conexão entre pessoas, instituições e iniciativas que geram valor

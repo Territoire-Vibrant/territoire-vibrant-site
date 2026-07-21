@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import ReactMarkdown, { type Components } from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
 import rehypeRaw from 'rehype-raw'
+import rehypeSanitize from 'rehype-sanitize'
 import remarkGfm from 'remark-gfm'
 
 import 'highlight.js/styles/github.css'
@@ -154,7 +155,11 @@ export const MarkdownPreview = ({
         className
       )}
     >
-      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw, rehypeHighlight]} components={components}>
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeRaw, rehypeSanitize, rehypeHighlight]}
+        components={components}
+      >
         {content}
       </ReactMarkdown>
     </div>

@@ -9,7 +9,7 @@ import { Button } from '~/components/ui/button'
 import { cn } from '~/lib/utils'
 import type { LeadLocale } from '~/schemas/lead'
 import { LeadCaptureSchema } from '~/schemas/lead'
-import { api } from '~/trpc/react'
+import { api } from '~/trpc/api'
 
 type FormState = {
   deliveryStatus?: 'email_failed' | 'sent'
@@ -80,7 +80,7 @@ export const EbookLeadForm = () => {
           className={cn(
             'inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3',
             'font-medium text-primary-foreground text-sm shadow-xs',
-            'transition-all hover:bg-primary/90 focus-visible:outline-none',
+            'transition-colors hover:bg-primary/90 focus-visible:outline-none',
             'focus-visible:ring-2 focus-visible:ring-primary/50'
           )}
         >
@@ -108,7 +108,7 @@ export const EbookLeadForm = () => {
           required
           placeholder={t('name_placeholder')}
           className={cn(
-            'h-11 rounded-lg border border-foreground/15 bg-background px-4 text-foreground outline-none transition-all',
+            'h-11 rounded-lg border border-foreground/15 bg-background px-4 text-foreground outline-none transition-[border-color,box-shadow]',
             'placeholder:text-foreground/40 focus:border-primary focus:ring-2 focus:ring-primary/20',
             state?.errors?.name && 'border-destructive'
           )}
@@ -128,7 +128,7 @@ export const EbookLeadForm = () => {
           required
           placeholder={t('email_placeholder')}
           className={cn(
-            'h-11 rounded-lg border border-foreground/15 bg-background px-4 text-foreground outline-none transition-all',
+            'h-11 rounded-lg border border-foreground/15 bg-background px-4 text-foreground outline-none transition-[border-color,box-shadow]',
             'placeholder:text-foreground/40 focus:border-primary focus:ring-2 focus:ring-primary/20',
             state?.errors?.email && 'border-destructive'
           )}
@@ -148,7 +148,7 @@ export const EbookLeadForm = () => {
           required
           placeholder={t('phone_placeholder')}
           className={cn(
-            'h-11 rounded-lg border border-foreground/15 bg-background px-4 text-foreground outline-none transition-all',
+            'h-11 rounded-lg border border-foreground/15 bg-background px-4 text-foreground outline-none transition-[border-color,box-shadow]',
             'placeholder:text-foreground/40 focus:border-primary focus:ring-2 focus:ring-primary/20',
             state?.errors?.phone && 'border-destructive'
           )}

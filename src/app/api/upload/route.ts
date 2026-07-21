@@ -39,7 +39,7 @@ export async function POST(request: Request) {
       return NextResponse.json<UploadError>({ error: 'Provide only one of articleId or productId' }, { status: 400 })
     }
 
-    if (productId && !z.string().uuid().safeParse(productId).success) {
+    if (productId && !z.uuid().safeParse(productId).success) {
       return NextResponse.json<UploadError>({ error: 'Invalid productId' }, { status: 400 })
     }
 

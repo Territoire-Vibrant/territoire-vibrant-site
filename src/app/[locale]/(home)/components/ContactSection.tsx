@@ -17,7 +17,7 @@ import { Button } from '~/components/ui/button'
 import { Section } from '~/layouts/Section'
 import { cn } from '~/lib/utils'
 import { ContactFormSchema, SUBJECT_OPTIONS } from '~/schemas/contact'
-import { api } from '~/trpc/react'
+import { api } from '~/trpc/api'
 
 type FormState = {
   errors?: Record<string, string[] | undefined>
@@ -217,7 +217,7 @@ export const ContactSection = () => {
                   type='submit'
                   size='lg'
                   isLoading={isPending}
-                  className='h-12 bg-gradient-to-r from-primary to-[#74ad21] font-bold text-base shadow-sm hover:brightness-95 sm:col-span-2'
+                  className='h-12 bg-linear-to-r from-primary to-[#74ad21] font-bold text-base shadow-sm hover:brightness-95 sm:col-span-2'
                 >
                   <PaperPlaneTiltIcon className='size-5' />
                   {t('Contact.send')}

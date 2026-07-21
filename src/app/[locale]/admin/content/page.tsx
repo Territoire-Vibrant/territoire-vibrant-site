@@ -11,6 +11,33 @@ import { api } from '~/trpc/server'
 
 import type { PublishStatus } from 'generated/prisma/client'
 
+const statusIcon = (status: PublishStatus) => {
+  switch (status) {
+    case 'DRAFT':
+      return (
+        <NotePencilIcon weight='fill' className='size-7 shrink-0 rounded-full bg-yellow-500 p-1.5 text-background' />
+      )
+    case 'ARCHIVED':
+      return <ArchiveIcon weight='fill' className='size-7 shrink-0 rounded-full bg-neutral-500 p-1.5 text-background' />
+    case 'PUBLISHED':
+      return <CheckIcon weight='bold' className='size-7 shrink-0 rounded-full bg-primary p-1.5 text-background' />
+  }
+}
+
+const buildPreviewMarkdown = (md: string, maxParagraphs = 2, maxChars = 600) => {
+  const trimmed = md.trim()
+  if (!trimmed) return ''
+
+  const paragraphs = trimmed.split(/\n{2,}/)
+  let preview = paragraphs.slice(0, maxParagraphs).join('\n\n')
+
+  if (preview.length > maxChars) {
+    preview = `${preview.slice(0, maxChars).trimEnd()}…`
+  }
+
+  return preview
+}
+
 export default async function AdminContentPage({
   params,
   searchParams,
@@ -61,35 +88,6 @@ export default async function AdminContentPage({
       if (sort === 'oldest') return a.createdAt.getTime() - b.createdAt.getTime()
       return 0
     })
-
-  const statusIcon = (status: PublishStatus) => {
-    switch (status) {
-      case 'DRAFT':
-        return (
-          <NotePencilIcon weight='fill' className='size-7 shrink-0 rounded-full bg-yellow-500 p-1.5 text-background' />
-        )
-      case 'ARCHIVED':
-        return (
-          <ArchiveIcon weight='fill' className='size-7 shrink-0 rounded-full bg-neutral-500 p-1.5 text-background' />
-        )
-      case 'PUBLISHED':
-        return <CheckIcon weight='bold' className='size-7 shrink-0 rounded-full bg-primary p-1.5 text-background' />
-    }
-  }
-
-  const buildPreviewMarkdown = (md: string, maxParagraphs = 2, maxChars = 600) => {
-    const trimmed = md.trim()
-    if (!trimmed) return ''
-
-    const paragraphs = trimmed.split(/\n{2,}/)
-    let preview = paragraphs.slice(0, maxParagraphs).join('\n\n')
-
-    if (preview.length > maxChars) {
-      preview = `${preview.slice(0, maxChars).trimEnd()}…`
-    }
-
-    return preview
-  }
 
   return (
     <div className='mt-10 flex w-full max-w-6xl flex-col gap-6 px-6 pb-10'>

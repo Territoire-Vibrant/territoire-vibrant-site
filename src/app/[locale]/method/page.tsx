@@ -52,7 +52,7 @@ export default async function MethodPage({
 
   const article = await api.article.getArticleForEdit({ articleId: METHOD_ARTICLE_ID })
 
-  if (!article || article.article.status !== 'PUBLISHED') {
+  if (article?.article.status !== 'PUBLISHED') {
     const t = await getTranslations()
     return (
       <Section className='px-6 py-12'>

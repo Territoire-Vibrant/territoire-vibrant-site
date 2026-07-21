@@ -156,7 +156,7 @@ export default async function ContentPage({
               <Link key={categoryLink.key} href={categoryLink.href}>
                 <span
                   className={cn(
-                    'inline-flex h-10 items-center justify-center rounded-full border px-5 py-2 font-medium text-sm transition-all',
+                    'inline-flex h-10 items-center justify-center rounded-full border px-5 py-2 font-medium text-sm transition-[color,background-color,border-color,box-shadow]',
                     activeCategory === categoryLink.key
                       ? 'border-primary bg-primary text-primary-foreground shadow-xs'
                       : 'border-border bg-background text-foreground hover:border-primary/60 hover:text-primary'

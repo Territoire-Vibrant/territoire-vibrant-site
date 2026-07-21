@@ -21,7 +21,7 @@ export const StatsSection = () => {
           <LeafIcon size={34} weight='thin' className='text-[#8fbd2e]' />
         </span>
         <p className='font-bold text-xl leading-snug sm:text-2xl'>{t('Home.projects.collective_title')}</p>
-        <p className='border-[#6e9f26]/45 text-sm leading-relaxed text-white/78 sm:border-l sm:pl-6'>
+        <p className='border-[#6e9f26]/45 text-sm text-white/78 leading-relaxed sm:border-l sm:pl-6'>
           {t('Home.projects.collective_description')}
         </p>
       </div>

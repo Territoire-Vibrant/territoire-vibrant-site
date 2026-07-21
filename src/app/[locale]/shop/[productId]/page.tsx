@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: 'Shop' }
   }
 
-  if (!z.string().uuid().safeParse(productId).success) {
+  if (!z.uuid().safeParse(productId).success) {
     return { title: 'Shop' }
   }
 
@@ -52,7 +52,7 @@ export default async function ShopProductDetailPage({ params }: PageProps) {
   }
   setRequestLocale(locale)
 
-  if (!z.string().uuid().safeParse(productId).success) {
+  if (!z.uuid().safeParse(productId).success) {
     notFound()
   }
 

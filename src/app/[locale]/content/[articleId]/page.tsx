@@ -60,7 +60,7 @@ export default async function PublicationArticlePage({
     }),
   ])
 
-  if (!article || article.status !== 'PUBLISHED') {
+  if (article?.status !== 'PUBLISHED') {
     notFound()
   }
 

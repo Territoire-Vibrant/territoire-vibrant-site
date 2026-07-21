@@ -4,7 +4,7 @@ import { BookOpenTextIcon } from '@phosphor-icons/react/dist/ssr'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import NextLink from 'next/link'
-import { useActionState, useEffect, useRef, useState } from 'react'
+import { useActionState, useState } from 'react'
 import { toast } from 'sonner'
 
 import EbookCoverImage from '~/assets/images/shop/free-ebook-cover.png'
@@ -21,7 +21,7 @@ import {
 import { cn } from '~/lib/utils'
 import type { LeadLocale } from '~/schemas/lead'
 import { LeadCaptureSchema } from '~/schemas/lead'
-import { api } from '~/trpc/react'
+import { api } from '~/trpc/api'
 
 type FormState = {
   deliveryStatus?: 'email_failed' | 'sent'
@@ -38,8 +38,6 @@ type EbookDialogFormProps = {
 const EbookDialogForm = ({ locale, onEmailSent }: EbookDialogFormProps) => {
   const t = useTranslations('Ebook')
   const mutation = api.lead.capture.useMutation()
-  const onEmailSentRef = useRef(onEmailSent)
-  onEmailSentRef.current = onEmailSent
 
   const [state, action, isPending] = useActionState(
     async (_prev: FormState | null, formData: FormData): Promise<FormState> => {
@@ -57,6 +55,12 @@ const EbookDialogForm = ({ locale, onEmailSent }: EbookDialogFormProps) => {
 
       try {
         const result = await mutation.mutateAsync(validation.data)
+
+        if (result.deliveryStatus === 'sent') {
+          onEmailSent()
+          toast.success(t('success_title'), { description: t('email_sent_hint') })
+        }
+
         return { success: true, deliveryStatus: result.deliveryStatus }
       } catch {
         return { success: false, message: t('error') }
@@ -65,17 +69,9 @@ const EbookDialogForm = ({ locale, onEmailSent }: EbookDialogFormProps) => {
     null
   )
 
-  // Close dialog and fire success toast once the mutation confirms
-  useEffect(() => {
-    if (state?.success && state.deliveryStatus === 'sent') {
-      onEmailSentRef.current()
-      toast.success(t('success_title'), { description: t('email_sent_hint') })
-    }
-  }, [state?.deliveryStatus, state?.success, t])
-
   const inputClass = (field: string) =>
     cn(
-      'h-11 rounded-lg border border-foreground/15 bg-background px-4 text-foreground outline-none transition-all',
+      'h-11 rounded-lg border border-foreground/15 bg-background px-4 text-foreground outline-none transition-[border-color,box-shadow]',
       'placeholder:text-foreground/40 focus:border-primary focus:ring-2 focus:ring-primary/20',
       state?.errors?.[field] && 'border-destructive'
     )
@@ -180,9 +176,9 @@ export const EbookCard = () => {
   }
 
   return (
-    <div className='group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'>
+    <div className='group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-md transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-xl'>
       {/* Cover area - same aspect + absolute-fill pattern as ProductCard */}
-      <div className='relative block aspect-4/3 w-full shrink-0 overflow-hidden bg-emerald-50'>
+      <div className='relative aspect-4/3 w-full shrink-0 overflow-hidden bg-emerald-50'>
         <Image
           src={EbookCoverImage}
           alt={t('cover_alt')}

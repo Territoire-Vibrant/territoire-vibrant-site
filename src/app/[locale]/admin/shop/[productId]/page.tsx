@@ -2,7 +2,8 @@ import { getTranslations } from 'next-intl/server'
 import { z } from 'zod'
 
 import { ArrowLeftIcon, PencilSimpleIcon } from '@phosphor-icons/react/dist/ssr'
-import { Button, buttonVariants } from '~/components/ui/button'
+import { Button } from '~/components/ui/button'
+import { buttonVariants } from '~/components/ui/button-variants'
 import { UnoptimizedImage } from '~/components/ui/unoptimized-image'
 
 import { Link, notFound } from '~/i18n/navigation'
@@ -17,7 +18,7 @@ const CAD_FORMATTER = new Intl.NumberFormat('en-CA', {
 export default async function AdminShopProductDetailPage({ params }: { params: Promise<{ productId: string }> }) {
   const { productId } = await params
 
-  if (!z.string().uuid().safeParse(productId).success) {
+  if (!z.uuid().safeParse(productId).success) {
     notFound()
   }
 
