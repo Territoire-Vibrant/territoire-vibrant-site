@@ -28,9 +28,9 @@ export default async function ShopPage() {
           <p className='mx-auto max-w-2xl text-base text-stone-600'>{t('shop_page_subtitle')}</p>
         </div>
 
-        {/* Grid always renders — EbookCard ensures there's always at least one item */}
+        {/* Grid always renders - EbookCard ensures there's always at least one item */}
         <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-          {/* Free e-book download — always first */}
+          {/* Free e-book download - always first */}
           <EbookCard />
 
           {products.map((product) => (

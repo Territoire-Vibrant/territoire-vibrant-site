@@ -21,7 +21,7 @@ export default async function EbookPage() {
       <div className='mx-auto grid w-full max-w-6xl gap-12 md:grid-cols-2 md:items-center'>
         {/* Left column: book cover + headline */}
         <div className='flex flex-col items-start gap-8'>
-          {/* Book cover placeholder — swap for <Image> when the real asset exists */}
+          {/* Book cover placeholder - swap for <Image> when the real asset exists */}
           <div className='flex aspect-[3/4] w-full max-w-xs flex-col items-center justify-center gap-4 rounded-2xl border border-foreground/10 bg-primary/5 p-10 shadow-lg'>
             <div className='flex size-20 items-center justify-center rounded-full bg-primary/10 text-primary'>
               <BookOpenTextIcon className='size-10' weight='duotone' />

@@ -1,9 +1,9 @@
 'use client'
 
 import { BookOpenTextIcon } from '@phosphor-icons/react/dist/ssr'
-import NextLink from 'next/link'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
+import NextLink from 'next/link'
 import { useActionState, useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 
@@ -181,7 +181,7 @@ export const EbookCard = () => {
 
   return (
     <div className='group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'>
-      {/* Cover area — same aspect + absolute-fill pattern as ProductCard */}
+      {/* Cover area - same aspect + absolute-fill pattern as ProductCard */}
       <div className='relative block aspect-4/3 w-full shrink-0 overflow-hidden bg-emerald-50'>
         <Image
           src={EbookCoverImage}
@@ -191,7 +191,7 @@ export const EbookCard = () => {
           className='object-cover transition-transform duration-500 group-hover:scale-105'
         />
 
-        {/* FREE badge — emerald, distinct from amber (PHYSICAL) and green-700 (DIGITAL) */}
+        {/* FREE badge - emerald, distinct from amber (PHYSICAL) and green-700 (DIGITAL) */}
         <div className='pointer-events-none absolute top-3 left-3 z-10'>
           <span className='rounded-full bg-emerald-600 px-3 py-1 font-semibold text-emerald-50 text-xs uppercase tracking-wide'>
             {t('shop_badge')}
@@ -199,7 +199,7 @@ export const EbookCard = () => {
         </div>
       </div>
 
-      {/* Content area — mirrors ProductCard .p-5 structure */}
+      {/* Content area - mirrors ProductCard .p-5 structure */}
       <div className='flex flex-1 flex-col p-5'>
         <p className='mb-2 line-clamp-2 font-semibold text-lg text-stone-800'>{t('shop_title')}</p>
         <p className='mb-4 line-clamp-3 flex-1 text-sm text-stone-600'>{t('shop_description')}</p>

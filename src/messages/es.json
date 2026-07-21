@@ -39,7 +39,7 @@
   "admin_shop_view": "Ver",
   "admin_shop_view_product": "Producto",
   "admin_shop_field_active": "Visible en la tienda",
-  "admin_shop_field_partner_store_url": "Enlace de tienda asociada (opcional) — p. ej. Amazon, Etsy, Shopify, eBay o tu propia tienda",
+  "admin_shop_field_partner_store_url": "Enlace de tienda asociada (opcional) - p. ej. Amazon, Etsy, Shopify, eBay o tu propia tienda",
   "admin_shop_type_physical": "Físico",
   "admin_shop_type_digital": "Digital",
   "admin_shop_save_success": "Producto guardado.",
@@ -152,6 +152,13 @@
       "image_alt": "Paisaje que representa un territorio vibrante"
     },
     "projects": {
+      "eyebrow": "Nuestros proyectos",
+      "heading": "Proyectos que activan territorios",
+      "heading_highlight": "y generan futuro",
+      "description": "Iniciativas propias y colaborativas que conectan personas, conocimientos y recursos para transformar realidades locales con inteligencia, creatividad y propósito.",
+      "partnership_cta": "Proponer una alianza",
+      "collective_title": "Los territorios vibrantes se construyen juntos.",
+      "collective_description": "Creemos en la fuerza de lo colectivo para construir futuros más justos, creativos y sostenibles.",
       "project_1": {
         "title": "Red colaborativa",
         "description": "El proyecto Red Colaborativa Territoire Vibrant es el núcleo pulsante de todo nuestro ecosistema, representa un organismo vivo de creación, confianza y corresponsabilidad."
@@ -215,7 +222,7 @@
     "network": {
       "chip": "La Red Colaborativa Território Vibrante",
       "p1": "La Red Colaborativa es el proyecto central de Território Vibrante. En ella, cada miembro aporta sus competencias y recursos en un entorno de inteligencia colectiva, con acceso a una plataforma digital exclusiva que garantiza integración, agilidad y confianza.",
-      "p2": "Más que diálogo, la red es acción conjunta — fundamentada en disciplina, compromiso y lealtad. Combina investigación y desarrollo, a partir de la producción de artículos, libros y la elaboración e implementación de proyectos transformadores que unen innovación social, impacto cultural y turismo regenerativo."
+      "p2": "Más que diálogo, la red es acción conjunta - fundamentada en disciplina, compromiso y lealtad. Combina investigación y desarrollo, a partir de la producción de artículos, libros y la elaboración e implementación de proyectos transformadores que unen innovación social, impacto cultural y turismo regenerativo."
     },
     "team": {
       "title": "Nuestro equipo",
@@ -268,12 +275,12 @@
       },
       "values": {
         "title": "Valores",
-        "item1": "Excelencia y Responsabilidad — hacer bien las cosas, con propósito y coherencia.",
-        "item2": "Lealtad y Confianza — relaciones humanas sólidas como base de toda acción.",
-        "item3": "Colaboración e Inteligencia Colectiva — el poder de hacer juntos.",
-        "item4": "Innovación y Resiliencia — transformar desafíos en soluciones creativas.",
-        "item5": "Corresponsabilidad Comunitaria — todos como protagonistas del impacto colectivo.",
-        "item6": "Centralidad Cultural — respeto y valorización de inmigrantes y pueblos originarios."
+        "item1": "Excelencia y Responsabilidad - hacer bien las cosas, con propósito y coherencia.",
+        "item2": "Lealtad y Confianza - relaciones humanas sólidas como base de toda acción.",
+        "item3": "Colaboración e Inteligencia Colectiva - el poder de hacer juntos.",
+        "item4": "Innovación y Resiliencia - transformar desafíos en soluciones creativas.",
+        "item5": "Corresponsabilidad Comunitaria - todos como protagonistas del impacto colectivo.",
+        "item6": "Centralidad Cultural - respeto y valorización de inmigrantes y pueblos originarios."
       }
     },
     "quote": "El territorio no es un espacio para ser explotado. Es un ser que debe ser escuchado."

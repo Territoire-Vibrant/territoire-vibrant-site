@@ -39,7 +39,7 @@
   "admin_shop_view": "Ver",
   "admin_shop_view_product": "Produto",
   "admin_shop_field_active": "Ativo na loja",
-  "admin_shop_field_partner_store_url": "Link da loja parceira (opcional) — ex. Amazon, Etsy, Shopify, eBay ou a sua loja",
+  "admin_shop_field_partner_store_url": "Link da loja parceira (opcional) - ex. Amazon, Etsy, Shopify, eBay ou a sua loja",
   "admin_shop_type_physical": "Físico",
   "admin_shop_type_digital": "Digital",
   "admin_shop_save_success": "Produto guardado.",
@@ -152,6 +152,13 @@
       "image_alt": "Paisagem representando um território vibrante"
     },
     "projects": {
+      "eyebrow": "Nossos projetos",
+      "heading": "Projetos que ativam territórios",
+      "heading_highlight": "e geram futuro",
+      "description": "Iniciativas próprias e colaborativas que conectam pessoas, saberes e recursos para transformar realidades locais com inteligência, criatividade e propósito.",
+      "partnership_cta": "Propor uma parceria",
+      "collective_title": "Territórios vibrantes se constroem juntos.",
+      "collective_description": "Acreditamos na força do coletivo para construir futuros mais justos, criativos e sustentáveis.",
       "project_1": {
         "title": "Rede colaborativa",
         "description": "O projeto Rede Colaborativa Território Vibrante é o núcleo pulsante de todo o nosso ecossistema, representa um organismo vivo de criação, confiança e corresponsabilidade."
@@ -215,7 +222,7 @@
     "network": {
       "chip": "A Rede Colaborativa Território Vibrante",
       "p1": "A Rede Colaborativa é o projeto central da Território Vibrante. Nela, cada membro contribui com suas competências e recursos em um ambiente de inteligência coletiva, com acesso a uma plataforma digital exclusiva que garante integração, agilidade e confiança.",
-      "p2": "Mais que diálogo, a rede é ação conjunta — fundamentada em disciplina, compromisso e lealdade. Ela combina pesquisa e desenvolvimento, a partir da produção de artigos, livros, elaboração e implementação de projetos transformadores que unem inovação social, impacto cultural e turismo regenerativo."
+      "p2": "Mais que diálogo, a rede é ação conjunta - fundamentada em disciplina, compromisso e lealdade. Ela combina pesquisa e desenvolvimento, a partir da produção de artigos, livros, elaboração e implementação de projetos transformadores que unem inovação social, impacto cultural e turismo regenerativo."
     },
     "team": {
       "title": "Nossa equipe",
@@ -247,20 +254,20 @@
     },
     "manifesto": {
       "p1": "Somos uma rede viva de especialistas, empreendedores e pesquisadores conectados por propósito. Cada membro é um elo que faz o território vibrar, trazendo sua cultura, experiência, técnica e criatividade para gerar transformação.",
-      "p2": "Acreditamos na força do trabalho em rede, na inteligência coletiva e na confiança como base de toda parceria. A rede é mais do que um espaço — é uma força viva de criação e pertencimento."
+      "p2": "Acreditamos na força do trabalho em rede, na inteligência coletiva e na confiança como base de toda parceria. A rede é mais do que um espaço - é uma força viva de criação e pertencimento."
     },
     "highlight": "Leitura de território + criatividade + gestão colaborativa = impacto real."
   },
   "Mission": {
     "intro": {
-      "p1": "Nosso método tem como premissa a releitura evolutiva dos Arranjos Produtivos Locais (APL), combinado com a gestão do Turismo de Base Comunitária (TBC), onde o desenvolvimento é compreendido como um processo contínuo, cocriado, participativo e simbólico — construído a muitas mãos, com base em pertencimento, cooperação e inteligência coletiva.",
+      "p1": "Nosso método tem como premissa a releitura evolutiva dos Arranjos Produtivos Locais (APL), combinado com a gestão do Turismo de Base Comunitária (TBC), onde o desenvolvimento é compreendido como um processo contínuo, cocriado, participativo e simbólico - construído a muitas mãos, com base em pertencimento, cooperação e inteligência coletiva.",
       "p2": "A Território Vibrante transforma demandas específicas em projetos sob medida, combinando inteligência territorial, economia criativa e rede colaborativa. Cada iniciativa nasce de um diagnóstico real e evolui a partir da escuta ativa das comunidades, da leitura sensível dos contextos e da articulação entre atores públicos, privados e sociais."
     },
     "essence": {
       "title": "Nossa Essência (Missão, Visão e Valores)",
       "mission": {
         "title": "Missão",
-        "p": "Conectar profissionais, instituições e comunidades em um ecossistema colaborativo capaz de desenvolver projetos que fortaleçam territórios, regenerem vínculos e valorizem imigrantes e povos originários — gerando impacto social, cultural, econômico e ambiental."
+        "p": "Conectar profissionais, instituições e comunidades em um ecossistema colaborativo capaz de desenvolver projetos que fortaleçam territórios, regenerem vínculos e valorizem imigrantes e povos originários - gerando impacto social, cultural, econômico e ambiental."
       },
       "vision": {
         "title": "Visão",
@@ -268,12 +275,12 @@
       },
       "values": {
         "title": "Valores",
-        "item1": "Excelência e Responsabilidade — fazer bem feito, com propósito e coerência.",
-        "item2": "Lealdade e Confiança — relações humanas sólidas como base de toda ação.",
-        "item3": "Colaboração e Inteligência Coletiva — o poder do fazer junto.",
-        "item4": "Inovação e Resiliência — transformar desafios em soluções criativas.",
-        "item5": "Corresponsabilidade Comunitária — todos como protagonistas do impacto coletivo.",
-        "item6": "Centralidade Cultural — respeito e valorização dos imigrantes e povos originários."
+        "item1": "Excelência e Responsabilidade - fazer bem feito, com propósito e coerência.",
+        "item2": "Lealdade e Confiança - relações humanas sólidas como base de toda ação.",
+        "item3": "Colaboração e Inteligência Coletiva - o poder do fazer junto.",
+        "item4": "Inovação e Resiliência - transformar desafios em soluções criativas.",
+        "item5": "Corresponsabilidade Comunitária - todos como protagonistas do impacto coletivo.",
+        "item6": "Centralidade Cultural - respeito e valorização dos imigrantes e povos originários."
       }
     },
     "quote": "O território não é um espaço a ser explorado. É um ser a ser escutado."

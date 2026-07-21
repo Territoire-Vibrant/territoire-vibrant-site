@@ -324,3 +324,19 @@ section[id] {
     animation: none;
   }
 }
+
+.projects-panel {
+  background-color: #03351f;
+  background-image:
+    radial-gradient(circle at 12% 18%, transparent 0 68px, rgb(130 172 44 / 8%) 69px 70px, transparent 71px),
+    radial-gradient(circle at 89% 77%, transparent 0 92px, rgb(130 172 44 / 7%) 93px 94px, transparent 95px),
+    radial-gradient(circle at 72% 12%, transparent 0 118px, rgb(255 255 255 / 3%) 119px 120px, transparent 121px),
+    linear-gradient(135deg, #03351f 0%, #063b26 52%, #053720 100%);
+}
+
+.project-card-pattern {
+  background-color: #f8f7ef;
+  background-image:
+    radial-gradient(circle at 86% 18%, transparent 0 29px, rgb(95 126 58 / 9%) 30px 31px, transparent 32px),
+    radial-gradient(circle at 15% 84%, transparent 0 44px, rgb(95 126 58 / 7%) 45px 46px, transparent 47px);
+}

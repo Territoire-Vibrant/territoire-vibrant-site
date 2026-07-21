@@ -13,7 +13,7 @@ const adminLoginPatterns = ['/admin/login(.*)', ...routing.locales.map((l) => `/
 const isAdminRoute = createRouteMatcher(adminPatterns)
 const isPublicAdminRoute = createRouteMatcher(adminLoginPatterns)
 
-/** `/admin` or `/{locale}/admin` only — not `/admin/content`, `/admin/shop`, etc. */
+/** `/admin` or `/{locale}/admin` only - not `/admin/content`, `/admin/shop`, etc. */
 function isAdminIndexPath(pathname: string) {
   const p = pathname.replace(/\/$/, '') || '/'
   if (p === '/admin') {
